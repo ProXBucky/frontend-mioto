@@ -3,7 +3,7 @@ import Modal from 'react-bootstrap/Modal';
 import { useState } from 'react';
 import Form from 'react-bootstrap/Form';
 
-function ModalComponent({ showModal, handleClose, modalType, onSubmit }) {
+function ModalComponent({ showModal, handleClose, modalType, onSubmit, handleOpenModalForgetPassword }) {
     const [formData, setFormData] = useState({
         username: '',
         password: '',
@@ -25,6 +25,11 @@ function ModalComponent({ showModal, handleClose, modalType, onSubmit }) {
         setFormData({ username: '', password: '', fullname: '', phone: '' }); // Clear form data after submission
         handleClose();
     };
+
+    const openForget = (e) => {
+        handleClose();
+        handleOpenModalForgetPassword();
+    }
 
     const [checkPass, setCheckPass] = useState(true)
 
@@ -70,7 +75,7 @@ function ModalComponent({ showModal, handleClose, modalType, onSubmit }) {
                     {
                         modalType !== 'register' && (
                             <>
-                                <p className='text-right pt-2 text-main font-semibold'>Quên mật khẩu?</p>
+                                <p className='text-right pt-2 text-main font-semibold cursor-pointer' onClick={() => openForget()}>Quên mật khẩu?</p>
                             </>
                         )
                     }
@@ -103,17 +108,17 @@ function ModalComponent({ showModal, handleClose, modalType, onSubmit }) {
                         </>
                     )}
 
-                    <Button variant="primary" type="submit" className="mt-4 w-full py-3 text-lg font-semibold border-none text-white bg-main">
+                    <Button variant="primary" type="submit" className="mt-4 w-full py-3 text-lg font-semibold border-none text-white bg-main hover:opacity-80">
                         {modalType === 'register' ? 'Đăng ký' : 'Đăng nhập'}
                     </Button>
-                    {
+                    {/* {
                         modalType !== 'register' && (
                             <div className='text-center py-2'>
                                 <span>Bạn chưa là thành viên? </span>
                                 <span className='text-right py-2 text-main font-semibold'>Đăng ký ngay</span>
                             </div>
                         )
-                    }
+                    } */}
                 </Form>
             </Modal.Body>
         </Modal>

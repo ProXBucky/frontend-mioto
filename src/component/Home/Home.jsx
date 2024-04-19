@@ -52,7 +52,7 @@ function Home({ handleOpenDateModal, handleOpenLocationModal }) {
         <>
             <Banner handleOpenDateModal={handleOpenDateModal} handleOpenLocationModal={handleOpenLocationModal} />
             <Promotion handleOpenModal={handleOpenModal} />
-            <CarList />
+            <CarList isHiddenTitle={false} />
             <City />
             <Advantage />
             <Partner />

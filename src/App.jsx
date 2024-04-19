@@ -19,6 +19,9 @@ import MyTrip from './component/AccountInformation/DetailInformation/MyTrip';
 import MyVoucher from './component/AccountInformation/DetailInformation/MyVoucher';
 import ChangePassword from './component/AccountInformation/DetailInformation/ChangePassword';
 import MyAddress from './component/AccountInformation/DetailInformation/MyAddress';
+import DetailCar from './features/car/detailCar';
+import CarMenu from './component/CarMenu/CarMenu';
+import ModalForgetPassword from './component/ModalForgetPassword';
 
 // import { appLoad, clearRedirect } from '../reducers/common';
 
@@ -43,6 +46,7 @@ function App() {
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showDateModal, setShowDateModal] = useState(false);
   const [showLocationModal, setShowLocationModal] = useState(false);
+  const [showModalForgetPassword, setShowModalForgetPassword] = useState(false);
 
   const handleCloseRegisterModal = () => {
     setShowRegisterModal(false);
@@ -76,6 +80,14 @@ function App() {
     setShowLocationModal(true);
   };
 
+  const handleCloseModalForgetPassword = () => {
+    setShowModalForgetPassword(false);
+  };
+
+  const handleOpenModalForgetPassword = () => {
+    setShowModalForgetPassword(true);
+  };
+
   const handleRegisterSubmit = (formData) => {
     // Gọi API đăng ký với dữ liệu formData
     console.log('Register form data:', formData);
@@ -88,6 +100,13 @@ function App() {
     console.log('Login form data:', formData);
     // Đóng modal sau khi gửi
     handleCloseLoginModal();
+  };
+
+  const handleSubmitModalForgetPassword = (formData) => {
+    // Gọi API đăng nhập với dữ liệu formData
+    console.log('Login form data:', formData);
+    // Đóng modal sau khi gửi
+    handleCloseModalForgetPassword();
   };
 
   if (appLoaded) {
@@ -108,6 +127,9 @@ function App() {
             <Route path="changepassword" element={<ChangePassword />} />
             <Route path="myaddress" element={<MyAddress />} />
           </Route>
+          <Route path="/car" element={<DetailCar />} />
+          <Route path="/find" element={<CarMenu handleOpenDateModal={handleOpenDateModal} handleOpenLocationModal={handleOpenLocationModal} />} />
+
           {/* <Route path="/register" element={<AuthScreen isRegisterScreen />} 
           {/* </Suspense> */}
         </Routes>
@@ -126,6 +148,7 @@ function App() {
           handleClose={handleCloseLoginModal}
           modalType="login"
           onSubmit={handleLoginSubmit}
+          handleOpenModalForgetPassword={handleOpenModalForgetPassword}
         />
         <ModalDatePickerComponent
           showDateModal={showDateModal}
@@ -134,6 +157,11 @@ function App() {
         <ModalLocationPickComponent
           showLocationModal={showLocationModal}
           handleCloseLocationModal={handleCloseLocationModal}
+        />
+        <ModalForgetPassword
+          showModalForgetPassword={showModalForgetPassword}
+          handleCloseModalForgetPassword={handleCloseModalForgetPassword}
+          handleSubmitModalForgetPassword={handleSubmitModalForgetPassword}
         />
       </>
     );
