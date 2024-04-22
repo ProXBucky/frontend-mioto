@@ -3,7 +3,7 @@ import Modal from 'react-bootstrap/Modal';
 import { useState } from 'react';
 import Form from 'react-bootstrap/Form';
 
-function ModalForgetPassword({ showModalForgetPassword, handleCloseModalForgetPassword, handleSubmitModalForgetPassword }) {
+function ModalForgetPassword({ showModalForgetPassword, handleCloseModalForgetPassword }) {
     const [formData, setFormData] = useState({
         email: ''
     });
@@ -16,6 +16,10 @@ function ModalForgetPassword({ showModalForgetPassword, handleCloseModalForgetPa
         }));
     };
 
+    const handleSubmitModalForgetPassword = () => {
+        handleCloseModalForgetPassword()
+    }
+
     return (
         <Modal
             size="md"
@@ -24,7 +28,7 @@ function ModalForgetPassword({ showModalForgetPassword, handleCloseModalForgetPa
             show={showModalForgetPassword} onHide={handleCloseModalForgetPassword}
         >
             <Modal.Header className='border-none justify-end mt-3'>
-                <i class="fa-regular fa-circle-xmark fa-2xl cursor-pointer" onClick={() => handleCloseModalForgetPassword()}></i>
+                <i className="fa-regular fa-circle-xmark fa-2xl cursor-pointer" onClick={() => handleCloseModalForgetPassword()}></i>
             </Modal.Header>
             <Modal.Body className='p-4 pt-2' >
                 <Form onSubmit={handleSubmitModalForgetPassword}>

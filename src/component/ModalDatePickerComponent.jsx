@@ -12,9 +12,9 @@ function ModalDatePickerComponent({ showDateModal, handleCloseDateModal }) {
             show={showDateModal} onHide={handleCloseDateModal}
         >
             <Modal.Header className='mt-3 flex justify-between'>
-                <i class="fa-regular fa-circle-xmark fa-2xl cursor-pointer invisible" onClick={() => handleCloseDateModal()}></i>
+                <i className="fa-regular fa-circle-xmark fa-2xl cursor-pointer invisible" onClick={() => handleCloseDateModal()}></i>
                 <h2 className='font-semibold text-2xl text-center'>Thời gian</h2>
-                <i class="fa-regular fa-circle-xmark fa-2xl cursor-pointer" onClick={() => handleCloseDateModal()}></i>
+                <i className="fa-regular fa-circle-xmark fa-2xl cursor-pointer" onClick={() => handleCloseDateModal()}></i>
             </Modal.Header>
             <Modal.Body className='p-4 pt-2' >
                 <div className='border-2 rounded-md p-4 flex justify-center'>

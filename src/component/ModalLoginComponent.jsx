@@ -9,6 +9,7 @@ function ModalComponent({ showModal, handleClose, modalType, onSubmit, handleOpe
         password: '',
         fullname: '',
         phone: '',
+        email: ''
     });
 
     const handleChange = (e) => {
@@ -22,7 +23,7 @@ function ModalComponent({ showModal, handleClose, modalType, onSubmit, handleOpe
     const handleSubmit = (e) => {
         e.preventDefault();
         onSubmit(formData);
-        setFormData({ username: '', password: '', fullname: '', phone: '' }); // Clear form data after submission
+        setFormData({ username: '', password: '', fullname: '', phone: '', email: '' });
         handleClose();
     };
 
@@ -41,13 +42,13 @@ function ModalComponent({ showModal, handleClose, modalType, onSubmit, handleOpe
             show={showModal} onHide={handleClose}
         >
             <Modal.Header className='border-none justify-end mt-3'>
-                <i class="fa-regular fa-circle-xmark fa-2xl cursor-pointer" onClick={() => handleClose()}></i>
+                <i className="fa-regular fa-circle-xmark fa-2xl cursor-pointer" onClick={() => handleClose()}></i>
             </Modal.Header>
             <Modal.Body className='p-4 pt-2' >
                 <Form onSubmit={handleSubmit}>
                     <h1 className='text-center text-2xl font-semibold'>{modalType === 'register' ? 'Đăng ký' : 'Đăng nhập'}</h1>
                     <Form.Group className='' controlId="formBasicUsername">
-                        <Form.Label className='font-semibold text-gray-500'>Tên đăng nhập</Form.Label>
+                        <Form.Label className='font-semibold text-gray-500'>{modalType === 'register' ? 'Tên đăng nhập' : 'Tên đăng nhập/ Email'}</Form.Label>
                         <Form.Control
                             className="p-2 px-3"
                             type="text"
@@ -69,7 +70,7 @@ function ModalComponent({ showModal, handleClose, modalType, onSubmit, handleOpe
                             required
                         />
                         {
-                            checkPass ? <i class="absolute top-[60%] right-2 fa-regular cursor-pointer fa-eye-slash" onClick={() => setCheckPass(false)}></i> : <i class="absolute top-[60%] right-2 fa-regular cursor-pointer fa-eye" onClick={() => setCheckPass(true)}></i>
+                            checkPass ? <i className="absolute top-[60%] right-2 fa-regular cursor-pointer fa-eye-slash" onClick={() => setCheckPass(false)}></i> : <i className="absolute top-[60%] right-2 fa-regular cursor-pointer fa-eye" onClick={() => setCheckPass(true)}></i>
                         }
                     </Form.Group>
                     {
@@ -101,6 +102,18 @@ function ModalComponent({ showModal, handleClose, modalType, onSubmit, handleOpe
                                     type="text"
                                     name="phone"
                                     value={formData.phone}
+                                    onChange={handleChange}
+                                    required
+                                />
+                            </Form.Group>
+
+                            <Form.Group className='mt-2' controlId="formBasicPhone">
+                                <Form.Label className='font-semibold text-gray-500'>Email</Form.Label>
+                                <Form.Control
+                                    className="p-2 px-3"
+                                    type="email"
+                                    name="email"
+                                    value={formData.email}
                                     onChange={handleChange}
                                     required
                                 />
