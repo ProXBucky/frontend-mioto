@@ -28,6 +28,7 @@ function ModalComponent({ showModal, handleClose, modalType, onSubmit, handleOpe
     };
 
     const openForget = (e) => {
+        e.preventDefault();
         handleClose();
         handleOpenModalForgetPassword();
     }

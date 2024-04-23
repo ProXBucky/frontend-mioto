@@ -1,8 +1,7 @@
 import React, { memo } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-
-// import { selectIsAuthenticated, selectUser } from '../features/auth/authSlice';
+import { avatarImageSelector, fullnameSelector, tokenSelector, userIdSelector } from '../redux/selector';
 
 
 function LoggedOutNavbar({ handleOpenLoginModal, handleOpenRegisterModal }) {
@@ -36,47 +35,45 @@ function LoggedOutNavbar({ handleOpenLoginModal, handleOpenRegisterModal }) {
 }
 
 
-// function LoggedInNavbar() {
-//     const currentUser = useSelector(selectUser);
+function LoggedInNavbar() {
+    const fullname = useSelector(fullnameSelector)
+    const userId = useSelector(userIdSelector);
+    const avatarImage = useSelector(avatarImageSelector);
 
-//     return (
-//         <ul className="nav navbar-nav pull-xs-right">
-//             <li className="nav-item">
-//                 <Link to="/" className="nav-link">
-//                     Home
-//                 </Link>
-//             </li>
+    return (
+        <ul className="w-3/4 text-right flex justify-end items-center gap-10">
+            <li className="">
+                <Link to="/aboutus" className="nav-link font-bold text-sm">
+                    Về Mioto
+                </Link>
+            </li>
 
-//             <li className="nav-item">
-//                 <Link to="/editor" className="nav-link">
-//                     <i className="ion-compose" />
-//                     &nbsp;New Post
-//                 </Link>
-//             </li>
+            <li className="">
+                <Link to="/owner/register" className="nav-link font-bold text-sm">
+                    Trở thành chủ xe
+                </Link>
+            </li>
 
-//             <li className="nav-item">
-//                 <Link to="/settings" className="nav-link">
-//                     <i className="ion-gear-a" />
-//                     &nbsp;Settings
-//                 </Link>
-//             </li>
+            <li className="nav-item">
+                <Link to={`/account/myaccount`} className="nav-link">
+                    <div className='flex flex-row gap-2 items-center cursor-pointer'>
+                        <img
+                            src={
+                                avatarImage ||
+                                'https://static.productionready.io/images/smiley-cyrus.jpg'
+                            }
+                            className="h-10 rounded-full"
+                            alt={avatarImage}
+                        />
+                        <label className='font-semibold cursor-pointer'>{fullname}</label>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M16.8998 9.20039C16.4998 8.80039 15.8998 8.80039 15.4998 9.20039L11.9998 12.7004L8.4998 9.20039C8.0998 8.80039 7.4998 8.80039 7.0998 9.20039C6.6998 9.60039 6.6998 10.2004 7.0998 10.6004L11.2998 14.8004C11.4998 15.0004 11.6998 15.1004 11.9998 15.1004C12.2998 15.1004 12.4998 15.0004 12.6998 14.8004L16.8998 10.6004C17.2998 10.2004 17.2998 9.60039 16.8998 9.20039Z" fill="black"></path></svg>
 
-//             <li className="nav-item">
-//                 <Link to={`/@${currentUser?.username}`} className="nav-link">
-//                     <img
-//                         src={
-//                             currentUser?.image ||
-//                             'https://static.productionready.io/images/smiley-cyrus.jpg'
-//                         }
-//                         className="user-pic"
-//                         alt={currentUser?.username}
-//                     />
-//                     {currentUser?.username}
-//                 </Link>
-//             </li>
-//         </ul>
-//     );
-// }
+                    </div>
+                </Link>
+            </li>
+        </ul>
+    );
+}
 
 /**
  * App header
@@ -85,8 +82,8 @@ function LoggedOutNavbar({ handleOpenLoginModal, handleOpenRegisterModal }) {
  * <Header />
  */
 function Header({ handleOpenLoginModal, handleOpenRegisterModal }) {
-    // const isAuthenticated = useSelector(selectIsAuthenticated);
-    // const appName = useSelector((state) => state.common.appName);
+    const token = useSelector(tokenSelector);
+
 
     return (
         <>
@@ -97,8 +94,7 @@ function Header({ handleOpenLoginModal, handleOpenRegisterModal }) {
                             <img src='/logo-full.png' className='h-8' />
                         </Link>
                     </div>
-                    <LoggedOutNavbar handleOpenLoginModal={handleOpenLoginModal} handleOpenRegisterModal={handleOpenRegisterModal} />
-                    {/* {isAuthenticated ? <LoggedInNavbar /> : <LoggedOutNavbar />} */}
+                    {token ? <LoggedInNavbar /> : <LoggedOutNavbar handleOpenLoginModal={handleOpenLoginModal} handleOpenRegisterModal={handleOpenRegisterModal} />}
                 </div>
             </nav >
         </>

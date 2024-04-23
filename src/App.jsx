@@ -1,4 +1,4 @@
-import React, { lazy, Suspense, useEffect, memo } from 'react';
+import React, { lazy, Suspense, memo } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Routes, Route } from "react-router-dom";
 import { useState } from 'react';
@@ -10,6 +10,7 @@ import ModalEditComponent from './component/ModalEditComponent';
 import Home from './component/Home/Home';
 import Header from './component/Header';
 import Footer from './component/Footer';
+import Cookies from 'js-cookie';
 const AccountInformation = lazy(() =>
   import('./component/AccountInformation/AccountInformation')
 );
@@ -46,26 +47,20 @@ const About = lazy(() =>
 const CarRegist = lazy(() =>
   import('./component/CarRegist/CarRegist')
 );
-// import AccountInformation from './component/AccountInformation/AccountInformation';
-// import MyAccount from './component/AccountInformation/DetailInformation/MyAccount';
-// import FavoriteCar from './component/AccountInformation/DetailInformation/FavoriteCar';
-// import MyCar from './component/AccountInformation/DetailInformation/MyCar';
-// import MyTrip from './component/AccountInformation/DetailInformation/MyTrip';
-// import MyVoucher from './component/AccountInformation/DetailInformation/MyVoucher';
-// import ChangePassword from './component/AccountInformation/DetailInformation/ChangePassword';
-// import MyAddress from './component/AccountInformation/DetailInformation/MyAddress';
-// import DetailCar from './features/car/detailCar';
-// import CarMenu from './component/CarMenu/CarMenu';
-// import About from './component/AboutUs/About';
-// import CarRegist from './component/CarRegist/CarRegist';
+
 
 // import { appLoad, clearRedirect } from '../reducers/common';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ModalAddAdress from './component/ModalAddAddress';
+import PageNotFound from './component/PageNotFound';
+import { createNewUser } from './api/userAPI';
+import { loginUser } from './api/authAPI';
+import { setAvatarImage, setFullname, setToken, setUserId } from './redux/Slice/CookieSlice';
+import { useDispatch } from 'react-redux';
 
 function App() {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   // const redirectTo = useSelector((state) => state.common.redirectTo);
   // const appLoaded = useSelector((state) => state.common.appLoaded);
 
@@ -145,31 +140,55 @@ function App() {
     setShowModalAddress(true);
   };
 
-  const handleRegisterSubmit = (formData) => {
-    // Gọi API đăng ký với dữ liệu formData
-    console.log('Register form data:', formData);
-    // Đóng modal sau khi gửi
-    handleCloseRegisterModal();
+  const handleRegisterSubmit = async (formData) => {
+    try {
+      let res = await createNewUser(formData);
+      if (res) {
+        toast.success('Đăng ký thành công');
+      }
+      handleCloseRegisterModal();
+    } catch (error) {
+      if (error.response && error.response.status === 409) {
+        toast.error('Tên người dùng/email đã tồn tại. Vui lòng chọn tên người dùng/email khác.');
+      }
+      else if (error.response && error.response.status === 400) {
+        toast.error('Đăng ký lỗi')
+      }
+      else {
+        toast.error('Đã xảy ra lỗi trong quá trình đăng ký. Vui lòng thử lại sau.');
+      }
+      console.error('Error registering user:', error);
+    }
   };
 
-  const handleLoginSubmit = (formData) => {
-    // Gọi API đăng nhập với dữ liệu formData
-    console.log('Login form data:', formData);
-    // Đóng modal sau khi gửi
-    handleCloseLoginModal();
+  const handleLoginSubmit = async (formData) => {
+    try {
+      let res = await loginUser(formData);
+      if (res) {
+        Cookies.set('accessToken', res.token, { expires: 1 / 24 });
+        Cookies.set('userId', res.userId, { expires: 1 / 24 });
+        Cookies.set('fullname', res.fullname, { expires: 1 / 24 });
+        Cookies.set('avatarImage', res.avatarImage, { expires: 1 / 24 });
+        dispatch(setToken(res.token))
+        dispatch(setUserId(res.userId))
+        dispatch(setFullname(res.fullname))
+        dispatch(setAvatarImage(res.avatarImage))
+        toast.success('Đăng nhập thành công');
+      }
+      handleCloseLoginModal();
+    } catch (error) {
+      if (error.response && error.response.status === 409) {
+        toast.error('Sai mật khẩu');
+      }
+      else if (error.response && error.response.status === 404) {
+        toast.error('Tài khoản không tồn tại')
+      }
+      else {
+        toast.error('Đã xảy ra lỗi trong quá trình đăng ký. Vui lòng thử lại sau.');
+      }
+      console.error('Error registering user:', error);
+    }
   };
-
-  // const handleSubmitModalForgetPassword = (formData) => {
-  //   // Gọi API đăng nhập với dữ liệu formData
-  //   console.log('Login form data:', formData);
-  //   // Đóng modal sau khi gửi
-  //   handleCloseModalForgetPassword();
-  // };
-
-  // const handleSubmitAddAddress = (formData) => {
-  //   console.log('address', formData)
-  //   handleCloseModalAddress()
-  // }
 
   if (appLoaded) {
     return (
@@ -191,8 +210,7 @@ function App() {
             </Route>
             <Route path="/car" element={<DetailCar />} />
             <Route path="/find" element={<CarMenu handleOpenDateModal={handleOpenDateModal} handleOpenLocationModal={handleOpenLocationModal} />} />
-
-            {/* <Route path="/register" element={<AuthScreen isRegisterScreen />}  */}
+            <Route path="*" element={< PageNotFound />} />
           </Routes>
         </Suspense>
         <Footer />
@@ -236,7 +254,6 @@ function App() {
         <ModalForgetPassword
           showModalForgetPassword={showModalForgetPassword}
           handleCloseModalForgetPassword={handleCloseModalForgetPassword}
-        // handleSubmitModalForgetPassword={handleSubmitModalForgetPassword}
         />
         <ModalEditComponent
           showModalEdit={showModalEdit}
@@ -245,7 +262,6 @@ function App() {
         <ModalAddAdress
           showModalAddress={showModalAddress}
           handleCloseModalAddress={handleCloseModalAddress}
-        // handleSubmitAddAddress={handleSubmitAddAddress}
         />
 
       </>

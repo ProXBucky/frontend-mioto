@@ -81,7 +81,19 @@ const deleteAddress = async (addressId) => {
         throw error;
     }
 }
+
+const createNewUser = async (body) => {
+    try {
+        const response = await axios.post(`${API_URL}/api/user`, body)
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        throw error;
+    }
+}
+
+
 export {
     getInformationUserById, changePasswordUserById, editInformationUserById, getInformationLicenseById, postInformationLicenseById,
-    postAddress, getAllAddressByUserId, deleteAddress
+    postAddress, getAllAddressByUserId, deleteAddress, createNewUser
 }
