@@ -1,17 +1,17 @@
 function DetailCar() {
     return (
         <div className="px-32 pb-20 flex flex-col gap-5">
-            <div class="flex flex-row h-[600px] relative">
-                <div class="w-[calc(68%)]">
-                    <img src="/car/car1-1.jpg" class="h-full object-cover rounded-2xl" alt="Car 1" />
+            <div className="flex flex-row h-[600px] relative">
+                <div className="w-[calc(68%)]">
+                    <img src="/car/car1-1.jpg" className="h-full object-cover rounded-2xl" alt="Car 1" />
                 </div>
-                <div class="w-[calc(32%+20px)] flex flex-col gap-4">
-                    <img src="/car/car1-2.jpg" class="h-[30.7%] object-cover rounded-2xl" alt="Car 2" />
-                    <img src="/car/car1-3.jpg" class="h-[30.7%] object-cover rounded-2xl" alt="Car 3" />
-                    <img src="/car/car1-4.jpg" class="h-[30.7%] object-cover rounded-2xl" alt="Car 4" />
+                <div className="w-[calc(32%+20px)] flex flex-col gap-4">
+                    <img src="/car/car1-2.jpg" className="h-[30.7%] object-cover rounded-2xl" alt="Car 2" />
+                    <img src="/car/car1-3.jpg" className="h-[30.7%] object-cover rounded-2xl" alt="Car 3" />
+                    <img src="/car/car1-4.jpg" className="h-[30.7%] object-cover rounded-2xl" alt="Car 4" />
                 </div>
                 <div className="rounded-lg border bg-white flex flex-row absolute bottom-5 right-5 p-2 items-center gap-2 cursor-pointer">
-                    <i class="fa-regular fa-images"></i>
+                    <i className="fa-regular fa-images"></i>
                     <p>Xem tất cả ảnh</p>
                 </div>
             </div>
@@ -41,10 +41,10 @@ function DetailCar() {
                         </div>
                         <div className="flex gap-4">
                             <div className="rounded-full p-3 h-14 border cursor-pointer">
-                                <i class="fa-solid fa-link fa-lg"></i>
+                                <i className="fa-solid fa-link fa-lg"></i>
                             </div>
                             <div className="rounded-full p-3 h-14 border cursor-pointer">
-                                <i class="fa-regular fa-heart fa-lg"></i>
+                                <i className="fa-regular fa-heart fa-lg"></i>
                             </div>
                         </div>
                     </div>
@@ -179,24 +179,24 @@ function DetailCar() {
 
                         <h3 className="font-semibold text-xl">Chính sách huỷ chuyến</h3>
                         <p>Miễn phí hủy chuyến trong vòng 1 giờ sau khi đặt cọc</p>
-                        <table class="w-full my-3 text-sm">
+                        <table className="w-full my-3 text-sm">
                             <thead>
                                 <tr>
-                                    <th class="border px-4 py-3">Thời Điểm Hủy Chuyến</th>
-                                    <th class="border px-4 py-3 text-center">Khách Thuê Hủy Chuyến</th>
-                                    <th class="border px-4 py-3 text-center">Chủ Xe Hủy Chuyến</th>
+                                    <th className="border px-4 py-3">Thời Điểm Hủy Chuyến</th>
+                                    <th className="border px-4 py-3 text-center">Khách Thuê Hủy Chuyến</th>
+                                    <th className="border px-4 py-3 text-center">Chủ Xe Hủy Chuyến</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td class="border px-4 py-3">Trong Vòng 1h Sau Giữ Chỗ</td>
-                                    <td class="border px-4 py-3">
+                                    <td className="border px-4 py-3">Trong Vòng 1h Sau Giữ Chỗ</td>
+                                    <td className="border px-4 py-3">
                                         <div className="flex flex-col justify-center items-center">
                                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12.25 2C6.74 2 2.25 6.49 2.25 12C2.25 17.51 6.74 22 12.25 22C17.76 22 22.25 17.51 22.25 12C22.25 6.49 17.76 2 12.25 2ZM15.84 10.59L12.32 14.11C12.17 14.26 11.98 14.33 11.79 14.33C11.6 14.33 11.4 14.26 11.26 14.11L9.5 12.35C9.2 12.06 9.2 11.58 9.5 11.29C9.79 11 10.27 11 10.56 11.29L11.79 12.52L14.78 9.53C15.07 9.24 15.54 9.24 15.84 9.53C16.13 9.82 16.13 10.3 15.84 10.59Z" fill="#12B76A"></path></svg>
                                             <p>Hoàn tiền giữ chỗ 100%</p>
                                         </div>
                                     </td>
-                                    <td class="border px-4 py-3">
+                                    <td className="border px-4 py-3">
                                         <div className="flex flex-col justify-center items-center">
                                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12.25 2C6.74 2 2.25 6.49 2.25 12C2.25 17.51 6.74 22 12.25 22C17.76 22 22.25 17.51 22.25 12C22.25 6.49 17.76 2 12.25 2ZM15.84 10.59L12.32 14.11C12.17 14.26 11.98 14.33 11.79 14.33C11.6 14.33 11.4 14.26 11.26 14.11L9.5 12.35C9.2 12.06 9.2 11.58 9.5 11.29C9.79 11 10.27 11 10.56 11.29L11.79 12.52L14.78 9.53C15.07 9.24 15.54 9.24 15.84 9.53C16.13 9.82 16.13 10.3 15.84 10.59Z" fill="#12B76A"></path></svg>
                                             <p>Không tốn phí</p>
@@ -204,14 +204,14 @@ function DetailCar() {
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td class="border px-4 py-3">Trước Chuyến Đi hơn 7 Ngày</td>
-                                    <td class="border px-4 py-3">
+                                    <td className="border px-4 py-3">Trước Chuyến Đi hơn 7 Ngày</td>
+                                    <td className="border px-4 py-3">
                                         <div className="flex flex-col justify-center items-center">
                                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12.25 2C6.74 2 2.25 6.49 2.25 12C2.25 17.51 6.74 22 12.25 22C17.76 22 22.25 17.51 22.25 12C22.25 6.49 17.76 2 12.25 2ZM15.84 10.59L12.32 14.11C12.17 14.26 11.98 14.33 11.79 14.33C11.6 14.33 11.4 14.26 11.26 14.11L9.5 12.35C9.2 12.06 9.2 11.58 9.5 11.29C9.79 11 10.27 11 10.56 11.29L11.79 12.52L14.78 9.53C15.07 9.24 15.54 9.24 15.84 9.53C16.13 9.82 16.13 10.3 15.84 10.59Z" fill="#12B76A"></path></svg>
                                             <p>Hoàn tiền giữ chỗ 70%</p>
                                         </div>
                                     </td>
-                                    <td class="border px-4 py-3">
+                                    <td className="border px-4 py-3">
                                         <div className="flex flex-col justify-center items-center">
                                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12.25 2C6.74 2 2.25 6.49 2.25 12C2.25 17.51 6.74 22 12.25 22C17.76 22 22.25 17.51 22.25 12C22.25 6.49 17.76 2 12.25 2ZM15.84 10.59L12.32 14.11C12.17 14.26 11.98 14.33 11.79 14.33C11.6 14.33 11.4 14.26 11.26 14.11L9.5 12.35C9.2 12.06 9.2 11.58 9.5 11.29C9.79 11 10.27 11 10.56 11.29L11.79 12.52L14.78 9.53C15.07 9.24 15.54 9.24 15.84 9.53C16.13 9.82 16.13 10.3 15.84 10.59Z" fill="#12B76A"></path></svg>
                                             <p>Đền tiền 30%</p>
@@ -219,14 +219,14 @@ function DetailCar() {
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td class="border px-4 py-3">Trong Vòng 7 Ngày Trước Chuyến Đi</td>
-                                    <td class="border px-4 py-3">
+                                    <td className="border px-4 py-3">Trong Vòng 7 Ngày Trước Chuyến Đi</td>
+                                    <td className="border px-4 py-3">
                                         <div className="flex flex-col justify-center items-center">
                                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12.25 2C6.74 2 2.25 6.49 2.25 12C2.25 17.51 6.74 22 12.25 22C17.76 22 22.25 17.51 22.25 12C22.25 6.49 17.76 2 12.25 2ZM14.67 13.39C14.97 13.69 14.96 14.16 14.67 14.45C14.52 14.59 14.33 14.67 14.14 14.67C13.95 14.67 13.75 14.59 13.61 14.44L12.25 13.07L10.9 14.44C10.75 14.59 10.56 14.67 10.36 14.67C10.17 14.67 9.98 14.59 9.84 14.45C9.54 14.16 9.53999 13.69 9.82999 13.39L11.2 12L9.82999 10.61C9.53999 10.31 9.54 9.84 9.84 9.55C10.13 9.26 10.61 9.26 10.9 9.56L12.25 10.93L13.61 9.56C13.9 9.26 14.37 9.26 14.67 9.55C14.96 9.84 14.97 10.31 14.67 10.61L13.3 12L14.67 13.39Z" fill="#F04438"></path></svg>
                                             <p>Không hoàn tiền</p>
                                         </div>
                                     </td>
-                                    <td class="border px-4 py-3">
+                                    <td className="border px-4 py-3">
                                         <div className="flex flex-col justify-center items-center">
                                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12.25 2C6.74 2 2.25 6.49 2.25 12C2.25 17.51 6.74 22 12.25 22C17.76 22 22.25 17.51 22.25 12C22.25 6.49 17.76 2 12.25 2ZM14.67 13.39C14.97 13.69 14.96 14.16 14.67 14.45C14.52 14.59 14.33 14.67 14.14 14.67C13.95 14.67 13.75 14.59 13.61 14.44L12.25 13.07L10.9 14.44C10.75 14.59 10.56 14.67 10.36 14.67C10.17 14.67 9.98 14.59 9.84 14.45C9.54 14.16 9.53999 13.69 9.82999 13.39L11.2 12L9.82999 10.61C9.53999 10.31 9.54 9.84 9.84 9.55C10.13 9.26 10.61 9.26 10.9 9.56L12.25 10.93L13.61 9.56C13.9 9.26 14.37 9.26 14.67 9.55C14.96 9.84 14.97 10.31 14.67 10.61L13.3 12L14.67 13.39Z" fill="#F04438"></path></svg>
                                             <p>Đền tiền 100%</p>
@@ -236,10 +236,10 @@ function DetailCar() {
                             </tbody>
                         </table>
 
-                        <ul class="list-disc pl-6 text-gray-500 text-sm">
-                            <li class="">Khách thuê không nhận xe sẽ không được hoàn tiền giữ chỗ.</li>
-                            <li class="">Chủ xe không giao xe sẽ hoàn & đền 100% tiền giữ chỗ cho bạn.</li>
-                            <li class="">Tiền giữ chỗ & bồi thường cho chủ xe hủy chuyến (nếu có) sẽ được Mioto hoàn trả đến bạn bằng chuyển khoản ngân hàng trong vòng 1-3 ngày làm việc.</li>
+                        <ul className="list-disc pl-6 text-gray-500 text-sm">
+                            <li className="">Khách thuê không nhận xe sẽ không được hoàn tiền giữ chỗ.</li>
+                            <li className="">Chủ xe không giao xe sẽ hoàn & đền 100% tiền giữ chỗ cho bạn.</li>
+                            <li className="">Tiền giữ chỗ & bồi thường cho chủ xe hủy chuyến (nếu có) sẽ được Mioto hoàn trả đến bạn bằng chuyển khoản ngân hàng trong vòng 1-3 ngày làm việc.</li>
                         </ul>
                     </div>
 
@@ -248,13 +248,13 @@ function DetailCar() {
                         <h3 className="font-semibold text-xl">Vị trí xe</h3>
                         <div className="flex justify-between mt-4">
                             <div>
-                                <p className="py-2 text-lg"><i class="fa-solid fa-location-dot mr-3"></i>Nội Bài, TP.Hà Nội</p>
+                                <p className="py-2 text-lg"><i className="fa-solid fa-location-dot mr-3"></i>Nội Bài, TP.Hà Nội</p>
                                 <p className="text-sm text-gray-500">Địa chỉ cụ thể sẽ được hiển thị sau khi đặt cọc</p>
                             </div>
                             <div className="flex flex-row items-center gap-2 font-bold">
-                                <i class="fa-regular fa-map"></i>
+                                <i className="fa-regular fa-map"></i>
                                 <p>Xem bản đồ</p>
-                                <i class="fa-solid fa-angle-right"></i>
+                                <i className="fa-solid fa-angle-right"></i>
                             </div>
                         </div>
                     </div>
@@ -282,15 +282,15 @@ function DetailCar() {
                             </div>
                             <div className="flex flex-row items-center gap-5 font-bold">
                                 <div className="flex flex-col items-center">
-                                    <p class="font-normal text-gray-500">Tỉ lệ phản hồi</p>
+                                    <p className="font-normal text-gray-500">Tỉ lệ phản hồi</p>
                                     <span>100%</span>
                                 </div>
                                 <div className="flex flex-col items-center">
-                                    <p class="font-normal text-gray-500">Thời gian phản hồi</p>
+                                    <p className="font-normal text-gray-500">Thời gian phản hồi</p>
                                     <span>5 phút</span>
                                 </div>
                                 <div className="flex flex-col items-center">
-                                    <p class="font-normal text-gray-500">Tỉ lệ đồng ý</p>
+                                    <p className="font-normal text-gray-500">Tỉ lệ đồng ý</p>
                                     <span>80%</span>
                                 </div>
                             </div>
@@ -307,7 +307,7 @@ function DetailCar() {
                                 <p className="font-semibold">17/6/2024</p>
                             </div>
                             <div className="rounded-md border bg-white p-2 px-5">
-                                <p class="font-normal text-gray-500">Trả xe</p>
+                                <p className="font-normal text-gray-500">Trả xe</p>
                                 <p className="font-semibold">20/6/2024</p>
                             </div>
                         </div>
@@ -363,7 +363,7 @@ function DetailCar() {
                         <button className="p-3 bg-main text-white font-bold text-lg rounded-md uppercase">Chọn thuê</button>
                     </div>
 
-                    <p className="text-center text-lg font-semibold hover:text-main cursor-pointer"><i class="fa-regular fa-flag mr-3"></i>Báo cáo xe này</p>
+                    <p className="text-center text-lg font-semibold hover:text-main cursor-pointer"><i className="fa-regular fa-flag mr-3"></i>Báo cáo xe này</p>
                 </div>
 
             </div>

@@ -1,13 +1,17 @@
 import { useEffect, useState } from "react"
 import { deleteAddress, getAllAddressByUserId } from "../../../api/userAPI"
 import { toast } from "react-toastify"
+import { useSelector } from "react-redux";
+import { tokenSelector, userIdSelector } from "../../../redux/selector";
 
 function MyAddress({ handleOpenModalAddress }) {
+    const token = useSelector(tokenSelector)
+    const userId = useSelector(userIdSelector);
     const [allAddress, setAllAddress] = useState([])
 
     useEffect(() => {
         const fetchAllAddressById = async () => {
-            let res = await getAllAddressByUserId(6)
+            let res = await getAllAddressByUserId(userId, token)
             if (res) {
                 setAllAddress(res)
             }
@@ -16,10 +20,20 @@ function MyAddress({ handleOpenModalAddress }) {
     }, [])
 
     const hanldeDeleteAddress = async (addressId) => {
-        if (window.confirm("Bạn có chắc chắn muốn xóa địa chỉ này không?")) {
-            let res = await deleteAddress(addressId);
-            if (res) {
-                toast.success("Xóa địa chỉ thành công");
+        try {
+            if (window.confirm("Bạn có chắc chắn muốn xóa địa chỉ này không?")) {
+                let res = await deleteAddress(addressId, token);
+                if (res) {
+                    toast.success("Xóa địa chỉ thành công");
+                }
+            }
+        } catch (error) {
+            if (error.response && error.response.status === 400) {
+                toast.error('Lỗi hệ thống.');
+            } else if (error.response && error.response.status === 404) {
+                toast.error('Không thấy người dùng để xóa.');
+            } else {
+                toast.error('An error occurred.');
             }
         }
     }

@@ -1,8 +1,12 @@
 import { useState } from "react";
 import { changePasswordUserById } from "../../../api/userAPI";
 import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
+import { tokenSelector, userIdSelector } from "../../../redux/selector";
 
 function ChangePassword() {
+    const token = useSelector(tokenSelector)
+    const userId = useSelector(userIdSelector);
     const [formData, setFormData] = useState({
         password: '',
         newPassword: ''
@@ -18,7 +22,7 @@ function ChangePassword() {
 
     const changePassSubmit = async () => {
         try {
-            let res = await changePasswordUserById(6, formData)
+            let res = await changePasswordUserById(userId, formData, token)
             if (res) {
                 toast.success('Thay đổi mật khẩu thành công')
                 setFormData({

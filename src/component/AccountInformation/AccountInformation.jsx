@@ -1,7 +1,41 @@
-import { NavLink, Outlet } from "react-router-dom"
+import { NavLink, Outlet, useNavigate } from "react-router-dom"
 import "./style.css"
+import { logoutUser } from "../../api/authAPI";
+import { useDispatch, useSelector } from "react-redux";
+import { tokenSelector } from "../../redux/selector";
+import { toast } from "react-toastify";
+import Cookies from 'js-cookie';
+import { setAvatarImage, setFullname, setToken, setUserId } from "../../redux/Slice/CookieSlice";
+
 
 function AccountInformation() {
+    const dispatch = useDispatch()
+    const navigate = useNavigate();
+    const token = useSelector(tokenSelector)
+
+    const handleLogout = async () => {
+        try {
+            if (window.confirm("Bạn có muốn đăng xuất không?")) {
+                let res = await logoutUser(token);
+                if (res) {
+                    Cookies.remove('accessToken');
+                    Cookies.remove('userId');
+                    Cookies.remove('fullname');
+                    Cookies.remove('avatarImage');
+                    dispatch(setToken(res.token))
+                    dispatch(setUserId(res.userId))
+                    dispatch(setFullname(res.fullname))
+                    dispatch(setAvatarImage(res.avatarImage))
+                    navigate('/')
+                    toast.success("Hẹn gặp bạn lần sau");
+                }
+            }
+        } catch (error) {
+            console.log(error)
+            toast.error("Lỗi hệ thống, đăng xuất thất bại")
+        }
+    }
+
     return (
         <div className="px-32 py-20 bg-gray-100 flex flex-row">
             <div className="w-1/3">
@@ -49,12 +83,12 @@ function AccountInformation() {
                             <p>Đổi mật khẩu</p>
                         </div>
                     </NavLink>
-                    <NavLink to="/account/logout" className={(navData) => (navData.isActive ? 'active' : 'link')}>
+                    <div className="cursor-pointer" onClick={() => handleLogout()}>
                         <div className="flex flex-row gap-1 items-center border-t-2 py-3 px-3">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.74907H18.12C18.9125 2.71374 19.6868 2.99377 20.2734 3.52788C20.86 4.06199 21.2111 4.8067 21.25 5.59907V18.3991C21.2111 19.1914 20.86 19.9362 20.2734 20.4703C19.6868 21.0044 18.9125 21.2844 18.12 21.2491H12" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path><path d="M14.9993 12H2.7793" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path><path d="M2.75 12L6.75 16" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path><path d="M2.75 12L6.75 8" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path></svg>
                             <p>Đăng xuất</p>
                         </div>
-                    </NavLink>
+                    </div>
                 </div>
             </div>
             <div className="w-2/3">

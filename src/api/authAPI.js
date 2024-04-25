@@ -12,4 +12,14 @@ const loginUser = async (body) => {
     }
 }
 
-export { loginUser }
+const logoutUser = async (body) => {
+    try {
+        const response = await axios.post(`${API_URL}/api/auth/logout`, body)
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        throw error;
+    }
+}
+
+export { loginUser, logoutUser }

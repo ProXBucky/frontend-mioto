@@ -2,10 +2,14 @@ import { useEffect, useState } from "react"
 import { getInformationLicenseById, getInformationUserById, postInformationLicenseById } from "../../../api/userAPI"
 import AvatarEditor from 'react-avatar-editor';
 import { toast } from "react-toastify";
-import Dropzone from "react-dropzone";
+import { useSelector } from "react-redux";
+import { tokenSelector, userIdSelector } from "../../../redux/selector";
+
 
 
 function MyAccount({ handleOpenEdit }) {
+    const token = useSelector(tokenSelector)
+    const userId = useSelector(userIdSelector);
     const [userInfo, setUserInfo] = useState({})
     const [selectedFile, setSelectedFile] = useState(null);
     const [editor, setEditor] = useState(null);
@@ -35,18 +39,20 @@ function MyAccount({ handleOpenEdit }) {
 
     useEffect(() => {
         const fetchDataUser = async () => {
-            let res = await getInformationUserById(6)           // FIX_DATA
-            setUserInfo(res)
+            if (userId && token) {
+                let res = await getInformationUserById(userId, token)           // FIX_DATA
+                setUserInfo(res)
+            }
         }
         const fetchDataLicense = async () => {
-            let ress = await getInformationLicenseById(6)
-            setFormData({
-                'licenseNumber': ress.licenseNumber
-            })
-            setImageLicense(ress.fileUpload)
+            if (userId && token) {
+                let ress = await getInformationLicenseById(userId, token)
+                setFormData({
+                    'licenseNumber': ress.licenseNumber
+                })
+                setImageLicense(ress.fileUpload)
+            }
         }
-
-
         fetchDataUser()
         fetchDataLicense()
     }, [])
@@ -59,15 +65,22 @@ function MyAccount({ handleOpenEdit }) {
     }
 
     const postInformationLicense = async () => {
-        if (editor) {
-            const canvas = editor.getImageScaledToCanvas();
-            const dataURL = canvas.toDataURL();
-            formData['fileUpload'] = dataURL;
-        }
-        let res = await postInformationLicenseById(6, formData)
-        if (res) {
-            toast.success('Cập nhật thành công')
-            setEditLicense(false)
+        if (userId) {
+            try {
+                if (editor) {
+                    const canvas = editor.getImageScaledToCanvas();
+                    const dataURL = canvas.toDataURL();
+                    formData['fileUpload'] = dataURL;
+                }
+                let res = await postInformationLicenseById(userId, formData, token)
+                if (res) {
+                    toast.success('Cập nhật thành công')
+                    setEditLicense(false)
+                }
+            } catch (error) {
+                console.log(error)
+                toast.error('Lỗi hệ thống')
+            }
         }
     }
 

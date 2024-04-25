@@ -4,8 +4,12 @@ import { useEffect, useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import AvatarEditor from 'react-avatar-editor';
 import { editInformationUserById, getInformationUserById } from "../api/userAPI"
+import { tokenSelector, userIdSelector } from '../redux/selector';
+import { useSelector } from 'react-redux';
 
 function ModalEditComponent({ showModalEdit, handleCloseEdit }) {
+    const userId = useSelector(userIdSelector);
+    const token = useSelector(tokenSelector)
     const [formData, setFormData] = useState({
         fullname: '',
         phone: '',
@@ -36,7 +40,7 @@ function ModalEditComponent({ showModalEdit, handleCloseEdit }) {
             const dataURL = canvas.toDataURL();
             formData['avatarImage'] = dataURL;
         }
-        let res = await editInformationUserById(6, formData)              //FIX-DATA
+        let res = await editInformationUserById(userId, formData, token)              //FIX-DATA
         console.log(formData)
         console.log(res)
         setFormData({ fullname: '', phone: '', email: '', dob: '', gender: '' });
@@ -46,16 +50,18 @@ function ModalEditComponent({ showModalEdit, handleCloseEdit }) {
 
     useEffect(() => {
         const fetchInfoData = async () => {
-            let resData = await getInformationUserById(6);                       //FIX_DATA
-            if (resData) {
-                setFormData({
-                    fullname: resData.fullname,
-                    phone: resData.phone,
-                    email: resData.email,
-                    dob: resData.dob,
-                    gender: resData.gender
-                })
-                setSelectedFile(resData.avatarImage)
+            if (userId) {
+                let resData = await getInformationUserById(userId, token);
+                if (resData) {
+                    setFormData({
+                        fullname: resData.fullname,
+                        phone: resData.phone,
+                        email: resData.email,
+                        dob: resData.dob,
+                        gender: resData.gender
+                    })
+                    setSelectedFile(resData.avatarImage)
+                }
             }
         }
         fetchInfoData()

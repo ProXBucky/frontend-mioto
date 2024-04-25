@@ -1,14 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import City from '../component/Home/City';
 
-function AddressSelector({ valueAddress, setValueAddress, handleChangeAddress }) {
+function AddressSelector({ handleChangeAddress }) {
     const [provinces, setProvinces] = useState([]);
     const [districts, setDistricts] = useState([]);
     const [wards, setWards] = useState([]);
-    // const [streetName, setStreetName] = useState('')
-    // const [selectedProvince, setSelectedProvince] = useState('');
-    // const [selectedDistrict, setSelectedDistrict] = useState('');
-    // const [selectedWard, setSelectedWard] = useState('');
 
 
     useEffect(() => {

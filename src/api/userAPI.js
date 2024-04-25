@@ -2,9 +2,13 @@ import axios from 'axios';
 
 const API_URL = 'http://localhost:3000'
 
-const getInformationUserById = async (userId) => {
+const getInformationUserById = async (userId, token) => {
     try {
-        const response = await axios.get(`${API_URL}/api/user/${userId}`)
+        const response = await axios.get(`${API_URL}/api/user/${userId}`, {
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        })
         return response.data;
     } catch (error) {
         console.error('Error fetching data:', error);
@@ -12,9 +16,13 @@ const getInformationUserById = async (userId) => {
     }
 };
 
-const editInformationUserById = async (userId, body) => {
+const editInformationUserById = async (userId, body, token) => {
     try {
-        const response = await axios.put(`${API_URL}/api/user/${userId}`, body)
+        const response = await axios.put(`${API_URL}/api/user/${userId}`, body, {
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        })
         return response.data;
     } catch (error) {
         console.error('Error fetching data:', error);
@@ -22,9 +30,13 @@ const editInformationUserById = async (userId, body) => {
     }
 }
 
-const changePasswordUserById = async (userId, body) => {
+const changePasswordUserById = async (userId, body, token) => {
     try {
-        const response = await axios.put(`${API_URL}/api/user/change-password/${userId}`, body)
+        const response = await axios.put(`${API_URL}/api/user/change-password/${userId}`, body, {
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        })
         return response.data;
     } catch (error) {
         console.error('Error fetching data:', error);
@@ -32,9 +44,13 @@ const changePasswordUserById = async (userId, body) => {
     }
 }
 
-const getInformationLicenseById = async (userId) => {
+const getInformationLicenseById = async (userId, token) => {
     try {
-        const response = await axios.get(`${API_URL}/api/license/${userId}`)
+        const response = await axios.get(`${API_URL}/api/license/${userId}`, {
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        })
         return response.data;
     } catch (error) {
         console.error('Error fetching data:', error);
@@ -42,9 +58,13 @@ const getInformationLicenseById = async (userId) => {
     }
 }
 
-const postInformationLicenseById = async (userId, body) => {
+const postInformationLicenseById = async (userId, body, token) => {
     try {
-        const response = await axios.post(`${API_URL}/api/license/${userId}`, body)
+        const response = await axios.post(`${API_URL}/api/license/${userId}`, body, {
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        })
         return response.data;
     } catch (error) {
         console.error('Error fetching data:', error);
@@ -52,9 +72,13 @@ const postInformationLicenseById = async (userId, body) => {
     }
 }
 
-const postAddress = async (userId, body) => {
+const postAddress = async (userId, body, token) => {
     try {
-        const response = await axios.post(`${API_URL}/api/address/${userId}`, body)
+        const response = await axios.post(`${API_URL}/api/address/${userId}`, body, {
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        })
         return response.data;
     } catch (error) {
         console.error('Error fetching data:', error);
@@ -62,9 +86,13 @@ const postAddress = async (userId, body) => {
     }
 }
 
-const getAllAddressByUserId = async (userId) => {
+const getAllAddressByUserId = async (userId, token) => {
     try {
-        const response = await axios.get(`${API_URL}/api/address/${userId}`)
+        const response = await axios.get(`${API_URL}/api/address/${userId}`, {
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        })
         return response.data;
     } catch (error) {
         console.error('Error fetching data:', error);
@@ -72,9 +100,13 @@ const getAllAddressByUserId = async (userId) => {
     }
 }
 
-const deleteAddress = async (addressId) => {
+const deleteAddress = async (addressId, token) => {
     try {
-        const response = await axios.delete(`${API_URL}/api/address/${addressId}`)
+        const response = await axios.delete(`${API_URL}/api/address/${addressId}`, {
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        })
         return response.data;
     } catch (error) {
         console.error('Error fetching data:', error);

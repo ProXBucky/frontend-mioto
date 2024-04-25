@@ -3,9 +3,14 @@ import AddressSelector from '../features/AdressSelector';
 import { useState } from 'react';
 import { postAddress } from '../api/userAPI';
 import { toast } from 'react-toastify';
+import { tokenSelector, userIdSelector } from '../redux/selector';
+import { useSelector } from 'react-redux';
+
 
 
 function ModalAddAdress({ showModalAddress, handleCloseModalAddress }) {
+    const token = useSelector(tokenSelector)
+    const userId = useSelector(userIdSelector);
     const [valueAddress, setValueAddress] = useState({
         city: '',
         district: '',
@@ -20,10 +25,16 @@ function ModalAddAdress({ showModalAddress, handleCloseModalAddress }) {
         }));
     };
     const handleSubmitAddAddress = async () => {
-        let res = await postAddress(6, valueAddress)
-        if (res) {
-            toast.success('Thêm địa chỉ thành công')
-            handleCloseModalAddress()
+        try {
+            let res = await postAddress(userId, valueAddress, token)
+            if (res) {
+                toast.success('Thêm địa chỉ thành công')
+                handleCloseModalAddress()
+            }
+        }
+        catch (e) {
+            console.log(e)
+            toast.error('Lỗi chức năng thêm địa chỉ')
         }
     }
 
@@ -41,7 +52,7 @@ function ModalAddAdress({ showModalAddress, handleCloseModalAddress }) {
                 <i className="fa-regular fa-circle-xmark fa-2xl cursor-pointer" onClick={() => handleCloseModalAddress()}></i>
             </Modal.Header>
             <Modal.Body className='p-4 pt-2' >
-                <AddressSelector valueAddress={valueAddress} setValueAddress={setValueAddress} handleChangeAddress={handleChangeAddress} />
+                <AddressSelector handleChangeAddress={handleChangeAddress} />
             </Modal.Body>
             <Modal.Footer>
                 <button className='p-3 bg-main rounded-lg text-white font-semibold px-4' onClick={() => handleSubmitAddAddress()}>Lưu</button>

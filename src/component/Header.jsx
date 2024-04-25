@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { avatarImageSelector, fullnameSelector, tokenSelector, userIdSelector } from '../redux/selector';
+import { avatarImageSelector, fullnameSelector, tokenSelector } from '../redux/selector';
 
 
 function LoggedOutNavbar({ handleOpenLoginModal, handleOpenRegisterModal }) {
@@ -37,7 +37,6 @@ function LoggedOutNavbar({ handleOpenLoginModal, handleOpenRegisterModal }) {
 
 function LoggedInNavbar() {
     const fullname = useSelector(fullnameSelector)
-    const userId = useSelector(userIdSelector);
     const avatarImage = useSelector(avatarImageSelector);
 
     return (
@@ -49,7 +48,7 @@ function LoggedInNavbar() {
             </li>
 
             <li className="">
-                <Link to="/owner/register" className="nav-link font-bold text-sm">
+                <Link to="/car-register" className="nav-link font-bold text-sm">
                     Trở thành chủ xe
                 </Link>
             </li>

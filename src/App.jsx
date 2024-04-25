@@ -1,4 +1,6 @@
 import React, { lazy, Suspense, memo } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Routes, Route } from "react-router-dom";
 import { useState } from 'react';
@@ -50,17 +52,20 @@ const CarRegist = lazy(() =>
 
 
 // import { appLoad, clearRedirect } from '../reducers/common';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+
 import ModalAddAdress from './component/ModalAddAddress';
 import PageNotFound from './component/PageNotFound';
 import { createNewUser } from './api/userAPI';
 import { loginUser } from './api/authAPI';
 import { setAvatarImage, setFullname, setToken, setUserId } from './redux/Slice/CookieSlice';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { tokenSelector } from './redux/selector';
+import RegisterCar from './component/AccountInformation/RegisterCar/RegisterCar';
+import RegisterSelfDrive from './component/AccountInformation/DetailInformation/RegisterSelfDrive';
 
 function App() {
   const dispatch = useDispatch();
+  const token = useSelector(tokenSelector)
   // const redirectTo = useSelector((state) => state.common.redirectTo);
   // const appLoaded = useSelector((state) => state.common.appLoaded);
 
@@ -125,11 +130,15 @@ function App() {
   };
 
   const handleCloseEdit = () => {
-    setShowModalEdit(false);
+    if (token) {
+      setShowModalEdit(false);
+    }
   };
 
   const handleOpenEdit = () => {
-    setShowModalEdit(true);
+    if (token) {
+      setShowModalEdit(true);
+    }
   };
 
   const handleCloseModalAddress = () => {
@@ -199,7 +208,7 @@ function App() {
             <Route exact path="/" element={<Home handleOpenDateModal={handleOpenDateModal} handleOpenLocationModal={handleOpenLocationModal} />} />
             <Route path="/aboutus" element={<About />} />
             <Route path="/owner/register" element={<CarRegist />} />
-            <Route path="/account/*" element={<AccountInformation />}>
+            <Route path="/account/*" element={token ? <AccountInformation /> : <PageNotFound />}>
               <Route path="myaccount" element={<MyAccount handleOpenEdit={handleOpenEdit} />} />
               <Route path="favorite" element={<FavoriteCar />} />
               <Route path="mycar" element={<MyCar />} />
@@ -208,6 +217,8 @@ function App() {
               <Route path="changepassword" element={<ChangePassword />} />
               <Route path="myaddress" element={<MyAddress handleOpenModalAddress={handleOpenModalAddress} />} />
             </Route>
+            <Route path="/car-register" element={<RegisterCar />} />
+            <Route path="/register-mode/selfdrive" element={<RegisterSelfDrive />} />
             <Route path="/car" element={<DetailCar />} />
             <Route path="/find" element={<CarMenu handleOpenDateModal={handleOpenDateModal} handleOpenLocationModal={handleOpenLocationModal} />} />
             <Route path="*" element={< PageNotFound />} />
@@ -215,21 +226,6 @@ function App() {
         </Suspense>
         <Footer />
 
-
-        <ToastContainer
-          position="top-right"
-          autoClose={5000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-          theme="light"
-          transition:Bounce
-        />
-        <ToastContainer />
         <ModalComponent
           showModal={showRegisterModal}
           handleClose={handleCloseRegisterModal}
@@ -262,6 +258,19 @@ function App() {
         <ModalAddAdress
           showModalAddress={showModalAddress}
           handleCloseModalAddress={handleCloseModalAddress}
+        />
+        <ToastContainer
+          position="top-center"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+          transition:Bounce
         />
 
       </>
