@@ -2,8 +2,10 @@ import { useNavigate } from "react-router-dom"
 import ChooseSelector from "../../../features/ChooseSelector"
 import "./RegisterSelfDrive.css"
 import AddressSelector from "../../../features/AdressSelector"
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import { getAllCarFeature } from "../../../api/appAPI"
 function RegisterSelfDrive() {
+    const [featureArray, setFeatureArray] = useState([])
     const [valueAddress, setValueAddress] = useState({
         city: '',
         district: '',
@@ -41,9 +43,6 @@ function RegisterSelfDrive() {
         soGhe: ''
     });
 
-
-
-
     const handleChange = (event) => {
         const { name, value } = event.target;
         setFormData((prevData) => ({
@@ -52,10 +51,54 @@ function RegisterSelfDrive() {
         }));
     };
 
+    const [selectedFeatures, setSelectedFeatures] = useState([]);
+
+    const handleCheckboxChange = (event) => {
+        const featureCode = event.target.value;
+        if (event.target.checked) {
+            setSelectedFeatures([...selectedFeatures, featureCode]);
+        } else {
+            setSelectedFeatures(selectedFeatures.filter(code => code !== featureCode));
+        }
+    };
+
+    const [selectedImages, setSelectedImages] = useState([]);
+
+    const handleDeleteAllImages = () => {
+        setSelectedImages([])
+    }
+
+    const handleImageChange = async (event) => {
+        const files = event.target.files;
+        const imagesArray = [];
+
+        for (let i = 0; i < files.length; i++) {
+            const file = files[i];
+            const reader = new FileReader();
+
+            // Tạo một promise để đảm bảo rằng việc đọc file đã hoàn thành trước khi thêm vào mảng
+            const promise = new Promise((resolve) => {
+                reader.onload = (e) => {
+                    resolve(e.target.result);
+                };
+            });
+
+            reader.readAsDataURL(file);
+            const imageDataUrl = await promise;
+            imagesArray.push(imageDataUrl);
+        }
+
+        setSelectedImages([...selectedImages, ...imagesArray]);
+    };
+
+
     const handleAddCar = () => {
         console.log(valueAddress)
         console.log(formData)
         console.log(formData1)
+        console.log(selectedFeatures)
+        console.log(selectedImages)
+
     }
 
     const navigate = useNavigate()
@@ -63,6 +106,21 @@ function RegisterSelfDrive() {
     const backto = () => {
         navigate('/car-register')
     }
+
+    useEffect(() => {
+        const fetchAllFeature = async () => {
+            try {
+                const res = await getAllCarFeature()
+                if (res && res.length > 0) {
+                    setFeatureArray(res)
+                }
+            } catch (err) {
+                console.log(err)
+            }
+        }
+        fetchAllFeature()
+    }, [])
+
 
     return (
         <div className="px-32 bg-gray-100 border-t-2" >
@@ -151,188 +209,27 @@ function RegisterSelfDrive() {
                             <label className='font-bold text-xl'>Tính năng</label>
                             <div className="mt-3 flex flex-wrap gap-5">
                                 <div className="list-feature flex flex-wrap gap-3">
-                                    <div className="squaredThree have-label cursor-pointer border w-[calc(33%-10px)]">
-                                        <input id="mp" type="checkbox" className="hidden" name="filter-car-feature" value="mp" />
-                                        <label className="description w-full cursor-pointer" for="mp">
-                                            <div className="thumbnail flex flex-col items-center justify-center py-2">
-                                                <img loading="lazy" className="img-fluid h-7" src="https://n1-cstg.mioto.vn/v4/p/m/icons/features/map-v2.png"
-                                                    alt="Bản đồ" />
-                                                <span>Bản đồ</span>
-                                            </div>
-                                        </label>
-                                    </div>
-                                    <div className="squaredThree have-label cursor-pointer border w-[calc(33%-10px)]">
-                                        <input id="bt" type="checkbox" className="hidden" name="filter-car-feature" value="bt" />
-                                        <label className="description w-full cursor-pointer" for="bt">
-                                            <div className="thumbnail flex flex-col items-center justify-center py-2">
-                                                <img loading="lazy" className="img-fluid h-7"
-                                                    src="https://n1-cstg.mioto.vn/v4/p/m/icons/features/bluetooth-v2.png" alt="Bluetooth" />
-                                                <span>Bluetooth</span>
-                                            </div>
-                                        </label>
-                                    </div>
-                                    <div className="squaredThree have-label cursor-pointer border w-[calc(33%-10px)]">
-                                        <input id="p360c" type="checkbox" className="hidden" name="filter-car-feature" value="p360c" />
-                                        <label className="description w-full cursor-pointer" for="p360c">
-                                            <div className="thumbnail flex flex-col items-center justify-center py-2">
-                                                <img loading="lazy" className="img-fluid h-7"
-                                                    src="https://n1-cstg.mioto.vn/v4/p/m/icons/features/360_camera-v2.png" alt="Camera 360" />
-                                                <span>Camera 360</span>
-                                            </div>
-                                        </label>
-                                    </div>
-                                    <div className="squaredThree have-label cursor-pointer border w-[calc(33%-10px)]">
-                                        <input id="pc" type="checkbox" className="hidden" name="filter-car-feature" value="pc" />
-                                        <label className="description w-full cursor-pointer" for="pc">
-                                            <div className="thumbnail flex flex-col items-center justify-center py-2">
-                                                <img loading="lazy" className="img-fluid h-7"
-                                                    src="https://n1-cstg.mioto.vn/v4/p/m/icons/features/parking_camera-v2.png" alt="Camera cập lề" />
-                                                <span>Camera cập lề</span>
-                                            </div>
-                                        </label>
-                                    </div>
-                                    <div className="squaredThree have-label cursor-pointer border w-[calc(33%-10px)]">
-                                        <input id="dc" type="checkbox" className="hidden" name="filter-car-feature" value="dc" />
-                                        <label className="description w-full cursor-pointer" for="dc">
-                                            <div className="thumbnail flex flex-col items-center justify-center py-2">
-                                                <img loading="lazy" className="img-fluid h-7"
-                                                    src="https://n1-cstg.mioto.vn/v4/p/m/icons/features/dash_camera-v2.png" alt="Camera hành trình" />
-                                                <span>Camera hành trình</span>
-                                            </div>
-                                        </label>
-                                    </div>
-                                    <div className="squaredThree have-label cursor-pointer border w-[calc(33%-10px)]">
-                                        <input id="sc" type="checkbox" className="hidden" name="filter-car-feature" value="sc" />
-                                        <label className="description w-full cursor-pointer" for="sc">
-                                            <div className="thumbnail flex flex-col items-center justify-center py-2">
-                                                <img loading="lazy" className="img-fluid h-7"
-                                                    src="https://n1-cstg.mioto.vn/v4/p/m/icons/features/reverse_camera-v2.png" alt="Camera lùi" />
-                                                <span>Camera lùi</span>
-                                            </div>
-                                        </label>
-                                    </div>
-                                    <div className="squaredThree have-label cursor-pointer border w-[calc(33%-10px)]">
-                                        <input id="tpms" type="checkbox" className="hidden" name="filter - car - feature" value="tpms" />
-                                        <label label className="description w-full cursor-pointer" for="tpms" >
-                                            <div className="thumbnail flex flex-col items-center justify-center py-2">
-                                                <img loading="lazy" className="img-fluid h-7"
-                                                    src="https://n1-cstg.mioto.vn/v4/p/m/icons/features/tpms-v2.png" alt="Cảm biến lốp" />
-                                                <span>Cảm biến lốp</span>
-                                            </div>
-                                        </label >
-                                    </div >
-                                    <div className="squaredThree have-label cursor-pointer border w-[calc(33%-10px)]">
-                                        <input id="is" type="checkbox" className="hidden" name="filter - car - feature" value="is" />
-                                        <label label className="description w-full cursor-pointer" for="is" >
-                                            <div className="thumbnail flex flex-col items-center justify-center py-2">
-                                                <img loading="lazy" className="img-fluid h-7"
-                                                    src="https://n1-cstg.mioto.vn/v4/p/m/icons/features/impact_sensor-v2.png" alt="Cảm biến va chạm" />
-                                                <span>Cảm biến va chạm</span>
-                                            </div>
-                                        </label >
-                                    </div >
-                                    <div className="squaredThree have-label cursor-pointer border w-[calc(33%-10px)]">
-                                        <input id="hd" type="checkbox" className="hidden" name="filter - car - feature" value="hd" />
-                                        <label label className="description w-full cursor-pointer" for="hd" >
-                                            <div className="thumbnail flex flex-col items-center justify-center py-2">
-                                                <img loading="lazy" className="img-fluid h-7"
-                                                    src="https://n1-cstg.mioto.vn/v4/p/m/icons/features/head_up-v2.png" alt="Cảnh báo tốc độ" />
-                                                <span>Cảnh báo tốc độ</span>
-                                            </div>
-                                        </label >
-                                    </div >
-                                    <div className="squaredThree have-label cursor-pointer border w-[calc(33%-10px)]">
-                                        <input id="sr" type="checkbox" className="hidden" name="filter - car - feature" value="sr" />
-                                        <label label className="description w-full cursor-pointer" for="sr" >
-                                            <div className="thumbnail flex flex-col items-center justify-center py-2">
-                                                <img loading="lazy" className="img-fluid h-7"
-                                                    src="https://n1-cstg.mioto.vn/v4/p/m/icons/features/sunroof-v2.png" alt="Cửa sổ trời" />
-                                                <span>Cửa sổ trời</span>
-                                            </div>
-                                        </label >
-                                    </div >
-                                    <div className="squaredThree have-label cursor-pointer border w-[calc(33%-10px)]">
-                                        <input id="gp" type="checkbox" className="hidden" name="filter - car - feature" value="gp" />
-                                        <label label className="description w-full cursor-pointer" for="gp" >
-                                            <div className="thumbnail flex flex-col items-center justify-center py-2">
-                                                <img loading="lazy" className="img-fluid h-7"
-                                                    src="https://n1-cstg.mioto.vn/v4/p/m/icons/features/gps-v2.png" alt="Định vị GPS" />
-                                                <span>Định vị GPS</span>
-                                            </div>
-                                        </label >
-                                    </div >
-                                    <div className="squaredThree have-label cursor-pointer border w-[calc(33%-10px)]">
-                                        <input id="bs" type="checkbox" className="hidden" name="filter - car - feature" value="bs" />
-                                        <label label className="description w-full cursor-pointer" for="bs" >
-                                            <div className="thumbnail flex flex-col items-center justify-center py-2">
-                                                <img loading="lazy" className="img-fluid h-7"
-                                                    src="https://n1-cstg.mioto.vn/v4/p/m/icons/features/babyseat-v2.png" alt="Ghế trẻ em" />
-                                                <span>Ghế trẻ em</span>
-                                            </div>
-                                        </label >
-                                    </div >
-                                    <div className="squaredThree have-label cursor-pointer border w-[calc(33%-10px)]">
-                                        <input id="us" type="checkbox" className="hidden" name="filter - car - feature" value="us" />
-                                        <label label className="description w-full cursor-pointer" for="us" >
-                                            <div className="thumbnail flex flex-col items-center justify-center py-2">
-                                                <img loading="lazy" className="img-fluid h-7"
-                                                    src="https://n1-cstg.mioto.vn/v4/p/m/icons/features/usb-v2.png" alt="Khe cắm USB" />
-                                                <span>Khe cắm USB</span>
-                                            </div>
-                                        </label >
-                                    </div >
-                                    <div className="squaredThree have-label cursor-pointer border w-[calc(33%-10px)]">
-                                        <input id="st" type="checkbox" className="hidden" name="filter - car - feature" value="st" />
-                                        <label label className="description w-full cursor-pointer" for="st" >
-                                            <div className="thumbnail flex flex-col items-center justify-center py-2">
-                                                <img loading="lazy" className="img-fluid h-7"
-                                                    src="https://n1-cstg.mioto.vn/v4/p/m/icons/features/spare_tire-v2.png" alt="Lốp dự phòng" />
-                                                <span>Lốp dự phòng</span>
-                                            </div>
-                                        </label >
-                                    </div >
-                                    <div className="squaredThree have-label cursor-pointer border w-[calc(33%-10px)]">
-                                        <input id="dvd" type="checkbox" className="hidden" name="filter - car - feature" value="dvd" />
-                                        <label label className="description w-full cursor-pointer" for="dvd" >
-                                            <div className="thumbnail flex flex-col items-center justify-center py-2">
-                                                <img loading="lazy" className="img-fluid h-7"
-                                                    src="https://n1-cstg.mioto.vn/v4/p/m/icons/features/dvd-v2.png" alt="Màn hình DVD" />
-                                                <span>Màn hình DVD</span>
-                                            </div>
-                                        </label >
-                                    </div >
-                                    <div className="squaredThree have-label cursor-pointer border w-[calc(33%-10px)]">
-                                        <input id="bn" type="checkbox" className="hidden" name="filter - car - feature" value="bn" />
-                                        <label label className="description w-full cursor-pointer" for="bn" >
-                                            <div className="thumbnail flex flex-col items-center justify-center py-2">
-                                                <img loading="lazy" className="img-fluid h-7"
-                                                    src="https://n1-cstg.mioto.vn/v4/p/m/icons/features/bonnet-v2.png" alt="Nắp thùng xe bán tải" />
-                                                <span>Nắp thùng xe bán tải</span>
-                                            </div>
-                                        </label >
-                                    </div >
-                                    <div className="squaredThree have-label cursor-pointer border w-[calc(33%-10px)]">
-                                        <input id="ep" type="checkbox" className="hidden" name="filter - car - feature" value="ep" />
-                                        <label label className="description w-full cursor-pointer" for="ep" >
-                                            <div className="thumbnail flex flex-col items-center justify-center py-2">
-                                                <img loading="lazy" className="img-fluid h-7"
-                                                    src="https://n1-cstg.mioto.vn/v4/p/m/icons/features/etc-v2.png" alt="ETC" />
-                                                <span>ETC</span>
-                                            </div>
-                                        </label >
-                                    </div >
-                                    <div className="squaredThree have-label cursor-pointer border w-[calc(33%-10px)]">
-                                        <input id="ab" type="checkbox" className="hidden" name="filter - car - feature" value="ab" />
-                                        <label label className="description w-full cursor-pointer" for="ab" >
-                                            <div className="thumbnail flex flex-col items-center justify-center py-2">
-                                                <img loading="lazy" className="img-fluid h-7"
-                                                    src="https://n1-cstg.mioto.vn/v4/p/m/icons/features/airbags-v2.png" alt="Túi khí an toàn" />
-                                                <span>Túi khí an toàn</span>
-                                            </div>
-                                        </label >
-                                    </div >
-                                </div >
-
+                                    {
+                                        featureArray && featureArray.length > 0 &&
+                                        featureArray.map((item, index) => {
+                                            return (
+                                                <div className="squaredThree have-label cursor-pointer border w-[calc(33%-10px)]" key={index}>
+                                                    <input id={item.featureCode} type="checkbox"
+                                                        className="hidden" name="filter-car-feature" value={item.featureCode}
+                                                        onChange={handleCheckboxChange}
+                                                        checked={selectedFeatures.includes(item.featureCode)} />
+                                                    <label className="description w-full cursor-pointer" htmlFor={item.featureCode}>
+                                                        <div className="thumbnail flex flex-col items-center justify-center py-2">
+                                                            <img loading="lazy" className="img-fluid h-7" src={item.featureIcon}
+                                                                alt={item.featureName} />
+                                                            <span>{item.featureName}</span>
+                                                        </div>
+                                                    </label>
+                                                </div>
+                                            )
+                                        })
+                                    }
+                                </div>
                             </div >
 
                         </div >
@@ -358,7 +255,7 @@ function RegisterSelfDrive() {
                     <div className='mt-5'>
                         <div className="flex flex-col gap-3 w-full">
                             <label className='font-bold text-xl'>Giá cọc khi thuê xe</label>
-                            <p className="text-sm text-gray-600">Nếu không cần cọc thì viết 0.</p>
+                            <p className="text-sm text-gray-600">Nếu không cần cọc thì để trống.</p>
                             <div className="flex flex-row items-center gap-2">
                                 <input
                                     className="p-2 px-3 border rounded-md outline-none w-1/2" type="number" name="giaCoc" placeholder="Giá cọc K(VND)"
@@ -375,7 +272,45 @@ function RegisterSelfDrive() {
                         <label className='font-bold text-xl mb-2'>Địa chỉ giao xe</label>
                         <AddressSelector handleChangeAddress={handleChangeAddress} />
                     </div>
-                    <button className="mt-4 w-full py-3 text-lg font-semibold border-none text-white bg-main hover:opacity-80" onClick={() => handleAddCar()}>
+
+                    <div className='mt-5'>
+                        <label className='font-bold text-xl mb-2 block'>Chọn hình ảnh xe</label>
+                        <div className="w-full flex justify-between">
+                            <label htmlFor="ip" className="p-3 border rounded-md bg-main text-white font-bold cursor-pointer">Chọn ảnh</label>
+                            {
+                                selectedImages.length > 0 &&
+                                <button className="p-3 bg-main text-white rounded-md font-bold" onClick={() => handleDeleteAllImages()}>Xóa tất cả ảnh</button>
+                            }
+                        </div>
+                        <input
+                            id="ip"
+                            type="file"
+                            accept="image/*"
+                            multiple
+                            onChange={handleImageChange}
+                            className="hidden"
+                        />
+
+                        <div className="flex flex-wrap gap-2">
+                            {
+                                selectedImages.map((imageUrl, index) => {
+                                    return (
+                                        <img
+                                            className="cursor-pointer"
+                                            key={index}
+                                            src={imageUrl}
+                                            alt={`Image ${index}`}
+                                            style={{ maxWidth: '200px', maxHeight: '200px', margin: '15px' }}
+                                        />
+                                    )
+                                })
+
+
+                            }
+                        </div>
+                    </div>
+
+                    <button className="mt-4 w-full py-3 text-lg font-semibold border-none rounded-md text-white bg-main hover:opacity-80" onClick={() => handleAddCar()}>
                         Đăng ký
                     </button>
                 </div >
