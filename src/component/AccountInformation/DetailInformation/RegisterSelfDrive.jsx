@@ -4,7 +4,14 @@ import "./RegisterSelfDrive.css"
 import AddressSelector from "../../../features/AdressSelector"
 import { useEffect, useState } from "react"
 import { getAllCarFeature } from "../../../api/appAPI"
+import { postNewCar } from "../../../api/carAPI"
+import { useSelector } from "react-redux"
+import { userIdSelector } from "../../../redux/selector"
+import { toast } from "react-toastify"
+
 function RegisterSelfDrive() {
+    const navigate = useNavigate()
+    const userId = useSelector(userIdSelector)
     const [featureArray, setFeatureArray] = useState([])
     const [valueAddress, setValueAddress] = useState({
         city: '',
@@ -92,16 +99,49 @@ function RegisterSelfDrive() {
     };
 
 
-    const handleAddCar = () => {
-        console.log(valueAddress)
-        console.log(formData)
-        console.log(formData1)
-        console.log(selectedFeatures)
-        console.log(selectedImages)
-
+    const handleAddCar = async () => {
+        try {
+            console.log(valueAddress)
+            console.log(formData)
+            console.log(formData1)
+            console.log(selectedFeatures)
+            console.log(selectedImages)
+            let res = await postNewCar(userId, {
+                brand: formData1.hangXe,
+                model: formData1.mauXe,
+                modelYear: formData.namSanXuat,
+                capacity: formData.soGhe,
+                plateNumber: formData.bienSo,
+                transmission: formData.truyenDong,
+                fuelType: formData.loaiNhienLieu,
+                mortgage: formData.giaCoc,
+                pricePerDay: formData.giaThue,
+                description: formData.moTa,
+                streetAddress: valueAddress.streetAddress,
+                ward: valueAddress.ward,
+                district: valueAddress.district,
+                city: valueAddress.city,
+                arrayFeatureCode: selectedFeatures,
+                arrayImageCar: selectedImages
+            })
+            if (res) {
+                navigate('/account/mycar')
+                toast.success('Đăng ký xe thành công')
+            }
+        }
+        catch (error) {
+            if (error.response && error.response.status === 409) {
+                toast.error('Lỗi hệ thống');
+            }
+            else if (error.response && error.response.status === 400) {
+                toast.error('Lỗi ảnh')
+            }
+            else {
+                toast.error('Đã xảy ra lỗi trong quá trình đăng ký Xe. Vui lòng thử lại sau.');
+            }
+            console.error('Error:', error);
+        }
     }
-
-    const navigate = useNavigate()
 
     const backto = () => {
         navigate('/car-register')
