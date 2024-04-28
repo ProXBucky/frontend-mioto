@@ -30,6 +30,7 @@ function ModalEditComponent({ showModalEdit, handleCloseEdit }) {
     const [editor, setEditor] = useState(null);
 
     const handleFileChange = (e) => {
+        console.log('Chay')
         setSelectedFile(e.target.files[0]);
     };
 
@@ -67,6 +68,7 @@ function ModalEditComponent({ showModalEdit, handleCloseEdit }) {
         fetchInfoData()
     }, [])
 
+    console.log(selectedFile)
 
     return (
         <Modal
@@ -135,10 +137,10 @@ function ModalEditComponent({ showModalEdit, handleCloseEdit }) {
                             </Form.Group>
                         </div>
                         <div className='text-center w-1/2'>
-                            <label htmlFor="avatarInput" className="rounded-2xl bg-main p-3 mb-2 text-white font-semibold">
+                            <label htmlFor="avaInput" className="rounded-2xl bg-main p-3 mb-2 text-white font-semibold">
                                 Chọn ảnh
-                                <input type="file" id="avatarInput" style={{ display: 'none' }} onChange={handleFileChange} />
                             </label>
+                            <input type="file" id="avaInput" className='hidden' onChange={handleFileChange} />
                             {selectedFile && (
                                 <AvatarEditor
                                     ref={setEditor}

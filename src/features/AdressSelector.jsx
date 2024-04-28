@@ -56,7 +56,6 @@ function AddressSelector({ handleChangeAddress }) {
 
     return (
         <>
-
             <div className="flex justify-between">
                 <div className='w-1/4'>
                     <label className="text-gray-500 font-semibold">Tỉnh/thành phố</label>
@@ -87,7 +86,7 @@ function AddressSelector({ handleChangeAddress }) {
                 </div>
             </div>
             <label className='text-gray-500 font-semibold mt-3'>Địa chỉ</label>
-            <input placeholder='Nhập số nhà, tên đường' className='border p-2 w-full' name="streetAddress" onChange={handleChange} />
+            <input placeholder='Nhập số nhà, tên đường' className='border p-2 w-full rounded-md' name="streetAddress" onChange={handleChange} />
         </>
     );
 };

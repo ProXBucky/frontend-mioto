@@ -66,20 +66,6 @@ import RegisterSelfDrive from './component/AccountInformation/DetailInformation/
 function App() {
   const dispatch = useDispatch();
   const token = useSelector(tokenSelector)
-  // const redirectTo = useSelector((state) => state.common.redirectTo);
-  // const appLoaded = useSelector((state) => state.common.appLoaded);
-
-  // useEffect(() => {
-  //   if (redirectTo) {
-  //     dispatch(clearRedirect());
-  //   }
-  // }, [redirectTo]);
-
-  // useEffect(() => {
-  //   const token = window.localStorage.getItem('jwt');
-  //   dispatch(appLoad(token));
-  // }, []);
-
   const appLoaded = true
   const [showRegisterModal, setShowRegisterModal] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
@@ -212,13 +198,15 @@ function App() {
               <Route path="myaccount" element={<MyAccount handleOpenEdit={handleOpenEdit} />} />
               <Route path="favorite" element={<FavoriteCar />} />
               <Route path="mycar" element={<MyCar />} />
+              <Route path="mycar/:carId" element={<RegisterSelfDrive type="view" />} />
+              <Route path="mycar/edit/:carId" element={<RegisterSelfDrive type="edit" />} />
               <Route path="mytrip" element={<MyTrip />} />
               <Route path="myvoucher" element={<MyVoucher />} />
               <Route path="changepassword" element={<ChangePassword />} />
               <Route path="myaddress" element={<MyAddress handleOpenModalAddress={handleOpenModalAddress} />} />
             </Route>
             <Route path="/car-register" element={<RegisterCar />} />
-            <Route path="/register-mode/selfdrive" element={<RegisterSelfDrive />} />
+            <Route path="/register-mode/selfdrive" element={<RegisterSelfDrive type="create" />} />
             <Route path="/car" element={<DetailCar />} />
             <Route path="/find" element={<CarMenu handleOpenDateModal={handleOpenDateModal} handleOpenLocationModal={handleOpenLocationModal} />} />
             <Route path="*" element={< PageNotFound />} />

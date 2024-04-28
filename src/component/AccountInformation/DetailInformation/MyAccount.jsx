@@ -102,15 +102,15 @@ function MyAccount({ handleOpenEdit }) {
                         <p>chuyến</p>
                     </div>
                 </div>
-                <div className="flex flex-row">
-                    <div className="w-1/3 flex justify-center flex-col gap-3 px-5 items-center">
+                <div className="flex flex-row items-center">
+                    <div className="w-1/3 flex justify-center flex-col gap-3 items-center px-3">
                         <div className="rounded-full overflow-hidden">
                             <img src={userInfo && userInfo.avatarImage ? userInfo.avatarImage : '/avaMale.png'} />
                         </div>
                         <h2 className="text-lg font-semibold">{userInfo && userInfo.fullname && userInfo.fullname}</h2>
                         <p className="text-sm">Tham gia: {userInfo && userInfo.joinDate && userInfo.joinDate}</p>
                     </div>
-                    <div className="w-2/3 text-gray-500">
+                    <div className="w-2/3 text-gray-500 pl-5">
                         <div className="bg-gray-100 rounded-lg p-3 flex flex-col gap-3">
                             <div className="flex flex-row justify-between">
                                 <p className="text-sm">Ngày sinh</p>
