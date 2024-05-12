@@ -1,5 +1,6 @@
 import Slider from 'react-slick';
 import DatePicker from '../DatePicker';
+import { useNavigate } from 'react-router-dom';
 
 const SamplePrevArrow = (props) => {
     const { style, onClick } = props;
@@ -30,55 +31,68 @@ const SampleNextArrow = (props) => {
 
 
 function City() {
+    const navigate = useNavigate()
     const images = [
         {
             link: '/city8.jpg',
             name: 'TP. Hồ Chí Minh',
-            sumCar: '3200+'
+            sumCar: '3200+',
+            location: 'hoChiMinh'
         },
         {
             link: '/city7.jpg',
             name: 'Hà Nội',
-            sumCar: '1400+'
+            sumCar: '1400+',
+            location: 'haNoi'
         },
         {
             link: '/city6.jpg',
             name: 'Đà Nẵng',
-            sumCar: '320+'
+            sumCar: '320+',
+            location: 'daNang'
         },
         {
             link: '/city5.jpg',
             name: 'Bình Dương',
-            sumCar: '330+'
+            sumCar: '330+',
+            location: 'binhDuong'
         },
         {
             link: '/city4.jpg',
             name: 'Đà Lạt',
-            sumCar: '160+'
+            sumCar: '160+',
+            location: 'daLat'
         },
         {
             link: '/city3.jpg',
             name: 'Phú Quốc',
-            sumCar: '150+'
+            sumCar: '150+',
+            location: 'kienGiang'
         },
         {
             link: '/city2.jpg',
             name: 'Nha Trang',
-            sumCar: '130+'
+            sumCar: '130+',
+            location: 'khanhHoa'
         },
         {
             link: '/city1.jpg',
             name: 'Hải Phòng',
-            sumCar: '70+'
+            sumCar: '70+',
+            location: 'haiPhong'
         },
 
     ];
+
+    const navigateCarByCity = (city) => {
+        navigate(`/find/${city}`)
+    }
 
     var settings = {
         dots: false,
         infinite: true,
         speed: 500,
-        slidesToScroll: 1,
+        slidesToScroll: 4,
         slidesToShow: 4,
         nextArrow: <SampleNextArrow />,
         prevArrow: <SamplePrevArrow />
@@ -93,7 +107,7 @@ function City() {
             <Slider {...settings}>
                 {images &&
                     images.map((item, index) => (
-                        <div key={index} className='relative h-[460px] px-2 overflow-hidden cursor-pointer hover:opacity-90 outline-none'>
+                        <div key={index} className='relative h-[460px] px-2 overflow-hidden cursor-pointer hover:opacity-90 outline-none' onClick={() => navigateCarByCity(item.location)}>
                             <img src={item.link} className='rounded-xl h-[460px]' alt={`Image ${index}`} />
                             <div className='text-white absolute h-20 bottom-0 left-6'>
                                 <p className='font-bold text-xl'>{item.name}</p>

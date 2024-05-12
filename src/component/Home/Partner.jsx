@@ -25,7 +25,7 @@ function Partner() {
             <Slider {...settings}>
                 {images &&
                     images.map((item, index) => (
-                        <div key={index} className='overflow-hidden'>
+                        <div key={index} className='overflow-hidden outline-none'>
                             <img src={item} className='cursor-pointer h-[150px] w-[300px] bg-white border-2 border-gray-200 rounded-xl' alt={`Image ${index}`} />
                         </div>
                     ))}

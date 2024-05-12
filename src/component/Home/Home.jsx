@@ -1,5 +1,5 @@
 import React, { memo, useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import LazyLoad from 'react-lazyload';
 import Banner from './Banner';
 import Promotion from './Promotion';
 import CarList from '../../features/car/carList';
@@ -11,6 +11,7 @@ import Other from './Other';
 import Service from './Service'
 import Blog from './Blog'
 import ModalPromotionComponent from '../ModalPromotionComponent';
+import { getListCarByCity } from '../../api/carAPI';
 
 // import { changeTab, homePageUnloaded } from '../../reducers/articleList';
 // import Banner from './Banner';
@@ -36,6 +37,7 @@ function Home({ handleOpenDateModal, handleOpenLocationModal }) {
     const [imageURL, setImageUrl] = useState('');
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
+    const [carArray, setCarArray] = useState([])
 
     const handleCloseModal = () => {
         setShowModal(false);
@@ -48,18 +50,50 @@ function Home({ handleOpenDateModal, handleOpenLocationModal }) {
         setContent(cont)
     };
 
+    useEffect(() => {
+        const fetchListCarByCity = async () => {
+            let res = await getListCarByCity('haNoi')
+            if (res && res.length > 0) {
+                setCarArray(res)
+            }
+        }
+        fetchListCarByCity()
+
+    }, [])
+
+
     return (
         <>
-            <Banner handleOpenDateModal={handleOpenDateModal} handleOpenLocationModal={handleOpenLocationModal} />
-            <Promotion handleOpenModal={handleOpenModal} />
-            <CarList isHiddenTitle={false} />
-            <City />
-            <Advantage />
-            <Partner />
-            <Service />
-            <Help />
-            <Other />
-            <Blog />
+            <LazyLoad height={200}>
+                <Banner handleOpenDateModal={handleOpenDateModal} handleOpenLocationModal={handleOpenLocationModal} />
+            </LazyLoad>
+            <LazyLoad height={200}>
+                <Promotion handleOpenModal={handleOpenModal} />
+            </LazyLoad>
+            <LazyLoad height={200}>
+                <CarList isHiddenTitle={false} carArray={carArray} />
+            </LazyLoad>
+            <LazyLoad height={200}>
+                <City />
+            </LazyLoad>
+            <LazyLoad height={200}>
+                <Advantage />
+            </LazyLoad>
+            <LazyLoad height={200}>
+                <Partner />
+            </LazyLoad>
+            <LazyLoad height={200}>
+                <Service />
+            </LazyLoad>
+            <LazyLoad height={200}>
+                <Help />
+            </LazyLoad>
+            <LazyLoad height={200}>
+                <Other />
+            </LazyLoad>
+            <LazyLoad height={200}>
+                <Blog />
+            </LazyLoad>
 
             <ModalPromotionComponent
                 showModal={showModal}

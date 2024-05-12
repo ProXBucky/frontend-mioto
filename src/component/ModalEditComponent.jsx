@@ -61,14 +61,12 @@ function ModalEditComponent({ showModalEdit, handleCloseEdit }) {
                         dob: resData.dob,
                         gender: resData.gender
                     })
-                    setSelectedFile(resData.avatarImage)
+                    // setSelectedFile(resData.avatarImage)
                 }
             }
         }
         fetchInfoData()
     }, [])
-
-    console.log(selectedFile)
 
     return (
         <Modal

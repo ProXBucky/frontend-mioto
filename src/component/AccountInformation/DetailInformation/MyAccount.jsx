@@ -144,7 +144,6 @@ function MyAccount({ handleOpenEdit }) {
                         <h2 className="text-xl font-bold">
                             Giấy phép lái xe
                         </h2>
-                        <p className="text-sm">Vì sao phải xác thực GPLX</p>
                     </div>
                     {
                         !editLicense ?
@@ -173,11 +172,15 @@ function MyAccount({ handleOpenEdit }) {
                         </div>
                         <div>
                             <label className="font-semibold text-gray-500 text-md w-full">Họ và tên</label>
-                            <input className="outline-none w-full p-2 mt-2 rounded-lg bg-white border disabled:opacity-50 disabled:pointer-events-none" disabled placeholder="Nhập họ và tên" name="fullName" value={userInfo && userInfo.fullname && userInfo.fullname} />
+                            <p className="outline-none w-full p-2 mt-2 rounded-lg bg-white border">
+                                {userInfo && userInfo.fullname && userInfo.fullname}
+                            </p>
                         </div>
                         <div>
                             <label className="font-semibold text-gray-500 text-md w-full">Ngày sinh</label>
-                            <input className="outline-none w-full p-2 mt-2 rounded-lg bg-white border disabled:opacity-50 disabled:pointer-events-none" disabled type="date" placeholder="Nhập ngày sinh" name="dob" value={userInfo && userInfo.dob && userInfo.dob} />
+                            <p className="outline-none w-full p-2 mt-2 rounded-lg bg-white border" >
+                                {userInfo && userInfo.dob && userInfo.dob}
+                            </p>
                         </div>
                     </div>
                     <div className="w-1/2">

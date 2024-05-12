@@ -1,6 +1,23 @@
+import { useParams } from "react-router-dom"
 import CarList from "../../features/car/carList"
+import { useEffect, useState } from "react"
+import { getListCarByCity } from "../../api/carAPI"
 
 function CarMenu({ handleOpenDateModal, handleOpenLocationModal }) {
+    const { city } = useParams()
+    const [carArray, setCarArray] = useState([])
+
+    useEffect(() => {
+
+        const fetchListCarByCity = async () => {
+            let res = await getListCarByCity(city)
+            if (res && res.length > 0) {
+                setCarArray(res)
+            }
+        }
+        fetchListCarByCity()
+    }, [])
+
     return (
         <>
 
@@ -51,7 +68,7 @@ function CarMenu({ handleOpenDateModal, handleOpenLocationModal }) {
                 </div>
             </div>
 
-            <CarList isHiddenTitle={true} />
+            <CarList isHiddenTitle={true} carArray={carArray} />
         </>
     )
 }

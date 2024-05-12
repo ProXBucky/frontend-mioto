@@ -22,6 +22,16 @@ const getListCar = async (userId) => {
     }
 }
 
+const getListCarByCity = async (city) => {
+    try {
+        const response = await axios.get(`${API_URL}/api/car/all/${city}`)
+        return response.data;
+    } catch (error) {
+        console.log('Error fetching data:', error);
+        throw error;
+    }
+}
+
 const getDetailCar = async (carId) => {
     try {
         const response = await axios.get(`${API_URL}/api/car/${carId}`)
@@ -45,4 +55,4 @@ const editCar = async (carId, body) => {
 
 
 
-export { postNewCar, getListCar, getDetailCar, editCar }
+export { postNewCar, getListCar, getListCarByCity, getDetailCar, editCar }

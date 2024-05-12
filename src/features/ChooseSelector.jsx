@@ -22,8 +22,8 @@ function ChooseSelector({ handleChange1 }) {
                 <label htmlFor="brand">Hãng xe</label>
                 <select id="brand" value={selectedBrand} onChange={handleBrandChange} className='p-2 border mt-2 rounded-md cursor-pointer'>
                     <option value="">Chọn hãng xe</option>
-                    {data.hangXe.map((brand) => (
-                        <option key={brand} value={brand}>{brand}</option>
+                    {data.hangXe.map((brand, index) => (
+                        <option className='cursor-pointer' key={index} value={brand}>{brand}</option>
                     ))}
                 </select>
             </div>
@@ -33,8 +33,8 @@ function ChooseSelector({ handleChange1 }) {
                 <select id="model" value={selectedModel} onChange={handleModelChange} className='p-2 border mt-2 rounded-md cursor-pointer'>
                     <option value="">Chọn mẫu xe</option>
                     {selectedBrand && (
-                        data.xe[selectedBrand].map((model) => (
-                            <option key={model} value={model}>{model}</option>
+                        data.xe[selectedBrand].map((model, index) => (
+                            <option className='cursor-pointer' key={index} value={model}>{model}</option>
                         ))
                     )}
                 </select>

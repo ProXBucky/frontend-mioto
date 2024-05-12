@@ -9,6 +9,7 @@ import ModalDatePickerComponent from './component/ModalDatePickerComponent';
 import ModalLocationPickComponent from './component/ModalLocationPickComponent';
 import ModalForgetPassword from './component/ModalForgetPassword';
 import ModalEditComponent from './component/ModalEditComponent';
+import ModalAddAdress from './component/ModalAddAddress';
 import Home from './component/Home/Home';
 import Header from './component/Header';
 import Footer from './component/Footer';
@@ -49,19 +50,26 @@ const About = lazy(() =>
 const CarRegist = lazy(() =>
   import('./component/CarRegist/CarRegist')
 );
+const PageNotFound = lazy(() =>
+  import('./component/PageNotFound')
+);
+const RegisterCar = lazy(() =>
+  import('./component/AccountInformation/RegisterCar/RegisterCar')
+);
+const RegisterSelfDrive = lazy(() =>
+  import('./component/AccountInformation/DetailInformation/RegisterSelfDrive')
+);
+
 
 
 // import { appLoad, clearRedirect } from '../reducers/common';
 
-import ModalAddAdress from './component/ModalAddAddress';
-import PageNotFound from './component/PageNotFound';
 import { createNewUser } from './api/userAPI';
 import { loginUser } from './api/authAPI';
 import { setAvatarImage, setFullname, setToken, setUserId } from './redux/Slice/CookieSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { tokenSelector } from './redux/selector';
-import RegisterCar from './component/AccountInformation/RegisterCar/RegisterCar';
-import RegisterSelfDrive from './component/AccountInformation/DetailInformation/RegisterSelfDrive';
+import ModalViewAllImg from './component/ModalViewAllImg';
 
 function App() {
   const dispatch = useDispatch();
@@ -74,6 +82,7 @@ function App() {
   const [showModalForgetPassword, setShowModalForgetPassword] = useState(false);
   const [showModalEdit, setShowModalEdit] = useState(false);
   const [showModalAddress, setShowModalAddress] = useState(false);
+  const [showModalViewImg, setShowModalViewImg] = useState(false);
 
   const handleCloseRegisterModal = () => {
     setShowRegisterModal(false);
@@ -134,6 +143,19 @@ function App() {
   const handleOpenModalAddress = () => {
     setShowModalAddress(true);
   };
+  
+  const [allImgCar, setAllImgCar] = useState([]);
+
+  const handleCloseModalViewImg = () => {
+    setShowModalViewImg(false);
+  };
+
+  const handleOpenModalViewImg = (imgs) => {
+    setShowModalViewImg(true);
+    setAllImgCar(imgs)
+  };
+
+
 
   const handleRegisterSubmit = async (formData) => {
     try {
@@ -207,13 +229,14 @@ function App() {
             </Route>
             <Route path="/car-register" element={<RegisterCar />} />
             <Route path="/register-mode/selfdrive" element={<RegisterSelfDrive type="create" />} />
-            <Route path="/car" element={<DetailCar />} />
-            <Route path="/find" element={<CarMenu handleOpenDateModal={handleOpenDateModal} handleOpenLocationModal={handleOpenLocationModal} />} />
+            <Route path="/car/:carId" element={<DetailCar handleOpenModalViewImg={handleOpenModalViewImg} />} />
+            <Route path="/find/:city" element={<CarMenu handleOpenDateModal={handleOpenDateModal} handleOpenLocationModal={handleOpenLocationModal} />} />
             <Route path="*" element={< PageNotFound />} />
           </Routes>
         </Suspense>
         <Footer />
 
+        <ModalViewAllImg showModalViewImg={showModalViewImg} handleCloseModalViewImg={handleCloseModalViewImg} allImgCar={allImgCar} />
         <ModalComponent
           showModal={showRegisterModal}
           handleClose={handleCloseRegisterModal}

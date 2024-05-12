@@ -15,6 +15,7 @@ function RegisterSelfDrive({ type }) {
     const userId = useSelector(userIdSelector)
     const [featureArray, setFeatureArray] = useState([])
     const [valueAddress, setValueAddress] = useState({
+        location: '',
         city: '',
         district: '',
         ward: '',
@@ -101,18 +102,19 @@ function RegisterSelfDrive({ type }) {
             let res = await postNewCar(userId, {
                 brand: formData1.hangXe,
                 model: formData1.mauXe,
-                modelYear: formData.namSanXuat,
-                capacity: formData.soGhe,
+                modelYear: +formData.namSanXuat,
+                capacity: +formData.soGhe,
                 plateNumber: formData.bienSo,
                 transmission: formData.truyenDong,
                 fuelType: formData.loaiNhienLieu,
-                mortgage: formData.giaCoc,
-                pricePerDay: formData.giaThue,
+                mortgage: +formData.giaCoc,
+                pricePerDay: +formData.giaThue,
                 description: formData.moTa,
                 streetAddress: valueAddress.streetAddress,
                 ward: valueAddress.ward,
                 district: valueAddress.district,
                 city: valueAddress.city,
+                location: valueAddress.location,
                 arrayFeatureCode: selectedFeatures,
                 arrayImageCar: selectedImages
             })
@@ -137,16 +139,6 @@ function RegisterSelfDrive({ type }) {
 
     const handleEditCar = async () => {
         try {
-            console.log({
-                plateNumber: formData.bienSo,
-                mortgage: formData.giaCoc,
-                pricePerDay: formData.giaThue,
-                streetAddress: valueAddress.streetAddress,
-                ward: valueAddress.ward,
-                district: valueAddress.district,
-                city: valueAddress.city,
-                arrayImageCar: selectedImages
-            })
             if (!formData.bienSo || !formData.giaThue || !valueAddress.streetAddress || !valueAddress.district || !valueAddress.city || !selectedImages) {
                 toast.error("Thiếu dữ liệu, vui lòng nhập đầy đủ")
             }
@@ -159,6 +151,7 @@ function RegisterSelfDrive({ type }) {
                     ward: valueAddress.ward,
                     district: valueAddress.district,
                     city: valueAddress.city,
+                    location: valueAddress.location,
                     arrayImageCar: selectedImages
                 })
                 if (res) {
@@ -218,6 +211,7 @@ function RegisterSelfDrive({ type }) {
 
                     const valueAddressPromise = new Promise((resolve, reject) => {
                         setValueAddress({
+                            location: res.location,
                             city: res.city,
                             district: res.district,
                             ward: res.ward,
@@ -287,8 +281,6 @@ function RegisterSelfDrive({ type }) {
 
     }, [])
 
-    console.log(selectedImages)
-
     return (
         <div className={`${type == "create" ? "px-32" : ""} bg-gray-100 border-t-2`} >
             <div className='border-none justify-start mt-3 flex flex-row items-center gap-2 cursor-pointer' onClick={() => backto()}>
@@ -356,7 +348,7 @@ function RegisterSelfDrive({ type }) {
                                         <select id="year" className='p-2 border mt-2 rounded-md cursor-pointer' name="namSanXuat" onChange={handleChange}>
                                             <option value="">Chọn năm</option>
                                             {Array.from({ length: 20 }, (_, i) => i + 2005).map((year) => (
-                                                <option key={year} value={year}>{year}</option>
+                                                <option className="cursor-pointer" key={year} value={year}>{year}</option>
                                             ))}
                                         </select>
                                     </div>
@@ -365,19 +357,19 @@ function RegisterSelfDrive({ type }) {
                                     <div className="flex-col flex w-[calc(50%-30px)]">
                                         <label>Truyền động</label>
                                         <select id="transition" className='p-2 border mt-2 rounded-md cursor-pointer' name="truyenDong" onChange={handleChange}>
-                                            <option value="">Chọn truyền động</option>
-                                            <option value="Số tự động">Số tự động</option>
-                                            <option value="Số sàn">Số sàn</option>
+                                            <option className="cursor-pointer" value="">Chọn truyền động</option>
+                                            <option className="cursor-pointer" value="Số tự động">Số tự động</option>
+                                            <option className="cursor-pointer" value="Số sàn">Số sàn</option>
                                         </select>
                                     </div>
 
                                     <div className="flex-col flex w-[calc(50%-30px)]">
                                         <label>Loại nhiên liệu</label>
                                         <select id="fuelType" className='p-2 border mt-2 rounded-md cursor-pointer' name="loaiNhienLieu" onChange={handleChange}>
-                                            <option value="">Chọn nhiên liệu</option>
-                                            <option value="Xăng">Xăng</option>
-                                            <option value="Dầu diesel">Dầu diesel</option>
-                                            <option value="Điện">Điện</option>
+                                            <option className="cursor-pointer" value="">Chọn nhiên liệu</option>
+                                            <option className="cursor-pointer" value="Xăng">Xăng</option>
+                                            <option className="cursor-pointer" value="Dầu diesel">Dầu diesel</option>
+                                            <option className="cursor-pointer" value="Điện">Điện</option>
                                         </select>
                                     </div>
 
@@ -386,7 +378,7 @@ function RegisterSelfDrive({ type }) {
                                         <select id="capacity" className='p-2 border mt-2 rounded-md cursor-pointer' name="soGhe" onChange={handleChange}>
                                             <option value="">Chọn số ghế</option>
                                             {Array.from({ length: 17 }, (_, i) => i + 4).map((number) => (
-                                                <option key={number} value={number}>{number}</option>
+                                                <option className="cursor-pointer" key={number} value={number}>{number}</option>
                                             ))}
                                         </select>
                                     </div>
@@ -444,7 +436,6 @@ function RegisterSelfDrive({ type }) {
                         </div>
                     }
                     {
-                        !type == "edit" &&
                         <div className='mt-5'>
                             <div className="flex flex-col gap-3 w-full">
                                 <label className='font-bold text-xl'>Mô tả</label>
