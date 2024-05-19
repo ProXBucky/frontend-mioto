@@ -1,7 +1,20 @@
 import Modal from 'react-bootstrap/Modal';
 import DatePicker from './DatePicker';
+import { useDispatch } from 'react-redux';
+import { setBeginDate, setEndDate } from '../redux/Slice/SearchSlice';
+import { useState } from 'react';
+
 
 function ModalDatePickerComponent({ showDateModal, handleCloseDateModal }) {
+    const dispatch = useDispatch()
+    const [beDate, setBeDate] = useState('');
+    const [enDate, setEnDate] = useState('');
+
+    const handlePickDate = () => {
+        dispatch(setBeginDate(beDate))
+        dispatch(setEndDate(enDate))
+        handleCloseDateModal()
+    }
 
     return (
         <Modal
@@ -18,11 +31,11 @@ function ModalDatePickerComponent({ showDateModal, handleCloseDateModal }) {
             </Modal.Header>
             <Modal.Body className='p-4 pt-2' >
                 <div className='border-2 rounded-md p-4 flex justify-center'>
-                    <DatePicker />
+                    <DatePicker setBeDate={setBeDate} setEnDate={setEnDate} />
                 </div>
             </Modal.Body>
             <Modal.Footer>
-                <button className='p-3 bg-main rounded-lg text-white font-semibold px-4'>Tiếp tục</button>
+                <button className='p-3 bg-main rounded-lg text-white font-semibold px-4' onClick={handlePickDate}>Tiếp tục</button>
             </Modal.Footer>
         </Modal>
     );

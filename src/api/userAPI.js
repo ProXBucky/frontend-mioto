@@ -124,8 +124,28 @@ const createNewUser = async (body) => {
     }
 }
 
+const likeCar = async (body) => {
+    try {
+        const response = await axios.post(`${API_URL}/api/like`, body)
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        throw error;
+    }
+}
+
+const dislikeCar = async (userId, carId) => {
+    try {
+        const response = await axios.delete(`${API_URL}/api/like?userId=${userId}&carId=${carId}`)
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        throw error;
+    }
+}
+
 
 export {
     getInformationUserById, changePasswordUserById, editInformationUserById, getInformationLicenseById, postInformationLicenseById,
-    postAddress, getAllAddressByUserId, deleteAddress, createNewUser
+    postAddress, getAllAddressByUserId, deleteAddress, createNewUser, likeCar, dislikeCar
 }

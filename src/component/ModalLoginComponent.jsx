@@ -3,7 +3,7 @@ import Modal from 'react-bootstrap/Modal';
 import { useState } from 'react';
 import Form from 'react-bootstrap/Form';
 
-function ModalComponent({ showModal, handleClose, modalType, onSubmit, handleOpenModalForgetPassword }) {
+function ModalComponent({ showModal, handleClose, modalType, onSubmit, handleOpenModalForgetPassword, handleOpenRegisterModal }) {
     const [formData, setFormData] = useState({
         username: '',
         password: '',
@@ -31,6 +31,11 @@ function ModalComponent({ showModal, handleClose, modalType, onSubmit, handleOpe
         e.preventDefault();
         handleClose();
         handleOpenModalForgetPassword();
+    }
+
+    const openRegister = () => {
+        handleClose();
+        handleOpenRegisterModal();
     }
 
     const [checkPass, setCheckPass] = useState(true)
@@ -125,14 +130,14 @@ function ModalComponent({ showModal, handleClose, modalType, onSubmit, handleOpe
                     <Button variant="primary" type="submit" className="mt-4 w-full py-3 text-lg font-semibold border-none text-white bg-main hover:opacity-80">
                         {modalType === 'register' ? 'Đăng ký' : 'Đăng nhập'}
                     </Button>
-                    {/* {
+                    {
                         modalType !== 'register' && (
                             <div className='text-center py-2'>
                                 <span>Bạn chưa là thành viên? </span>
-                                <span className='text-right py-2 text-main font-semibold'>Đăng ký ngay</span>
+                                <span className='text-right py-2 text-main font-semibold cursor-pointer' onClick={openRegister}>Đăng ký ngay</span>
                             </div>
                         )
-                    } */}
+                    }
                 </Form>
             </Modal.Body>
         </Modal>

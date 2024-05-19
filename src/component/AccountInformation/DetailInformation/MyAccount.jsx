@@ -4,27 +4,28 @@ import AvatarEditor from 'react-avatar-editor';
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 import { tokenSelector, userIdSelector } from "../../../redux/selector";
+import { format } from "date-fns";
 
 
 
-function MyAccount({ handleOpenEdit }) {
+function MyAccount({ handleOpenEdit, showModalEdit }) {
     const token = useSelector(tokenSelector)
     const userId = useSelector(userIdSelector);
     const [userInfo, setUserInfo] = useState({})
     const [selectedFile, setSelectedFile] = useState(null);
     const [editor, setEditor] = useState(null);
     const [editLicense, setEditLicense] = useState(false)
+    const [imageLicense, setImageLicense] = useState('')
+    const [scale, setScale] = useState(1)
     const [formData, setFormData] = useState({
         licenseNumber: '',
     });
-    const [imageLicense, setImageLicense] = useState('')
-    const [scale, setScale] = useState(0)
 
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData((prevData) => ({
             ...prevData,
-            [name]: value,
+            [name]: value || '',
         }));
     };
 
@@ -37,26 +38,30 @@ function MyAccount({ handleOpenEdit }) {
         setScale(newScale);
     };
 
+    const fetchDataUser = async () => {
+        if (userId && token) {
+            let res = await getInformationUserById(userId, token)           // FIX_DATA
+            setUserInfo(res)
+        }
+    }
+    const fetchDataLicense = async () => {
+        if (userId && token) {
+            let ress = await getInformationLicenseById(userId, token)
+            setFormData({
+                'licenseNumber': ress.licenseNumber
+            })
+            setImageLicense(ress.fileUpload)
+        }
+    }
+
     useEffect(() => {
-        const fetchDataUser = async () => {
-            if (userId && token) {
-                let res = await getInformationUserById(userId, token)           // FIX_DATA
-                setUserInfo(res)
-            }
-        }
-        const fetchDataLicense = async () => {
-            if (userId && token) {
-                let ress = await getInformationLicenseById(userId, token)
-                setFormData({
-                    'licenseNumber': ress.licenseNumber
-                })
-                setImageLicense(ress.fileUpload)
-            }
-        }
         fetchDataUser()
         fetchDataLicense()
     }, [])
 
+    useEffect(() => {
+        fetchDataUser()
+    }, [showModalEdit])
 
 
     const closeEditLicense = () => {
@@ -114,7 +119,7 @@ function MyAccount({ handleOpenEdit }) {
                         <div className="bg-gray-100 rounded-lg p-3 flex flex-col gap-3">
                             <div className="flex flex-row justify-between">
                                 <p className="text-sm">Ngày sinh</p>
-                                <span className="text-black text-base font-semibold">{userInfo && userInfo.dob ? userInfo.dob : '----/----/--------'}</span>
+                                <span className="text-black text-base font-semibold">{userInfo && userInfo.dob ? format(userInfo.dob, 'dd-MM-yyyy') : '----/----/--------'}</span>
                             </div>
 
                             <div className="flex flex-row justify-between">
@@ -168,7 +173,7 @@ function MyAccount({ handleOpenEdit }) {
                         <h3 className="mb-1 font-semibold text-lg">Thông tin chung</h3>
                         <div>
                             <label className="font-semibold text-gray-500 text-md w-full">Số GPLX</label>
-                            <input className="outline-none w-full p-2 mt-2 rounded-lg bg-white border disabled:opacity-50 disabled:pointer-events-none" disabled={!editLicense} placeholder="Nhập số GPLX đã cấp" name="licenseNumber" onChange={handleChange} value={formData.licenseNumber} />
+                            <input className="outline-none w-full p-2 mt-2 rounded-lg bg-white border disabled:opacity-50" disabled={!editLicense} placeholder="Nhập số GPLX đã cấp" name="licenseNumber" onChange={handleChange} value={formData.licenseNumber || ''} />
                         </div>
                         <div>
                             <label className="font-semibold text-gray-500 text-md w-full">Họ và tên</label>
@@ -179,7 +184,7 @@ function MyAccount({ handleOpenEdit }) {
                         <div>
                             <label className="font-semibold text-gray-500 text-md w-full">Ngày sinh</label>
                             <p className="outline-none w-full p-2 mt-2 rounded-lg bg-white border" >
-                                {userInfo && userInfo.dob && userInfo.dob}
+                                {userInfo && userInfo.dob && format(userInfo.dob, 'dd-MM-yyyy')}
                             </p>
                         </div>
                     </div>

@@ -70,6 +70,7 @@ import { setAvatarImage, setFullname, setToken, setUserId } from './redux/Slice/
 import { useDispatch, useSelector } from 'react-redux';
 import { tokenSelector } from './redux/selector';
 import ModalViewAllImg from './component/ModalViewAllImg';
+import ScrollToTop from './component/ScrollToTop';
 
 function App() {
   const dispatch = useDispatch();
@@ -143,7 +144,7 @@ function App() {
   const handleOpenModalAddress = () => {
     setShowModalAddress(true);
   };
-  
+
   const [allImgCar, setAllImgCar] = useState([]);
 
   const handleCloseModalViewImg = () => {
@@ -211,13 +212,14 @@ function App() {
     return (
       <>
         <Header handleOpenRegisterModal={handleOpenRegisterModal} handleOpenLoginModal={handleOpenLoginModal} />
+        <ScrollToTop />
         <Suspense fallback={<p>Loading...</p>}>
           <Routes>
             <Route exact path="/" element={<Home handleOpenDateModal={handleOpenDateModal} handleOpenLocationModal={handleOpenLocationModal} />} />
             <Route path="/aboutus" element={<About />} />
             <Route path="/owner/register" element={<CarRegist />} />
             <Route path="/account/*" element={token ? <AccountInformation /> : <PageNotFound />}>
-              <Route path="myaccount" element={<MyAccount handleOpenEdit={handleOpenEdit} />} />
+              <Route path="myaccount" element={<MyAccount handleOpenEdit={handleOpenEdit} showModalEdit={showModalEdit} />} />
               <Route path="favorite" element={<FavoriteCar />} />
               <Route path="mycar" element={<MyCar />} />
               <Route path="mycar/:carId" element={<RegisterSelfDrive type="view" />} />
@@ -229,7 +231,7 @@ function App() {
             </Route>
             <Route path="/car-register" element={<RegisterCar />} />
             <Route path="/register-mode/selfdrive" element={<RegisterSelfDrive type="create" />} />
-            <Route path="/car/:carId" element={<DetailCar handleOpenModalViewImg={handleOpenModalViewImg} />} />
+            <Route path="/car/:carId" element={<DetailCar handleOpenModalViewImg={handleOpenModalViewImg} handleOpenDateModal={handleOpenDateModal} handleOpenLoginModal={handleOpenLoginModal} />} />
             <Route path="/find/:city" element={<CarMenu handleOpenDateModal={handleOpenDateModal} handleOpenLocationModal={handleOpenLocationModal} />} />
             <Route path="*" element={< PageNotFound />} />
           </Routes>
@@ -249,6 +251,7 @@ function App() {
           modalType="login"
           onSubmit={handleLoginSubmit}
           handleOpenModalForgetPassword={handleOpenModalForgetPassword}
+          handleOpenRegisterModal={handleOpenRegisterModal}
         />
         <ModalDatePickerComponent
           showDateModal={showDateModal}

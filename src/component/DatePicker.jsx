@@ -7,23 +7,28 @@ import viLocale from 'date-fns/locale/vi';
 import "../assets/css/datePicker.css"
 
 
-function DatePicker() {
-
+function DatePicker({ setBeDate, setEnDate }) {
     const [range, setRange] = useState([]);
+
     let totalDays = 0;
     let footer = <p>Hãy chọn ngày đi và ngày về</p>;
     if (range?.from) {
+        const beginDate = format(range.from, 'dd/MM/yyyy'); // Định dạng ngày thành chuỗi
+        setBeDate(beginDate);
         if (!range.to) {
-            footer = <p>{format(range.from, 'PPP', { locale: viLocale })}</p>;
+            footer = <p>{format(range.from, 'P', { locale: viLocale })}</p>;
         } else if (range.to) {
+            const endDate = format(range.to, 'dd/MM/yyyy'); // Định dạng ngày thành chuỗi
+            setEnDate(endDate);
             footer = (
                 <p>
-                    {format(range.from, 'PPP', { locale: viLocale })} – {format(range.to, 'PPP', { locale: viLocale })}
+                    {format(range.from, 'P', { locale: viLocale })} – {format(range.to, 'P', { locale: viLocale })}
                 </p>
             );
-            totalDays = differenceInDays(range.to, range.from) + 1;
+            totalDays = differenceInDays(range.to, range.from);
         }
     }
+
 
     return (
         <div>

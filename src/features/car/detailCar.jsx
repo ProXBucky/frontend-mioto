@@ -2,12 +2,69 @@ import { useEffect, useState } from "react"
 import { getDetailCar } from "../../api/carAPI";
 import { useParams } from "react-router-dom";
 import ModalViewAllImg from "../../component/ModalViewAllImg";
+import { useSelector } from "react-redux";
+import { beginDateSelector, endDateSelector, userIdSelector } from "../../redux/selector";
+import { calculateDays } from "../../utils/calculateDays"
+import { formatMoney } from "../../utils/formatMoney";
+import { toast } from "react-toastify";
+import { dislikeCar, likeCar } from "../../api/userAPI";
+import { checkLikeCar } from "../../api/appAPI";
 
 
-function DetailCar({handleOpenModalViewImg}) {
+function DetailCar({ handleOpenModalViewImg, handleOpenDateModal, handleOpenLoginModal }) {
+    let userId = useSelector(userIdSelector)
+    let beginDate = useSelector(beginDateSelector)
+    let endDate = useSelector(endDateSelector)
+
     const [car, setCar] = useState(null)
+    const [liked, setLiked] = useState(false)
     const [carImgs, setCarImgs] = useState([])
     const { carId } = useParams()
+    const dayRent = calculateDays(beginDate, endDate)
+
+    const copyLink = () => {
+        const url = window.location.href;
+        navigator.clipboard.writeText(url)
+        toast.success("Đã sao chép liên kết")
+    };
+
+    const likeCarAction = async () => {
+        if (!userId) {
+            handleOpenLoginModal() // Login truoc khi like xe
+        }
+        else {
+            try {
+                if (userId && carId) {
+                    let res = await likeCar({
+                        userId: userId,
+                        carId: carId
+                    })
+                    if (res) {
+                        toast.success('Đã thêm xe vào danh sách ưa thích')
+                        setLiked(true)
+                    }
+                }
+            } catch (err) {
+                toast.error('Lỗi hệ thống')
+            }
+        }
+    }
+
+    const dislikeCarAction = async () => {
+        try {
+            if (userId && carId) {
+                let res = await dislikeCar(userId, carId)
+                if (res) {
+                    toast.success('Đã xóa xe khỏi danh sách ưa thích')
+                    setLiked(false)
+                }
+            }
+        } catch (err) {
+            toast.error('Lỗi hệ thống')
+        }
+    }
+
+
 
     useEffect(() => {
         const fetchCarData = async () => {
@@ -16,28 +73,39 @@ function DetailCar({handleOpenModalViewImg}) {
                 setCar(res)
                 const imagesFromApi = [];
                 res.images.forEach(image => {
-                  imagesFromApi.push({
-                    original: image.imageLink,
-                    thumbnail: image.imageLink,
-                    description: `Ảnh ${image.imageId}`
-                  });
+                    imagesFromApi.push({
+                        original: image.imageLink,
+                        thumbnail: image.imageLink,
+                        description: `Ảnh ${image.imageId}`
+                    });
                 });
                 setCarImgs(imagesFromApi)
             }
         }
-        
+
+        const chkLikeCar = async () => {
+            const res = await checkLikeCar(userId, carId);
+            if (res) {
+                setLiked(true)
+            }
+        }
+
         fetchCarData()
+
+        if (userId && carId) {
+            chkLikeCar()
+        }
     }, [])
-    
+
     return (
         <div className="relative">
-            <ModalViewAllImg/>
+            <ModalViewAllImg />
             <div className="px-32 pb-20 flex flex-col gap-5">
                 <div className="flex flex-row h-[600px] relative">
-                    <div className="w-[calc(68%)]">
-                        <img src={car && car.images && car.images[0].imageLink} className="h-full object-cover rounded-2xl cursor-pointer" alt="Car 1" onClick={() => handleOpenModalViewImg(carImgs)} />
+                    <div className="w-[calc(68%)] pr-6">
+                        <img src={car && car.images && car.images[0].imageLink} className="w-full h-full object-cover rounded-2xl cursor-pointer" alt="Car 1" onClick={() => handleOpenModalViewImg(carImgs)} />
                     </div>
-                    <div className="w-[calc(32%+20px)] flex flex-col gap-4">
+                    <div className="w-[calc(32%)] flex flex-col gap-4">
                         <img src={car && car.images && car.images[1].imageLink} className="h-[30.7%] object-cover rounded-2xl cursor-pointer" alt="Car 2" onClick={() => handleOpenModalViewImg(carImgs)} />
                         <img src={car && car.images && car.images[2].imageLink} className="h-[30.7%] object-cover rounded-2xl cursor-pointer" alt="Car 3" onClick={() => handleOpenModalViewImg(carImgs)} />
                         <img src={car && car.images && car.images[3].imageLink} className="h-[30.7%] object-cover rounded-2xl cursor-pointer" alt="Car 4" onClick={() => handleOpenModalViewImg(carImgs)} />
@@ -72,12 +140,20 @@ function DetailCar({handleOpenModalViewImg}) {
                                 </div>
                             </div>
                             <div className="flex gap-4">
-                                <div className="rounded-full p-3 h-14 border cursor-pointer">
+                                <div className="rounded-full p-3 h-14 border cursor-pointer" onClick={copyLink}>
                                     <i className="fa-solid fa-link fa-lg"></i>
                                 </div>
-                                <div className="rounded-full p-3 h-14 border cursor-pointer">
-                                    <i className="fa-regular fa-heart fa-lg"></i>
-                                </div>
+                                {
+                                    liked ?
+                                        <div className={`rounded-full p-3 h-14 border-2 cursor-pointer border-main`} onClick={dislikeCarAction}>
+                                            <i className={`fa-regular fa-heart fa-lg text-main`}></i>
+                                        </div>
+                                        :
+                                        <div className={`rounded-full p-3 h-14 border-2 cursor-pointer`} onClick={likeCarAction}>
+                                            <i className={`fa-regular fa-heart fa-lg`}></i>
+                                        </div>
+
+                                }
                             </div>
                         </div>
                         <div className="border-b-2 py-4">
@@ -168,7 +244,7 @@ function DetailCar({handleOpenModalViewImg}) {
                                     car && !car.mortgage ?
                                         <p className="text-black">Không yêu cầu khách thuê thế chấp Tiền mặt hoặc Xe máy</p>
                                         :
-                                        <p className="text-black">{car && car.mortgage && car.mortgage}000 VND (tiền mặt/chuyển khoản cho chủ xe khi nhận xe) hoặc Xe máy (kèm cà vẹt gốc) giá trị {car && car.mortgage && car.mortgage}000 VND</p>
+                                        <p className="text-black">{formatMoney(car && car.mortgage && car.mortgage * 1000)} (tiền mặt/chuyển khoản cho chủ xe khi nhận xe) hoặc Xe máy (kèm cà vẹt gốc) giá trị {formatMoney(car && car.mortgage && car.mortgage * 1000)}</p>
                                 }
                             </div>
 
@@ -313,15 +389,15 @@ function DetailCar({handleOpenModalViewImg}) {
                     </div>
                     <div className="w-1/3">
                         <div className=" bg-[#f7fbff] rounded-lg flex flex-col p-4 gap-3 mb-3">
-                            <h1 className="font-bold text-3xl">{car && car.pricePerDay && car.pricePerDay}K /ngày</h1>
-                            <div className="flex flex-row w-full justify-between">
-                                <div className="rounded-md border bg-white p-2 px-5">
+                            <h1 className="font-black text-3xl">{formatMoney(car && car.pricePerDay && car.pricePerDay * 1000)} /ngày</h1>
+                            <div className="flex flex-row w-full cursor-pointer" onClick={() => handleOpenDateModal()}>
+                                <div className="rounded-tl-md rounded-bl-md border bg-white p-2 w-1/2">
                                     <p>Nhận xe</p>
-                                    <p className="font-semibold">17/6/2024</p>
+                                    <p className="font-semibold">{beginDate}</p>
                                 </div>
-                                <div className="rounded-md border bg-white p-2 px-5">
+                                <div className="rounded-tr-md rounded-br-md border bg-white p-2 w-1/2">
                                     <p className="font-normal text-gray-500">Trả xe</p>
-                                    <p className="font-semibold">20/6/2024</p>
+                                    <p className="font-semibold">{endDate}</p>
                                 </div>
                             </div>
                             <div className="w-full rounded-md border bg-white p-2 px-2">
@@ -339,11 +415,11 @@ function DetailCar({handleOpenModalViewImg}) {
                             <div>
                                 <div className="flex justify-between">
                                     <p>Đơn giá thuê</p>
-                                    <span className="font-semibold">1 033 200đ/ ngày</span>
+                                    <span className="font-semibold">{formatMoney(car && car.pricePerDay && car.pricePerDay * 1000)} / ngày</span>
                                 </div>
                                 <div className="flex justify-between">
                                     <p>Bảo hiểm thuê xe</p>
-                                    <span className="font-semibold">90 000đ/ ngày</span>
+                                    <span className="font-semibold">{formatMoney(90000)}/ ngày</span>
                                 </div>
                             </div>
 
@@ -352,7 +428,7 @@ function DetailCar({handleOpenModalViewImg}) {
                             <div>
                                 <div className="flex justify-between">
                                     <p>Tổng cộng</p>
-                                    <span className="font-semibold">1 123 200đ x 2 ngày</span>
+                                    <span className="font-semibold">{formatMoney(car && car.pricePerDay && car.pricePerDay * 1000 + 90000)} x {dayRent} ngày</span>
                                 </div>
                             </div>
 
@@ -364,14 +440,14 @@ function DetailCar({handleOpenModalViewImg}) {
 
                             <div className="flex justify-between">
                                 <p>Mã giảm giá</p>
-                                <span className="font-semibold">-123 200đ</span>
+                                <span className="font-semibold">-123 200</span>
                             </div>
 
 
                             <div className="my-2 border-2"></div>
                             <div className="flex justify-between font-bold">
                                 <p>Thành tiền</p>
-                                <span className="font-semibold">2 126 400đ</span>
+                                <span className="font-semibold">{formatMoney((car && car.pricePerDay && car.pricePerDay * 1000 + 90000) * dayRent)}</span>
                             </div>
                             <button className="p-3 bg-main text-white font-bold text-lg rounded-md uppercase">Chọn thuê</button>
                         </div>

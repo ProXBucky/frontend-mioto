@@ -1,4 +1,10 @@
+import { useSelector } from "react-redux"
+import { beginDateSelector, endDateSelector, locationSelector } from "../../redux/selector"
+
 function Banner({ handleOpenDateModal, handleOpenLocationModal }) {
+    let location = useSelector(locationSelector)
+    let beginDate = useSelector(beginDateSelector)
+    let endDate = useSelector(endDateSelector)
     return (
         <div>
             <div className="h-[650px] px-32 ">
@@ -29,7 +35,7 @@ function Banner({ handleOpenDateModal, handleOpenLocationModal }) {
                                                 </h2>
                                             </div>
                                             <div className="pl-10 pr-5 flex flex-row items-center justify-between cursor-pointer" onClick={() => handleOpenLocationModal()}>
-                                                <p className="text-xl font-semibold">Tân Sơn Nhất</p>
+                                                <p className="text-xl font-semibold">{location}</p>
                                                 <i className="fa-solid fa-chevron-down"></i>
                                             </div>
                                         </div>
@@ -42,7 +48,7 @@ function Banner({ handleOpenDateModal, handleOpenLocationModal }) {
                                                     </h2>
                                                 </div>
                                                 <div className="pl-10 pr-5 flex flex-row items-center justify-between w-full cursor-pointer" onClick={() => handleOpenDateModal()}>
-                                                    <p className="text-xl font-semibold">15/04/2024 - 16/04/2024</p>
+                                                    <p className="text-xl font-semibold">{beginDate} đến {endDate}</p>
                                                     <i className="fa-solid fa-chevron-down"></i>
                                                 </div>
                                             </div>

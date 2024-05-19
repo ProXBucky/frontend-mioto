@@ -49,7 +49,6 @@ function CarList({ isHiddenTitle, carArray }) {
                                     <label>
                                         <p><span className="text-main font-black">{car.pricePerDay && car.pricePerDay}K</span> / ngày</p>
                                     </label>
-
                                 </div>
                             </div>
                         )

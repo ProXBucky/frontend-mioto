@@ -48,25 +48,29 @@ function ModalEditComponent({ showModalEdit, handleCloseEdit }) {
         handleCloseEdit();
     };
 
-
-    useEffect(() => {
-        const fetchInfoData = async () => {
-            if (userId) {
-                let resData = await getInformationUserById(userId, token);
-                if (resData) {
-                    setFormData({
-                        fullname: resData.fullname,
-                        phone: resData.phone,
-                        email: resData.email,
-                        dob: resData.dob,
-                        gender: resData.gender
-                    })
-                    // setSelectedFile(resData.avatarImage)
-                }
+    const fetchInfoData = async () => {
+        if (userId) {
+            let resData = await getInformationUserById(userId, token);
+            if (resData) {
+                setFormData({
+                    fullname: resData.fullname,
+                    phone: resData.phone,
+                    email: resData.email,
+                    dob: resData.dob,
+                    gender: resData.gender
+                })
+                // setSelectedFile(resData.avatarImage)
             }
         }
+    }
+
+    useEffect(() => {
         fetchInfoData()
     }, [])
+
+    useEffect(() => {
+        fetchInfoData()
+    }, [userId, showModalEdit])
 
     return (
         <Modal
