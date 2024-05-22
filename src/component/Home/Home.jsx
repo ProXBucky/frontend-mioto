@@ -12,27 +12,12 @@ import Service from './Service'
 import Blog from './Blog'
 import ModalPromotionComponent from '../ModalPromotionComponent';
 import { getListCarByCity } from '../../api/carAPI';
+import { useSelector } from 'react-redux';
+import { locationCodeSelector } from '../../redux/selector';
 
-// import { changeTab, homePageUnloaded } from '../../reducers/articleList';
-// import Banner from './Banner';
-// import MainView from './MainView';
-// import TagsSidebar from '../../features/tags/TagsSidebar';
-// import { selectIsAuthenticated } from '../../features/auth/authSlice';
 
 function Home({ handleOpenDateModal, handleOpenLocationModal }) {
-    //   const dispatch = useDispatch();
-    //   const isAuthenticated = useSelector(selectIsAuthenticated);
-
-    //   useEffect(() => {
-    //     const defaultTab = isAuthenticated ? 'feed' : 'all';
-    //     const fetchArticles = dispatch(changeTab(defaultTab));
-
-    //     return () => {
-    //       dispatch(homePageUnloaded());
-    //       fetchArticles.abort();
-    //     };
-    //   }, []);
-
+    const cityCode = useSelector(locationCodeSelector)
     const [showModal, setShowModal] = useState(false);
     const [imageURL, setImageUrl] = useState('');
     const [title, setTitle] = useState('');
@@ -50,22 +35,28 @@ function Home({ handleOpenDateModal, handleOpenLocationModal }) {
         setContent(cont)
     };
 
-    useEffect(() => {
-        const fetchListCarByCity = async () => {
-            let res = await getListCarByCity('haNoi')
-            if (res && res.length > 0) {
-                setCarArray(res)
-            }
+    const fetchListCarByCity = async () => {
+        let res = await getListCarByCity(cityCode)
+        if (res && res.length > 0) {
+            setCarArray(res)
+        } else {
+            setCarArray([])
         }
-        fetchListCarByCity()
+    }
 
+    useEffect(() => {
+        fetchListCarByCity()
     }, [])
+
+    useEffect(() => {
+        fetchListCarByCity()
+    }, [cityCode])
 
 
     return (
         <>
             <LazyLoad height={200}>
-                <Banner handleOpenDateModal={handleOpenDateModal} handleOpenLocationModal={handleOpenLocationModal} />
+                <Banner city="common" handleOpenDateModal={handleOpenDateModal} handleOpenLocationModal={handleOpenLocationModal} />
             </LazyLoad>
             <LazyLoad height={200}>
                 <Promotion handleOpenModal={handleOpenModal} />

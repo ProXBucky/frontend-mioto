@@ -1,29 +1,65 @@
 import { useSelector } from "react-redux"
 import { beginDateSelector, endDateSelector, locationSelector } from "../../redux/selector"
 
-function Banner({ handleOpenDateModal, handleOpenLocationModal }) {
+function Banner({ city, cityName, handleOpenDateModal, handleOpenLocationModal }) {
     let location = useSelector(locationSelector)
     let beginDate = useSelector(beginDateSelector)
     let endDate = useSelector(endDateSelector)
+
+
+    const cityBackgrounds = {
+        default: '/backBanner.png',
+        haNoi: '/HaNoi_back.jpg',
+        hoChiMinh: '/HoChiMinh_back.jpg',
+        binhDuong: '/BinhDuong_back.jpg',
+        lamDong: '/DaLat_back.jpg',
+        haiPhong: '/HaiPhong_back.jpg',
+        khanhHoa: '/NhaTrang_back.jpg',
+        kienGiang: '/PhuQuoc_back.jpg',
+        daNang: '/DaNang_back.jpg'
+    };
+    const backgroundImage = cityBackgrounds[cityName] || cityBackgrounds['default'];
+
     return (
         <div>
             <div className="h-[650px] px-32 ">
-                <div className="relative w-full h-[600px] rounded-2xl" style={{ "backgroundImage": `url("/backBanner.png")` }}>
+                <div className="relative w-full h-[600px] rounded-2xl" style={{ backgroundImage: `url(${backgroundImage})`, backgroundSize: "cover" }}>
                     <div className="w-full h-[500px] flex flex-col pt-32">
-                        <div className="w-full text-center px-[350px] py-5">
-                            <h1 className="font-bold text-white text-6xl">Mioto - Cùng Bạn Đến Mọi Hành Trình</h1>
+                        <div className="w-full text-center py-5">
+                            {
+                                city === "common" ?
+                                    <>
+                                        <h1 className="font-bold text-white text-6xl">Mioto - Cùng Bạn</h1>
+                                        <h1 className="font-bold text-white text-6xl mt-3">Đến Mọi Hành Trình</h1>
+                                    </>
+                                    :
+                                    <>
+                                        <h1 className="font-bold text-white text-6xl">Thuê xe tự lái tại</h1>
+                                        <h1 className="font-bold text-white text-6xl mt-3"> {location}</h1>
+                                    </>
+                            }
                         </div>
-                        <div className="border-t-[.5px] border-white w-1/5 mx-auto py-3"></div>
-                        <div className="w-full text-center">
-                            <p className="font-semibold text-white text-xl">Trải nghiệm sự khác biệt từ <label className="text-main">hơn 8000</label> xe gia đình đời mới khắp Việt Nam</p>
-                        </div>
-                        <div className="absolute bottom-[-50px] right-[17%] w-2/3 ">
-                            <div className="h-14 px-72">
-                                <div className="rounded-tr-2xl rounded-tl-2xl w-full h-full bg-main flex justify-center items-center">
-                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 8C13.6569 8 15 6.65685 15 5C15 3.34315 13.6569 2 12 2C10.3431 2 9 3.34315 9 5C9 6.65685 10.3431 8 12 8Z" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path><path d="M16.5 19.1538H18.1283C18.9357 19.1538 19.6639 18.6684 19.9744 17.923L20.691 16.2031C20.8893 15.7272 20.8961 15.1931 20.7101 14.7123L18.9946 10.2783C18.6965 9.50789 17.9554 9 17.1293 9H6.87067C6.04458 9 5.30349 9.50789 5.00541 10.2783L3.28991 14.7122C3.10386 15.1931 3.11071 15.7272 3.30903 16.2032L4.0257 17.9231C4.33625 18.6684 5.06446 19.1538 5.87184 19.1538H7.5" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path><path d="M7.5 18.7857L12 16.5M12 16.5L16.5 18.7857M12 16.5V22" stroke="#fff" strokeWidth="1.5" strokeLinecap="round"></path><circle cx="12" cy="17" r="5" stroke="#fff" strokeWidth="1.5"></circle><circle cx="12" cy="17" r="1" stroke="#fff" strokeWidth="2"></circle></svg>
-                                    <p className="text-white font-semibold text-lg">Xe tự lái</p>
+                        {
+                            city === "common" &&
+                            <>
+                                <div className="border-t-[.5px] border-white w-1/5 mx-auto py-3"></div>
+                                <div className="w-full text-center">
+                                    <p className="font-semibold text-white text-xl">Trải nghiệm sự khác biệt từ <label className="text-main">hơn 8000</label> xe gia đình đời mới khắp Việt Nam</p>
                                 </div>
-                            </div>
+                            </>
+
+                        }
+                        <div className="absolute bottom-[-50px] right-[17%] w-2/3 ">
+                            {
+                                city === "common" &&
+                                <div className="h-14 px-72">
+                                    <div className="rounded-tr-2xl rounded-tl-2xl w-full h-full bg-main flex justify-center items-center">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 8C13.6569 8 15 6.65685 15 5C15 3.34315 13.6569 2 12 2C10.3431 2 9 3.34315 9 5C9 6.65685 10.3431 8 12 8Z" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path><path d="M16.5 19.1538H18.1283C18.9357 19.1538 19.6639 18.6684 19.9744 17.923L20.691 16.2031C20.8893 15.7272 20.8961 15.1931 20.7101 14.7123L18.9946 10.2783C18.6965 9.50789 17.9554 9 17.1293 9H6.87067C6.04458 9 5.30349 9.50789 5.00541 10.2783L3.28991 14.7122C3.10386 15.1931 3.11071 15.7272 3.30903 16.2032L4.0257 17.9231C4.33625 18.6684 5.06446 19.1538 5.87184 19.1538H7.5" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path><path d="M7.5 18.7857L12 16.5M12 16.5L16.5 18.7857M12 16.5V22" stroke="#fff" strokeWidth="1.5" strokeLinecap="round"></path><circle cx="12" cy="17" r="5" stroke="#fff" strokeWidth="1.5"></circle><circle cx="12" cy="17" r="1" stroke="#fff" strokeWidth="2"></circle></svg>
+                                        <p className="text-white font-semibold text-lg">Xe tự lái</p>
+                                    </div>
+                                </div>
+
+                            }
                             <div className="h-32">
                                 <div className="bg-white rounded-2xl w-full h-full shadow-xl p-6">
                                     <div className="h-20 flex flex-row">

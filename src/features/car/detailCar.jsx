@@ -1,17 +1,21 @@
 import { useEffect, useState } from "react"
 import { getDetailCar } from "../../api/carAPI";
 import { useParams } from "react-router-dom";
-import ModalViewAllImg from "../../component/ModalViewAllImg";
 import { useSelector } from "react-redux";
 import { beginDateSelector, endDateSelector, userIdSelector } from "../../redux/selector";
 import { calculateDays } from "../../utils/calculateDays"
 import { formatMoney } from "../../utils/formatMoney";
 import { toast } from "react-toastify";
-import { dislikeCar, likeCar } from "../../api/userAPI";
-import { checkLikeCar } from "../../api/appAPI";
+import { dislikeCar, likeCar, postReviewCar, reportCar } from "../../api/userAPI";
+import { checkLikeCar, getAllReviewOfCar, getReviewScore } from "../../api/appAPI";
+import ModalReviewCar from "./ModalReviewCar";
+import ModalViewAllImg from "./ModalViewAllImg";
+import Rating from "react-rating";
+import { format } from "date-fns";
+import ModalReportCar from "./ModalReportCar";
 
 
-function DetailCar({ handleOpenModalViewImg, handleOpenDateModal, handleOpenLoginModal }) {
+function DetailCar({ handleOpenDateModal, handleOpenLoginModal }) {
     let userId = useSelector(userIdSelector)
     let beginDate = useSelector(beginDateSelector)
     let endDate = useSelector(endDateSelector)
@@ -19,6 +23,24 @@ function DetailCar({ handleOpenModalViewImg, handleOpenDateModal, handleOpenLogi
     const [car, setCar] = useState(null)
     const [liked, setLiked] = useState(false)
     const [carImgs, setCarImgs] = useState([])
+    const [reviewScore, setReviewScore] = useState({
+        score: 0,
+        count: 0
+    })
+    const [allImgCar, setAllImgCar] = useState([]);
+    const [allReview, setAllReview] = useState([]);
+
+    const [showModalViewImg, setShowModalViewImg] = useState(false);
+
+    const handleCloseModalViewImg = () => {
+        setShowModalViewImg(false);
+    };
+
+    const handleOpenModalViewImg = (imgs) => {
+        setShowModalViewImg(true);
+        setAllImgCar(imgs)
+    };
+
     const { carId } = useParams()
     const dayRent = calculateDays(beginDate, endDate)
 
@@ -63,43 +85,181 @@ function DetailCar({ handleOpenModalViewImg, handleOpenDateModal, handleOpenLogi
             toast.error('Lỗi hệ thống')
         }
     }
+    const [showModalReview, setShowModalReview] = useState(false)
+
+    const handleCloseModalReview = () => {
+        setShowModalReview(false);
+    };
+
+    const handleOpenModalReview = () => {
+        setShowModalReview(true);
+    };
+
+    const [rating, setRating] = useState(0);
+    const [text, setText] = useState('');
+
+    const handleRatingChange = (value) => {
+        setRating(value);
+    };
+
+    const handleChange = (event) => {
+        setText(event.target.value);
+    };
+
+    const [showModalReport, setShowModalReport] = useState(false)
+
+    const handleCloseModalReport = () => {
+        setShowModalReport(false);
+    };
+
+    const handleOpenModalReport = () => {
+        if (!userId) {
+            handleOpenLoginModal() // Login truoc khi like xe
+        }
+        else {
+            setShowModalReport(true);
+        }
+    };
+
+    const [reason, setReason] = useState('');
+
+    const handleChangeReason = (event) => {
+        setReason(event.target.value);
+    };
+
+    const handleReviewCar = async () => {
+        try {
+            if (userId && carId) {
+                if (car && car.location) {
+                    let res = await postReviewCar({
+                        userId: userId,
+                        carId: parseInt(carId),
+                        content: text,
+                        location: car.location,
+                        reviewScore: rating
+                    })
+                    if (res) {
+                        setRating(0)
+                        setText('')
+                        handleCloseModalReview()
+                        fetchAllReviewOfCar()
+                        fetchReviewScore()
+                    }
+                }
+            }
+        } catch (err) {
+            toast.error('Lỗi hệ thống')
+        }
+    }
 
 
+    const handleReportCar = async () => {
+        if (!userId) {
+            handleOpenLoginModal() // Login truoc khi like xe
+        }
+        else {
+            try {
+                if (userId && carId) {
+                    let res = await reportCar({
+                        userId: userId,
+                        carId: parseInt(carId),
+                        reason: reason
+                    })
+                    if (res) {
+                        setReason('')
+                        handleCloseModalReport()
+                        toast.success("Bạn đã báo cáo xe này thành công")
+                    }
+                }
+            } catch (err) {
+                toast.error('Lỗi hệ thống')
+            }
+        }
+    }
+
+    const fetchCarData = async () => {
+        const res = await getDetailCar(carId);
+        if (res) {
+            setCar(res)
+            const imagesFromApi = [];
+            res.images.forEach(image => {
+                imagesFromApi.push({
+                    original: image.imageLink,
+                    thumbnail: image.imageLink,
+                    description: `Ảnh ${image.imageId}`
+                });
+            });
+            setCarImgs(imagesFromApi)
+        }
+    }
+
+    const chkLikeCar = async () => {
+        const res = await checkLikeCar(userId, carId);
+        if (res) {
+            setLiked(true)
+        } else {
+            setLiked(false)
+        }
+    }
+
+    const fetchAllReviewOfCar = async () => {
+        const res = await getAllReviewOfCar(carId);
+        if (res && res.length > 0) {
+            setAllReview(res)
+        } else {
+            setAllReview([])
+        }
+    }
+
+    const fetchReviewScore = async () => {
+        const res = await getReviewScore(carId)
+        if (res) {
+            setReviewScore({
+                score: res.totalScoreReview,
+                count: res.reviewCount
+            })
+        } else {
+            setReviewScore({
+                score: 0,
+                count: 0
+            })
+        }
+    }
 
     useEffect(() => {
-        const fetchCarData = async () => {
-            const res = await getDetailCar(carId);
-            if (res) {
-                setCar(res)
-                const imagesFromApi = [];
-                res.images.forEach(image => {
-                    imagesFromApi.push({
-                        original: image.imageLink,
-                        thumbnail: image.imageLink,
-                        description: `Ảnh ${image.imageId}`
-                    });
-                });
-                setCarImgs(imagesFromApi)
-            }
-        }
-
-        const chkLikeCar = async () => {
-            const res = await checkLikeCar(userId, carId);
-            if (res) {
-                setLiked(true)
-            }
-        }
 
         fetchCarData()
 
         if (userId && carId) {
             chkLikeCar()
         }
+
+        if (carId) {
+            fetchAllReviewOfCar()
+            fetchReviewScore()
+        }
     }, [])
 
     return (
         <div className="relative">
-            <ModalViewAllImg />
+            <ModalReviewCar showModalReview={showModalReview}
+                handleCloseModalReview={handleCloseModalReview}
+                rating={rating} text={text}
+                handleRatingChange={handleRatingChange} handleChange={handleChange}
+                handleReviewCar={handleReviewCar}
+            />
+            <ModalReportCar
+                showModalReport={showModalReport}
+                handleCloseModalReport={handleCloseModalReport}
+                reason={reason}
+                handleChangeReason={handleChangeReason}
+                handleReportCar={handleReportCar}
+            />
+            <ModalViewAllImg
+                showModalViewImg={showModalViewImg}
+                handleCloseModalViewImg={handleCloseModalViewImg}
+                allImgCar={allImgCar}
+            />
             <div className="px-32 pb-20 flex flex-col gap-5">
                 <div className="flex flex-row h-[600px] relative">
                     <div className="w-[calc(68%)] pr-6">
@@ -352,7 +512,7 @@ function DetailCar({ handleOpenModalViewImg, handleOpenDateModal, handleOpenLogi
                             <h3 className="font-semibold text-xl">Chủ xe</h3>
                             <div className="flex justify-between mt-4">
                                 <div className="flex flex-row gap-3 items-center">
-                                    <img className="h-20 rounded-full" src={car && car.owners && car.owners.user && car.owners.user.avatarImage} />
+                                    <img className="h-20 rounded-full border" src={car && car.owners && car.owners.user ? car.owners.user.avatarImage : "/avaMale.png"} />
                                     <div>
                                         <p className="font-bold text-xl">{car && car.owners && car.owners.user && car.owners.user.fullname}</p>
                                         <div className="flex flex-row gap-1 font-semibold text-sm">
@@ -386,6 +546,60 @@ function DetailCar({ handleOpenModalViewImg, handleOpenDateModal, handleOpenLogi
                             </div>
                         </div>
 
+                        {
+                            userId &&
+                            <div className="flex justify-center mt-3">
+                                <button className="rounded-lg py-3 px-5 text-white font-bold bg-main" onClick={handleOpenModalReview}>Đánh giá</button>
+                            </div>
+                        }
+                        <div className="flex flex-row gap-1 text-lg">
+                            <label className="flex items-center gap-1 font-black">
+                                <svg className="star-rating" width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14.6667 7.23331C14.7333 6.89998 14.4667 6.49998 14.1333 6.49998L10.3333 5.96665L8.59999 2.49998C8.53333 2.36665 8.46666 2.29998 8.33333 2.23331C7.99999 2.03331 7.59999 2.16665 7.39999 2.49998L5.73333 5.96665L1.93333 6.49998C1.73333 6.49998 1.59999 6.56665 1.53333 6.69998C1.26666 6.96665 1.26666 7.36665 1.53333 7.63331L4.26666 10.3L3.59999 14.1C3.59999 14.2333 3.59999 14.3666 3.66666 14.5C3.86666 14.8333 4.26666 14.9666 4.59999 14.7666L7.99999 12.9666L11.4 14.7666C11.4667 14.8333 11.6 14.8333 11.7333 14.8333C11.8 14.8333 11.8 14.8333 11.8667 14.8333C12.2 14.7666 12.4667 14.4333 12.4 14.0333L11.7333 10.2333L14.4667 7.56665C14.6 7.49998 14.6667 7.36665 14.6667 7.23331Z" fill="#FFC634"></path></svg>
+                                <span>{reviewScore && reviewScore.score}</span>
+                            </label>
+                            <span className="px-1">•</span>
+                            <label className="flex items-center gap-1">
+                                <span>{reviewScore && reviewScore.count} đánh giá</span>
+                            </label>
+                        </div>
+
+                        <div className="flex flex-col gap-3 mt-3">
+                            {
+                                allReview && allReview.length > 0 &&
+                                allReview.map((item, index) => {
+                                    return (
+                                        <div className="rounded-lg border border-gray-500 p-4 flex justify-between" key={index}>
+                                            <div className="w-5/6">
+                                                <div className="flex flex-row gap-4">
+                                                    <img src={item.user && item.user.avatarImage ? item.user.avatarImage : "/avaMale.png"} className="rounded-full h-20 border" />
+                                                    <div className="flex flex-col justify-center gap-2">
+                                                        <h2 className="text-xl font-semibold">{item.user && item.user.fullname}</h2>
+                                                        <div>
+                                                            <Rating
+                                                                initialRating={item.reviewScore && item.reviewScore}
+                                                                onChange={handleRatingChange}
+                                                                fractions={2}
+                                                                emptySymbol={<i className="fas fa-star" style={{ color: '#dcdcdc', fontSize: '16px' }}></i>}
+                                                                fullSymbol={<i className="fas fa-star" style={{ color: '#ffd700', fontSize: '16px' }}></i>}
+                                                                readonly={true}
+                                                                direction="ltr"
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="mt-3 text-gray-500">
+                                                    {item.content && item.content}
+                                                </div>
+                                            </div>
+                                            <div className="w-1/6 flex items-center justify-end text-gray-500 text-md">
+                                                <span>{format(item.reviewDate && item.reviewDate, 'dd/MM')}</span>
+                                            </div>
+
+                                        </div>
+                                    )
+                                })
+                            }
+                        </div>
                     </div>
                     <div className="w-1/3">
                         <div className=" bg-[#f7fbff] rounded-lg flex flex-col p-4 gap-3 mb-3">
@@ -452,7 +666,7 @@ function DetailCar({ handleOpenModalViewImg, handleOpenDateModal, handleOpenLogi
                             <button className="p-3 bg-main text-white font-bold text-lg rounded-md uppercase">Chọn thuê</button>
                         </div>
 
-                        <p className="text-center text-lg font-semibold hover:text-main cursor-pointer"><i className="fa-regular fa-flag mr-3"></i>Báo cáo xe này</p>
+                        <p className="text-center text-lg font-semibold hover:text-main cursor-pointer" onClick={handleOpenModalReport}><i className="fa-regular fa-flag mr-3"></i>Báo cáo xe này</p>
                     </div>
 
                 </div>

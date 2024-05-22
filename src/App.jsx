@@ -14,6 +14,8 @@ import Home from './component/Home/Home';
 import Header from './component/Header';
 import Footer from './component/Footer';
 import Cookies from 'js-cookie';
+import ScrollToTop from './component/ScrollToTop';
+
 const AccountInformation = lazy(() =>
   import('./component/AccountInformation/AccountInformation')
 );
@@ -59,18 +61,16 @@ const RegisterCar = lazy(() =>
 const RegisterSelfDrive = lazy(() =>
   import('./component/AccountInformation/DetailInformation/RegisterSelfDrive')
 );
-
-
-
-// import { appLoad, clearRedirect } from '../reducers/common';
+const CarByCity = lazy(() =>
+  import('./component/CarByCity/CarByCity')
+);
 
 import { createNewUser } from './api/userAPI';
 import { loginUser } from './api/authAPI';
 import { setAvatarImage, setFullname, setToken, setUserId } from './redux/Slice/CookieSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { tokenSelector } from './redux/selector';
-import ModalViewAllImg from './component/ModalViewAllImg';
-import ScrollToTop from './component/ScrollToTop';
+
 
 function App() {
   const dispatch = useDispatch();
@@ -83,7 +83,7 @@ function App() {
   const [showModalForgetPassword, setShowModalForgetPassword] = useState(false);
   const [showModalEdit, setShowModalEdit] = useState(false);
   const [showModalAddress, setShowModalAddress] = useState(false);
-  const [showModalViewImg, setShowModalViewImg] = useState(false);
+
 
   const handleCloseRegisterModal = () => {
     setShowRegisterModal(false);
@@ -145,18 +145,6 @@ function App() {
     setShowModalAddress(true);
   };
 
-  const [allImgCar, setAllImgCar] = useState([]);
-
-  const handleCloseModalViewImg = () => {
-    setShowModalViewImg(false);
-  };
-
-  const handleOpenModalViewImg = (imgs) => {
-    setShowModalViewImg(true);
-    setAllImgCar(imgs)
-  };
-
-
 
   const handleRegisterSubmit = async (formData) => {
     try {
@@ -204,7 +192,7 @@ function App() {
       else {
         toast.error('Đã xảy ra lỗi trong quá trình đăng ký. Vui lòng thử lại sau.');
       }
-      console.error('Error registering user:', error);
+      console.error('Lỗi:', error);
     }
   };
 
@@ -231,14 +219,14 @@ function App() {
             </Route>
             <Route path="/car-register" element={<RegisterCar />} />
             <Route path="/register-mode/selfdrive" element={<RegisterSelfDrive type="create" />} />
-            <Route path="/car/:carId" element={<DetailCar handleOpenModalViewImg={handleOpenModalViewImg} handleOpenDateModal={handleOpenDateModal} handleOpenLoginModal={handleOpenLoginModal} />} />
+            <Route path="/car/:carId" element={<DetailCar handleOpenDateModal={handleOpenDateModal} handleOpenLoginModal={handleOpenLoginModal} />} />
             <Route path="/find/:city" element={<CarMenu handleOpenDateModal={handleOpenDateModal} handleOpenLocationModal={handleOpenLocationModal} />} />
+            <Route path="/city/:city" element={<CarByCity handleOpenDateModal={handleOpenDateModal} handleOpenLocationModal={handleOpenLocationModal} />} />
             <Route path="*" element={< PageNotFound />} />
           </Routes>
         </Suspense>
         <Footer />
 
-        <ModalViewAllImg showModalViewImg={showModalViewImg} handleCloseModalViewImg={handleCloseModalViewImg} allImgCar={allImgCar} />
         <ModalComponent
           showModal={showRegisterModal}
           handleClose={handleCloseRegisterModal}
@@ -274,17 +262,8 @@ function App() {
           handleCloseModalAddress={handleCloseModalAddress}
         />
         <ToastContainer
-          position="top-center"
-          autoClose={5000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-          theme="light"
-          transition:Bounce
+          position="top-center" autoClose={5000} hideProgressBar={false} newestOnTop={false}
+          closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover theme="light" transition:Bounce
         />
 
       </>

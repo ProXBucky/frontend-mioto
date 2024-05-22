@@ -144,8 +144,28 @@ const dislikeCar = async (userId, carId) => {
     }
 }
 
+const postReviewCar = async (body) => {
+    try {
+        const response = await axios.post(`${API_URL}/api/review`, body)
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        throw error;
+    }
+}
+
+const reportCar = async (body) => {
+    try {
+        const response = await axios.post(`${API_URL}/api/report`, body)
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        throw error;
+    }
+}
+
 
 export {
     getInformationUserById, changePasswordUserById, editInformationUserById, getInformationLicenseById, postInformationLicenseById,
-    postAddress, getAllAddressByUserId, deleteAddress, createNewUser, likeCar, dislikeCar
+    postAddress, getAllAddressByUserId, deleteAddress, createNewUser, likeCar, dislikeCar, postReviewCar, reportCar
 }

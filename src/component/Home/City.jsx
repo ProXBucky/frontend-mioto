@@ -1,6 +1,8 @@
 import Slider from 'react-slick';
-import DatePicker from '../DatePicker';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { setLocation, setLocationCode } from '../../redux/Slice/SearchSlice';
+import { convertCityName } from '../../utils/convertCityName';
 
 const SamplePrevArrow = (props) => {
     const { style, onClick } = props;
@@ -32,60 +34,71 @@ const SampleNextArrow = (props) => {
 
 function City() {
     const navigate = useNavigate()
+    const dispatch = useDispatch()
     const images = [
         {
             link: '/city8.jpg',
             name: 'TP. Hồ Chí Minh',
             sumCar: '3200+',
-            location: 'hoChiMinh'
+            location: 'hoChiMinh',
+            locationName: 'Hồ Chí Minh',
         },
         {
             link: '/city7.jpg',
             name: 'Hà Nội',
             sumCar: '1400+',
-            location: 'haNoi'
+            location: 'haNoi',
+            locationName: 'Hà Nội',
         },
         {
             link: '/city6.jpg',
             name: 'Đà Nẵng',
             sumCar: '320+',
-            location: 'daNang'
+            location: 'daNang',
+            locationName: 'Đà Nẵng'
         },
         {
             link: '/city5.jpg',
             name: 'Bình Dương',
             sumCar: '330+',
-            location: 'binhDuong'
+            location: 'binhDuong',
+            locationName: 'Bình Dương'
         },
         {
             link: '/city4.jpg',
             name: 'Đà Lạt',
             sumCar: '160+',
-            location: 'daLat'
+            location: 'daLat',
+            locationName: 'Lâm Đồng'
         },
         {
             link: '/city3.jpg',
             name: 'Phú Quốc',
             sumCar: '150+',
-            location: 'kienGiang'
+            location: 'kienGiang',
+            locationName: 'Kiên Giang'
         },
         {
             link: '/city2.jpg',
             name: 'Nha Trang',
             sumCar: '130+',
-            location: 'khanhHoa'
+            location: 'khanhHoa',
+            locationName: 'Khánh Hòa',
         },
         {
             link: '/city1.jpg',
             name: 'Hải Phòng',
             sumCar: '70+',
-            location: 'haiPhong'
+            location: 'haiPhong',
+            locationName: 'Hải Phòng'
         },
 
     ];
 
-    const navigateCarByCity = (city) => {
-        navigate(`/find/${city}`)
+    const navigateCarByCity = (item) => {
+        dispatch(setLocation(item.locationName))
+        dispatch(setLocationCode(convertCityName(item.locationName)))
+        navigate(`/city/${item.location}`)
     }
 
     var settings = {
@@ -107,7 +120,7 @@ function City() {
             <Slider {...settings}>
                 {images &&
                     images.map((item, index) => (
-                        <div key={index} className='relative h-[460px] px-2 overflow-hidden cursor-pointer hover:opacity-90 outline-none' onClick={() => navigateCarByCity(item.location)}>
+                        <div key={index} className='relative h-[460px] px-2 overflow-hidden cursor-pointer hover:opacity-90 outline-none' onClick={() => navigateCarByCity(item)}>
                             <img src={item.link} className='rounded-xl h-[460px]' alt={`Image ${index}`} />
                             <div className='text-white absolute h-20 bottom-0 left-6'>
                                 <p className='font-bold text-xl'>{item.name}</p>

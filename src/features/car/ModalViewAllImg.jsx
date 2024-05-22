@@ -4,7 +4,6 @@ import Modal from 'react-bootstrap/Modal';
 
 function ModalViewAllImg({ showModalViewImg, handleCloseModalViewImg, allImgCar }) {
 
-
     return (
         <>
             <Modal
@@ -17,7 +16,6 @@ function ModalViewAllImg({ showModalViewImg, handleCloseModalViewImg, allImgCar 
             >
                 <Modal.Header className='border-none justify-end mt-3'>
                     <i class="fa-solid fa-x fa-2xl cursor-pointer" onClick={() => handleCloseModalViewImg()}></i>
-                    {/* <i className="fa-regular fa-circle-xmark fa-2xl cursor-pointer" ></i> */}
                 </Modal.Header>
                 <ImageGallery showIndex={true} showFullscreenButton={false} showThumbnails={false} items={allImgCar && allImgCar.length > 0 && allImgCar}></ImageGallery>
             </Modal>

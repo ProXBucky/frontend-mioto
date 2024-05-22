@@ -32,5 +32,35 @@ const getAllCarLiked = async (userId) => {
     }
 }
 
+const getAllReviewOfCar = async (carId) => {
+    try {
+        const response = await axios.get(`${API_URL}/api/review/${carId}`)
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        throw error;
+    }
+}
 
-export { getAllCarFeature, checkLikeCar, getAllCarLiked }
+const getAllReviewByCity = async (cityCode) => {
+    try {
+        const response = await axios.get(`${API_URL}/api/review/city/${cityCode}`)
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        throw error;
+    }
+}
+
+const getReviewScore = async (carId) => {
+    try {
+        const response = await axios.get(`${API_URL}/api/review/reviewScore/${carId}`)
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        throw error;
+    }
+}
+
+
+export { getAllCarFeature, checkLikeCar, getAllCarLiked, getAllReviewOfCar, getAllReviewByCity, getReviewScore }
