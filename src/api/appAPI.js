@@ -62,5 +62,15 @@ const getReviewScore = async (carId) => {
     }
 }
 
+const getAllVoucherByUserId = async (userId) => {
+    try {
+        const response = await axios.get(`${API_URL}/api/voucher/${userId}`)
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        throw error;
+    }
+}
 
-export { getAllCarFeature, checkLikeCar, getAllCarLiked, getAllReviewOfCar, getAllReviewByCity, getReviewScore }
+
+export { getAllCarFeature, checkLikeCar, getAllCarLiked, getAllReviewOfCar, getAllReviewByCity, getReviewScore, getAllVoucherByUserId }

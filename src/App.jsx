@@ -1,4 +1,4 @@
-import React, { lazy, Suspense, memo } from 'react';
+import React, { lazy, Suspense, memo, useEffect, useRef } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -69,13 +69,14 @@ import { createNewUser } from './api/userAPI';
 import { loginUser } from './api/authAPI';
 import { setAvatarImage, setFullname, setToken, setUserId } from './redux/Slice/CookieSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import { tokenSelector } from './redux/selector';
+import { appLoadSelector, tokenSelector } from './redux/selector';
+import { setAppLoad } from './redux/Slice/AppSlice';
 
 
 function App() {
   const dispatch = useDispatch();
   const token = useSelector(tokenSelector)
-  const appLoaded = true
+  const appLoad = useSelector(appLoadSelector)
   const [showRegisterModal, setShowRegisterModal] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showDateModal, setShowDateModal] = useState(false);
@@ -83,7 +84,6 @@ function App() {
   const [showModalForgetPassword, setShowModalForgetPassword] = useState(false);
   const [showModalEdit, setShowModalEdit] = useState(false);
   const [showModalAddress, setShowModalAddress] = useState(false);
-
 
   const handleCloseRegisterModal = () => {
     setShowRegisterModal(false);
@@ -180,6 +180,7 @@ function App() {
         dispatch(setFullname(res.fullname))
         dispatch(setAvatarImage(res.avatarImage))
         toast.success('Đăng nhập thành công');
+        dispatch(setAppLoad())
       }
       handleCloseLoginModal();
     } catch (error) {
@@ -196,83 +197,84 @@ function App() {
     }
   };
 
-  if (appLoaded) {
-    return (
-      <>
-        <Header handleOpenRegisterModal={handleOpenRegisterModal} handleOpenLoginModal={handleOpenLoginModal} />
-        <ScrollToTop />
-        <Suspense fallback={<p>Loading...</p>}>
-          <Routes>
-            <Route exact path="/" element={<Home handleOpenDateModal={handleOpenDateModal} handleOpenLocationModal={handleOpenLocationModal} />} />
-            <Route path="/aboutus" element={<About />} />
-            <Route path="/owner/register" element={<CarRegist />} />
-            <Route path="/account/*" element={token ? <AccountInformation /> : <PageNotFound />}>
-              <Route path="myaccount" element={<MyAccount handleOpenEdit={handleOpenEdit} showModalEdit={showModalEdit} />} />
-              <Route path="favorite" element={<FavoriteCar />} />
-              <Route path="mycar" element={<MyCar />} />
-              <Route path="mycar/:carId" element={<RegisterSelfDrive type="view" />} />
-              <Route path="mycar/edit/:carId" element={<RegisterSelfDrive type="edit" />} />
-              <Route path="mytrip" element={<MyTrip />} />
-              <Route path="myvoucher" element={<MyVoucher />} />
-              <Route path="changepassword" element={<ChangePassword />} />
-              <Route path="myaddress" element={<MyAddress handleOpenModalAddress={handleOpenModalAddress} />} />
-            </Route>
-            <Route path="/car-register" element={<RegisterCar />} />
-            <Route path="/register-mode/selfdrive" element={<RegisterSelfDrive type="create" />} />
-            <Route path="/car/:carId" element={<DetailCar handleOpenDateModal={handleOpenDateModal} handleOpenLoginModal={handleOpenLoginModal} />} />
-            <Route path="/find/:city" element={<CarMenu handleOpenDateModal={handleOpenDateModal} handleOpenLocationModal={handleOpenLocationModal} />} />
-            <Route path="/city/:city" element={<CarByCity handleOpenDateModal={handleOpenDateModal} handleOpenLocationModal={handleOpenLocationModal} />} />
-            <Route path="*" element={< PageNotFound />} />
-          </Routes>
-        </Suspense>
-        <Footer />
+  const prevAppLoadRef = useRef(appLoad);
 
-        <ModalComponent
-          showModal={showRegisterModal}
-          handleClose={handleCloseRegisterModal}
-          modalType="register"
-          onSubmit={handleRegisterSubmit}
-        />
-        <ModalComponent
-          showModal={showLoginModal}
-          handleClose={handleCloseLoginModal}
-          modalType="login"
-          onSubmit={handleLoginSubmit}
-          handleOpenModalForgetPassword={handleOpenModalForgetPassword}
-          handleOpenRegisterModal={handleOpenRegisterModal}
-        />
-        <ModalDatePickerComponent
-          showDateModal={showDateModal}
-          handleCloseDateModal={handleCloseDateModal}
-        />
-        <ModalLocationPickComponent
-          showLocationModal={showLocationModal}
-          handleCloseLocationModal={handleCloseLocationModal}
-        />
-        <ModalForgetPassword
-          showModalForgetPassword={showModalForgetPassword}
-          handleCloseModalForgetPassword={handleCloseModalForgetPassword}
-        />
-        <ModalEditComponent
-          showModalEdit={showModalEdit}
-          handleCloseEdit={handleCloseEdit}
-        />
-        <ModalAddAdress
-          showModalAddress={showModalAddress}
-          handleCloseModalAddress={handleCloseModalAddress}
-        />
-        <ToastContainer
-          position="top-center" autoClose={5000} hideProgressBar={false} newestOnTop={false}
-          closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover theme="light" transition:Bounce
-        />
+  useEffect(() => {
+    if (prevAppLoadRef.current !== appLoad) {
+      window.location.reload();
+      prevAppLoadRef.current = appLoad;
+    }
+  }, [appLoad]);
 
-      </>
-    );
-  }
   return (
     <>
-      <Header />
-      <p>Loading...</p>
+      <Header handleOpenRegisterModal={handleOpenRegisterModal} handleOpenLoginModal={handleOpenLoginModal} />
+      <ScrollToTop />
+      <Suspense fallback={<p>Loading...</p>}>
+        <Routes>
+          <Route exact path="/" element={<Home handleOpenDateModal={handleOpenDateModal} handleOpenLocationModal={handleOpenLocationModal} />} />
+          <Route path="/aboutus" element={<About />} />
+          <Route path="/owner/register" element={<CarRegist />} />
+          <Route path="/account/*" element={token ? <AccountInformation /> : <PageNotFound />}>
+            <Route path="myaccount" element={<MyAccount handleOpenEdit={handleOpenEdit} showModalEdit={showModalEdit} />} />
+            <Route path="favorite" element={<FavoriteCar />} />
+            <Route path="mycar" element={<MyCar />} />
+            <Route path="mycar/:carId" element={<RegisterSelfDrive type="view" />} />
+            <Route path="mycar/edit/:carId" element={<RegisterSelfDrive type="edit" />} />
+            <Route path="mytrip" element={<MyTrip />} />
+            <Route path="myvoucher" element={<MyVoucher />} />
+            <Route path="changepassword" element={<ChangePassword />} />
+            <Route path="myaddress" element={<MyAddress handleOpenModalAddress={handleOpenModalAddress} />} />
+          </Route>
+          <Route path="/car-register" element={<RegisterCar />} />
+          <Route path="/register-mode/selfdrive" element={<RegisterSelfDrive type="create" />} />
+          <Route path="/car/:carId" element={<DetailCar handleOpenDateModal={handleOpenDateModal} handleOpenLoginModal={handleOpenLoginModal} />} />
+          <Route path="/find/:city" element={<CarMenu handleOpenDateModal={handleOpenDateModal} handleOpenLocationModal={handleOpenLocationModal} />} />
+          <Route path="/city/:city" element={<CarByCity handleOpenDateModal={handleOpenDateModal} handleOpenLocationModal={handleOpenLocationModal} />} />
+          <Route path="*" element={< PageNotFound />} />
+        </Routes>
+      </Suspense>
+      <Footer />
+
+      <ModalComponent
+        showModal={showRegisterModal}
+        handleClose={handleCloseRegisterModal}
+        modalType="register"
+        onSubmit={handleRegisterSubmit}
+      />
+      <ModalComponent
+        showModal={showLoginModal}
+        handleClose={handleCloseLoginModal}
+        modalType="login"
+        onSubmit={handleLoginSubmit}
+        handleOpenModalForgetPassword={handleOpenModalForgetPassword}
+        handleOpenRegisterModal={handleOpenRegisterModal}
+      />
+      <ModalDatePickerComponent
+        showDateModal={showDateModal}
+        handleCloseDateModal={handleCloseDateModal}
+      />
+      <ModalLocationPickComponent
+        showLocationModal={showLocationModal}
+        handleCloseLocationModal={handleCloseLocationModal}
+      />
+      <ModalForgetPassword
+        showModalForgetPassword={showModalForgetPassword}
+        handleCloseModalForgetPassword={handleCloseModalForgetPassword}
+      />
+      <ModalEditComponent
+        showModalEdit={showModalEdit}
+        handleCloseEdit={handleCloseEdit}
+      />
+      <ModalAddAdress
+        showModalAddress={showModalAddress}
+        handleCloseModalAddress={handleCloseModalAddress}
+      />
+      <ToastContainer
+        position="top-center" autoClose={5000} hideProgressBar={false} newestOnTop={false}
+        closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover theme="light" transition:Bounce
+      />
+
     </>
   );
 }

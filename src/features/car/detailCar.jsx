@@ -7,12 +7,14 @@ import { calculateDays } from "../../utils/calculateDays"
 import { formatMoney } from "../../utils/formatMoney";
 import { toast } from "react-toastify";
 import { dislikeCar, likeCar, postReviewCar, reportCar } from "../../api/userAPI";
-import { checkLikeCar, getAllReviewOfCar, getReviewScore } from "../../api/appAPI";
+import { checkLikeCar, getAllReviewOfCar, getAllVoucherByUserId, getReviewScore } from "../../api/appAPI";
 import ModalReviewCar from "./ModalReviewCar";
 import ModalViewAllImg from "./ModalViewAllImg";
 import Rating from "react-rating";
 import { format } from "date-fns";
 import ModalReportCar from "./ModalReportCar";
+import ModalViewVoucher from "./ModalViewVoucher";
+import ModalViewMap from "./ModalViewMap";
 
 
 function DetailCar({ handleOpenDateModal, handleOpenLoginModal }) {
@@ -31,6 +33,7 @@ function DetailCar({ handleOpenDateModal, handleOpenLoginModal }) {
     const [allReview, setAllReview] = useState([]);
 
     const [showModalViewImg, setShowModalViewImg] = useState(false);
+    const [address, setAddress] = useState('');
 
     const handleCloseModalViewImg = () => {
         setShowModalViewImg(false);
@@ -127,6 +130,69 @@ function DetailCar({ handleOpenDateModal, handleOpenLoginModal }) {
         setReason(event.target.value);
     };
 
+
+    const [allVoucher, setAllVoucher] = useState('');
+
+    const [showModalVoucher, setShowModalVoucher] = useState(false)
+
+    const handleCloseModalVoucher = () => {
+        setShowModalVoucher(false);
+    };
+
+    const handleOpenModalVoucher = () => {
+        if (!userId) {
+            handleOpenLoginModal() // Login truoc khi like xe
+        }
+        else {
+            setShowModalVoucher(true);
+        }
+    }
+
+    const [totalRentNotVoucher, setTotalRentNotVoucher] = useState(0)
+    const [totalRentVoucher, setTotalRentVoucher] = useState(0)
+    const [voucher, setVoucher] = useState({
+        voucherId: 0,
+        voucherCode: "",
+        voucherMoney: 0
+    })
+
+    const handleChooseVoucher = (item) => {
+        let voucherMoney = 0
+        let totalHaveTax = totalRentNotVoucher + totalRentNotVoucher / 10
+        if (item.type === "percent") {
+            voucherMoney = item.discountPercent / 100 * (dayRent * totalHaveTax)
+            setTotalRentVoucher(totalHaveTax * dayRent - voucherMoney)
+        }
+        else {
+            voucherMoney = item.discountPercent * 1000
+            setTotalRentVoucher(totalHaveTax * dayRent - voucherMoney)
+        }
+        setVoucher({
+            voucherId: item.voucherId,
+            voucherCode: item.voucherCode,
+            voucherMoney: voucherMoney
+        })
+        handleCloseModalVoucher()
+    }
+
+    const handleCancelVoucher = () => {
+        setVoucher({
+            voucherId: 0,
+            voucherCode: "",
+            voucherMoney: 0
+        })
+    }
+
+    const [showModalMap, setShowModalMap] = useState(false)
+
+    const handleCloseModalMap = () => {
+        setShowModalMap(false);
+    };
+
+    const handleOpenModalMap = () => {
+        setShowModalMap(true);
+    };
+
     const handleReviewCar = async () => {
         try {
             if (userId && carId) {
@@ -180,13 +246,15 @@ function DetailCar({ handleOpenDateModal, handleOpenLoginModal }) {
     const fetchCarData = async () => {
         const res = await getDetailCar(carId);
         if (res) {
+            setAddress(res.district + " " + res.city)
+            setTotalRentNotVoucher(res.pricePerDay * 1000) // + bao hiem xe
+            setTotalRentVoucher((res.pricePerDay * 1000 + res.pricePerDay * 100) * dayRent)
             setCar(res)
             const imagesFromApi = [];
             res.images.forEach(image => {
                 imagesFromApi.push({
                     original: image.imageLink,
                     thumbnail: image.imageLink,
-                    description: `Ảnh ${image.imageId}`
                 });
             });
             setCarImgs(imagesFromApi)
@@ -226,22 +294,49 @@ function DetailCar({ handleOpenDateModal, handleOpenLoginModal }) {
         }
     }
 
+    const fetchAllVoucherByUserId = async () => {
+        if (userId) {
+            const res = await getAllVoucherByUserId(userId);
+            if (res && res.length > 0) {
+                setAllVoucher(res)
+            } else {
+                setAllVoucher([])
+            }
+        }
+    }
+
+
+
     useEffect(() => {
-
-        fetchCarData()
-
         if (userId && carId) {
             chkLikeCar()
         }
-
         if (carId) {
+            fetchCarData()
             fetchAllReviewOfCar()
             fetchReviewScore()
+            fetchAllVoucherByUserId()
         }
     }, [])
 
+    useEffect(() => {
+        let totalHaveTax = totalRentNotVoucher + totalRentNotVoucher / 10
+        setTotalRentVoucher(totalHaveTax * dayRent - voucher.voucherMoney)
+    }, [dayRent, voucher.voucherId])
+
     return (
         <div className="relative">
+            <ModalViewMap
+                showModalMap={showModalMap}
+                handleCloseModalMap={handleCloseModalMap}
+                locationName={address}
+            />
+            <ModalViewVoucher
+                showModalVoucher={showModalVoucher}
+                handleCloseModalVoucher={handleCloseModalVoucher}
+                allVoucher={allVoucher}
+                handleChooseVoucher={handleChooseVoucher}
+            />
             <ModalReviewCar showModalReview={showModalReview}
                 handleCloseModalReview={handleCloseModalReview}
                 rating={rating} text={text}
@@ -500,7 +595,7 @@ function DetailCar({ handleOpenDateModal, handleOpenLoginModal }) {
                                     <p className="py-2 text-lg"><i className="fa-solid fa-location-dot mr-3"></i>{`${car && car.district && car.district} - ${car && car.city && car.city}`}</p>
                                     <p className="text-sm text-gray-500">Địa chỉ cụ thể sẽ được hiển thị sau khi đặt cọc</p>
                                 </div>
-                                <div className="flex flex-row items-center gap-2 font-bold">
+                                <div className="flex flex-row items-center gap-2 font-bold cursor-pointer" onClick={handleOpenModalMap}>
                                     <i className="fa-regular fa-map"></i>
                                     <p>Xem bản đồ</p>
                                     <i className="fa-solid fa-angle-right"></i>
@@ -552,7 +647,7 @@ function DetailCar({ handleOpenDateModal, handleOpenLoginModal }) {
                                 <button className="rounded-lg py-3 px-5 text-white font-bold bg-main" onClick={handleOpenModalReview}>Đánh giá</button>
                             </div>
                         }
-                        <div className="flex flex-row gap-1 text-lg">
+                        <div className="flex flex-row gap-1 text-lg my-3">
                             <label className="flex items-center gap-1 font-black">
                                 <svg className="star-rating" width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14.6667 7.23331C14.7333 6.89998 14.4667 6.49998 14.1333 6.49998L10.3333 5.96665L8.59999 2.49998C8.53333 2.36665 8.46666 2.29998 8.33333 2.23331C7.99999 2.03331 7.59999 2.16665 7.39999 2.49998L5.73333 5.96665L1.93333 6.49998C1.73333 6.49998 1.59999 6.56665 1.53333 6.69998C1.26666 6.96665 1.26666 7.36665 1.53333 7.63331L4.26666 10.3L3.59999 14.1C3.59999 14.2333 3.59999 14.3666 3.66666 14.5C3.86666 14.8333 4.26666 14.9666 4.59999 14.7666L7.99999 12.9666L11.4 14.7666C11.4667 14.8333 11.6 14.8333 11.7333 14.8333C11.8 14.8333 11.8 14.8333 11.8667 14.8333C12.2 14.7666 12.4667 14.4333 12.4 14.0333L11.7333 10.2333L14.4667 7.56665C14.6 7.49998 14.6667 7.36665 14.6667 7.23331Z" fill="#FFC634"></path></svg>
                                 <span>{reviewScore && reviewScore.score}</span>
@@ -565,39 +660,43 @@ function DetailCar({ handleOpenDateModal, handleOpenLoginModal }) {
 
                         <div className="flex flex-col gap-3 mt-3">
                             {
-                                allReview && allReview.length > 0 &&
-                                allReview.map((item, index) => {
-                                    return (
-                                        <div className="rounded-lg border border-gray-500 p-4 flex justify-between" key={index}>
-                                            <div className="w-5/6">
-                                                <div className="flex flex-row gap-4">
-                                                    <img src={item.user && item.user.avatarImage ? item.user.avatarImage : "/avaMale.png"} className="rounded-full h-20 border" />
-                                                    <div className="flex flex-col justify-center gap-2">
-                                                        <h2 className="text-xl font-semibold">{item.user && item.user.fullname}</h2>
-                                                        <div>
-                                                            <Rating
-                                                                initialRating={item.reviewScore && item.reviewScore}
-                                                                onChange={handleRatingChange}
-                                                                fractions={2}
-                                                                emptySymbol={<i className="fas fa-star" style={{ color: '#dcdcdc', fontSize: '16px' }}></i>}
-                                                                fullSymbol={<i className="fas fa-star" style={{ color: '#ffd700', fontSize: '16px' }}></i>}
-                                                                readonly={true}
-                                                                direction="ltr"
-                                                            />
+                                allReview && allReview.length > 0 ?
+                                    allReview.map((item, index) => {
+                                        return (
+                                            <div className="rounded-lg border border-gray-500 p-4 flex justify-between" key={index}>
+                                                <div className="w-5/6">
+                                                    <div className="flex flex-row gap-4">
+                                                        <img src={item.user && item.user.avatarImage ? item.user.avatarImage : "/avaMale.png"} className="rounded-full h-20 border" />
+                                                        <div className="flex flex-col justify-center gap-2">
+                                                            <h2 className="text-xl font-semibold">{item.user && item.user.fullname}</h2>
+                                                            <div>
+                                                                <Rating
+                                                                    initialRating={item.reviewScore && item.reviewScore}
+                                                                    onChange={handleRatingChange}
+                                                                    fractions={2}
+                                                                    emptySymbol={<i className="fas fa-star" style={{ color: '#dcdcdc', fontSize: '16px' }}></i>}
+                                                                    fullSymbol={<i className="fas fa-star" style={{ color: '#ffd700', fontSize: '16px' }}></i>}
+                                                                    readonly={true}
+                                                                    direction="ltr"
+                                                                />
+                                                            </div>
                                                         </div>
                                                     </div>
+                                                    <div className="mt-3 text-gray-500">
+                                                        {item.content && item.content}
+                                                    </div>
                                                 </div>
-                                                <div className="mt-3 text-gray-500">
-                                                    {item.content && item.content}
+                                                <div className="w-1/6 flex items-center justify-end text-gray-500 text-md">
+                                                    <span>{format(item.reviewDate && item.reviewDate, 'dd/MM')}</span>
                                                 </div>
-                                            </div>
-                                            <div className="w-1/6 flex items-center justify-end text-gray-500 text-md">
-                                                <span>{format(item.reviewDate && item.reviewDate, 'dd/MM')}</span>
-                                            </div>
 
-                                        </div>
-                                    )
-                                })
+                                            </div>
+                                        )
+                                    })
+                                    :
+                                    <div className="flex justify-center">
+                                        <p className="font-semibold text-xl text-gray-500">Chưa có đánh giá</p>
+                                    </div>
                             }
                         </div>
                     </div>
@@ -614,54 +713,59 @@ function DetailCar({ handleOpenDateModal, handleOpenLoginModal }) {
                                     <p className="font-semibold">{endDate}</p>
                                 </div>
                             </div>
-                            <div className="w-full rounded-md border bg-white p-2 px-2">
-                                <div className="">
-                                    <p>Địa điểm giao xe</p>
-                                    <div className="flex justify-between items-center">
-                                        <p className="font-semibold">{`${car && car.district && car.district} - ${car && car.city && car.city}`}</p>
-                                        <i className="fa-solid fa-chevron-down"></i>
-                                    </div>
+                            <div className="w-full rounded-md border bg-white p-3">
+                                <p className="text-sm">Địa điểm giao nhận xe</p>
+                                <div className="flex justify-between items-center mt-2">
+                                    <p className="font-semibold">{`${car && car.district && car.district} - ${car && car.city && car.city}`}</p>
+                                    <i className="fa-solid fa-chevron-down"></i>
                                 </div>
                             </div>
 
-                            <div className="my-2 border-2"></div>
+                            <div className="my-1 border"></div>
 
                             <div>
                                 <div className="flex justify-between">
                                     <p>Đơn giá thuê</p>
-                                    <span className="font-semibold">{formatMoney(car && car.pricePerDay && car.pricePerDay * 1000)} / ngày</span>
+                                    <span className="font-semibold">{formatMoney(totalRentNotVoucher)} / ngày</span>
                                 </div>
                                 <div className="flex justify-between">
                                     <p>Bảo hiểm thuê xe</p>
-                                    <span className="font-semibold">{formatMoney(90000)}/ ngày</span>
+                                    <span className="font-semibold">{formatMoney(totalRentNotVoucher / 10)}/ ngày</span>
                                 </div>
                             </div>
 
-                            <div className="my-2 border-2"></div>
+                            <div className="my-1 border"></div>
 
                             <div>
                                 <div className="flex justify-between">
                                     <p>Tổng cộng</p>
-                                    <span className="font-semibold">{formatMoney(car && car.pricePerDay && car.pricePerDay * 1000 + 90000)} x {dayRent} ngày</span>
+                                    <span className="font-semibold">{formatMoney(totalRentNotVoucher + totalRentNotVoucher / 10)} x {dayRent} ngày</span>
                                 </div>
                             </div>
 
-                            <div className="my-2 border-2"></div>
-                            <div className="w-full flex flex-row">
-                                <input type="text" placeholder="Nhập mã giảm giá" className="p-2 w-2/3 outline-none" />
-                                <button className="p-2 bg-main text-white  rounded-md w-1/3">Nhập mã</button>
+                            <div className="my-1 border"></div>
+
+                            <div className="flex justify-between items-center">
+                                <div className="flex flex-row items-center w-3/4 gap-3">
+                                    <p>Mã giảm giá</p>
+                                    {
+                                        voucher.voucherCode ?
+                                            <>
+                                                <p className="text-black font-bold text-lg">{voucher.voucherCode}</p>
+                                                <i className="fa-regular fa-circle-xmark fa-lg cursor-pointer" onClick={handleCancelVoucher}></i>
+                                            </>
+                                            :
+                                            <button className="p-1 bg-main text-white rounded-md w-1/3" onClick={handleOpenModalVoucher}>Chọn mã</button>
+                                    }
+                                </div>
+                                <span className="font-semibold">{voucher.voucherMoney === 0 ? formatMoney(0) : formatMoney(-voucher.voucherMoney)}</span>
                             </div>
 
-                            <div className="flex justify-between">
-                                <p>Mã giảm giá</p>
-                                <span className="font-semibold">-123 200</span>
-                            </div>
 
-
-                            <div className="my-2 border-2"></div>
-                            <div className="flex justify-between font-bold">
+                            <div className="my-1 border"></div>
+                            <div className="flex justify-between font-bold text-lg">
                                 <p>Thành tiền</p>
-                                <span className="font-semibold">{formatMoney((car && car.pricePerDay && car.pricePerDay * 1000 + 90000) * dayRent)}</span>
+                                <span className="font-black">{formatMoney(totalRentVoucher)}</span>
                             </div>
                             <button className="p-3 bg-main text-white font-bold text-lg rounded-md uppercase">Chọn thuê</button>
                         </div>

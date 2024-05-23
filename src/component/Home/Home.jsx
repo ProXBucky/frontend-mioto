@@ -13,7 +13,8 @@ import Blog from './Blog'
 import ModalPromotionComponent from '../ModalPromotionComponent';
 import { getListCarByCity } from '../../api/carAPI';
 import { useSelector } from 'react-redux';
-import { locationCodeSelector } from '../../redux/selector';
+import { locationCodeSelector, locationSelector } from '../../redux/selector';
+import MapComponent from '../MapComponent';
 
 
 function Home({ handleOpenDateModal, handleOpenLocationModal }) {
@@ -51,7 +52,6 @@ function Home({ handleOpenDateModal, handleOpenLocationModal }) {
     useEffect(() => {
         fetchListCarByCity()
     }, [cityCode])
-
 
     return (
         <>
