@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react"
 import { getDetailCar } from "../../api/carAPI";
 import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { beginDateSelector, endDateSelector, userIdSelector } from "../../redux/selector";
+import { useDispatch, useSelector } from "react-redux";
+import { beginDateSelector, endDateSelector, tokenSelector, userIdSelector } from "../../redux/selector";
 import { calculateDays } from "../../utils/calculateDays"
 import { formatMoney } from "../../utils/formatMoney";
 import { toast } from "react-toastify";
-import { dislikeCar, likeCar, postReviewCar, reportCar } from "../../api/userAPI";
+import { dislikeCar, likeCar, postReviewCar, rentCar, reportCar } from "../../api/userAPI";
 import { checkLikeCar, getAllReviewOfCar, getAllVoucherByUserId, getReviewScore } from "../../api/appAPI";
 import ModalReviewCar from "./ModalReviewCar";
 import ModalViewAllImg from "./ModalViewAllImg";
@@ -15,25 +15,30 @@ import { format } from "date-fns";
 import ModalReportCar from "./ModalReportCar";
 import ModalViewVoucher from "./ModalViewVoucher";
 import ModalViewMap from "./ModalViewMap";
+import ModalConfirmRent from "./ModalConfirmRent";
+import { setHideLoading, setShowLoading } from "../../redux/Slice/AppSlice";
 
 
 function DetailCar({ handleOpenDateModal, handleOpenLoginModal }) {
     let userId = useSelector(userIdSelector)
     let beginDate = useSelector(beginDateSelector)
     let endDate = useSelector(endDateSelector)
+    let token = useSelector(tokenSelector)
 
     const [car, setCar] = useState(null)
     const [liked, setLiked] = useState(false)
     const [carImgs, setCarImgs] = useState([])
     const [reviewScore, setReviewScore] = useState({
         score: 0,
-        count: 0
+        count: 0,
+        tripCount: 0
     })
     const [allImgCar, setAllImgCar] = useState([]);
     const [allReview, setAllReview] = useState([]);
 
     const [showModalViewImg, setShowModalViewImg] = useState(false);
     const [address, setAddress] = useState('');
+    const dispatch = useDispatch()
 
     const handleCloseModalViewImg = () => {
         setShowModalViewImg(false);
@@ -63,7 +68,7 @@ function DetailCar({ handleOpenDateModal, handleOpenLoginModal }) {
                     let res = await likeCar({
                         userId: userId,
                         carId: carId
-                    })
+                    }, token)
                     if (res) {
                         toast.success('Đã thêm xe vào danh sách ưa thích')
                         setLiked(true)
@@ -78,7 +83,7 @@ function DetailCar({ handleOpenDateModal, handleOpenLoginModal }) {
     const dislikeCarAction = async () => {
         try {
             if (userId && carId) {
-                let res = await dislikeCar(userId, carId)
+                let res = await dislikeCar(userId, carId, token)
                 if (res) {
                     toast.success('Đã xóa xe khỏi danh sách ưa thích')
                     setLiked(false)
@@ -193,8 +198,60 @@ function DetailCar({ handleOpenDateModal, handleOpenLoginModal }) {
         setShowModalMap(true);
     };
 
+    const [showModalConfirmRent, setShowModalConfirmRent] = useState(false)
+
+    const handleCloseModalConfirmRent = () => {
+        setShowModalConfirmRent(false);
+    };
+
+    const handleOpenModalConfirmRent = () => {
+        if (!userId) {
+            handleOpenLoginModal()
+        }
+        else {
+            setShowModalConfirmRent(true);
+        }
+    };
+
+    const handleConfirmRent = async () => {
+        if (!userId) {
+            handleOpenLoginModal()
+        }
+        else {
+            try {
+                dispatch(setShowLoading())
+                if (userId && carId) {
+                    let res = await rentCar({
+                        userId: parseInt(userId),
+                        carId: parseInt(carId),
+                        voucherId: voucher.voucherId,
+                        rentBeginDate: beginDate,
+                        rentEndDate: endDate,
+                        rentDays: dayRent,
+                        paymentAmount: totalRentVoucher,
+                        voucherAmount: voucher.voucherMoney
+                    }, token)
+                    if (res) {
+                        toast.success('Bạn đã đặt xe thành công, hãy chờ chủ xe xác nhận.')
+                        handleCloseModalConfirmRent()
+                        setVoucher({
+                            voucherId: 0,
+                            voucherCode: "",
+                            voucherMoney: 0
+                        })
+                    }
+                }
+            } catch (err) {
+                toast.error('Lỗi hệ thống, đặt xe thất bại')
+            } finally {
+                dispatch(setHideLoading())
+            }
+        }
+    }
+
     const handleReviewCar = async () => {
         try {
+            dispatch(setShowLoading())
             if (userId && carId) {
                 if (car && car.location) {
                     let res = await postReviewCar({
@@ -203,7 +260,7 @@ function DetailCar({ handleOpenDateModal, handleOpenLoginModal }) {
                         content: text,
                         location: car.location,
                         reviewScore: rating
-                    })
+                    }, token)
                     if (res) {
                         setRating(0)
                         setText('')
@@ -215,9 +272,10 @@ function DetailCar({ handleOpenDateModal, handleOpenLoginModal }) {
             }
         } catch (err) {
             toast.error('Lỗi hệ thống')
+        } finally {
+            dispatch(setHideLoading())
         }
     }
-
 
     const handleReportCar = async () => {
         if (!userId) {
@@ -225,12 +283,13 @@ function DetailCar({ handleOpenDateModal, handleOpenLoginModal }) {
         }
         else {
             try {
+                dispatch(setShowLoading())
                 if (userId && carId) {
                     let res = await reportCar({
                         userId: userId,
                         carId: parseInt(carId),
                         reason: reason
-                    })
+                    }, token)
                     if (res) {
                         setReason('')
                         handleCloseModalReport()
@@ -239,6 +298,8 @@ function DetailCar({ handleOpenDateModal, handleOpenLoginModal }) {
                 }
             } catch (err) {
                 toast.error('Lỗi hệ thống')
+            } finally {
+                dispatch(setHideLoading())
             }
         }
     }
@@ -283,13 +344,15 @@ function DetailCar({ handleOpenDateModal, handleOpenLoginModal }) {
         const res = await getReviewScore(carId)
         if (res) {
             setReviewScore({
-                score: res.totalScoreReview,
-                count: res.reviewCount
+                score: res.star,
+                count: res.reviewCount,
+                tripCount: res.tripCount
             })
         } else {
             setReviewScore({
                 score: 0,
-                count: 0
+                count: 0,
+                tripCount: 0
             })
         }
     }
@@ -326,6 +389,17 @@ function DetailCar({ handleOpenDateModal, handleOpenLoginModal }) {
 
     return (
         <div className="relative">
+            <ModalConfirmRent
+                showModalConfirmRent={showModalConfirmRent}
+                handleCloseModalConfirmRent={handleCloseModalConfirmRent}
+                handleConfirmRent={handleConfirmRent}
+                car={car && car}
+                voucher={voucher && voucher}
+                totalRentNotVoucher={totalRentNotVoucher}
+                totalRentVoucher={totalRentVoucher}
+                carImg={carImgs && carImgs.length > 0 && carImgs[0].original}
+                locationName={address}
+            />
             <ModalViewMap
                 showModalMap={showModalMap}
                 handleCloseModalMap={handleCloseModalMap}
@@ -358,12 +432,12 @@ function DetailCar({ handleOpenDateModal, handleOpenLoginModal }) {
             <div className="px-32 pb-20 flex flex-col gap-5">
                 <div className="flex flex-row h-[600px] relative">
                     <div className="w-[calc(68%)] pr-6">
-                        <img src={car && car.images && car.images[0].imageLink} className="w-full h-full object-cover rounded-2xl cursor-pointer" alt="Car 1" onClick={() => handleOpenModalViewImg(carImgs)} />
+                        <img src={car && car.images && car.images[0] && car.images[0].imageLink} className="w-full h-full object-cover rounded-2xl cursor-pointer" alt="Car 1" onClick={() => handleOpenModalViewImg(carImgs)} />
                     </div>
                     <div className="w-[calc(32%)] flex flex-col gap-4">
-                        <img src={car && car.images && car.images[1].imageLink} className="h-[30.7%] object-cover rounded-2xl cursor-pointer" alt="Car 2" onClick={() => handleOpenModalViewImg(carImgs)} />
-                        <img src={car && car.images && car.images[2].imageLink} className="h-[30.7%] object-cover rounded-2xl cursor-pointer" alt="Car 3" onClick={() => handleOpenModalViewImg(carImgs)} />
-                        <img src={car && car.images && car.images[3].imageLink} className="h-[30.7%] object-cover rounded-2xl cursor-pointer" alt="Car 4" onClick={() => handleOpenModalViewImg(carImgs)} />
+                        <img src={car && car.images && car.images[1] && car.images[1].imageLink} className="h-[30.7%] object-cover rounded-2xl cursor-pointer" alt="Car 2" onClick={() => handleOpenModalViewImg(carImgs)} />
+                        <img src={car && car.images && car.images[2] && car.images[2].imageLink} className="h-[30.7%] object-cover rounded-2xl cursor-pointer" alt="Car 3" onClick={() => handleOpenModalViewImg(carImgs)} />
+                        <img src={car && car.images && car.images[3] && car.images[3].imageLink} className="h-[30.7%] object-cover rounded-2xl cursor-pointer" alt="Car 4" onClick={() => handleOpenModalViewImg(carImgs)} />
                     </div>
                     <div className="rounded-lg border bg-white flex flex-row absolute bottom-5 right-5 p-2 items-center gap-2 cursor-pointer" onClick={() => handleOpenModalViewImg(carImgs)}>
                         <i className="fa-regular fa-images"></i>
@@ -379,12 +453,12 @@ function DetailCar({ handleOpenDateModal, handleOpenLoginModal }) {
                                 <div className="flex flex-row mt-2">
                                     <label className="flex items-center gap-1">
                                         <svg className="star-rating" width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14.6667 7.23331C14.7333 6.89998 14.4667 6.49998 14.1333 6.49998L10.3333 5.96665L8.59999 2.49998C8.53333 2.36665 8.46666 2.29998 8.33333 2.23331C7.99999 2.03331 7.59999 2.16665 7.39999 2.49998L5.73333 5.96665L1.93333 6.49998C1.73333 6.49998 1.59999 6.56665 1.53333 6.69998C1.26666 6.96665 1.26666 7.36665 1.53333 7.63331L4.26666 10.3L3.59999 14.1C3.59999 14.2333 3.59999 14.3666 3.66666 14.5C3.86666 14.8333 4.26666 14.9666 4.59999 14.7666L7.99999 12.9666L11.4 14.7666C11.4667 14.8333 11.6 14.8333 11.7333 14.8333C11.8 14.8333 11.8 14.8333 11.8667 14.8333C12.2 14.7666 12.4667 14.4333 12.4 14.0333L11.7333 10.2333L14.4667 7.56665C14.6 7.49998 14.6667 7.36665 14.6667 7.23331Z" fill="#FFC634"></path></svg>
-                                        <span>5.0</span>
+                                        <span>{reviewScore && reviewScore.score}</span>
                                     </label>
                                     <span className="px-1">•</span>
                                     <label className="flex items-center gap-1">
                                         <svg width="20" height="20" viewBox="0 0 60 61" fill="none" xmlns="http://www.w3.org/2000/svg" className=""><path d="M8.11719 55.5V52.3883" stroke="#5FCF86" strokeWidth="4" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path><path d="M40.2734 55.5V52.3883" stroke="#5FCF86" strokeWidth="4" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path><path d="M11.2188 52.3884V28.5931" stroke="#5FCF86" strokeWidth="4" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path><path d="M25.9484 21.0604H18.8959C17.5209 21.0604 16.4062 22.1751 16.4062 23.5501V28.5933" stroke="#5FCF86" strokeWidth="4" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path><path d="M25.9531 28.5931H7.07471C5.92895 28.5931 5 29.522 5 30.6678V50.3137C5 51.4596 5.92895 52.3884 7.07471 52.3884H28.0278" stroke="#5FCF86" strokeWidth="4" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path><path d="M52.9282 18.2196H28.0317C26.8859 18.2196 25.957 19.1484 25.957 20.2943V50.3137C25.957 51.4596 26.8859 52.3884 28.0317 52.3884H52.9282C54.0741 52.3884 55.0029 51.4596 55.0029 50.3137V20.2943C55.0029 19.1484 54.0741 18.2196 52.9282 18.2196Z" stroke="#5FCF86" strokeWidth="4" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path><path d="M32.1797 52.3884V18.2196" stroke="#5FCF86" strokeWidth="4" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path><path d="M48.7695 18.2196V52.3884" stroke="#5FCF86" strokeWidth="4" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path><path d="M29.0625 55.5V52.3883" stroke="#5FCF86" strokeWidth="4" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path><path d="M51.8828 55.5V52.3883" stroke="#5FCF86" strokeWidth="4" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path><path d="M35.293 18.2197V7.98977C35.293 6.61486 36.4076 5.50013 37.7826 5.50013H43.1768C44.5519 5.50013 45.6665 6.61486 45.6665 7.98977V18.2197" stroke="#5FCF86" strokeWidth="4" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path></svg>
-                                        <span>23 chuyến</span>
+                                        <span>{reviewScore && reviewScore.tripCount} chuyến</span>
                                     </label>
                                     <span className="px-1">•</span>
                                     <label>{`${car && car.district && car.district} - ${car && car.city && car.city}`}</label>
@@ -454,7 +528,10 @@ function DetailCar({ handleOpenDateModal, handleOpenLoginModal }) {
                         <div className="border-b-2 py-4">
                             <h3 className="font-semibold text-xl">Mô tả</h3>
                             <p className="mt-4 text-gray-500">
-                                {car && car.description && car.description}
+                                {car && car.description ? car.description
+                                    :
+                                    <p>Không có</p>
+                                }
                             </p>
                         </div>
 
@@ -613,12 +690,12 @@ function DetailCar({ handleOpenDateModal, handleOpenLoginModal }) {
                                         <div className="flex flex-row gap-1 font-semibold text-sm">
                                             <label className="flex items-center gap-1">
                                                 <svg className="star-rating" width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14.6667 7.23331C14.7333 6.89998 14.4667 6.49998 14.1333 6.49998L10.3333 5.96665L8.59999 2.49998C8.53333 2.36665 8.46666 2.29998 8.33333 2.23331C7.99999 2.03331 7.59999 2.16665 7.39999 2.49998L5.73333 5.96665L1.93333 6.49998C1.73333 6.49998 1.59999 6.56665 1.53333 6.69998C1.26666 6.96665 1.26666 7.36665 1.53333 7.63331L4.26666 10.3L3.59999 14.1C3.59999 14.2333 3.59999 14.3666 3.66666 14.5C3.86666 14.8333 4.26666 14.9666 4.59999 14.7666L7.99999 12.9666L11.4 14.7666C11.4667 14.8333 11.6 14.8333 11.7333 14.8333C11.8 14.8333 11.8 14.8333 11.8667 14.8333C12.2 14.7666 12.4667 14.4333 12.4 14.0333L11.7333 10.2333L14.4667 7.56665C14.6 7.49998 14.6667 7.36665 14.6667 7.23331Z" fill="#FFC634"></path></svg>
-                                                <span>5.0</span>
+                                                <span>{reviewScore && reviewScore.score}</span>
                                             </label>
                                             <span className="px-1">•</span>
                                             <label className="flex items-center gap-1">
                                                 <svg width="20" height="20" viewBox="0 0 60 61" fill="none" xmlns="http://www.w3.org/2000/svg" className=""><path d="M8.11719 55.5V52.3883" stroke="#5FCF86" strokeWidth="4" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path><path d="M40.2734 55.5V52.3883" stroke="#5FCF86" strokeWidth="4" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path><path d="M11.2188 52.3884V28.5931" stroke="#5FCF86" strokeWidth="4" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path><path d="M25.9484 21.0604H18.8959C17.5209 21.0604 16.4062 22.1751 16.4062 23.5501V28.5933" stroke="#5FCF86" strokeWidth="4" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path><path d="M25.9531 28.5931H7.07471C5.92895 28.5931 5 29.522 5 30.6678V50.3137C5 51.4596 5.92895 52.3884 7.07471 52.3884H28.0278" stroke="#5FCF86" strokeWidth="4" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path><path d="M52.9282 18.2196H28.0317C26.8859 18.2196 25.957 19.1484 25.957 20.2943V50.3137C25.957 51.4596 26.8859 52.3884 28.0317 52.3884H52.9282C54.0741 52.3884 55.0029 51.4596 55.0029 50.3137V20.2943C55.0029 19.1484 54.0741 18.2196 52.9282 18.2196Z" stroke="#5FCF86" strokeWidth="4" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path><path d="M32.1797 52.3884V18.2196" stroke="#5FCF86" strokeWidth="4" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path><path d="M48.7695 18.2196V52.3884" stroke="#5FCF86" strokeWidth="4" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path><path d="M29.0625 55.5V52.3883" stroke="#5FCF86" strokeWidth="4" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path><path d="M51.8828 55.5V52.3883" stroke="#5FCF86" strokeWidth="4" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path><path d="M35.293 18.2197V7.98977C35.293 6.61486 36.4076 5.50013 37.7826 5.50013H43.1768C44.5519 5.50013 45.6665 6.61486 45.6665 7.98977V18.2197" stroke="#5FCF86" strokeWidth="4" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path></svg>
-                                                <span>23 chuyến</span>
+                                                <span>{reviewScore && reviewScore.tripCount} chuyến</span>
                                             </label>
                                         </div>
                                     </div>
@@ -640,9 +717,8 @@ function DetailCar({ handleOpenDateModal, handleOpenLoginModal }) {
                                 </div>
                             </div>
                         </div>
-
                         {
-                            userId &&
+                            userId !== 0 &&
                             <div className="flex justify-center mt-3">
                                 <button className="rounded-lg py-3 px-5 text-white font-bold bg-main" onClick={handleOpenModalReview}>Đánh giá</button>
                             </div>
@@ -713,7 +789,7 @@ function DetailCar({ handleOpenDateModal, handleOpenLoginModal }) {
                                     <p className="font-semibold">{endDate}</p>
                                 </div>
                             </div>
-                            <div className="w-full rounded-md border bg-white p-3">
+                            <div className="w-full rounded-md border bg-white p-3 cursor-pointer" onClick={handleOpenModalMap}>
                                 <p className="text-sm">Địa điểm giao nhận xe</p>
                                 <div className="flex justify-between items-center mt-2">
                                     <p className="font-semibold">{`${car && car.district && car.district} - ${car && car.city && car.city}`}</p>
@@ -767,7 +843,7 @@ function DetailCar({ handleOpenDateModal, handleOpenLoginModal }) {
                                 <p>Thành tiền</p>
                                 <span className="font-black">{formatMoney(totalRentVoucher)}</span>
                             </div>
-                            <button className="p-3 bg-main text-white font-bold text-lg rounded-md uppercase">Chọn thuê</button>
+                            <button className="p-3 bg-main text-white font-bold text-lg rounded-md uppercase" onClick={handleOpenModalConfirmRent}>Chọn thuê</button>
                         </div>
 
                         <p className="text-center text-lg font-semibold hover:text-main cursor-pointer" onClick={handleOpenModalReport}><i className="fa-regular fa-flag mr-3"></i>Báo cáo xe này</p>

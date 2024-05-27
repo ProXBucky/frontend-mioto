@@ -3,7 +3,8 @@ import Modal from 'react-bootstrap/Modal';
 import { useEffect, useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import AvatarEditor from 'react-avatar-editor';
-import { editInformationUserById, getInformationUserById } from "../api/userAPI"
+import { editInformationUserById } from "../api/userAPI"
+import { getInformationUserById } from "../api/appAPI"
 import { tokenSelector, userIdSelector } from '../redux/selector';
 import { useSelector } from 'react-redux';
 

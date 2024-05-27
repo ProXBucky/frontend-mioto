@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react"
 import { deleteAddress, getAllAddressByUserId } from "../../../api/userAPI"
 import { toast } from "react-toastify"
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { tokenSelector, userIdSelector } from "../../../redux/selector";
+import { setHideLoading, setShowLoading } from "../../../redux/Slice/AppSlice";
 
 function MyAddress({ handleOpenModalAddress }) {
+    const dispatch = useDispatch()
     const token = useSelector(tokenSelector)
     const userId = useSelector(userIdSelector);
     const [allAddress, setAllAddress] = useState([])
@@ -21,6 +23,7 @@ function MyAddress({ handleOpenModalAddress }) {
 
     const hanldeDeleteAddress = async (addressId) => {
         try {
+            dispatch(setShowLoading())
             if (window.confirm("Bạn có chắc chắn muốn xóa địa chỉ này không?")) {
                 let res = await deleteAddress(addressId, token);
                 if (res) {
@@ -35,6 +38,8 @@ function MyAddress({ handleOpenModalAddress }) {
             } else {
                 toast.error('An error occurred.');
             }
+        } finally {
+            dispatch(setHideLoading())
         }
     }
 
@@ -69,9 +74,9 @@ function MyAddress({ handleOpenModalAddress }) {
                                                 </div>
                                             </div>
                                             <div className="flex flex-row gap-2">
-                                                <div className="cursor-pointer">
+                                                {/* <div className="cursor-pointer">
                                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.46001 21.24L21.25 6.45L17.55 2.75L2.75999 17.54L2.75 21.25L6.46001 21.24Z" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path><path d="M15.3496 6.12988L17.8696 8.64987" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path></svg>
-                                                </div>
+                                                </div> */}
                                                 <div className="cursor-pointer" onClick={() => hanldeDeleteAddress(item.addressId)}>
                                                     <i className="fa-regular fa-trash-can fa-lg"></i>
                                                 </div>

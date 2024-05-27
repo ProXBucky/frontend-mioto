@@ -20,6 +20,10 @@ function MyCar() {
         navigate(`/account/mycar/edit/${carId}`)
     }
 
+    const handleDeleteCar = (carId) => {
+
+    }
+
     useEffect(() => {
         const fetchListMyCar = async () => {
             try {
@@ -93,7 +97,7 @@ function MyCar() {
                                             </div>
                                             <div className="flex flex-col items-center gap-1">
                                                 <h3>Trạng thái</h3>
-                                                <span>{item.status}</span>
+                                                <span>{item.status === 'Approving' ? 'Đang duyệt' : 'Đã duyệt'}</span>
                                             </div>
                                         </div>
                                     </div>

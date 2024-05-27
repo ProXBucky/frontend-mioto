@@ -51,6 +51,11 @@ function LoggedInNavbar() {
                     Trở thành chủ xe
                 </Link>
             </li>
+            <li className="">
+                <Link to="/account/mytrip" className="nav-link font-bold text-sm">
+                    Chuyến của tôi
+                </Link>
+            </li>
 
             <li className="nav-item">
                 <Link to={`/account/myaccount`} className="nav-link">

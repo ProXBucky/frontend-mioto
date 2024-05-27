@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react"
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { userIdSelector } from "../../../redux/selector"
 import { getAllCarLiked } from "../../../api/appAPI"
 import { useNavigate } from "react-router-dom"
 import { toast } from "react-toastify"
 import { dislikeCar } from "../../../api/userAPI"
+import { setHideLoading, setShowLoading } from "../../../redux/Slice/AppSlice"
 
 function FavoriteCar() {
+    const dispatch = useDispatch()
     let [listCarLiked, setListCarLiked] = useState([])
     const userId = useSelector(userIdSelector)
     const navigate = useNavigate()
@@ -27,6 +29,7 @@ function FavoriteCar() {
 
     const dislikeCarAction = async (carId) => {
         try {
+            dispatch(setShowLoading())
             if (userId && carId) {
                 let res = await dislikeCar(userId, carId)
                 if (res) {
@@ -36,6 +39,8 @@ function FavoriteCar() {
             }
         } catch (err) {
             toast.error('Lỗi hệ thống')
+        } finally {
+            dispatch(setHideLoading())
         }
     }
 

@@ -2,19 +2,6 @@ import axios from 'axios';
 
 const API_URL = 'http://localhost:3000'
 
-const getInformationUserById = async (userId, token) => {
-    try {
-        const response = await axios.get(`${API_URL}/api/user/${userId}`, {
-            headers: {
-                Authorization: 'Bearer ' + token
-            }
-        })
-        return response.data;
-    } catch (error) {
-        console.error('Error fetching data:', error);
-        throw error;
-    }
-};
 
 const editInformationUserById = async (userId, body, token) => {
     try {
@@ -124,9 +111,13 @@ const createNewUser = async (body) => {
     }
 }
 
-const likeCar = async (body) => {
+const likeCar = async (body, token) => {
     try {
-        const response = await axios.post(`${API_URL}/api/like`, body)
+        const response = await axios.post(`${API_URL}/api/like`, body, {
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        })
         return response.data;
     } catch (error) {
         console.error('Error fetching data:', error);
@@ -134,9 +125,13 @@ const likeCar = async (body) => {
     }
 }
 
-const dislikeCar = async (userId, carId) => {
+const dislikeCar = async (userId, carId, token) => {
     try {
-        const response = await axios.delete(`${API_URL}/api/like?userId=${userId}&carId=${carId}`)
+        const response = await axios.delete(`${API_URL}/api/like?userId=${userId}&carId=${carId}`, {
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        })
         return response.data;
     } catch (error) {
         console.error('Error fetching data:', error);
@@ -144,9 +139,14 @@ const dislikeCar = async (userId, carId) => {
     }
 }
 
-const postReviewCar = async (body) => {
+const postReviewCar = async (body, token) => {
     try {
-        const response = await axios.post(`${API_URL}/api/review`, body)
+        const response = await axios.post(`${API_URL}/api/review`, body,
+            {
+                headers: {
+                    Authorization: 'Bearer ' + token
+                }
+            })
         return response.data;
     } catch (error) {
         console.error('Error fetching data:', error);
@@ -154,9 +154,27 @@ const postReviewCar = async (body) => {
     }
 }
 
-const reportCar = async (body) => {
+const reportCar = async (body, token) => {
     try {
-        const response = await axios.post(`${API_URL}/api/report`, body)
+        const response = await axios.post(`${API_URL}/api/report`, body, {
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        })
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        throw error;
+    }
+}
+
+const rentCar = async (body, token) => {
+    try {
+        const response = await axios.post(`${API_URL}/api/rent`, body, {
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        })
         return response.data;
     } catch (error) {
         console.error('Error fetching data:', error);
@@ -166,6 +184,6 @@ const reportCar = async (body) => {
 
 
 export {
-    getInformationUserById, changePasswordUserById, editInformationUserById, getInformationLicenseById, postInformationLicenseById,
-    postAddress, getAllAddressByUserId, deleteAddress, createNewUser, likeCar, dislikeCar, postReviewCar, reportCar
+    changePasswordUserById, editInformationUserById, getInformationLicenseById, postInformationLicenseById,
+    postAddress, getAllAddressByUserId, deleteAddress, createNewUser, likeCar, dislikeCar, postReviewCar, reportCar, rentCar
 }

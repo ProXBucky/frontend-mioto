@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { tokenSelector } from "../../redux/selector";
 import { toast } from "react-toastify";
 import Cookies from 'js-cookie';
-import { setAvatarImage, setFullname, setToken, setUserId } from "../../redux/Slice/CookieSlice";
+import { clearAvatarImage, clearFullname, clearToken, clearUserId } from "../../redux/Slice/CookieSlice";
 
 
 function AccountInformation() {
@@ -22,10 +22,10 @@ function AccountInformation() {
                     Cookies.remove('userId');
                     Cookies.remove('fullname');
                     Cookies.remove('avatarImage');
-                    dispatch(setToken(res.token))
-                    dispatch(setUserId(res.userId))
-                    dispatch(setFullname(res.fullname))
-                    dispatch(setAvatarImage(res.avatarImage))
+                    dispatch(clearToken())
+                    dispatch(clearUserId())
+                    dispatch(clearFullname())
+                    dispatch(clearAvatarImage())
                     navigate('/')
                     toast.success("Hẹn gặp bạn lần sau");
                 }

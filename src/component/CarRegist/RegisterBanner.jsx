@@ -1,4 +1,4 @@
-function RegisterBanner() {
+function RegisterBanner({ handleRegistCar }) {
     return (
         <div className="px-32 pb-20">
             <div className="p-10 text-black text-base h-[700px] rounded-2xl relative "
@@ -21,7 +21,7 @@ function RegisterBanner() {
                             Hoặc để lại tin nhắn cho Mioto qua Fanpage
                         </p>
                     </div>
-                    <button className="mt-10 px-20 py-3 rounded-lg bg-black text-white font-semibold">Đăng ký ngay</button>
+                    <button className="mt-10 px-20 py-3 rounded-lg bg-black text-white font-semibold" onClick={handleRegistCar}>Đăng ký ngay</button>
                 </div>
             </div>
 

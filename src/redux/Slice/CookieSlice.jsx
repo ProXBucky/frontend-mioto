@@ -3,7 +3,7 @@ import Cookies from "js-cookie";
 
 const initialState = {
     token: Cookies.get("accessToken") ? Cookies.get("accessToken") : null,
-    userId: Cookies.get("userId") ? Cookies.get("userId") : null,
+    userId: Cookies.get("userId") ? Cookies.get("userId") : 0,
     fullname: Cookies.get("fullname") ? Cookies.get("fullname") : null,
     avatarImage: Cookies.get("avatarImage") ? Cookies.get("avatarImage") : null,
 };
@@ -22,7 +22,7 @@ export const CookieSlice = createSlice({
             state.userId = action.payload
         },
         clearUserId(state) {
-            state.userId = null
+            state.userId = 0
         },
         setFullname(state, action) {
             state.fullname = action.payload

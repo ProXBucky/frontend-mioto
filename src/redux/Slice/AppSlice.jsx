@@ -1,7 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    appLoad: false
+    appLoad: false,
+    loading: false
 };
 
 export const AppSlice = createSlice({
@@ -11,8 +12,14 @@ export const AppSlice = createSlice({
         setAppLoad(state, action) {
             state.appLoad = !state.appLoad
         },
+        setShowLoading(state, action) {
+            state.loading = true
+        },
+        setHideLoading(state, action) {
+            state.loading = false
+        }
     },
 });
 
-export const { setAppLoad } = AppSlice.actions;
+export const { setAppLoad, setShowLoading, setHideLoading } = AppSlice.actions;
 

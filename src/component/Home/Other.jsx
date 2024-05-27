@@ -14,8 +14,8 @@ function Other() {
                     <h1 className="text-5xl font-bold py-5">Bạn muốn biết thêm về Mioto</h1>
                     <p>Mioto kết nối khách hàng có nhu cầu thuê xe với hàng ngàn chủ xe ô tô ở TPHCM, Hà Nội & các tỉnh thành khác. Mioto hướng đến việc xây dựng cộng đồng người dùng ô tô văn minh & uy tín tại Việt Nam.</p>
                     <Link to="/aboutus">
-                            {/* <button className="cursor-pointer px-16 py-4 rounded-lg bg-blue-400 text-white font-semibold hover:shadow-custom hover:bg-[#53a1e6]">Đăng ký xe</button> */}
-                         <button className="mt-10 px-20 py-4 rounded-lg bg-main text-white font-semibold hover:shadow-custom hover:bg-[#79d799]">Tìm hiểu thêm</button>
+                        {/* <button className="cursor-pointer px-16 py-4 rounded-lg bg-blue-400 text-white font-semibold hover:shadow-custom hover:bg-[#53a1e6]">Đăng ký xe</button> */}
+                        <button className="mt-10 px-20 py-4 rounded-lg bg-main text-white font-semibold hover:shadow-custom hover:bg-[#79d799]">Tìm hiểu thêm</button>
                     </Link>
                 </div>
             </div>
@@ -30,10 +30,10 @@ function Other() {
                     <p>Hơn 5,000 chủ xe đang cho thuê hiệu quả trên Mioto
                         Đăng kí trở thành đối tác của chúng tôi ngay hôm nay để gia tăng thu nhập hàng tháng.</p>
                     <div className="flex flex-row gap-5 mt-10">
-                        <button className="cursor-pointer px-16 py-4 rounded-lg border border-black text-black font-semibold hover:shadow-custom hover:bg-gray-200">Tìm hiểu ngay</button>
-                         <Link to="/owner/register">
+                        {/* <button className="cursor-pointer px-16 py-4 rounded-lg border border-black text-black font-semibold hover:shadow-custom hover:bg-gray-200">Tìm hiểu ngay</button> */}
+                        <Link to="/owner/register">
                             <button className="cursor-pointer px-16 py-4 rounded-lg bg-blue-400 text-white font-semibold hover:shadow-custom hover:bg-[#53a1e6]">Đăng ký xe</button>
-                         </Link>
+                        </Link>
                     </div>
                 </div>
                 <div className="w-1/2 p-8">

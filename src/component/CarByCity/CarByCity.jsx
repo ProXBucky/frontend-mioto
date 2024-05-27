@@ -9,17 +9,30 @@ import Blog from '../Home/Blog';
 import ReviewByCity from './ReviewByCity';
 import { getAllReviewByCity } from '../../api/appAPI';
 import { useSelector } from 'react-redux';
-import { locationCodeSelector } from '../../redux/selector';
+import { locationCodeSelector, userIdSelector } from '../../redux/selector';
 
 
 function CarByCity({ handleOpenDateModal, handleOpenLocationModal }) {
     const locationCode = useSelector(locationCodeSelector)
+    const userId = useSelector(userIdSelector)
     const [carArray, setCarArray] = useState([])
     const [allReview, setAllReview] = useState([])
     let { city } = useParams('city')
 
+    const cityBackgrounds = {
+        haNoi: 'Hà Nội',
+        hoChiMinh: 'Hồ Chí Minh',
+        binhDuong: 'Bình Dương',
+        lamDong: 'Lâm Đồng',
+        haiPhong: 'Hải Phòng',
+        khanhHoa: 'Khánh Hòa',
+        kienGiang: 'Kiên Giang',
+        daNang: 'Đà Nẵng'
+    };
+    const citys = cityBackgrounds[city];
+
     const fetchListCarByCity = async () => {
-        let res = await getListCarByCity(city)
+        let res = await getListCarByCity(city, userId)
         if (res && res.length > 0) {
             setCarArray(res)
         } else {
@@ -45,13 +58,13 @@ function CarByCity({ handleOpenDateModal, handleOpenLocationModal }) {
     return (
         <>
             <LazyLoad height={200}>
-                <Banner city="city" cityName={city} handleOpenDateModal={handleOpenDateModal} handleOpenLocationModal={handleOpenLocationModal} />
+                <Banner city="city" cityName={citys} handleOpenDateModal={handleOpenDateModal} handleOpenLocationModal={handleOpenLocationModal} />
             </LazyLoad>
             <LazyLoad height={200}>
-                <CarList city="city" isHiddenTitle={false} carArray={carArray} />
+                <CarList city="city" cityName={citys} isHiddenTitle={false} carArray={carArray} />
             </LazyLoad>
             <LazyLoad height={200}>
-                <ReviewByCity allReview={allReview} />
+                <ReviewByCity cityName={citys} allReview={allReview} />
             </LazyLoad>
             <LazyLoad height={200}>
                 <Other />

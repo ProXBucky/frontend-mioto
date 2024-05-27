@@ -2,15 +2,18 @@ import { useParams } from "react-router-dom"
 import CarList from "../../features/car/carList"
 import { useEffect, useState } from "react"
 import { getListCarByCity } from "../../api/carAPI"
+import { useSelector } from "react-redux"
+import { userIdSelector } from "../../redux/selector"
 
 function CarMenu({ handleOpenDateModal, handleOpenLocationModal }) {
     const { city } = useParams()
     const [carArray, setCarArray] = useState([])
+    const userId = useSelector(userIdSelector)
 
     useEffect(() => {
 
         const fetchListCarByCity = async () => {
-            let res = await getListCarByCity(city)
+            let res = await getListCarByCity(city, userId)
             if (res && res.length > 0) {
                 setCarArray(res)
             }

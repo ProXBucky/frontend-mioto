@@ -4,12 +4,12 @@ import { locationSelector } from '../../redux/selector';
 import Rating from 'react-rating';
 import { format } from 'date-fns';
 
-function ReviewByCity({ allReview }) {
+function ReviewByCity({ cityName, allReview }) {
     const location = useSelector(locationSelector)
     return (
         <div className={`px-32 py-10 bg-gray-50 `}>
             <div className='text-center mb-20'>
-                <h1 className='h-12 text-5xl font-bold'>Những nhận xét tại {location}</h1>
+                <h1 className='h-12 text-5xl font-bold'>Những nhận xét tại {cityName}</h1>
             </div>
             <div className="flex flex-wrap gap-3 mt-3 justify-center">
                 {

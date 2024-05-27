@@ -69,14 +69,17 @@ import { createNewUser } from './api/userAPI';
 import { loginUser } from './api/authAPI';
 import { setAvatarImage, setFullname, setToken, setUserId } from './redux/Slice/CookieSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import { appLoadSelector, tokenSelector } from './redux/selector';
-import { setAppLoad } from './redux/Slice/AppSlice';
+import { appLoadSelector, loadingSelector, tokenSelector } from './redux/selector';
+import { setAppLoad, setHideLoading, setShowLoading } from './redux/Slice/AppSlice';
+import LoadingComponent from './component/LoadingComponent';
+import DetailRent from './features/rent/DetailRent';
 
 
 function App() {
   const dispatch = useDispatch();
   const token = useSelector(tokenSelector)
   const appLoad = useSelector(appLoadSelector)
+  const loading = useSelector(loadingSelector)
   const [showRegisterModal, setShowRegisterModal] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showDateModal, setShowDateModal] = useState(false);
@@ -148,12 +151,14 @@ function App() {
 
   const handleRegisterSubmit = async (formData) => {
     try {
+      dispatch(setShowLoading())
       let res = await createNewUser(formData);
       if (res) {
         toast.success('Đăng ký thành công');
+        handleCloseRegisterModal();
       }
-      handleCloseRegisterModal();
-    } catch (error) {
+    }
+    catch (error) {
       if (error.response && error.response.status === 409) {
         toast.error('Tên người dùng/email đã tồn tại. Vui lòng chọn tên người dùng/email khác.');
       }
@@ -165,10 +170,14 @@ function App() {
       }
       console.error('Error registering user:', error);
     }
+    finally {
+      dispatch(setHideLoading())
+    }
   };
 
   const handleLoginSubmit = async (formData) => {
     try {
+      dispatch(setShowLoading())
       let res = await loginUser(formData);
       if (res) {
         Cookies.set('accessToken', res.token, { expires: 1 / 24 });
@@ -181,8 +190,8 @@ function App() {
         dispatch(setAvatarImage(res.avatarImage))
         toast.success('Đăng nhập thành công');
         dispatch(setAppLoad())
+        handleCloseLoginModal();
       }
-      handleCloseLoginModal();
     } catch (error) {
       if (error.response && error.response.status === 409) {
         toast.error('Sai mật khẩu');
@@ -194,6 +203,9 @@ function App() {
         toast.error('Đã xảy ra lỗi trong quá trình đăng ký. Vui lòng thử lại sau.');
       }
       console.error('Lỗi:', error);
+    }
+    finally {
+      dispatch(setHideLoading())
     }
   };
 
@@ -208,13 +220,14 @@ function App() {
 
   return (
     <>
+
       <Header handleOpenRegisterModal={handleOpenRegisterModal} handleOpenLoginModal={handleOpenLoginModal} />
       <ScrollToTop />
-      <Suspense fallback={<p>Loading...</p>}>
+      <Suspense fallback={<LoadingComponent />}>
         <Routes>
           <Route exact path="/" element={<Home handleOpenDateModal={handleOpenDateModal} handleOpenLocationModal={handleOpenLocationModal} />} />
           <Route path="/aboutus" element={<About />} />
-          <Route path="/owner/register" element={<CarRegist />} />
+          <Route path="/owner/register" element={<CarRegist handleOpenLoginModal={handleOpenLoginModal} />} />
           <Route path="/account/*" element={token ? <AccountInformation /> : <PageNotFound />}>
             <Route path="myaccount" element={<MyAccount handleOpenEdit={handleOpenEdit} showModalEdit={showModalEdit} />} />
             <Route path="favorite" element={<FavoriteCar />} />
@@ -222,6 +235,7 @@ function App() {
             <Route path="mycar/:carId" element={<RegisterSelfDrive type="view" />} />
             <Route path="mycar/edit/:carId" element={<RegisterSelfDrive type="edit" />} />
             <Route path="mytrip" element={<MyTrip />} />
+            <Route path="mytrip/detail-trip/:rentId" element={<DetailRent />} />
             <Route path="myvoucher" element={<MyVoucher />} />
             <Route path="changepassword" element={<ChangePassword />} />
             <Route path="myaddress" element={<MyAddress handleOpenModalAddress={handleOpenModalAddress} />} />
@@ -236,6 +250,7 @@ function App() {
       </Suspense>
       <Footer />
 
+      {loading && <LoadingComponent />}
       <ModalComponent
         showModal={showRegisterModal}
         handleClose={handleCloseRegisterModal}

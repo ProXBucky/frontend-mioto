@@ -78,7 +78,7 @@ function Footer() {
                         <p className="text-gray-600">Số GCNĐKKD: 0317307544</p>
                         <p className="text-gray-600">Ngày cấp: 24-05-22</p>
                         <p className="text-gray-600">Nơi cấp: Sở Kế hoạch và Đầu tư TPHCM</p>
-                        <p className="invisible">Ngày cấppppppp</p>
+                        <p className="invisible">Ngày cấp</p>
                     </div>
                 </div>
             </div>

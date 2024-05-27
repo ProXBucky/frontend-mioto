@@ -1,7 +1,9 @@
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { beginDateSelector, endDateSelector, locationSelector } from "../../redux/selector"
+import { setShowLoading } from "../../redux/Slice/AppSlice"
 
 function Banner({ city, cityName, handleOpenDateModal, handleOpenLocationModal }) {
+    const dispatch = useDispatch()
     let location = useSelector(locationSelector)
     let beginDate = useSelector(beginDateSelector)
     let endDate = useSelector(endDateSelector)
@@ -19,6 +21,10 @@ function Banner({ city, cityName, handleOpenDateModal, handleOpenLocationModal }
         daNang: '/DaNang_back.jpg'
     };
     const backgroundImage = cityBackgrounds[cityName] || cityBackgrounds['default'];
+
+    const handleSearchCar = () => {
+        dispatch(setShowLoading())
+    }
 
     return (
         <div>
@@ -88,7 +94,7 @@ function Banner({ city, cityName, handleOpenDateModal, handleOpenLocationModal }
                                                     <i className="fa-solid fa-chevron-down"></i>
                                                 </div>
                                             </div>
-                                            <button type="button" className="px-4 py-3 font-bold bg-main text-white rounded-lg text-base hover:bg-[#79d799]">Tìm xe</button>
+                                            <button type="button" className="px-4 py-3 font-bold bg-main text-white rounded-lg text-base hover:bg-[#79d799]" onClick={handleSearchCar}>Tìm xe</button>
                                         </div>
                                     </div>
 

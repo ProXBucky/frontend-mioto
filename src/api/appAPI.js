@@ -54,7 +54,8 @@ const getAllReviewByCity = async (cityCode) => {
 
 const getReviewScore = async (carId) => {
     try {
-        const response = await axios.get(`${API_URL}/api/review/reviewScore/${carId}`)
+        // const response = await axios.get(`${API_URL}/api/review/reviewScore/${carId}`)
+        const response = await axios.get(`${API_URL}/api/car/statistic/${carId}`)
         return response.data;
     } catch (error) {
         console.error('Error fetching data:', error);
@@ -72,5 +73,51 @@ const getAllVoucherByUserId = async (userId) => {
     }
 }
 
+const getInformationUserById = async (userId, token) => {
+    try {
+        const response = await axios.get(`${API_URL}/api/user/${userId}`, {
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        })
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        throw error;
+    }
+};
 
-export { getAllCarFeature, checkLikeCar, getAllCarLiked, getAllReviewOfCar, getAllReviewByCity, getReviewScore, getAllVoucherByUserId }
+const getAllTripByUserId = async (userId, token) => {
+    try {
+        const response = await axios.get(`${API_URL}/api/rent/all-trip/${userId}`, {
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        })
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        throw error;
+    }
+};
+
+const getTripByRentId = async (rentId, token) => {
+    try {
+        const response = await axios.get(`${API_URL}/api/rent/${rentId}`, {
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        })
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        throw error;
+    }
+};
+
+
+
+export {
+    getAllCarFeature, checkLikeCar, getAllCarLiked, getAllReviewOfCar, getAllReviewByCity, getReviewScore, getAllVoucherByUserId, getInformationUserById, getAllTripByUserId,
+    getTripByRentId
+}

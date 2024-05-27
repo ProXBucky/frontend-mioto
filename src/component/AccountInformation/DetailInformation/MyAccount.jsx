@@ -1,14 +1,17 @@
 import { useEffect, useState } from "react"
-import { getInformationLicenseById, getInformationUserById, postInformationLicenseById } from "../../../api/userAPI"
+import { getInformationLicenseById, postInformationLicenseById } from "../../../api/userAPI"
 import AvatarEditor from 'react-avatar-editor';
 import { toast } from "react-toastify";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { tokenSelector, userIdSelector } from "../../../redux/selector";
 import { format } from "date-fns";
+import { setShowLoading } from "../../../redux/Slice/AppSlice";
+import { getInformationUserById } from "../../../api/appAPI";
 
 
 
 function MyAccount({ handleOpenEdit, showModalEdit }) {
+    const dispatch = useDispatch()
     const token = useSelector(tokenSelector)
     const userId = useSelector(userIdSelector);
     const [userInfo, setUserInfo] = useState({})
@@ -72,6 +75,7 @@ function MyAccount({ handleOpenEdit, showModalEdit }) {
     const postInformationLicense = async () => {
         if (userId) {
             try {
+                dispatch(setShowLoading())
                 if (editor) {
                     const canvas = editor.getImageScaledToCanvas();
                     const dataURL = canvas.toDataURL();
@@ -85,6 +89,8 @@ function MyAccount({ handleOpenEdit, showModalEdit }) {
             } catch (error) {
                 console.log(error)
                 toast.error('Lỗi hệ thống')
+            } finally {
+                dispatch(setHideLoading())
             }
         }
     }

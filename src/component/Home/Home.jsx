@@ -13,12 +13,12 @@ import Blog from './Blog'
 import ModalPromotionComponent from '../ModalPromotionComponent';
 import { getListCarByCity } from '../../api/carAPI';
 import { useSelector } from 'react-redux';
-import { locationCodeSelector, locationSelector } from '../../redux/selector';
-import MapComponent from '../MapComponent';
+import { locationCodeSelector, locationSelector, userIdSelector } from '../../redux/selector';
 
 
 function Home({ handleOpenDateModal, handleOpenLocationModal }) {
     const cityCode = useSelector(locationCodeSelector)
+    const userId = useSelector(userIdSelector)
     const [showModal, setShowModal] = useState(false);
     const [imageURL, setImageUrl] = useState('');
     const [title, setTitle] = useState('');
@@ -37,7 +37,7 @@ function Home({ handleOpenDateModal, handleOpenLocationModal }) {
     };
 
     const fetchListCarByCity = async () => {
-        let res = await getListCarByCity(cityCode)
+        let res = await getListCarByCity(cityCode, userId)
         if (res && res.length > 0) {
             setCarArray(res)
         } else {

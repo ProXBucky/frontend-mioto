@@ -2,9 +2,13 @@ import axios from 'axios';
 
 const API_URL = 'http://localhost:3000'
 
-const postNewCar = async (userId, body) => {
+const postNewCar = async (userId, body, token) => {
     try {
-        const response = await axios.post(`${API_URL}/api/car/register/${userId}`, body)
+        const response = await axios.post(`${API_URL}/api/car/register/${userId}`, body, {
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        })
         return response.data;
     } catch (error) {
         console.log('Error fetching data:', error);
@@ -22,19 +26,20 @@ const getListCar = async (userId) => {
     }
 }
 
-const getListCarByCity = async (city) => {
+const getListCarByCity = async (city, userId) => {
     try {
-        const response = await axios.get(`${API_URL}/api/car/all/${city}`)
+        const response = await axios.get(`${API_URL}/api/car/all-car-by-city?city=${city}&userId=${parseInt(userId)}`);
         return response.data;
     } catch (error) {
         console.log('Error fetching data:', error);
         throw error;
     }
 }
+
 
 const getDetailCar = async (carId) => {
     try {
-        const response = await axios.get(`${API_URL}/api/car/${carId}`)
+        const response = await axios.get(`${API_URL}/api/car/car-detail/${carId}`)
         return response.data;
     } catch (error) {
         console.log('Error fetching data:', error);
@@ -42,9 +47,13 @@ const getDetailCar = async (carId) => {
     }
 }
 
-const editCar = async (carId, body) => {
+const editCar = async (carId, body, token) => {
     try {
-        const response = await axios.put(`${API_URL}/api/car/edit/${carId}`, body)
+        const response = await axios.put(`${API_URL}/api/car/edit/${carId}`, body, {
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        })
         return response.data;
     } catch (error) {
         console.log('Error fetching data:', error);

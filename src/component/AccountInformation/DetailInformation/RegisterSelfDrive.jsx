@@ -5,11 +5,14 @@ import AddressSelector from "../../../features/AdressSelector"
 import { useEffect, useState } from "react"
 import { getAllCarFeature } from "../../../api/appAPI"
 import { editCar, getDetailCar, postNewCar } from "../../../api/carAPI"
-import { useSelector } from "react-redux"
-import { userIdSelector } from "../../../redux/selector"
+import { useDispatch, useSelector } from "react-redux"
+import { tokenSelector, userIdSelector } from "../../../redux/selector"
 import { toast } from "react-toastify"
+import { setHideLoading, setShowLoading } from "../../../redux/Slice/AppSlice"
 
 function RegisterSelfDrive({ type }) {
+    const token = useSelector(tokenSelector)
+    const dispatch = useDispatch()
     const { carId } = useParams()
     const navigate = useNavigate()
     const userId = useSelector(userIdSelector)
@@ -99,6 +102,7 @@ function RegisterSelfDrive({ type }) {
 
     const handleAddCar = async () => {
         try {
+            dispatch(setShowLoading())
             let res = await postNewCar(userId, {
                 brand: formData1.hangXe,
                 model: formData1.mauXe,
@@ -117,7 +121,7 @@ function RegisterSelfDrive({ type }) {
                 location: valueAddress.location,
                 arrayFeatureCode: selectedFeatures,
                 arrayImageCar: selectedImages
-            })
+            }, token)
             if (res) {
                 navigate('/account/mycar')
                 toast.success('Đăng ký xe thành công')
@@ -134,11 +138,14 @@ function RegisterSelfDrive({ type }) {
                 toast.error('Đã xảy ra lỗi trong quá trình đăng ký Xe. Vui lòng thử lại sau.');
             }
             console.error('Error:', error);
+        } finally {
+            dispatch(setHideLoading())
         }
     }
 
     const handleEditCar = async () => {
         try {
+            dispatch(setShowLoading())
             if (!formData.bienSo || !formData.giaThue || !valueAddress.streetAddress || !valueAddress.district || !valueAddress.city || !selectedImages) {
                 toast.error("Thiếu dữ liệu, vui lòng nhập đầy đủ")
             }
@@ -153,7 +160,7 @@ function RegisterSelfDrive({ type }) {
                     city: valueAddress.city,
                     location: valueAddress.location,
                     arrayImageCar: selectedImages
-                })
+                }, token)
                 if (res) {
                     navigate('/account/mycar')
                     toast.success('Cập nhật xe thành công')
@@ -168,6 +175,8 @@ function RegisterSelfDrive({ type }) {
                 toast.error('Đã xảy ra lỗi trong quá trình đăng ký Xe. Vui lòng thử lại sau.');
             }
             console.error('Error:', error);
+        } finally {
+            dispatch(setHideLoading())
         }
     }
 
@@ -283,7 +292,7 @@ function RegisterSelfDrive({ type }) {
 
     return (
         <div className={`${type == "create" ? "px-32" : ""} bg-gray-100 border-t-2`} >
-            <div className='border-none justify-start mt-3 flex flex-row items-center gap-2 cursor-pointer' onClick={() => backto()}>
+            <div className='border-none justify-start mt-3 flex flex-row items-center gap-2 cursor-pointer font-bold' onClick={() => backto()}>
                 <i className="fa-solid fa-chevron-left fa-xl"></i>
                 <p>Quay lại</p>
             </div>
@@ -436,6 +445,17 @@ function RegisterSelfDrive({ type }) {
                         </div>
                     }
                     {
+                        type == "create" &&
+                        <div className='mt-5'>
+                            <div className="flex flex-col gap-3 w-full">
+                                <label className='font-bold text-xl'>Mô tả</label>
+                                <textarea className="textarea outline-0 p-2 border h-32" name="moTa" value={formData.moTa} onChange={handleChange}
+                                    placeholder="Huyndai Elantra số tự động đăng kí tháng 06/2018. Xe gia đình mới đẹp, nội thất nguyên bản, sạch sẽ, bảo dưỡng thường xuyên, rửa xe miễn phí cho khách. Xe rộng rãi, an toàn, tiện nghi, phù hợp cho gia đình du lịch. Xe trang bị hệ thống cảm biến lùi, gạt mưa tự động, đèn pha tự động, camera hành trình, hệ thống giải trí AV cùng nhiều tiện nghi khác..."></textarea>
+                            </div>
+                        </div>
+                    }
+                    {
+                        type == "view" &&
                         <div className='mt-5'>
                             <div className="flex flex-col gap-3 w-full">
                                 <label className='font-bold text-xl'>Mô tả</label>

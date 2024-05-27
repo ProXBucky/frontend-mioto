@@ -1,7 +1,8 @@
-import { configureStore } from "@reduxjs/toolkit"
-import { CookieSlice } from "./Slice/CookieSlice"
-import { SearchSlice } from "./Slice/SearchSlice"
-import { AppSlice } from "./Slice/AppSlice"
+import { configureStore } from "@reduxjs/toolkit";
+import { CookieSlice } from "./Slice/CookieSlice";
+import { SearchSlice } from "./Slice/SearchSlice";
+import { AppSlice } from "./Slice/AppSlice";
+
 
 const store = configureStore({
     reducer: {
@@ -9,7 +10,6 @@ const store = configureStore({
         search: SearchSlice.reducer,
         app: AppSlice.reducer
     }
-})
+});
 
-export default store
-
+export default store;
