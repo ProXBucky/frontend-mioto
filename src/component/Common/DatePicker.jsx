@@ -4,7 +4,7 @@ import { DayPicker } from 'react-day-picker';
 import 'react-day-picker/dist/style.css';
 const pastMonth = new Date()
 import viLocale from 'date-fns/locale/vi';
-import "../assets/css/datePicker.css"
+import "../../assets/css/datePicker.css"
 
 
 function DatePicker({ setBeDate, setEnDate }) {

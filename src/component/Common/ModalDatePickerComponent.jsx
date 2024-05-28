@@ -1,7 +1,7 @@
 import Modal from 'react-bootstrap/Modal';
-import DatePicker from './DatePicker';
+import DatePicker from '../Common/DatePicker';
 import { useDispatch } from 'react-redux';
-import { setBeginDate, setEndDate } from '../redux/Slice/SearchSlice';
+import { setBeginDate, setEndDate } from '../../redux/Slice/SearchSlice';
 import { useState } from 'react';
 
 

@@ -1,17 +1,22 @@
-import Modal from 'react-bootstrap/Modal';
-import { useSelector } from 'react-redux';
-import { beginDateSelector, endDateSelector } from '../../redux/selector';
-import MapComponent from '../../component/MapComponent';
+import MapComponent from '../../component/Common/MapComponent';
 import { formatMoney } from '../../utils/formatMoney';
-import { calculateDays } from '../../utils/calculateDays';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { getTripByRentId } from '../../api/appAPI';
+import { format } from 'date-fns';
+import viLocale from 'date-fns/locale/vi';
+import { cancelTrip } from '../../api/userAPI';
+import { useDispatch, useSelector } from 'react-redux';
+import { userIdSelector } from '../../redux/selector';
+import { toast } from 'react-toastify';
+import { setHideLoading, setShowLoading } from '../../redux/Slice/AppSlice';
 
 
 function DetailRent() {
+    const userId = useSelector(userIdSelector)
     let { rentId } = useParams('rentId')
     const [rent, setRent] = useState({})
+    const dispatch = useDispatch()
 
     const fetchTripInfo = async () => {
         let res = await getTripByRentId(rentId)
@@ -29,6 +34,21 @@ function DetailRent() {
         navigate(-1);  // Go back to the previous page
     };
 
+    const handleCancelTrip = async (rentId) => {
+        try {
+            dispatch(setShowLoading())
+            let res = await cancelTrip(rentId, userId)
+            if (res) {
+                toast.success("Hủy chuyến thành công")
+                navigate("/account/mytrip")
+            }
+        } catch (e) {
+            toast.error("Lỗi hệ thống")
+        } finally {
+            dispatch(setHideLoading())
+        }
+    }
+
     useEffect(() => {
         if (rentId) {
             fetchTripInfo()
@@ -44,16 +64,23 @@ function DetailRent() {
                 <p>Quay lại</p>
             </div>
             <div className='p-4 bg-white'>
-                <h2 className='font-bold text-2xl mb-2'>{`${rent.car && rent.car.model && rent.car.model} ${rent.car && rent.car.modelYear && rent.car.modelYear}`}</h2>
+                <div className='flex flex-row justify-between'>
+                    <h2 className='font-bold text-2xl mb-2'>{`${rent.car && rent.car.model && rent.car.model} ${rent.car && rent.car.modelYear && rent.car.modelYear}`}</h2>
+                    <label className='font-semibold'>
+                        {rent.rentStatus === 'pending' && <p>Trạng thái: <label className="text-yellow-600">Đang chờ xác nhận từ chủ xe</label></p>}
+                        {rent.rentStatus === 'cancel' && <p>Trạng thái: <label className="text-red-600">Chuyến xe đã hủy</label></p>}
+                    </label>
+                </div>
                 <div className='flex flex-row w-full border-t-2 pt-4'>
                     <div className='w-1/3'>
                         <img src={rent.car && rent.car.images && rent.car.images[0].imageLink} className='rounded-xl' />
                     </div>
                     <div className='w-2/3 pl-10'>
                         <h3 className='font-semibold text-lg'>Thời gian thuê xe</h3>
-                        <div className='flex flex-row gap-20 w-full mt-2'>
-                            <p>Bắt đầu: {rent && rent.rentBeginDate}</p>
-                            <p>Kết thúc: {rent && rent.rentEndDate}</p>
+                        <div className='flex flex-col gap-2 w-full mt-2'>
+                            {rent && rent.rentBeginDate && <p>Bắt đầu: {format(rent.rentBeginDate, 'PPPP', { locale: viLocale })}</p>}
+                            {rent && rent.rentBeginDate && <p>Kết thúc: {format(rent.rentEndDate, 'PPPP', { locale: viLocale })}</p>}
+
                         </div>
 
                         <h3 className='font-semibold text-lg mt-2'>Chủ xe</h3>
@@ -249,7 +276,10 @@ function DetailRent() {
                         <li className="">Tiền giữ chỗ & bồi thường cho chủ xe hủy chuyến (nếu có) sẽ được Mioto hoàn trả đến bạn bằng chuyển khoản ngân hàng trong vòng 1-3 ngày làm việc.</li>
                     </ul>
                 </div>
-                <button className='mt-4  rounded-lg w-full p-3 font-bold bg-red-500 text-white'>HỦY CHUYẾN</button>
+                {
+                    rent.rentStatus !== "cancel" &&
+                    <button className='mt-4  rounded-lg w-full p-3 font-bold bg-red-500 text-white' onClick={() => handleCancelTrip(rentId)}>HỦY CHUYẾN</button>
+                }
             </div>
         </>
     )

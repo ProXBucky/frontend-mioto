@@ -106,7 +106,7 @@ function MyCar() {
                                         <div className="flex justify-between w-full">
                                             <i className="cursor-pointer fa-regular fa-eye fa-xl" onClick={() => handleNavigateDetailCar(item.carId)}></i>
                                             <i className="cursor-pointer fa-regular fa-pen-to-square fa-xl" onClick={() => handlenNavigateEditCar(item.carId)}></i>
-                                            <i className="cursor-pointer fa-regular fa-trash-can fa-xl" onClick={() => handleDeleteCar(item.carId)}></i>
+                                            <i className="cursor-pointer fa-regular fa-trash-can fa-xl" onClick={() => handleDeleteCar(item.carId)}></i>(Chưa làm)
                                         </div>
                                     </div>
                                 </div>

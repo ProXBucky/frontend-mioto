@@ -4,17 +4,17 @@ import 'react-toastify/dist/ReactToastify.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Routes, Route } from "react-router-dom";
 import { useState } from 'react';
-import ModalComponent from './component/ModalLoginComponent';
-import ModalDatePickerComponent from './component/ModalDatePickerComponent';
-import ModalLocationPickComponent from './component/ModalLocationPickComponent';
-import ModalForgetPassword from './component/ModalForgetPassword';
-import ModalEditComponent from './component/ModalEditComponent';
-import ModalAddAdress from './component/ModalAddAddress';
+import ModalComponent from './component/Common/ModalLoginComponent';
+import ModalDatePickerComponent from './component/Common/ModalDatePickerComponent';
+import ModalLocationPickComponent from './component/Common/ModalLocationPickComponent';
+import ModalForgetPassword from './component/Common/ModalForgetPassword';
+import ModalEditComponent from './component/Common/ModalEditComponent';
+import ModalAddAdress from './component/Common/ModalAddAddress';
 import Home from './component/Home/Home';
-import Header from './component/Header';
-import Footer from './component/Footer';
+import Header from './component/Common/Header';
+import Footer from './component/Common/Footer';
 import Cookies from 'js-cookie';
-import ScrollToTop from './component/ScrollToTop';
+import ScrollToTop from './component/Common/ScrollToTop';
 
 const AccountInformation = lazy(() =>
   import('./component/AccountInformation/AccountInformation')
@@ -53,7 +53,7 @@ const CarRegist = lazy(() =>
   import('./component/CarRegist/CarRegist')
 );
 const PageNotFound = lazy(() =>
-  import('./component/PageNotFound')
+  import('./component/Common/PageNotFound')
 );
 const RegisterCar = lazy(() =>
   import('./component/AccountInformation/RegisterCar/RegisterCar')
@@ -71,7 +71,7 @@ import { setAvatarImage, setFullname, setToken, setUserId } from './redux/Slice/
 import { useDispatch, useSelector } from 'react-redux';
 import { appLoadSelector, loadingSelector, tokenSelector } from './redux/selector';
 import { setAppLoad, setHideLoading, setShowLoading } from './redux/Slice/AppSlice';
-import LoadingComponent from './component/LoadingComponent';
+import LoadingComponent from './component/Common/LoadingComponent';
 import DetailRent from './features/rent/DetailRent';
 
 
@@ -243,7 +243,7 @@ function App() {
           <Route path="/car-register" element={<RegisterCar />} />
           <Route path="/register-mode/selfdrive" element={<RegisterSelfDrive type="create" />} />
           <Route path="/car/:carId" element={<DetailCar handleOpenDateModal={handleOpenDateModal} handleOpenLoginModal={handleOpenLoginModal} />} />
-          <Route path="/find/:city" element={<CarMenu handleOpenDateModal={handleOpenDateModal} handleOpenLocationModal={handleOpenLocationModal} />} />
+          <Route path="/find" element={<CarMenu handleOpenDateModal={handleOpenDateModal} handleOpenLocationModal={handleOpenLocationModal} />} />
           <Route path="/city/:city" element={<CarByCity handleOpenDateModal={handleOpenDateModal} handleOpenLocationModal={handleOpenLocationModal} />} />
           <Route path="*" element={< PageNotFound />} />
         </Routes>

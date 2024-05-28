@@ -1,9 +1,9 @@
 import Modal from 'react-bootstrap/Modal';
-import AddressSelector from '../features/AdressSelector';
+import AddressSelector from '../../features/search/AdressSelector';
 import { useState } from 'react';
-import { postAddress } from '../api/userAPI';
+import { postAddress } from '../../api/userAPI';
 import { toast } from 'react-toastify';
-import { tokenSelector, userIdSelector } from '../redux/selector';
+import { tokenSelector, userIdSelector } from '../../redux/selector';
 import { useSelector } from 'react-redux';
 
 

@@ -1,7 +1,7 @@
 import React, { memo, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { avatarImageSelector, fullnameSelector, tokenSelector } from '../redux/selector';
+import { avatarImageSelector, fullnameSelector, tokenSelector } from '../../redux/selector';
 
 
 function LoggedOutNavbar({ handleOpenLoginModal, handleOpenRegisterModal }) {

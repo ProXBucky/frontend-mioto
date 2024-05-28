@@ -49,8 +49,8 @@ function MyTrip() {
                                         <p>Kết thúc: {format(item.rentEndDate, 'PPPP', { locale: viLocale })}</p>
                                     </div>
                                     <div className="mt-3 text-sm font-semibold">
-                                        {item.rentStatus === 'pending' && <p>Trạng thái <p className="text-yellow-600">Đang chờ xác nhận từ chủ xe</p></p>}
-
+                                        {item.rentStatus === 'pending' && <p>Trạng thái: <label className="text-amber-500">Đang chờ xác nhận từ chủ xe</label></p>}
+                                        {item.rentStatus === 'cancel' && <p>Trạng thái: <label className="text-red-500">Chuyến xe đã hủy</label></p>}
                                     </div>
                                 </div>
                                 <div className="w-[calc(25%-40px)] border-l-2 flex flex-col justify-center items-center gap-3 pl-4">

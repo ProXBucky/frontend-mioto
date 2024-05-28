@@ -61,7 +61,16 @@ const editCar = async (carId, body, token) => {
     }
 }
 
+const findCarUsingParam = async (city, userId, beginDate, endDate) => {
+    try {
+        const response = await axios.get(`${API_URL}/api/car/find?city=${city}&userId=${parseInt(userId)}&beginDate=${beginDate}&endDate=${endDate}`);
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+}
 
 
 
-export { postNewCar, getListCar, getListCarByCity, getDetailCar, editCar }
+
+export { postNewCar, getListCar, getListCarByCity, getDetailCar, editCar, findCarUsingParam }

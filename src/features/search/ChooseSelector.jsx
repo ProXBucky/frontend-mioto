@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import data from './car/carData.json';
+import data from '../car/carData.json'
 
 function ChooseSelector({ handleChange1 }) {
     const [selectedBrand, setSelectedBrand] = useState('');

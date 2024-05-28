@@ -1,12 +1,16 @@
 import { useDispatch, useSelector } from "react-redux"
-import { beginDateSelector, endDateSelector, locationSelector } from "../../redux/selector"
-import { setShowLoading } from "../../redux/Slice/AppSlice"
+import { beginDateSelector, endDateSelector, locationCodeSelector, locationSelector, userIdSelector } from "../../redux/selector"
+import { setHideLoading, setShowLoading } from "../../redux/Slice/AppSlice"
+import { useNavigate } from "react-router-dom"
 
 function Banner({ city, cityName, handleOpenDateModal, handleOpenLocationModal }) {
     const dispatch = useDispatch()
     let location = useSelector(locationSelector)
     let beginDate = useSelector(beginDateSelector)
     let endDate = useSelector(endDateSelector)
+    let locationCode = useSelector(locationCodeSelector)
+    let userId = useSelector(userIdSelector)
+    const navigate = useNavigate()
 
 
     const cityBackgrounds = {
@@ -23,7 +27,14 @@ function Banner({ city, cityName, handleOpenDateModal, handleOpenLocationModal }
     const backgroundImage = cityBackgrounds[cityName] || cityBackgrounds['default'];
 
     const handleSearchCar = () => {
-        dispatch(setShowLoading())
+        // Hiển thị loading
+        dispatch(setShowLoading());
+        navigate(`/find?city=${locationCode}&userId=${userId}&beginDate=${beginDate}&endDate=${endDate}`)
+
+        // Đặt hẹn giờ để ẩn loading sau 1 giây
+        setTimeout(() => {
+            dispatch(setHideLoading());
+        }, 1000); // 1 giây
     }
 
     return (

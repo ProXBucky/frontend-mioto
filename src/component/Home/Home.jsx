@@ -10,7 +10,7 @@ import Help from './Help';
 import Other from './Other';
 import Service from './Service'
 import Blog from './Blog'
-import ModalPromotionComponent from '../ModalPromotionComponent';
+import ModalPromotionComponent from '../Common/ModalPromotionComponent';
 import { getListCarByCity } from '../../api/carAPI';
 import { useSelector } from 'react-redux';
 import { locationCodeSelector, locationSelector, userIdSelector } from '../../redux/selector';

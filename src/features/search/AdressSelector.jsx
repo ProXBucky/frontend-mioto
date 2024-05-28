@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import City from '../component/Home/City';
-import { convertCityName } from '../utils/convertCityName';
+import City from '../../component/Home/City';
+import { convertCityName } from '../../utils/convertCityName';
 
 function AddressSelector({ handleChangeAddress }) {
     const [provinces, setProvinces] = useState([]);

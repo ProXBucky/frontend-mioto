@@ -182,8 +182,22 @@ const rentCar = async (body, token) => {
     }
 }
 
+const cancelTrip = async (rentId, token) => {
+    try {
+        const response = await axios.put(`${API_URL}/api/rent/cancel-trip/${rentId}`, {
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        })
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        throw error;
+    }
+}
+
 
 export {
     changePasswordUserById, editInformationUserById, getInformationLicenseById, postInformationLicenseById,
-    postAddress, getAllAddressByUserId, deleteAddress, createNewUser, likeCar, dislikeCar, postReviewCar, reportCar, rentCar
+    postAddress, getAllAddressByUserId, deleteAddress, createNewUser, likeCar, dislikeCar, postReviewCar, reportCar, rentCar, cancelTrip
 }

@@ -1,9 +1,9 @@
 // import { Modal } from "bootstrap"
 import Modal from 'react-bootstrap/Modal';
-import { setLocation, setLocationCode } from '../redux/Slice/SearchSlice';
+import { setLocation, setLocationCode } from '../../redux/Slice/SearchSlice';
 import { useDispatch } from 'react-redux';
 import { useState } from 'react';
-import { convertCityName } from '../utils/convertCityName';
+import { convertCityName } from '../../utils/convertCityName';
 
 function ModalLocationPickComponent({ showLocationModal, handleCloseLocationModal }) {
     const dispatch = useDispatch()

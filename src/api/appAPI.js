@@ -103,7 +103,7 @@ const getAllTripByUserId = async (userId, token) => {
 
 const getTripByRentId = async (rentId, token) => {
     try {
-        const response = await axios.get(`${API_URL}/api/rent/${rentId}`, {
+        const response = await axios.get(`${API_URL}/api/rent/detail-trip/${rentId}`, {
             headers: {
                 Authorization: 'Bearer ' + token
             }
