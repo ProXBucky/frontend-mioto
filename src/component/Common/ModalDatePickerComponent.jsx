@@ -10,6 +10,7 @@ function ModalDatePickerComponent({ showDateModal, handleCloseDateModal }) {
     const [beDate, setBeDate] = useState('');
     const [enDate, setEnDate] = useState('');
 
+
     const handlePickDate = () => {
         dispatch(setBeginDate(beDate))
         dispatch(setEndDate(enDate))

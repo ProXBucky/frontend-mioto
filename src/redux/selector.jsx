@@ -8,3 +8,6 @@ export const beginDateSelector = (state) => state.search.beginDate
 export const endDateSelector = (state) => state.search.endDate
 export const appLoadSelector = (state) => state.app.appLoad
 export const loadingSelector = (state) => state.app.loading
+export const adminTokenSelector = (state) => state.cookie.adminToken
+export const adminIdSelector = (state) => state.cookie.adminId
+export const adminFullnameSelector = (state) => state.cookie.adminFullname

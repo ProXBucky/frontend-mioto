@@ -2,7 +2,7 @@ import React, { lazy, Suspense, memo, useEffect, useRef } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation, Navigate } from "react-router-dom";
 import { useState } from 'react';
 import ModalComponent from './component/Common/ModalLoginComponent';
 import ModalDatePickerComponent from './component/Common/ModalDatePickerComponent';
@@ -15,6 +15,7 @@ import Header from './component/Common/Header';
 import Footer from './component/Common/Footer';
 import Cookies from 'js-cookie';
 import ScrollToTop from './component/Common/ScrollToTop';
+import LoadingComponent from './component/Common/LoadingComponent';
 
 const AccountInformation = lazy(() =>
   import('./component/AccountInformation/AccountInformation')
@@ -64,19 +65,27 @@ const RegisterSelfDrive = lazy(() =>
 const CarByCity = lazy(() =>
   import('./component/CarByCity/CarByCity')
 );
+const DetailRent = lazy(() =>
+  import('./features/rent/DetailRent')
+);
+const LoginAdmin = lazy(() =>
+  import('./component/Admin/LoginAdmin')
+);
+
+import AdminApp from './component/Admin/AdminApp';
+
 
 import { createNewUser } from './api/userAPI';
 import { loginUser } from './api/authAPI';
 import { setAvatarImage, setFullname, setToken, setUserId } from './redux/Slice/CookieSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import { appLoadSelector, loadingSelector, tokenSelector } from './redux/selector';
+import { adminIdSelector, appLoadSelector, loadingSelector, tokenSelector } from './redux/selector';
 import { setAppLoad, setHideLoading, setShowLoading } from './redux/Slice/AppSlice';
-import LoadingComponent from './component/Common/LoadingComponent';
-import DetailRent from './features/rent/DetailRent';
 
 
 function App() {
   const dispatch = useDispatch();
+  const adminId = useSelector(adminIdSelector)
   const token = useSelector(tokenSelector)
   const appLoad = useSelector(appLoadSelector)
   const loading = useSelector(loadingSelector)
@@ -210,6 +219,10 @@ function App() {
   };
 
   const prevAppLoadRef = useRef(appLoad);
+  const location = useLocation();
+  const noHeaderFooterRoutes = ['/login', '/admin'];
+
+  const isNoHeaderFooterRoute = noHeaderFooterRoutes.includes(location.pathname);
 
   useEffect(() => {
     if (prevAppLoadRef.current !== appLoad) {
@@ -220,8 +233,7 @@ function App() {
 
   return (
     <>
-
-      <Header handleOpenRegisterModal={handleOpenRegisterModal} handleOpenLoginModal={handleOpenLoginModal} />
+      {!isNoHeaderFooterRoute && <Header handleOpenRegisterModal={handleOpenRegisterModal} handleOpenLoginModal={handleOpenLoginModal} />}
       <ScrollToTop />
       <Suspense fallback={<LoadingComponent />}>
         <Routes>
@@ -245,10 +257,14 @@ function App() {
           <Route path="/car/:carId" element={<DetailCar handleOpenDateModal={handleOpenDateModal} handleOpenLoginModal={handleOpenLoginModal} />} />
           <Route path="/find" element={<CarMenu handleOpenDateModal={handleOpenDateModal} handleOpenLocationModal={handleOpenLocationModal} />} />
           <Route path="/city/:city" element={<CarByCity handleOpenDateModal={handleOpenDateModal} handleOpenLocationModal={handleOpenLocationModal} />} />
+          <Route path="/login" element={<LoginAdmin />} />
+          <Route path="/admin/*" element={adminId ? <AdminApp /> : <Navigate to="/login" />} />
+
           <Route path="*" element={< PageNotFound />} />
         </Routes>
       </Suspense>
-      <Footer />
+      {!isNoHeaderFooterRoute && <Footer />}
+
 
       {loading && <LoadingComponent />}
       <ModalComponent

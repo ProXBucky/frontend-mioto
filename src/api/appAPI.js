@@ -115,9 +115,19 @@ const getTripByRentId = async (rentId, token) => {
     }
 };
 
+const checkStatusRent = async (carId, beginDate, endDate) => {
+    try {
+        const response = await axios.get(`${API_URL}/api/rent/check-status?carId=${carId}&beginDate=${beginDate}&endDate=${endDate}`)
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        throw error;
+    }
+}
+
 
 
 export {
     getAllCarFeature, checkLikeCar, getAllCarLiked, getAllReviewOfCar, getAllReviewByCity, getReviewScore, getAllVoucherByUserId, getInformationUserById, getAllTripByUserId,
-    getTripByRentId
+    getTripByRentId, checkStatusRent
 }

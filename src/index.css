@@ -7,3 +7,37 @@
     font-family: "Manrope", "Encode Sans Expanded", "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
     scroll-behavior: smooth;
 }
+
+::-webkit-scrollbar {
+    width: 8px;
+    /* Chiều rộng thanh cuộn */
+    opacity: 0;
+    /* Ẩn thanh cuộn mặc định */
+    transition: opacity 0.3s ease;
+    /* Thêm hiệu ứng độ mờ */
+}
+
+/* Hiển thị thanh cuộn khi chuột di chuyển vào */
+::-webkit-scrollbar:hover {
+    opacity: 1;
+    /* Hiển thị thanh cuộn */
+}
+
+/* Thiết lập màu sắc cho các phần của thanh cuộn */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    /* Màu nền của thanh cuộn */
+}
+
+::-webkit-scrollbar-thumb {
+    cursor: pointer;
+    background: #e1e1e1;
+    /* Màu của thanh cuộn */
+    border-radius: 4px;
+    /* Bo tròn các góc */
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #b1b1b1;
+    /* Màu của thanh cuộn khi di chuột qua */
+}

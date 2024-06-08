@@ -10,6 +10,8 @@ import "../../assets/css/datePicker.css"
 function DatePicker({ setBeDate, setEnDate }) {
     const [range, setRange] = useState([]);
 
+    const today = new Date()
+
     let totalDays = 0;
     let footer = <p>Hãy chọn ngày đi và ngày về</p>;
     if (range?.from) {
@@ -41,6 +43,7 @@ function DatePicker({ setBeDate, setEnDate }) {
                 selected={range}
                 onSelect={setRange}
                 locale={viLocale}
+                disabled={{ before: today }}
             />
             <div className='text-lg font-semibold'>{footer}</div>
             <div>Số ngày thuê: {totalDays} ngày</div>
