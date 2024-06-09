@@ -4,83 +4,89 @@ import 'react-toastify/dist/ReactToastify.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Routes, Route, useLocation, Navigate } from "react-router-dom";
 import { useState } from 'react';
-import ModalComponent from './component/Common/ModalLoginComponent';
-import ModalDatePickerComponent from './component/Common/ModalDatePickerComponent';
-import ModalLocationPickComponent from './component/Common/ModalLocationPickComponent';
-import ModalForgetPassword from './component/Common/ModalForgetPassword';
-import ModalEditComponent from './component/Common/ModalEditComponent';
-import ModalAddAdress from './component/Common/ModalAddAddress';
-import Home from './component/Home/Home';
-import Header from './component/Common/Header';
-import Footer from './component/Common/Footer';
+import ModalComponent from './container/Common/ModalLoginComponent';
+import ModalDatePickerComponent from './container/Common/ModalDatePickerComponent';
+import ModalLocationPickComponent from './container/Common/ModalLocationPickComponent';
+import ModalForgetPassword from './container/Common/ModalForgetPassword';
+import ModalEditComponent from './container/Common/ModalEditComponent';
+import ModalAddAdress from './container/Common/ModalAddAddress';
+import Home from './container/Home/Home';
+import Header from './container/Common/Header';
+import Footer from './container/Common/Footer';
 import Cookies from 'js-cookie';
-import ScrollToTop from './component/Common/ScrollToTop';
-import LoadingComponent from './component/Common/LoadingComponent';
+import ScrollToTop from './container/Common/ScrollToTop';
+import LoadingComponent from './container/Common/LoadingComponent';
 
 const AccountInformation = lazy(() =>
-  import('./component/AccountInformation/AccountInformation')
+  import('./container/AccountInformation/AccountInformation')
 );
 const MyAccount = lazy(() =>
-  import('./component/AccountInformation/DetailInformation/MyAccount')
+  import('./container/AccountInformation/DetailInformation/MyAccount')
 );
 const FavoriteCar = lazy(() =>
-  import('./component/AccountInformation/DetailInformation/FavoriteCar')
+  import('./container/AccountInformation/DetailInformation/FavoriteCar')
 );
 const MyCar = lazy(() =>
-  import('./component/AccountInformation/DetailInformation/MyCar')
+  import('./container/AccountInformation/DetailInformation/MyCar')
 );
 const MyTrip = lazy(() =>
-  import('./component/AccountInformation/DetailInformation/MyTrip')
+  import('./container/AccountInformation/DetailInformation/MyTrip')
 );
 const MyVoucher = lazy(() =>
-  import('./component/AccountInformation/DetailInformation/MyVoucher')
+  import('./container/AccountInformation/DetailInformation/MyVoucher')
 );
 const ChangePassword = lazy(() =>
-  import('./component/AccountInformation/DetailInformation/ChangePassword')
+  import('./container/AccountInformation/DetailInformation/ChangePassword')
 );
 const MyAddress = lazy(() =>
-  import('./component/AccountInformation/DetailInformation/MyAddress')
+  import('./container/AccountInformation/DetailInformation/MyAddress')
 );
 const DetailCar = lazy(() =>
   import('./features/car/detailCar')
 );
 const CarMenu = lazy(() =>
-  import('./component/CarMenu/CarMenu')
+  import('./container/CarMenu/CarMenu')
 );
 const About = lazy(() =>
-  import('./component/AboutUs/About')
+  import('./container/AboutUs/About')
 );
 const CarRegist = lazy(() =>
-  import('./component/CarRegist/CarRegist')
+  import('./container/CarRegist/CarRegist')
 );
 const PageNotFound = lazy(() =>
-  import('./component/Common/PageNotFound')
+  import('./container/Common/PageNotFound')
 );
 const RegisterCar = lazy(() =>
-  import('./component/AccountInformation/RegisterCar/RegisterCar')
+  import('./container/AccountInformation/RegisterCar/RegisterCar')
 );
 const RegisterSelfDrive = lazy(() =>
-  import('./component/AccountInformation/DetailInformation/RegisterSelfDrive')
+  import('./container/AccountInformation/DetailInformation/RegisterSelfDrive')
 );
 const CarByCity = lazy(() =>
-  import('./component/CarByCity/CarByCity')
+  import('./container/CarByCity/CarByCity')
 );
 const DetailRent = lazy(() =>
   import('./features/rent/DetailRent')
 );
 const LoginAdmin = lazy(() =>
-  import('./component/Admin/LoginAdmin')
+  import('./container/Admin/LoginAdmin')
 );
 
-import AdminApp from './component/Admin/AdminApp';
+import AdminApp from './container/Admin/AdminApp';
 
 
 import { createNewUser } from './api/userAPI';
 import { loginUser } from './api/authAPI';
 import { setAvatarImage, setFullname, setToken, setUserId } from './redux/Slice/CookieSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import { adminIdSelector, appLoadSelector, loadingSelector, tokenSelector } from './redux/selector';
+import { adminIdSelector, appLoadSelector, loadingSelector, modalAddUserSelector, modalChangePasswordUserSelector, modalEditUserSelector, modalViewUserSelector, tokenSelector } from './redux/selector';
 import { setAppLoad, setHideLoading, setShowLoading } from './redux/Slice/AppSlice';
+import ManageUser from './container/Admin/User/ManageUser';
+import ManageAdmin from './container/Admin/Admin/ManageAdmin';
+import ModalViewUser from './container/Admin/User/ModalViewUser';
+import ModalEditUser from './container/Admin/User/ModalEditUser';
+import ModalChangePassword from './container/Admin/User/ModalChangePassword';
+import ModalCreateUser from './container/Admin/User/ModalCreateUser';
 
 
 function App() {
@@ -96,6 +102,11 @@ function App() {
   const [showModalForgetPassword, setShowModalForgetPassword] = useState(false);
   const [showModalEdit, setShowModalEdit] = useState(false);
   const [showModalAddress, setShowModalAddress] = useState(false);
+
+  const modalViewUser = useSelector(modalViewUserSelector)
+  const modalEditUser = useSelector(modalEditUserSelector)
+  const modalChangePasswordUser = useSelector(modalChangePasswordUserSelector)
+  const modalAddUser = useSelector(modalAddUserSelector)
 
   const handleCloseRegisterModal = () => {
     setShowRegisterModal(false);
@@ -221,8 +232,7 @@ function App() {
   const prevAppLoadRef = useRef(appLoad);
   const location = useLocation();
   const noHeaderFooterRoutes = ['/login', '/admin'];
-
-  const isNoHeaderFooterRoute = noHeaderFooterRoutes.includes(location.pathname);
+  const isNoHeaderFooterRoute = noHeaderFooterRoutes.some(route => location.pathname.startsWith(route));
 
   useEffect(() => {
     if (prevAppLoadRef.current !== appLoad) {
@@ -258,15 +268,23 @@ function App() {
           <Route path="/find" element={<CarMenu handleOpenDateModal={handleOpenDateModal} handleOpenLocationModal={handleOpenLocationModal} />} />
           <Route path="/city/:city" element={<CarByCity handleOpenDateModal={handleOpenDateModal} handleOpenLocationModal={handleOpenLocationModal} />} />
           <Route path="/login" element={<LoginAdmin />} />
-          <Route path="/admin/*" element={adminId ? <AdminApp /> : <Navigate to="/login" />} />
+          <Route path="/admin/*" element={adminId ? <AdminApp /> : <Navigate to="/login" />} >
+            <Route path="user" element={<ManageUser />} />
+            <Route path="staff" element={<ManageAdmin />} />
+          </Route>
 
           <Route path="*" element={< PageNotFound />} />
         </Routes>
       </Suspense>
       {!isNoHeaderFooterRoute && <Footer />}
-
-
       {loading && <LoadingComponent />}
+
+      {modalViewUser && <ModalViewUser />}
+      {modalEditUser && <ModalEditUser />}
+      {modalChangePasswordUser && <ModalChangePassword />}
+      {modalAddUser && <ModalCreateUser />}
+
+
       <ModalComponent
         showModal={showRegisterModal}
         handleClose={handleCloseRegisterModal}

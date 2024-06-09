@@ -1,7 +1,7 @@
 import Modal from 'react-bootstrap/Modal';
 import { useSelector } from 'react-redux';
 import { beginDateSelector, endDateSelector } from '../../redux/selector';
-import MapComponent from '../../component/Common/MapComponent';
+import MapComponent from '../../container/Common/MapComponent';
 import { formatMoney } from '../../utils/formatMoney';
 import { calculateDays } from '../../utils/calculateDays';
 import { useState } from 'react';

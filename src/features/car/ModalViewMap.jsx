@@ -1,5 +1,5 @@
 import Modal from 'react-bootstrap/Modal';
-import MapComponent from '../../component/Common/MapComponent';
+import MapComponent from '../../container/Common/MapComponent';
 
 
 function ModalViewMap({ showModalMap, handleCloseModalMap, locationName }) {

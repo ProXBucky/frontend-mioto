@@ -8,6 +8,7 @@ import { format } from "date-fns";
 import { setShowLoading } from "../../../redux/Slice/AppSlice";
 import { getInformationUserById } from "../../../api/appAPI";
 import { useNavigate } from "react-router-dom";
+import { getListCar } from "../../../api/carAPI";
 
 
 
@@ -134,7 +135,7 @@ function MyAccount({ handleOpenEdit, showModalEdit }) {
                 </div>
                 <div className="flex flex-row items-center">
                     <div className="w-1/3 flex justify-center flex-col gap-3 items-center px-3">
-                        <div className="rounded-full overflow-hidden">
+                        <div className="rounded-full overflow-hidden border-2">
                             <img src={userInfo && userInfo.avatarImage ? userInfo.avatarImage : '/avaMale.png'} />
                         </div>
                         <h2 className="text-lg font-semibold">{userInfo && userInfo.fullname && userInfo.fullname}</h2>

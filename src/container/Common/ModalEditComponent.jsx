@@ -6,11 +6,13 @@ import AvatarEditor from 'react-avatar-editor';
 import { editInformationUserById } from "../../api/userAPI"
 import { getInformationUserById } from "../../api/appAPI"
 import { tokenSelector, userIdSelector } from '../../redux/selector';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { setHideLoading, setShowLoading } from '../../redux/Slice/AppSlice';
 
 function ModalEditComponent({ showModalEdit, handleCloseEdit }) {
     const userId = useSelector(userIdSelector);
     const token = useSelector(tokenSelector)
+    const dispatch = useDispatch()
     const [formData, setFormData] = useState({
         fullname: '',
         phone: '',
@@ -37,16 +39,21 @@ function ModalEditComponent({ showModalEdit, handleCloseEdit }) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (editor) {
-            const canvas = editor.getImageScaledToCanvas();
-            const dataURL = canvas.toDataURL();
-            formData['avatarImage'] = dataURL;
+        try{
+            dispatch(setShowLoading())
+            if (editor) {
+                const canvas = editor.getImageScaledToCanvas();
+                const dataURL = canvas.toDataURL();
+                formData['avatarImage'] = dataURL;
+            }
+            let res = await editInformationUserById(userId, formData, token)              //FIX-DATA
+            setFormData({ fullname: '', phone: '', email: '', dob: '', gender: '' });
+            handleCloseEdit();
+        }catch(e){
+            console.log(e)
+        } finally{
+            dispatch(setHideLoading())
         }
-        let res = await editInformationUserById(userId, formData, token)              //FIX-DATA
-        console.log(formData)
-        console.log(res)
-        setFormData({ fullname: '', phone: '', email: '', dob: '', gender: '' });
-        handleCloseEdit();
     };
 
     const fetchInfoData = async () => {

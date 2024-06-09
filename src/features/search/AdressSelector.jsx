@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import City from '../../component/Home/City';
+import City from '../../container/Home/City';
 import { convertCityName } from '../../utils/convertCityName';
 
 function AddressSelector({ handleChangeAddress }) {

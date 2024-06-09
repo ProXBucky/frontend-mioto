@@ -10,6 +10,7 @@ const initialState = {
     tokenAdmin: Cookies.get("adminAccessToken") ? Cookies.get("adminAccessToken") : null,
     adminId: Cookies.get("adminId") ? Cookies.get("adminId") : 0,
     adminFullname: Cookies.get("adminFullname") ? Cookies.get("adminFullname") : null,
+    adminRole: Cookies.get("adminRole") ? Cookies.get("adminRole") : null
 };
 
 export const CookieSlice = createSlice({
@@ -59,10 +60,16 @@ export const CookieSlice = createSlice({
         clearAdminFullname(state) {
             state.adminFullname = null
         },
+        setAdminRole(state, action) {
+            state.adminRole = action.payload
+        },
+        clearAdminRole(state) {
+            state.adminRole = null
+        },
     },
 });
 
 export const { setToken, clearToken, setUserInfo, clearUserInfo, setUserId, clearUserId, setFullname, clearFullname, setAvatarImage, clearAvatarImage,
-    setAdminToken, clearAdminToken, setAdminId, clearAdminId, setAdminFullname, clearAdminFullname
+    setAdminToken, clearAdminToken, setAdminId, clearAdminId, setAdminFullname, clearAdminFullname, setAdminRole, clearAdminRole
 } = CookieSlice.actions;
 

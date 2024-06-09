@@ -1,4 +1,4 @@
-import MapComponent from '../../component/Common/MapComponent';
+import MapComponent from '../../container/Common/MapComponent';
 import { formatMoney } from '../../utils/formatMoney';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';

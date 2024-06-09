@@ -125,9 +125,36 @@ const checkStatusRent = async (carId, beginDate, endDate) => {
     }
 }
 
+const getAllUser = async (token) => {
+    try {
+        const response = await axios.get(`${API_URL}/api/user`, {
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        })
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        throw error;
+    }
+};
+
+const getAllAdmin = async (token) => {
+    try {
+        const response = await axios.get(`${API_URL}/api/admin`, {
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        })
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        throw error;
+    }
+};
 
 
 export {
     getAllCarFeature, checkLikeCar, getAllCarLiked, getAllReviewOfCar, getAllReviewByCity, getReviewScore, getAllVoucherByUserId, getInformationUserById, getAllTripByUserId,
-    getTripByRentId, checkStatusRent
+    getTripByRentId, checkStatusRent, getAllUser, getAllAdmin
 }
