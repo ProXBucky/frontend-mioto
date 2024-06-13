@@ -21,3 +21,10 @@ export const modalDeleteUserSelector = (state) => state.modal.modalDeleteUser
 export const modalEditUserSelector = (state) => state.modal.modalEditUser
 export const modalViewUserSelector = (state) => state.modal.modalViewUser
 export const modalChangePasswordUserSelector = (state) => state.modal.modalChangePasswordUser
+export const modalObjectSelector = (state) => state.modal.modalObject
+
+export const modalCarIdSelector = (state) => state.modal.modalCarId
+export const modalAddCarSelector = (state) => state.modal.modalAddCar
+export const modalDeleteCarSelector = (state) => state.modal.modalDeleteCar
+export const modalEditCarSelector = (state) => state.modal.modalEditCar
+export const modalViewCarSelector = (state) => state.modal.modalViewCar

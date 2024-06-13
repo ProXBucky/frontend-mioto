@@ -4,23 +4,27 @@ import { useEffect, useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import AvatarEditor from 'react-avatar-editor';
 import { useDispatch, useSelector } from 'react-redux';
-import { clearModalEditUser, clearModalUserId } from '../../../redux/Slice/ModalSlice';
+import { clearModalEditUser, clearModalUserId, setModalObject } from '../../../redux/Slice/ModalSlice';
 import { setHideLoading, setShowLoading } from '../../../redux/Slice/AppSlice';
 import { editInformationUserById } from '../../../api/userAPI';
 import { getInformationUserById } from '../../../api/appAPI';
-import { adminTokenSelector, modalEditUserSelector, modalUserIdSelector } from '../../../redux/selector';
+import { adminTokenSelector, modalEditUserSelector, modalObjectSelector, modalUserIdSelector } from '../../../redux/selector';
+import { editInformationAdminById, findInformationAdminById } from '../../../api/adminAPI';
+import { toast } from 'react-toastify';
 
 function ModalEditUser() {
     const userId = useSelector(modalUserIdSelector)
     const token = useSelector(adminTokenSelector)
     const modalEditUser = useSelector(modalEditUserSelector)
+    const modalObject = useSelector(modalObjectSelector)
     const dispatch = useDispatch()
     const [formData, setFormData] = useState({
         fullname: '',
         phone: '',
         email: '',
         dob: '',
-        gender: ''
+        gender: '',
+        role: ''
     });
 
     const handleChange = (e) => {
@@ -40,34 +44,71 @@ function ModalEditUser() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        try{
+        try {
             dispatch(setShowLoading())
             if (editor) {
                 const canvas = editor.getImageScaledToCanvas();
                 const dataURL = canvas.toDataURL();
                 formData['avatarImage'] = dataURL;
             }
-            let res = await editInformationUserById(userId, formData, token)              
-            setFormData({ fullname: '', phone: '', email: '', dob: '', gender: '' });
-            handleCloseEdit();
-        }catch(e){
-            console.log(e)
-        }finally{
+            if (modalObject === "user") {
+                let res = await editInformationUserById(userId, formData, token)
+                setFormData({ fullname: '', phone: '', email: '', dob: '', gender: '', role: '' });
+                handleCloseEdit();
+            }
+            else if (modalObject === "admin") {
+                let res = await editInformationAdminById(userId, formData, token)
+                setFormData({ fullname: '', phone: '', email: '', dob: '', gender: '', role: '' });
+                handleCloseEdit();
+            }
+        } catch (error) {
+            console.log(error)
+            if (error.response) {
+                switch (error.response.status) {
+                    case 401:
+                        toast.error('Bạn chưa được cấp quyền');
+                        break;
+                    case 403:
+                        toast.error('Bạn không có quyền thay đổi mật khẩu');
+                        break;
+                    default:
+                        toast.error('Đã xảy ra lỗi. Vui lòng thử lại sau.');
+                }
+            } else {
+                toast.error('Đã xảy ra lỗi. Vui lòng thử lại sau.');
+            }
+        } finally {
             dispatch(setHideLoading())
         }
     };
 
     const fetchInfoData = async () => {
         if (userId) {
-            let resData = await getInformationUserById(userId, token);
-            if (resData) {
-                setFormData({
-                    fullname: resData.fullname,
-                    phone: resData.phone,
-                    email: resData.email,
-                    dob: resData.dob,
-                    gender: resData.gender
-                })
+            if (modalObject === "user") {
+                let resData = await getInformationUserById(userId, token);
+                if (resData) {
+                    setFormData({
+                        fullname: resData.fullname,
+                        phone: resData.phone,
+                        email: resData.email,
+                        dob: resData.dob,
+                        gender: resData.gender
+                    })
+                }
+            }
+
+            else if (modalObject === "admin") {
+                let resData = await findInformationAdminById(userId, token);
+                if (resData) {
+                    setFormData({
+                        fullname: resData.fullname,
+                        phone: resData.phone,
+                        email: resData.email,
+                        dob: resData.dob,
+                        gender: resData.gender,
+                        role: resData.role
+                    })
+                }
             }
         }
     }
@@ -75,6 +116,7 @@ function ModalEditUser() {
     const handleCloseEdit = () => {
         dispatch(clearModalUserId())
         dispatch(clearModalEditUser())
+        dispatch(setModalObject(null))
     }
 
     useEffect(() => {
@@ -129,7 +171,7 @@ function ModalEditUser() {
                                 />
                             </Form.Group>
 
-                            <Form.Label className='font-semibold text-gray-500'>Giới tính</Form.Label>
+                            <Form.Label className='mt-2 font-semibold text-gray-500'>Giới tính</Form.Label>
                             <Form.Select value={formData.gender} name="gender" onChange={handleChange}>
                                 <option value="">Hãy chọn giới tính</option>
                                 <option value="Nam">Nam</option>
@@ -146,6 +188,17 @@ function ModalEditUser() {
                                     onChange={handleChange}
                                 />
                             </Form.Group>
+                            {
+                                modalObject === "admin" &&
+                                <>
+                                    <Form.Label className='mt-2 font-semibold text-gray-500'>Chức vụ</Form.Label>
+                                    <Form.Select value={formData.role} name="role" onChange={handleChange}>
+                                        <option value="">Hãy chọn chức vụ</option>
+                                        <option value="Admin">Quản trị viên</option>
+                                        <option value="Staff">Nhân viên</option>
+                                    </Form.Select>
+                                </>
+                            }
                         </div>
                         <div className='text-center w-1/2'>
                             <label htmlFor="avaInput" className="rounded-2xl bg-main p-3 mb-2 text-white font-semibold">

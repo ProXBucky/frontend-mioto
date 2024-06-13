@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { adminTokenSelector, modalChangePasswordUserSelector, modalUserIdSelector } from "../../../redux/selector";
+import { adminTokenSelector, modalChangePasswordUserSelector, modalObjectSelector, modalUserIdSelector } from "../../../redux/selector";
 import { ModalBody } from "react-bootstrap";
 import Modal from 'react-bootstrap/Modal';
-import { clearModalChangePasswordUser, clearModalUserId } from "../../../redux/Slice/ModalSlice";
-import { changePasswordUser } from "../../../api/adminAPI";
+import { clearModalChangePasswordUser, clearModalUserId, setModalObject } from "../../../redux/Slice/ModalSlice";
+import { changePasswordAdmin, changePasswordUser } from "../../../api/adminAPI";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { setHideLoading, setShowLoading } from "../../../redux/Slice/AppSlice";
@@ -15,6 +15,7 @@ function ModalChangePassword() {
     const token = useSelector(adminTokenSelector)
     const userId = useSelector(modalUserIdSelector);
     const modalChangePasswordUser = useSelector(modalChangePasswordUserSelector)
+    const modalObject = useSelector(modalObjectSelector)
 
     const [formData, setFormData] = useState({
         password: ''
@@ -30,24 +31,41 @@ function ModalChangePassword() {
     const handleCloseModal = () => {
         dispatch(clearModalUserId())
         dispatch(clearModalChangePasswordUser())
+        dispatch(setModalObject(null))
     }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
             dispatch(setShowLoading())
-            let res = await changePasswordUser(userId, formData.password, token)
-            if (res) {
-                handleCloseModal()
+            if (modalObject === "user") {
+                let res = await changePasswordUser(userId, formData.password, token)
+                if (res) {
+                    handleCloseModal()
+                }
+            }
+            else if (modalObject === "admin") {
+                let res = await changePasswordAdmin(userId, formData.password, token)
+                if (res) {
+                    handleCloseModal()
+                }
             }
         } catch (error) {
-            if (error.response && error.response.status === 401) {
-                toast.error('Bạn chưa được cấp quyền');
-            }
-            else {
-                toast.error('Đã xảy ra lỗi trong quá trình đăng ký Xe. Vui lòng thử lại sau.');
-            }
             console.log(error)
+            if (error.response) {
+                switch (error.response.status) {
+                    case 401:
+                        toast.error('Bạn chưa được cấp quyền');
+                        break;
+                    case 403:
+                        toast.error('Bạn không có quyền thay đổi mật khẩu');
+                        break;
+                    default:
+                        toast.error('Đã xảy ra lỗi. Vui lòng thử lại sau.');
+                }
+            } else {
+                toast.error('Đã xảy ra lỗi. Vui lòng thử lại sau.');
+            }
         } finally {
             dispatch(setHideLoading())
         }

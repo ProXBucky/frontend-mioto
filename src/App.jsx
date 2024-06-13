@@ -79,7 +79,7 @@ import { createNewUser } from './api/userAPI';
 import { loginUser } from './api/authAPI';
 import { setAvatarImage, setFullname, setToken, setUserId } from './redux/Slice/CookieSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import { adminIdSelector, appLoadSelector, loadingSelector, modalAddUserSelector, modalChangePasswordUserSelector, modalEditUserSelector, modalViewUserSelector, tokenSelector } from './redux/selector';
+import { adminIdSelector, appLoadSelector, loadingSelector, modalAddUserSelector, modalChangePasswordUserSelector, modalEditUserSelector, modalViewCarSelector, modalViewUserSelector, tokenSelector } from './redux/selector';
 import { setAppLoad, setHideLoading, setShowLoading } from './redux/Slice/AppSlice';
 import ManageUser from './container/Admin/User/ManageUser';
 import ManageAdmin from './container/Admin/Admin/ManageAdmin';
@@ -87,6 +87,8 @@ import ModalViewUser from './container/Admin/User/ModalViewUser';
 import ModalEditUser from './container/Admin/User/ModalEditUser';
 import ModalChangePassword from './container/Admin/User/ModalChangePassword';
 import ModalCreateUser from './container/Admin/User/ModalCreateUser';
+import ManageCar from './container/Admin/Car/ManageCar';
+import ModalViewCar from './container/Admin/Car/ModalViewCar';
 
 
 function App() {
@@ -107,6 +109,8 @@ function App() {
   const modalEditUser = useSelector(modalEditUserSelector)
   const modalChangePasswordUser = useSelector(modalChangePasswordUserSelector)
   const modalAddUser = useSelector(modalAddUserSelector)
+
+  const modalViewCar = useSelector(modalViewCarSelector)
 
   const handleCloseRegisterModal = () => {
     setShowRegisterModal(false);
@@ -271,6 +275,7 @@ function App() {
           <Route path="/admin/*" element={adminId ? <AdminApp /> : <Navigate to="/login" />} >
             <Route path="user" element={<ManageUser />} />
             <Route path="staff" element={<ManageAdmin />} />
+            <Route path="car" element={<ManageCar />} />
           </Route>
 
           <Route path="*" element={< PageNotFound />} />
@@ -283,6 +288,10 @@ function App() {
       {modalEditUser && <ModalEditUser />}
       {modalChangePasswordUser && <ModalChangePassword />}
       {modalAddUser && <ModalCreateUser />}
+
+      {modalViewCar && <ModalViewCar />}
+      {/* {modalEditUser && <ModalEditUser />}
+      {modalAddUser && <ModalCreateUser />} */}
 
 
       <ModalComponent

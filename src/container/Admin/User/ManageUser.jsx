@@ -3,7 +3,7 @@ import { getAllUser } from "../../../api/appAPI"
 import { useDispatch, useSelector } from "react-redux"
 import { adminTokenSelector, modalAddUserSelector, modalChangePasswordUserSelector, modalDeleteUserSelector, modalEditUserSelector } from "../../../redux/selector"
 import { format } from "date-fns"
-import { setModalAddUser, setModalChangePasswordUser, setModalDeleteUser, setModalEditUser, setModalUserId, setModalViewUser } from "../../../redux/Slice/ModalSlice"
+import { setModalAddUser, setModalChangePasswordUser, setModalDeleteUser, setModalEditUser, setModalObject, setModalUserId, setModalViewUser } from "../../../redux/Slice/ModalSlice"
 
 function ManageUser() {
     const dispatch = useDispatch()
@@ -29,29 +29,35 @@ function ManageUser() {
     }
 
     const handleOpenModalCreate = () => {
+        dispatch(setModalObject("user"))
         dispatch(setModalAddUser())
     }
 
     const handleOpenModalView = (userId, index) => {
         toggleDropdown(index)
+        dispatch(setModalObject("user"))
         dispatch(setModalUserId(userId))
         dispatch(setModalViewUser())
+
     }
 
     const handleOpenModalEdit = (userId, index) => {
         toggleDropdown(index)
+        dispatch(setModalObject("user"))
         dispatch(setModalUserId(userId))
         dispatch(setModalEditUser())
     }
 
     const handleOpenModalDelete = (userId, index) => {
         toggleDropdown(index)
+        dispatch(setModalObject("user"))
         dispatch(setModalUserId(userId))
         dispatch(setModalDeleteUser())
     }
 
     const handleOpenModalChangePassword = (userId, index) => {
         toggleDropdown(index)
+        dispatch(setModalObject("user"))
         dispatch(setModalUserId(userId))
         dispatch(setModalChangePasswordUser())
     }
@@ -72,7 +78,7 @@ function ManageUser() {
                 <h2 className="font-bold text-xl">Người dùng</h2>
                 <button className="py-2 px-3 bg-black text-white font-semibold rounded-md" onClick={handleOpenModalCreate}><i className="fa-solid fa-plus mr-2"></i>Thêm người dùng</button>
             </div>
-            <div className="w-full h-40 bg-white mt-10">
+            <div className="w-full mt-10 pb-16">
                 <table className="min-w-full bg-white">
                     <thead>
                         <tr className="bg-gray-50 text-gray-500 text-sm leading-normal">

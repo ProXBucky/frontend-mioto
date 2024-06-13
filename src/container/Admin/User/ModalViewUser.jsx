@@ -1,27 +1,39 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { adminTokenSelector, modalUserIdSelector, modalViewUserSelector } from "../../../redux/selector";
+import { adminTokenSelector, modalObjectSelector, modalUserIdSelector, modalViewUserSelector } from "../../../redux/selector";
 import { ModalBody } from "react-bootstrap";
 import Modal from 'react-bootstrap/Modal';
-import { clearModalUserId, clearModalViewUser } from "../../../redux/Slice/ModalSlice";
+import { clearModalUserId, clearModalViewUser, setModalObject } from "../../../redux/Slice/ModalSlice";
 import { getInformationUserById } from "../../../api/appAPI";
 import { format } from "date-fns";
+import { findInformationAdminById } from "../../../api/adminAPI";
 
 function ModalViewUser() {
     const dispatch = useDispatch()
     const token = useSelector(adminTokenSelector)
     const userId = useSelector(modalUserIdSelector);
     const modalViewUser = useSelector(modalViewUserSelector)
+    const modalObject = useSelector(modalObjectSelector)
+
     const [userInfo, setUserInfo] = useState({})
 
     const fetchDataUser = async () => {
         if (userId && token) {
-            let res = await getInformationUserById(userId, token) 
-            console.log(res)
-            if(res){
-                setUserInfo(res)
-            }else{
-                setUserInfo({})
+            if (modalObject === "user") {
+                let res = await getInformationUserById(userId, token)
+                if (res) {
+                    setUserInfo(res)
+                } else {
+                    setUserInfo({})
+                }
+            }
+            else if (modalObject === "admin") {
+                let res = await findInformationAdminById(userId, token)
+                if (res) {
+                    setUserInfo(res)
+                } else {
+                    setUserInfo({})
+                }
             }
         }
     }
@@ -29,6 +41,7 @@ function ModalViewUser() {
     const handleCloseModal = () => {
         dispatch(clearModalUserId())
         dispatch(clearModalViewUser())
+        dispatch(setModalObject(null))
     }
 
     useEffect(() => {
@@ -54,7 +67,10 @@ function ModalViewUser() {
                                 <img src={userInfo && userInfo.avatarImage ? userInfo.avatarImage : '/avaMale.png'} />
                             </div>
                             <h2 className="text-lg font-semibold">{userInfo && userInfo.fullname && userInfo.fullname}</h2>
-                            <p className="text-sm">Tham gia: {userInfo && userInfo.joinDate && format(userInfo.joinDate, 'dd/MM/yyyy')}</p>
+                            {
+                                modalObject === "user" &&
+                                <p className="text-sm">Tham gia: {userInfo && userInfo.joinDate && format(userInfo.joinDate, 'dd/MM/yyyy')}</p>
+                            }
                         </div>
                         <div className="w-2/3 text-gray-500 pl-5">
                             <div className="bg-gray-100 rounded-lg p-3 flex flex-col gap-3">
@@ -81,6 +97,19 @@ function ModalViewUser() {
                                     <p className="text-sm">Email</p>
                                     <span className="text-black text-base font-semibold">{userInfo && userInfo.email ? userInfo.email : 'Chưa cập nhật'}</span>
                                 </div>
+
+                                {
+                                    modalObject === "admin" &&
+                                    <div className="flex flex-row justify-between">
+                                        <p className="text-sm">Chức vụ</p>
+                                        {
+                                            userInfo && userInfo.role === "staff" ?
+                                                <span className="text-black text-base font-semibold">Nhân viên</span>
+                                                :
+                                                <span className="text-black text-base font-semibold">Quản trị viên</span>
+                                        }
+                                    </div>
+                                }
 
                             </div>
 

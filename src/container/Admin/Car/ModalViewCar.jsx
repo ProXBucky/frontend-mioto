@@ -1,0 +1,193 @@
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { adminTokenSelector, modalCarIdSelector, modalObjectSelector, modalUserIdSelector, modalViewCarSelector, modalViewUserSelector } from "../../../redux/selector";
+import { ModalBody } from "react-bootstrap";
+import Modal from 'react-bootstrap/Modal';
+import { clearModalCarId, clearModalUserId, clearModalViewCar, clearModalViewUser, setModalObject } from "../../../redux/Slice/ModalSlice";
+import { getInformationUserById } from "../../../api/appAPI";
+import { findInformationAdminById } from "../../../api/adminAPI";
+import { getDetailCar } from "../../../api/carAPI";
+import { formatMoney } from "../../../utils/formatMoney";
+
+function ModalViewCar() {
+    const dispatch = useDispatch()
+    const carId = useSelector(modalCarIdSelector);
+    const modalViewCar = useSelector(modalViewCarSelector)
+
+    const [car, setCar] = useState({})
+
+    const fetchDataCar = async () => {
+        if (carId) {
+            let res = await getDetailCar(carId)
+            if (res) {
+                setCar(res)
+            } else {
+                setCar({})
+            }
+        }
+    }
+
+    const handleCloseModal = () => {
+        dispatch(clearModalCarId())
+        dispatch(clearModalViewCar())
+    }
+
+    console.log(car)
+
+    useEffect(() => {
+        fetchDataCar()
+    }, [])
+
+    return (
+        <Modal
+            size="xl"
+            aria-labelledby="contained-modal-title-vcenter"
+            centered
+            show={modalViewCar}
+        >
+            <Modal.Header className='border-none justify-between mt-3 px-10'>
+                <h2 className="text-2xl font-bold">Thông tin phương tiện</h2>
+                <i className="fa-solid fa-xmark fa-2xl cursor-pointer" onClick={handleCloseModal}></i>
+            </Modal.Header>
+            <ModalBody>
+                <div className='p-4 pt-2 flex flex-col items-center gap-4' >
+                    <div className={"w-full bg-white"} >
+                        <div className=''>
+                            <div className="flex flex-row gap-3 w-full">
+                                <label className='font-bold text-xl'>Biển số xe</label>
+                                <span className="text-xl font-semibold">{car.plateNumber}</span>
+                            </div>
+                        </div>
+                        <div className='mt-3'>
+                            <div className="flex flex-col gap-3 w-full">
+                                <label className='font-bold text-xl'>Thông tin cơ bản</label>
+                                <div className="flex flex-wrap gap-2">
+                                    <div className="flex-row gap-2 items-center flex w-[calc(50%-30px)]">
+                                        <label htmlFor="brand">Hãng xe</label>
+                                        <span className="text-md font-semibold">{car.brand}</span>
+                                    </div>
+
+                                    <div className="flex-row gap-2 items-center flex w-[calc(50%-30px)]">
+                                        <label htmlFor="model">Mẫu xe</label>
+                                        <span className="text-md font-semibold">{car.model}</span>
+                                    </div>
+                                    <div className="flex-row gap-2 items-center flex w-[calc(50%-30px)]">
+                                        <label htmlFor="year">Năm sản xuất</label>
+                                        <span className="text-md font-semibold">{car.modelYear}</span>
+                                    </div>
+
+
+                                    <div className="flex-row gap-2 items-center flex w-[calc(50%-30px)]">
+                                        <label>Truyền động</label>
+                                        <span className="text-md font-semibold">{car.transmission}</span>
+                                    </div>
+
+                                    <div className="flex-row gap-2 items-center flex w-[calc(50%-30px)]">
+                                        <label>Loại nhiên liệu</label>
+                                        <span className="text-md font-semibold">{car.fuelType}</span>
+                                    </div>
+
+                                    <div className="flex-row gap-2 items-center flex w-[calc(50%-30px)]">
+                                        <label htmlFor="capacity">Số ghế</label>
+                                        <span className="text-md font-semibold">{car.capacity}</span>
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div className='mt-3'>
+                            <div className="flex flex-col gap-1 w-full">
+                                <label className='font-bold text-xl'>Mô tả</label>
+                                <p>{car.description}</p>
+                            </div>
+                        </div>
+
+
+
+                        <div className='mt-3'>
+                            <div className="flex flex-col gap-3 w-full">
+                                <label className='font-bold text-xl'>Tính năng</label>
+                                <div className="mt-3 flex flex-wrap gap-5">
+                                    <div className="list-feature flex flex-wrap gap-3">
+                                        {
+                                            car && car.carFeatures && car.carFeatures.length > 0 &&
+                                            car.carFeatures.map((item, index) => {
+                                                return (
+                                                    <div className="squaredThree have-label cursor-pointer border w-[calc(16%-10px)]" key={index}>
+                                                        <div className="thumbnail flex flex-col items-center justify-center py-2">
+                                                            <img loading="lazy" className="img-fluid h-7" src={item.feature.featureIcon}
+                                                                alt={item.feature.featureName} />
+                                                            <span>{item.feature.featureName}</span>
+                                                        </div>
+                                                    </div>
+                                                )
+                                            })
+                                        }
+                                    </div>
+                                </div >
+
+                            </div >
+                        </div >
+
+
+                        <div className="flex justify-between mt-3">
+                            <div className='w-[45%]'>
+                                <div className="flex flex-col gap-3 w-full">
+                                    <label className='font-bold text-xl'>Đơn giá thuê mặc định</label>
+                                    {/* <p className="text-sm text-gray-600">Đơn giá áp dụng cho tất cả các ngày. Bạn có thuể tuỳ chỉnh giá khác cho các ngày đặc biệt (cuối tuần, lễ, tết...) trong mục quản lý xe sau khi đăng kí.</p> */}
+                                    <div className="flex flex-row items-center gap-2">
+                                        <span className="text-xl font-semibold">{formatMoney(car.pricePerDay * 1000)}</span>
+                                        <label>(VND)</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className='w-[45%]'>
+                                <div className="flex flex-col gap-3 w-full">
+                                    <label className='font-bold text-xl'>Giá cọc khi thuê xe</label>
+                                    {/* <p className="text-sm text-gray-600">Nếu không cần cọc thì để trống.</p> */}
+                                    <div className="flex flex-row items-center gap-2">
+                                        <span className="text-xl font-semibold">{car.mortgage ? formatMoney(car.mortgage * 1000) : "Không cần cọc"}</span>
+                                        {!car.mortgage ? formatMoney(car.mortgage * 1000) : <label>(VND)</label>}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className='mt-3'>
+                            <label className='font-bold text-xl mb-2'>Địa chỉ giao xe</label>
+                            <span className="text-lg block font-normal">{car.streetAddress} - {car.ward} - {car.district} - {car.city}</span>
+                        </div>
+
+
+                        <div className='mt-3'>
+                            <label className='font-bold text-xl mb-2 block'>Hình ảnh xe</label>
+                            <div className="flex flex-wrap gap-2">
+                                {
+                                    car && car.images && car.images.length > 0
+                                    && car.images.map((image, index) => {
+                                        return (
+                                            <img
+                                                className="cursor-pointer rounded-md"
+                                                key={index}
+                                                src={image.imageLink}
+                                                alt={`Image ${index}`}
+                                                style={{ maxWidth: '200px', maxHeight: '150px', margin: '25px' }}
+                                            />
+                                        )
+                                    })
+                                }
+                            </div>
+                        </div>
+                    </div >
+                </div >
+            </ModalBody>
+        </Modal>
+    )
+
+}
+
+export default ModalViewCar

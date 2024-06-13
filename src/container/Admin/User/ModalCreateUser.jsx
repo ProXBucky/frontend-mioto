@@ -4,15 +4,15 @@ import { useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import AvatarEditor from 'react-avatar-editor';
 import { useDispatch, useSelector } from 'react-redux';
-import { clearModalAddUser } from '../../../redux/Slice/ModalSlice';
+import { clearModalAddUser, setModalObject } from '../../../redux/Slice/ModalSlice';
 import { setHideLoading, setShowLoading } from '../../../redux/Slice/AppSlice';
-import { editInformationUserById } from '../../../api/userAPI';
-import { adminTokenSelector, modalAddUserSelector, } from '../../../redux/selector';
-import { createNewUserByAdmin } from '../../../api/adminAPI';
+import { adminTokenSelector, modalAddUserSelector, modalObjectSelector, } from '../../../redux/selector';
+import { createNewAdmin, createNewUserByAdmin } from '../../../api/adminAPI';
 import { toast } from 'react-toastify';
 
 function ModalCreateUser() {
     const modalCreateUser = useSelector(modalAddUserSelector)
+    const modalObject = useSelector(modalObjectSelector)
     const token = useSelector(adminTokenSelector)
     const dispatch = useDispatch()
     const [formData, setFormData] = useState({
@@ -22,7 +22,8 @@ function ModalCreateUser() {
         password: '',
         email: '',
         dob: '',
-        gender: ''
+        gender: '',
+        role: ''
     });
 
     const handleChange = (e) => {
@@ -49,22 +50,42 @@ function ModalCreateUser() {
                 const dataURL = canvas.toDataURL();
                 formData['avatarImage'] = dataURL;
             }
-            let res = await createNewUserByAdmin(formData, token)
-            if (res) {
-                setFormData({ fullname: '', phone: '', email: '', dob: '', gender: '', username: '', password: '' });
-                handleCloseCreate()
+            if (modalObject === "user") {
+                let res = await createNewUserByAdmin(formData, token)
+                if (res) {
+                    setFormData({ fullname: '', phone: '', email: '', dob: '', gender: '', username: '', password: '', role: '' });
+                    handleCloseCreate()
+                }
+            }
+            else if (modalObject === "admin") {
+                let res = await createNewAdmin(formData, token)
+                if (res) {
+                    setFormData({ fullname: '', phone: '', email: '', dob: '', gender: '', username: '', password: '', role: '' });
+                    handleCloseCreate()
+                }
             }
         } catch (error) {
-            if (error.response && error.response.status === 409) {
-                toast.error('Tên người dùng/email đã tồn tại. Vui lòng chọn tên người dùng/email khác.');
+            console.log(error)
+            if (error.response) {
+                switch (error.response.status) {
+                    case 401:
+                        toast.error('Bạn chưa được cấp quyền');
+                        break;
+                    case 403:
+                        toast.error('Bạn không có quyền tạo mới');
+                        break;
+                    case 409:
+                        toast.error('Tên người dùng/email đã tồn tại. Vui lòng chọn tên người dùng/email khác.');
+                        break;
+                    case 400:
+                        toast.error('Đăng ký lỗi')
+                        break;
+                    default:
+                        toast.error('Đã xảy ra lỗi. Vui lòng thử lại sau.');
+                }
+            } else {
+                toast.error('Đã xảy ra lỗi. Vui lòng thử lại sau.');
             }
-            else if (error.response && error.response.status === 400) {
-                toast.error('Đăng ký lỗi')
-            }
-            else {
-                toast.error('Đã xảy ra lỗi trong quá trình đăng ký. Vui lòng thử lại sau.');
-            }
-            console.error('Error registering user:', error);
         }
         finally {
             dispatch(setHideLoading())
@@ -73,6 +94,7 @@ function ModalCreateUser() {
 
     const handleCloseCreate = () => {
         dispatch(clearModalAddUser())
+        dispatch(setModalObject(null))
     }
 
     return (
@@ -83,7 +105,7 @@ function ModalCreateUser() {
             show={modalCreateUser}
         >
             <Modal.Header className='border-none justify-between mt-3 px-5'>
-                <h1 className='text-center text-2xl font-bold'>Tạo người dùng</h1>
+                <h1 className='text-center text-2xl font-bold'>Tạo mới {modalObject === "user" ? "người dùng" : "nhân viên"}</h1>
                 <i className="fa-solid fa-xmark fa-2xl cursor-pointer" onClick={handleCloseCreate}></i>
             </Modal.Header>
             <Modal.Body className='p-4 px-5' >
@@ -162,6 +184,18 @@ function ModalCreateUser() {
                                         onChange={handleChange}
                                     />
                                 </Form.Group>
+                                {
+                                    modalObject === "admin" &&
+                                    <>
+                                        <Form.Label className='font-semibold text-gray-500 mt-2 relative'>Chức vụ</Form.Label>
+                                        <Form.Select value={formData.role} name="role" onChange={handleChange}>
+                                            <option value="">Hãy chọn chức vụ</option>
+                                            <option value="Admin">Quản trị viên</option>
+                                            <option value="Staff">Nhân viên</option>
+                                        </Form.Select>
+                                    </>
+                                }
+
                             </div>
                         </div>
                         <div className='text-center w-full flex flex-col items-center gap-2'>

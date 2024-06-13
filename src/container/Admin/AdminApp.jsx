@@ -88,7 +88,7 @@ function AdminApp() {
             </div>
             <div className="w-5/6 overflow-y-auto">
                 <HeaderAdmin />
-                <div className="px-12 mt-10 h-[1000px]">
+                <div className="px-12 mt-10 h-full pb-12">
                     <Outlet />
                 </div>
             </div>
