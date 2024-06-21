@@ -79,7 +79,7 @@ import { createNewUser } from './api/userAPI';
 import { loginUser } from './api/authAPI';
 import { setAvatarImage, setFullname, setToken, setUserId } from './redux/Slice/CookieSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import { adminIdSelector, appLoadSelector, loadingSelector, modalAddUserSelector, modalChangePasswordUserSelector, modalEditUserSelector, modalViewCarSelector, modalViewUserSelector, tokenSelector } from './redux/selector';
+import { adminIdSelector, appLoadSelector, loadingSelector, modalAddCarSelector, modalAddUserSelector, modalAddVoucherSelector, modalChangePasswordUserSelector, modalEditCarSelector, modalEditUserSelector, modalFeedVoucherSelector, modalViewCarSelector, modalViewUserSelector, tokenSelector } from './redux/selector';
 import { setAppLoad, setHideLoading, setShowLoading } from './redux/Slice/AppSlice';
 import ManageUser from './container/Admin/User/ManageUser';
 import ManageAdmin from './container/Admin/Admin/ManageAdmin';
@@ -89,6 +89,13 @@ import ModalChangePassword from './container/Admin/User/ModalChangePassword';
 import ModalCreateUser from './container/Admin/User/ModalCreateUser';
 import ManageCar from './container/Admin/Car/ManageCar';
 import ModalViewCar from './container/Admin/Car/ModalViewCar';
+import ModalAddCar from './container/Admin/Car/ModalAddCar';
+import ModalEditCar from './container/Admin/Car/ModalEditCar';
+import ManageVoucher from './container/Admin/Voucher/ManageVoucher';
+import ModalAddVoucher from './container/Admin/Voucher/ModalAddVoucher';
+import ModalFeedVoucher from './container/Admin/Voucher/ModalFeedVoucher';
+import ManageReview from './container/Admin/Review/ManageReview';
+import ManageReport from './container/Admin/Review/ManageReport';
 
 
 function App() {
@@ -111,6 +118,12 @@ function App() {
   const modalAddUser = useSelector(modalAddUserSelector)
 
   const modalViewCar = useSelector(modalViewCarSelector)
+  const modalAddCar = useSelector(modalAddCarSelector)
+  const modalEditCar = useSelector(modalEditCarSelector)
+
+
+  const modalAddVoucher = useSelector(modalAddVoucherSelector)
+  const modalFeedVoucher = useSelector(modalFeedVoucherSelector)
 
   const handleCloseRegisterModal = () => {
     setShowRegisterModal(false);
@@ -276,6 +289,9 @@ function App() {
             <Route path="user" element={<ManageUser />} />
             <Route path="staff" element={<ManageAdmin />} />
             <Route path="car" element={<ManageCar />} />
+            <Route path="voucher" element={<ManageVoucher />} />
+            <Route path="review" element={<ManageReview />} />
+            <Route path="report" element={<ManageReport />} />
           </Route>
 
           <Route path="*" element={< PageNotFound />} />
@@ -290,8 +306,11 @@ function App() {
       {modalAddUser && <ModalCreateUser />}
 
       {modalViewCar && <ModalViewCar />}
-      {/* {modalEditUser && <ModalEditUser />}
-      {modalAddUser && <ModalCreateUser />} */}
+      {modalAddCar && <ModalAddCar />}
+      {modalEditCar && <ModalEditCar />}
+
+      {modalAddVoucher && <ModalAddVoucher />}
+      {modalFeedVoucher && <ModalFeedVoucher />}
 
 
       <ModalComponent

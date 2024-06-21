@@ -36,6 +36,19 @@ const getListCarByCity = async (city, userId) => {
     }
 }
 
+const getListCarByCityByAdmin = async (city, token) => {
+    try {
+        const response = await axios.get(`${API_URL}/api/car/all-car-by-city-by-admin/${city}`, {
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        });
+        return response.data;
+    } catch (error) {
+        console.log('Error fetching data:', error);
+        throw error;
+    }
+}
 
 const getDetailCar = async (carId) => {
     try {
@@ -80,7 +93,38 @@ const getListCarS = async () => {
     }
 }
 
+const postNewCarByAdmin = async (userId, body, token) => {
+    try {
+        const response = await axios.post(`${API_URL}/api/car/register-by-admin/${userId}`, body, {
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        })
+        return response.data;
+    } catch (error) {
+        console.log('Error fetching data:', error);
+        throw error;
+    }
+}
+
+
+const editCarByAdmin = async (carId, body, token) => {
+    try {
+        const response = await axios.put(`${API_URL}/api/car/edit-by-admin/${carId}`, body, {
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        })
+        return response.data;
+    } catch (error) {
+        console.log('Error fetching data:', error);
+        throw error;
+    }
+}
 
 
 
-export { postNewCar, getListCar, getListCarByCity, getDetailCar, editCar, findCarUsingParam, getListCarS }
+export {
+    postNewCar, getListCar, getListCarByCity, getDetailCar, editCar, findCarUsingParam, getListCarS, postNewCarByAdmin, editCarByAdmin
+    , getListCarByCityByAdmin
+}

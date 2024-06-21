@@ -14,6 +14,8 @@ export const loadingSelector = (state) => state.app.loading
 export const adminTokenSelector = (state) => state.cookie.tokenAdmin
 export const adminIdSelector = (state) => state.cookie.adminId
 export const adminFullnameSelector = (state) => state.cookie.adminFullname
+export const avatarImageAdminSelector = (state) => state.cookie.avatarImageAdmin
+
 
 export const modalUserIdSelector = (state) => state.modal.modalUserId
 export const modalAddUserSelector = (state) => state.modal.modalAddUser
@@ -28,3 +30,7 @@ export const modalAddCarSelector = (state) => state.modal.modalAddCar
 export const modalDeleteCarSelector = (state) => state.modal.modalDeleteCar
 export const modalEditCarSelector = (state) => state.modal.modalEditCar
 export const modalViewCarSelector = (state) => state.modal.modalViewCar
+
+export const modalAddVoucherSelector = (state) => state.modal.modalAddVoucher
+export const modalVoucherIdSelector = (state) => state.modal.modalVoucherId
+export const modalFeedVoucherSelector = (state) => state.modal.modalFeedVoucher

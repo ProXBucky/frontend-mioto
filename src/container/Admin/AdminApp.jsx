@@ -2,22 +2,39 @@ import { NavLink, Outlet } from "react-router-dom"
 import "./adminApp.css"
 import HeaderAdmin from "./HeaderAdmin";
 import { useSelector } from "react-redux";
-import { adminFullnameSelector } from "../../redux/selector";
+import { adminFullnameSelector, avatarImageAdminSelector } from "../../redux/selector";
+import { setAvatarImageAdmin } from "../../redux/Slice/CookieSlice";
 
 
 
 function AdminApp() {
 
     const adminFullname = useSelector(adminFullnameSelector)
+    const avatar = useSelector(avatarImageAdminSelector)
 
 
     return (
         <div className="bg-gray-100 h-dvh flex flex-row">
             <div className="w-1/6 border-r-2 px-3 py-5 flex flex-col items-center  overflow-y-auto">
-                <img className="h-8" src="/logo-mini.png" />
-                <h2 className="text-2xl font-bold mt-4">Xin chào bạn!</h2>
+                <div className="flex flex-row items-center gap-2 mb-4">
+                    <img className="h-8" src="/logo-mini.png" />
+                    <h2 className="text-xl font-bold">Chào bạn!</h2>
+                </div>
+                {avatar && avatar != "null" ? (
+                    <img
+                        src={avatar}
+                        className="h-16 rounded-full border-2"
+                        alt="User avatar"
+                    />
+                ) : (
+                    <img
+                        src="/avaMale.png"
+                        className="h-16 rounded-full border-2"
+                        alt="Default avatar for male users"
+                    />
+                )}
                 <p className="text-lg font-semibold">{adminFullname}</p>
-                <div className="py-4 w-full">
+                <div className="py-2 w-full">
                     <NavLink to="/admin/dashboard" className={(navData) => (navData.isActive ? 'active' : 'link')}>
                         <div className="flex flex-row items-center rounded-md py-[10px] px-3">
                             <i className="fa-solid w-10 fa-chart-line"></i>
@@ -78,12 +95,6 @@ function AdminApp() {
                             <p className="font-medium text-gray-600 text-sm">Bình luận</p>
                         </div>
                     </NavLink>
-                    {/* <div className="cursor-pointer" onClick={() => handleLogout()}>
-                        <div className="flex flex-row items-center rounded-md py-[10px] px-3">
-                            <i className="fa-solid w-10 fa-right-from-bracket"></i>
-                            <p className="font-medium text-gray-600 text-sm">Đăng xuất</p>
-                        </div>
-                    </div> */}
                 </div>
             </div>
             <div className="w-5/6 overflow-y-auto">

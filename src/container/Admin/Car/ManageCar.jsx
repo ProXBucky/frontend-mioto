@@ -1,26 +1,19 @@
 import { useEffect, useState } from "react"
-import { getListCarS } from "../../../api/carAPI"
+import { getListCarByCity, getListCarByCityByAdmin, getListCarS } from "../../../api/carAPI"
 import { setModalAddCar, setModalCarId, setModalDeleteCar, setModalEditCar, setModalViewCar } from "../../../redux/Slice/ModalSlice"
 import { useDispatch, useSelector } from "react-redux"
 import { toast } from "react-toastify"
 import { confimCarByAdmin } from "../../../api/adminAPI"
 import { adminTokenSelector } from "../../../redux/selector"
 import { setHideLoading, setShowLoading } from "../../../redux/Slice/AppSlice"
+import CitySelect from "../../../component/CitySelect"
+import { convertCityName } from "../../../utils/convertCityName"
 
 
 function ManageCar() {
     const [carArray, setCars] = useState([])
     const dispatch = useDispatch()
-    const token = useSelector(adminTokenSelector)
-
-    const fetchAllCars = async () => {
-        let res = await getListCarS()
-        if (res && res.length > 0) {
-            setCars(res)
-        } else {
-            setCars([])
-        }
-    }
+    const adminToken = useSelector(adminTokenSelector)
 
     const handleOpenModalCreate = () => {
         dispatch(setModalAddCar())
@@ -58,10 +51,29 @@ function ManageCar() {
 
     }
 
+    const [selectedCity, setSelectedCity] = useState('Hà Nội');
+
+    const handleCityChange = (event) => {
+        setSelectedCity(event.target.value);
+    };
+
+    const fetchAllCars = async (cityCode) => {
+        let res = await getListCarByCityByAdmin(convertCityName(cityCode), adminToken)
+        if (res && res.length > 0) {
+            setCars(res)
+        } else {
+            setCars([])
+        }
+    }
+
 
     useEffect(() => {
-        fetchAllCars()
+        fetchAllCars(selectedCity)
     }, [])
+
+    useEffect(() => {
+        fetchAllCars(selectedCity)
+    }, [selectedCity])
 
 
     return (
@@ -70,6 +82,8 @@ function ManageCar() {
                 <h2 className="font-bold text-xl">Phương tiện</h2>
                 <button className="py-2 px-3 bg-black text-white font-semibold rounded-md" onClick={handleOpenModalCreate}><i className="fa-solid fa-plus mr-2"></i>Thêm phương tiện</button>
             </div>
+            <CitySelect value={selectedCity} onChange={handleCityChange} />
+
             <div className="flex flex-wrap gap-2 mt-4 pb-10">
                 {
                     carArray && carArray.length > 0 ?
@@ -86,7 +100,7 @@ function ManageCar() {
                                             <img src={car.owners && car.owners.user && car.owners.user.avatarImage ? car.owners.user.avatarImage : "/avaMale.png"} className="rounded-full" />
                                         </div>
 
-                                        <img src={car.images && car.images[0].imageLink} className="rounded-xl h-48" />
+                                        <img src={car.images && car.images[0] && car.images[0].imageLink} className="rounded-xl h-48" />
                                     </div>
                                     {/* <div className="tag mt-4 mb-2 flex flex-wrap gap-3">
                                         <p className="p-1 bg-[#eef7ff] text-xs rounded-xl">{car.transmission && car.transmission}</p>

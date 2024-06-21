@@ -63,9 +63,15 @@ const getReviewScore = async (carId) => {
     }
 }
 
-const getAllVoucherByUserId = async (userId) => {
+const getAllVoucherByUserId = async (userId, token) => {
     try {
-        const response = await axios.get(`${API_URL}/api/voucher/${userId}`)
+        const response = await axios.get(`${API_URL}/api/voucher/${userId}`,
+            {
+                headers: {
+                    Authorization: 'Bearer ' + token
+                }
+            }
+        )
         return response.data;
     } catch (error) {
         console.error('Error fetching data:', error);
@@ -153,8 +159,36 @@ const getAllAdmin = async (token) => {
     }
 };
 
+const getAllVoucher = async (token) => {
+    try {
+        const response = await axios.get(`${API_URL}/api/voucher`, {
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        })
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        throw error;
+    }
+};
+
+const getAllReport = async (token) => {
+    try {
+        const response = await axios.get(`${API_URL}/api/report/all`, {
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        })
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        throw error;
+    }
+};
+
 
 export {
     getAllCarFeature, checkLikeCar, getAllCarLiked, getAllReviewOfCar, getAllReviewByCity, getReviewScore, getAllVoucherByUserId, getInformationUserById, getAllTripByUserId,
-    getTripByRentId, checkStatusRent, getAllUser, getAllAdmin
+    getTripByRentId, checkStatusRent, getAllUser, getAllAdmin, getAllVoucher, getAllReport
 }

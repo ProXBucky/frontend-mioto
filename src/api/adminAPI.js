@@ -114,9 +114,76 @@ const confimCarByAdmin = async (carId, token) => {
     }
 };
 
+const createNewVoucher = async (body, token) => {
+    try {
+        const response = await axios.post(`${API_URL}/api/voucher`, body,
+            {
+                headers: {
+                    Authorization: 'Bearer ' + token
+                }
+            }
+        );
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        throw error;
+    }
+};
+
+const deleteVoucher = async (voucherId, token) => {
+    try {
+        const response = await axios.delete(`${API_URL}/api/voucher/${voucherId}`,
+            {
+                headers: {
+                    Authorization: 'Bearer ' + token
+                }
+            }
+        );
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        throw error;
+    }
+};
+
+const feedVoucherToUser = async (voucherId, body, token) => {
+    try {
+        const response = await axios.post(`${API_URL}/api/voucher/feed-voucher/${voucherId}`,
+            body,
+            {
+                headers: {
+                    Authorization: 'Bearer ' + token
+                }
+            }
+        );
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        throw error;
+    }
+};
+
+const deleteReviewByReviewId = async (reviewId, token) => {
+    try {
+        const response = await axios.delete(`${API_URL}/api/review/${reviewId}`,
+            {
+                headers: {
+                    Authorization: 'Bearer ' + token
+                }
+            }
+        );
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        throw error;
+    }
+};
+
+
+
 
 
 export {
     changePasswordUser, createNewUserByAdmin, findInformationAdminById, createNewAdmin, editInformationAdminById, changePasswordAdmin,
-    confimCarByAdmin
+    confimCarByAdmin, createNewVoucher, deleteVoucher, feedVoucherToUser, deleteReviewByReviewId
 }

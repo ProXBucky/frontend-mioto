@@ -360,7 +360,7 @@ function DetailCar({ handleOpenDateModal, handleOpenLoginModal }) {
 
     const fetchAllVoucherByUserId = async () => {
         if (userId) {
-            const res = await getAllVoucherByUserId(userId);
+            const res = await getAllVoucherByUserId(userId, token);
             if (res && res.length > 0) {
                 setAllVoucher(res)
             } else {
@@ -445,12 +445,12 @@ function DetailCar({ handleOpenDateModal, handleOpenLoginModal }) {
             <div className="px-32 pb-20 flex flex-col gap-5">
                 <div className="flex flex-row h-[600px] relative">
                     <div className="w-[calc(68%)] pr-6">
-                        <img src={car && car.images && car.images[0] && car.images[0].imageLink} className="w-full h-full object-cover rounded-2xl cursor-pointer" alt="Car 1" onClick={() => handleOpenModalViewImg(carImgs)} />
+                        <img src={car && car.images && car.images[0] && car.images[0].imageLink} className="w-full h-full object-cover rounded-2xl cursor-pointer" alt="Car 1" />
                     </div>
                     <div className="w-[calc(32%)] flex flex-col gap-4">
-                        <img src={car && car.images && car.images[1] && car.images[1].imageLink} className="h-[30.7%] object-cover rounded-2xl cursor-pointer" alt="Car 2" onClick={() => handleOpenModalViewImg(carImgs)} />
-                        <img src={car && car.images && car.images[2] && car.images[2].imageLink} className="h-[30.7%] object-cover rounded-2xl cursor-pointer" alt="Car 3" onClick={() => handleOpenModalViewImg(carImgs)} />
-                        <img src={car && car.images && car.images[3] && car.images[3].imageLink} className="h-[30.7%] object-cover rounded-2xl cursor-pointer" alt="Car 4" onClick={() => handleOpenModalViewImg(carImgs)} />
+                        <img src={car && car.images && car.images[1] && car.images[1].imageLink} className="h-[30.7%] object-cover rounded-2xl cursor-pointer" alt="Car 2" />
+                        <img src={car && car.images && car.images[2] && car.images[2].imageLink} className="h-[30.7%] object-cover rounded-2xl cursor-pointer" alt="Car 3" />
+                        <img src={car && car.images && car.images[3] && car.images[3].imageLink} className="h-[30.7%] object-cover rounded-2xl cursor-pointer" alt="Car 4" />
                     </div>
                     <div className="rounded-lg border bg-white flex flex-row absolute bottom-5 right-5 p-2 items-center gap-2 cursor-pointer" onClick={() => handleOpenModalViewImg(carImgs)}>
                         <i className="fa-regular fa-images"></i>

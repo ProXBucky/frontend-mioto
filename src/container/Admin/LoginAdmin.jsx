@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { setHideLoading, setShowLoading } from "../../redux/Slice/AppSlice";
 import { loginAdmin } from "../../api/authAPI";
-import { setAdminFullname, setAdminId, setAdminRole, setAdminToken } from "../../redux/Slice/CookieSlice";
+import { setAdminFullname, setAdminId, setAdminRole, setAdminToken, setAvatarImageAdmin } from "../../redux/Slice/CookieSlice";
 import { useDispatch } from "react-redux";
 import Cookies from 'js-cookie';
 import { toast } from "react-toastify";
@@ -35,11 +35,13 @@ function LoginAdmin() {
                 Cookies.set('adminId', res.adminId, { expires: 1 / 24 });
                 Cookies.set('adminFullname', res.fullname, { expires: 1 / 24 });
                 Cookies.set('adminRole', res.role, { expires: 1 / 24 });
+                Cookies.set('avatarImageAdmin', res.avatar, { expires: 1 / 24 });
 
                 dispatch(setAdminToken(res.token))
                 dispatch(setAdminId(res.adminId))
                 dispatch(setAdminFullname(res.fullname))
                 dispatch(setAdminRole(res.role))
+                dispatch(setAvatarImageAdmin(res.avatar))
                 toast.success('Đăng nhập thành công');
                 navigate("/admin")
             }

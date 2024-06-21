@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { adminTokenSelector } from '../../redux/selector';
-import { clearAdminFullname, clearAdminId, clearAdminRole, clearAdminToken } from '../../redux/Slice/CookieSlice';
+import { adminIdSelector, adminTokenSelector } from '../../redux/selector';
+import { clearAdminFullname, clearAdminId, clearAdminRole, clearAdminToken, clearAvatarImageAdmin } from '../../redux/Slice/CookieSlice';
 import { toast } from 'react-toastify';
 import Cookies from 'js-cookie';
 import { logoutAdmin } from '../../api/authAPI';
+import { setModalEditUser, setModalObject, setModalUserId } from '../../redux/Slice/ModalSlice';
 
 function HeaderAdmin() {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -17,6 +18,7 @@ function HeaderAdmin() {
     const dispatch = useDispatch()
     const navigate = useNavigate();
     const adminToken = useSelector(adminTokenSelector)
+    const adminId = useSelector(adminIdSelector)
 
     const handleLogout = async () => {
         try {
@@ -27,10 +29,12 @@ function HeaderAdmin() {
                     Cookies.remove('adminId');
                     Cookies.remove('adminFullname');
                     Cookies.remove('adminRole');
+                    Cookies.remove('avatarImageAdmin')
                     dispatch(clearAdminToken())
                     dispatch(clearAdminId())
                     dispatch(clearAdminFullname())
                     dispatch(clearAdminRole())
+                    dispatch(clearAvatarImageAdmin())
                     navigate('/login')
                     toast.success("Hẹn gặp bạn lần sau");
                 }
@@ -39,6 +43,13 @@ function HeaderAdmin() {
             console.log(error)
             toast.error("Lỗi hệ thống, đăng xuất thất bại")
         }
+    }
+
+    const handleOpenModalEdit = () => {
+        toggleDropdown()
+        dispatch(setModalObject("admin"))
+        dispatch(setModalUserId(adminId))
+        dispatch(setModalEditUser())
     }
 
     return (
@@ -57,7 +68,7 @@ function HeaderAdmin() {
                                     overflow-hidden bg-gray-100 text-black mt-2 rounded shadow-lg`}
                             >
                                 <ul>
-                                    <li className="hover:bg-gray-200 px-3 text-sm font-semibold py-2 cursor-pointer transition-colors duration-200">Thông tin</li>
+                                    <li className="hover:bg-gray-200 px-3 text-sm font-semibold py-2 cursor-pointer transition-colors duration-200" onClick={handleOpenModalEdit}>Thông tin</li>
                                     <li className="hover:bg-gray-200 px-3 text-sm font-semibold py-2 cursor-pointer transition-colors duration-200" onClick={handleLogout}>Đăng xuất</li>
                                 </ul>
                             </div>

@@ -14,6 +14,10 @@ const initialState = {
     modalEditCar: false,
     modalAddCar: false,
     modalDeleteCar: false,
+
+    modalAddVoucher: false,
+    modalVoucherId: 0,
+    modalFeedVoucher: false
 };
 
 export const ModalSlice = createSlice({
@@ -93,6 +97,27 @@ export const ModalSlice = createSlice({
         clearModalDeleteCar(state, action) {
             state.modalDeleteCar = false
         },
+
+
+
+        setModalAddVoucher(state, action) {
+            state.modalAddVoucher = true
+        },
+        clearModalAddVoucher(state, action) {
+            state.modalAddVoucher = false
+        },
+        setModalVoucherId(state, action) {
+            state.modalVoucherId = action.payload
+        },
+        clearModalVoucherId(state, action) {
+            state.modalVoucherId = 0
+        },
+        setModalFeedVoucher(state, action) {
+            state.modalFeedVoucher = true
+        },
+        clearModalFeedVoucher(state, action) {
+            state.modalFeedVoucher = false
+        },
     },
 });
 
@@ -100,6 +125,6 @@ export const { setModalUserId, clearModalUserId, setModalEditUser, clearModalEdi
     setModalViewUser, clearModalViewUser, setModalAddUser, clearModalAddUser, setModalChangePasswordUser, clearModalChangePasswordUser,
     setModalObject, clearModalObject,
     setModalCarId, clearModalCarId, setModalEditCar, clearModalEditCar, setModalDeleteCar, clearModalDeleteCar, setModalViewCar, clearModalViewCar,
-    setModalAddCar, clearModalAddCar
+    setModalAddCar, clearModalAddCar, setModalAddVoucher, clearModalAddVoucher, setModalVoucherId, clearModalVoucherId, setModalFeedVoucher, clearModalFeedVoucher
 } = ModalSlice.actions;
 
