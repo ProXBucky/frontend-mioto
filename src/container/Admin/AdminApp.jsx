@@ -16,10 +16,7 @@ function AdminApp() {
     return (
         <div className="bg-gray-100 h-dvh flex flex-row">
             <div className="w-1/6 border-r-2 px-3 py-5 flex flex-col items-center  overflow-y-auto">
-                <div className="flex flex-row items-center gap-2 mb-4">
-                    <img className="h-8" src="/logo-mini.png" />
-                    <h2 className="text-xl font-bold">Chào bạn!</h2>
-                </div>
+                <img className="h-8 mb-4" src="/logo-mini.png" />
                 {avatar && avatar != "null" ? (
                     <img
                         src={avatar}
@@ -34,7 +31,8 @@ function AdminApp() {
                     />
                 )}
                 <p className="text-lg font-semibold">{adminFullname}</p>
-                <div className="py-2 w-full">
+                <div className="w-full border-t-2 border-gray-300 mt-2 mb-1"></div>
+                <div className="mt-3 w-full">
                     <NavLink to="/admin/dashboard" className={(navData) => (navData.isActive ? 'active' : 'link')}>
                         <div className="flex flex-row items-center rounded-md py-[10px] px-3">
                             <i className="fa-solid w-10 fa-chart-line"></i>

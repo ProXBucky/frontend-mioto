@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom"
 import { getListCar } from "../../../api/carAPI"
 import { useSelector } from "react-redux"
 import { userIdSelector } from "../../../redux/selector"
+import { formatMoney } from "../../../utils/formatMoney"
 
 function MyCar() {
     const userId = useSelector(userIdSelector)
@@ -89,11 +90,11 @@ function MyCar() {
                                         <div className="w-full mt-3 font-semibold flex justify-evenly">
                                             <div className="flex flex-col items-center gap-1">
                                                 <h3>Giá thuê</h3>
-                                                <span>{item.pricePerDay} K (VNĐ)</span>
+                                                <span>{formatMoney(item.pricePerDay * 1000)}</span>
                                             </div>
                                             <div className="flex flex-col items-center gap-1">
                                                 <h3>Giá cọc</h3>
-                                                <span>{item.mortgage ? <>{item.mortgage} K (VND)</> : "Không cần cọc"}</span>
+                                                <span>{item.mortgage ? <>{formatMoney(item.mortgage * 1000)}</> : "Không cần cọc"}</span>
                                             </div>
                                             <div className="flex flex-col items-center gap-1">
                                                 <h3>Trạng thái</h3>

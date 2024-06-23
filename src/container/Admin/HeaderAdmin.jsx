@@ -54,7 +54,7 @@ function HeaderAdmin() {
 
     return (
         <>
-            <nav className="h-auto border-b-2 px-12 py-3 w-full sticky top-0 bg-white z-50">
+            <nav className="h-auto px-12 py-3 w-full sticky top-0 bg-gray-100 z-50">
                 <div className="flex justify-end" >
                     <ul className="flex justify-end items-center gap-6">
                         <li>

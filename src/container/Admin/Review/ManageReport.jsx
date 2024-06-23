@@ -41,8 +41,6 @@ function ManageReport() {
         fetchAllReports()
     }, [])
 
-    console.log(reports)
-
 
     return (
         <div className="w-full">

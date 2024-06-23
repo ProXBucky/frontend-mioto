@@ -16,6 +16,22 @@ import Footer from './container/Common/Footer';
 import Cookies from 'js-cookie';
 import ScrollToTop from './container/Common/ScrollToTop';
 import LoadingComponent from './container/Common/LoadingComponent';
+import { createNewUser } from './api/userAPI';
+import { loginUser } from './api/authAPI';
+import { setAvatarImage, setFullname, setToken, setUserId } from './redux/Slice/CookieSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { adminIdSelector, appLoadSelector, loadingSelector, modalAddCarSelector, modalAddUserSelector, modalAddVoucherSelector, modalChangePasswordUserSelector, modalEditCarSelector, modalEditUserSelector, modalFeedVoucherSelector, modalViewCarSelector, modalViewRentSelector, modalViewUserSelector, tokenSelector } from './redux/selector';
+import { setAppLoad, setHideLoading, setShowLoading } from './redux/Slice/AppSlice';
+import ModalViewUser from './container/Admin/User/ModalViewUser';
+import ModalEditUser from './container/Admin/User/ModalEditUser';
+import ModalChangePassword from './container/Admin/User/ModalChangePassword';
+import ModalCreateUser from './container/Admin/User/ModalCreateUser';
+import ModalViewCar from './container/Admin/Car/ModalViewCar';
+import ModalAddCar from './container/Admin/Car/ModalAddCar';
+import ModalEditCar from './container/Admin/Car/ModalEditCar';
+import ModalAddVoucher from './container/Admin/Voucher/ModalAddVoucher';
+import ModalFeedVoucher from './container/Admin/Voucher/ModalFeedVoucher';
+import ModalViewTrip from './container/Admin/Trip/ModalViewTrip';
 
 const AccountInformation = lazy(() =>
   import('./container/AccountInformation/AccountInformation')
@@ -71,31 +87,42 @@ const DetailRent = lazy(() =>
 const LoginAdmin = lazy(() =>
   import('./container/Admin/LoginAdmin')
 );
-
-import AdminApp from './container/Admin/AdminApp';
-
-
-import { createNewUser } from './api/userAPI';
-import { loginUser } from './api/authAPI';
-import { setAvatarImage, setFullname, setToken, setUserId } from './redux/Slice/CookieSlice';
-import { useDispatch, useSelector } from 'react-redux';
-import { adminIdSelector, appLoadSelector, loadingSelector, modalAddCarSelector, modalAddUserSelector, modalAddVoucherSelector, modalChangePasswordUserSelector, modalEditCarSelector, modalEditUserSelector, modalFeedVoucherSelector, modalViewCarSelector, modalViewUserSelector, tokenSelector } from './redux/selector';
-import { setAppLoad, setHideLoading, setShowLoading } from './redux/Slice/AppSlice';
-import ManageUser from './container/Admin/User/ManageUser';
-import ManageAdmin from './container/Admin/Admin/ManageAdmin';
-import ModalViewUser from './container/Admin/User/ModalViewUser';
-import ModalEditUser from './container/Admin/User/ModalEditUser';
-import ModalChangePassword from './container/Admin/User/ModalChangePassword';
-import ModalCreateUser from './container/Admin/User/ModalCreateUser';
-import ManageCar from './container/Admin/Car/ManageCar';
-import ModalViewCar from './container/Admin/Car/ModalViewCar';
-import ModalAddCar from './container/Admin/Car/ModalAddCar';
-import ModalEditCar from './container/Admin/Car/ModalEditCar';
-import ManageVoucher from './container/Admin/Voucher/ManageVoucher';
-import ModalAddVoucher from './container/Admin/Voucher/ModalAddVoucher';
-import ModalFeedVoucher from './container/Admin/Voucher/ModalFeedVoucher';
-import ManageReview from './container/Admin/Review/ManageReview';
-import ManageReport from './container/Admin/Review/ManageReport';
+const AdminApp = lazy(() =>
+  import('./container/Admin/AdminApp')
+);
+const ManageUser = lazy(() =>
+  import('./container/Admin/User/ManageUser')
+);
+const ManageAdmin = lazy(() =>
+  import('./container/Admin/Admin/ManageAdmin')
+);
+const ManageCar = lazy(() =>
+  import('./container/Admin/Car/ManageCar')
+);
+const ManageVoucher = lazy(() =>
+  import('./container/Admin/Voucher/ManageVoucher')
+);
+const ManageReview = lazy(() =>
+  import('./container/Admin/Review/ManageReview')
+);
+const ManageReport = lazy(() =>
+  import('./container/Admin/Review/ManageReport')
+);
+const ManageTripPending = lazy(() =>
+  import('./container/Admin/Trip/ManageTripPending')
+);
+const ManageTripFinished = lazy(() =>
+  import('./container/Admin/Trip/ManageTripFinished')
+);
+const MyOrder = lazy(() =>
+  import('./container/AccountInformation/DetailInformation/MyOrder')
+);
+const DetailTrip = lazy(() =>
+  import('./features/rent/DetailTrip')
+);
+const DashboardAdmin = lazy(() =>
+  import('./container/Admin/DashboardAdmin')
+);
 
 
 function App() {
@@ -111,19 +138,16 @@ function App() {
   const [showModalForgetPassword, setShowModalForgetPassword] = useState(false);
   const [showModalEdit, setShowModalEdit] = useState(false);
   const [showModalAddress, setShowModalAddress] = useState(false);
-
   const modalViewUser = useSelector(modalViewUserSelector)
   const modalEditUser = useSelector(modalEditUserSelector)
   const modalChangePasswordUser = useSelector(modalChangePasswordUserSelector)
   const modalAddUser = useSelector(modalAddUserSelector)
-
   const modalViewCar = useSelector(modalViewCarSelector)
   const modalAddCar = useSelector(modalAddCarSelector)
   const modalEditCar = useSelector(modalEditCarSelector)
-
-
   const modalAddVoucher = useSelector(modalAddVoucherSelector)
   const modalFeedVoucher = useSelector(modalFeedVoucherSelector)
+  const moadlViewRent = useSelector(modalViewRentSelector)
 
   const handleCloseRegisterModal = () => {
     setShowRegisterModal(false);
@@ -273,6 +297,8 @@ function App() {
             <Route path="mycar" element={<MyCar />} />
             <Route path="mycar/:carId" element={<RegisterSelfDrive type="view" />} />
             <Route path="mycar/edit/:carId" element={<RegisterSelfDrive type="edit" />} />
+            <Route path="order" element={<MyOrder />} />
+            <Route path="order/:rentId" element={<DetailTrip />} />
             <Route path="mytrip" element={<MyTrip />} />
             <Route path="mytrip/detail-trip/:rentId" element={<DetailRent />} />
             <Route path="myvoucher" element={<MyVoucher />} />
@@ -286,12 +312,15 @@ function App() {
           <Route path="/city/:city" element={<CarByCity handleOpenDateModal={handleOpenDateModal} handleOpenLocationModal={handleOpenLocationModal} />} />
           <Route path="/login" element={<LoginAdmin />} />
           <Route path="/admin/*" element={adminId ? <AdminApp /> : <Navigate to="/login" />} >
+            <Route path="dashboard" element={<DashboardAdmin />} />
             <Route path="user" element={<ManageUser />} />
             <Route path="staff" element={<ManageAdmin />} />
             <Route path="car" element={<ManageCar />} />
             <Route path="voucher" element={<ManageVoucher />} />
             <Route path="review" element={<ManageReview />} />
             <Route path="report" element={<ManageReport />} />
+            <Route path="order" element={<ManageTripPending />} />
+            <Route path="history" element={<ManageTripFinished />} />
           </Route>
 
           <Route path="*" element={< PageNotFound />} />
@@ -311,6 +340,8 @@ function App() {
 
       {modalAddVoucher && <ModalAddVoucher />}
       {modalFeedVoucher && <ModalFeedVoucher />}
+
+      {moadlViewRent && <ModalViewTrip />}
 
 
       <ModalComponent

@@ -4,6 +4,9 @@ import { useDispatch, useSelector } from "react-redux"
 import { adminTokenSelector, modalAddUserSelector, modalChangePasswordUserSelector, modalDeleteUserSelector, modalEditUserSelector } from "../../../redux/selector"
 import { setModalAddUser, setModalChangePasswordUser, setModalDeleteUser, setModalEditUser, setModalObject, setModalUserId, setModalViewUser } from "../../../redux/Slice/ModalSlice"
 import { format } from "date-fns"
+import { deleteAdmin } from "../../../api/adminAPI"
+import { setHideLoading, setShowLoading } from "../../../redux/Slice/AppSlice";
+import { toast } from "react-toastify"
 
 function ManageAdmin() {
     const [admins, setAdmins] = useState([])
@@ -63,6 +66,36 @@ function ManageAdmin() {
         dispatch(setModalChangePasswordUser())
     }
 
+    const handleDeleteAdmin = async (adminId, index) => {
+        try {
+            toggleDropdown(index)
+            if (window.confirm("Bạn có xóa nhân viên này không?")) {
+                dispatch(setShowLoading())
+                let res = await deleteAdmin(adminId, adminToken)
+                if (res) {
+                    toast.success("Xóa thành công thành công")
+                    fetchAllAdmins()
+                }
+            }
+        } catch (error) {
+            if (error.response) {
+                switch (error.response.status) {
+                    case 401:
+                        toast.error('Bạn chưa được cấp quyền');
+                        break;
+                    case 403:
+                        toast.error('Bạn không có quyền xóa');
+                        break;
+                    default:
+                        toast.error('Đã xảy ra lỗi. Vui lòng thử lại sau.');
+                }
+            } else {
+                toast.error('Đã xảy ra lỗi. Vui lòng thử lại sau.');
+            }
+        } finally {
+            dispatch(setHideLoading())
+        }
+    }
 
     useEffect(() => {
         fetchAllAdmins()
@@ -143,9 +176,9 @@ function ManageAdmin() {
                                                                 <i className="fa-solid fa-lock"></i>
                                                                 <p>Đổi mật khẩu</p>
                                                             </li>
-                                                            <li className="hover:bg-gray-200 px-3 text-sm font-semibold py-2 cursor-pointer transition-colors duration-200 flex gap-2 items-center" onClick={() => handleOpenModalDelete(admin.adminId, index)}>
+                                                            <li className="hover:bg-gray-200 px-3 text-sm font-semibold py-2 cursor-pointer transition-colors duration-200 flex gap-2 items-center" onClick={() => handleDeleteAdmin(admin.adminId, index)}>
                                                                 <i className="fa-solid fa-trash-can"></i>
-                                                                <p>Xóa (loading)</p>
+                                                                <p>Xóa</p>
                                                             </li>
                                                         </ul>
                                                     </div>

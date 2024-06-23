@@ -179,11 +179,39 @@ const deleteReviewByReviewId = async (reviewId, token) => {
     }
 };
 
+const deleteTripByAdmin = async (rentId, token) => {
+    try {
+        const response = await axios.delete(`${API_URL}/api/rent/${rentId}`, {
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        })
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        throw error;
+    }
+}
+
+const deleteAdmin = async (adminId, token) => {
+    try {
+        const response = await axios.delete(`${API_URL}/api/admin/${adminId}`, {
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        })
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        throw error;
+    }
+}
+
 
 
 
 
 export {
     changePasswordUser, createNewUserByAdmin, findInformationAdminById, createNewAdmin, editInformationAdminById, changePasswordAdmin,
-    confimCarByAdmin, createNewVoucher, deleteVoucher, feedVoucherToUser, deleteReviewByReviewId
+    confimCarByAdmin, createNewVoucher, deleteVoucher, feedVoucherToUser, deleteReviewByReviewId, deleteTripByAdmin, deleteAdmin
 }

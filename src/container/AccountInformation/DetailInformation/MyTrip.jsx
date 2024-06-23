@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { getAllTripByUserId } from "../../../api/appAPI"
 import { useSelector } from "react-redux"
-import { userIdSelector } from "../../../redux/selector"
+import { tokenSelector, userIdSelector } from "../../../redux/selector"
 import { formatMoney } from "../../../utils/formatMoney"
 import { format } from "date-fns"
 import viLocale from 'date-fns/locale/vi';
@@ -10,10 +10,11 @@ import { useNavigate } from "react-router-dom"
 function MyTrip() {
     const [allTrip, setAllTrip] = useState([])
     const userId = useSelector(userIdSelector)
+    const token = useSelector(tokenSelector)
     const navigate = useNavigate()
 
     const fetchAllTripByUserId = async () => {
-        let res = await getAllTripByUserId(userId)
+        let res = await getAllTripByUserId(userId, token)
         if (res) {
             setAllTrip(res)
         } else {
@@ -23,6 +24,21 @@ function MyTrip() {
 
     const navigateDetailRent = (rentId) => {
         navigate(`/account/mytrip/detail-trip/${rentId}`)
+    }
+
+    const handleCancelTrip = async (rentId) => {
+        try {
+            dispatch(setShowLoading())
+            let res = await cancelTrip(rentId, token)
+            if (res) {
+                toast.success("Hủy chuyến thành công")
+                fetchListOrders()
+            }
+        } catch (e) {
+            toast.error("Lỗi hệ thống")
+        } finally {
+            dispatch(setHideLoading())
+        }
     }
 
     useEffect(() => {
@@ -40,23 +56,34 @@ function MyTrip() {
                         return (
                             <div className="flex flex-row border bg-white rounded-lg p-3 mt-3" key={index}>
                                 <div className="w-[calc(25%+40px)]">
-                                    <img className="rounded-lg cursor-pointer" src={item.car && item.car.images && item.car.images[3].imageLink} />
+                                    <img className="rounded-lg cursor-pointer" src={item.car && item.car.images && item.car.images[0].imageLink} />
                                 </div>
                                 <div className="w-2/4 px-6 flex flex-col justify-center">
-                                    <h2 className="font-black">{`${item.car && item.car.model && item.car.model} ${item.car && item.car.modelYear && item.car.modelYear}`}</h2>
+                                    <h2 className="font-bold text-xl">{`${item.car && item.car.model && item.car.model} ${item.car && item.car.modelYear && item.car.modelYear}`}</h2>
+                                    <h2 className="font-bold text-lg">{`${item.car && item.car.plateNumber && item.car.plateNumber}`}</h2>
                                     <div className="footer flex flex-col pt-2 text-sm font-normal">
                                         <p>Bắt đầu: {format(item.rentBeginDate, 'PPPP', { locale: viLocale })}</p>
                                         <p>Kết thúc: {format(item.rentEndDate, 'PPPP', { locale: viLocale })}</p>
                                     </div>
                                     <div className="mt-3 text-sm font-semibold">
-                                        {item.rentStatus === 'pending' && <p>Trạng thái: <label className="text-amber-500">Đang chờ xác nhận từ chủ xe</label></p>}
-                                        {item.rentStatus === 'cancel' && <p>Trạng thái: <label className="text-red-500">Chuyến xe đã hủy</label></p>}
+                                        {item.rentStatus === 'pending' && <p>Trạng thái:  <i className="fa-solid fa-circle mr-1 text-yellow-400"></i> <label>Đang chờ xác nhận từ chủ xe</label></p>}
+                                        {item.rentStatus === 'cancel' && <p>Trạng thái:  <i className="fa-solid fa-circle mr-1 text-red-500"></i> <label>Chuyến xe đã hủy</label></p>}
+                                        {item.rentStatus === 'ongoing' && <p>Trạng thái:  <i className="fa-solid fa-circle mr-1 text-green-500"></i> <label>Chuyến xe đang diễn ra</label></p>}
+                                        {item.rentStatus === 'finish' && <p>Trạng thái:  <i className="fa-solid fa-circle mr-1 text-blue-600"></i> <label>Chuyến xe đã hoàn thành</label></p>}
+                                        {item.rentStatus === "ready" &&
+                                            <div>
+                                                Trạng thái:
+                                                <i className="fa-solid fa-circle ml-1 text-pink-300"></i>
+                                                <span className="ml-1">Chuyến xe đã sẵn sàng</span>
+                                            </div>
+                                        }
                                     </div>
                                 </div>
                                 <div className="w-[calc(25%-40px)] border-l-2 flex flex-col justify-center items-center gap-3 pl-4">
                                     <h2 className="font-semibold">Tổng tiền</h2>
                                     <p><label className="font-bold text-xl">{formatMoney(item.payment && item.payment.paymentAmount)}</label></p>
-                                    <button className="rounded-md  font-semibold bg-main p-2 text-white hover:opacity-75" onClick={() => navigateDetailRent(item.rentId)} >Xem chi tiết</button>
+                                    <button className="rounded-md  font-semibold bg-main p-2 px-4 text-sm text-white hover:opacity-75" onClick={() => navigateDetailRent(item.rentId)} >Xem</button>
+                                    <button className="rounded-md  font-semibold bg-main p-2 px-4 text-sm text-white hover:opacity-75" onClick={() => handleCancelTrip(item.rentId)} >Hủy</button>
 
                                 </div>
                             </div>

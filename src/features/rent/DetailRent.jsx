@@ -7,16 +7,17 @@ import { format } from 'date-fns';
 import viLocale from 'date-fns/locale/vi';
 import { cancelTrip } from '../../api/userAPI';
 import { useDispatch, useSelector } from 'react-redux';
-import { userIdSelector } from '../../redux/selector';
+import { tokenSelector, userIdSelector } from '../../redux/selector';
 import { toast } from 'react-toastify';
 import { setHideLoading, setShowLoading } from '../../redux/Slice/AppSlice';
 
 
 function DetailRent() {
-    const userId = useSelector(userIdSelector)
+    // const userId = useSelector(userIdSelector)
     let { rentId } = useParams('rentId')
     const [rent, setRent] = useState({})
     const dispatch = useDispatch()
+    const token = useSelector(tokenSelector)
 
     const fetchTripInfo = async () => {
         let res = await getTripByRentId(rentId)
@@ -37,7 +38,7 @@ function DetailRent() {
     const handleCancelTrip = async (rentId) => {
         try {
             dispatch(setShowLoading())
-            let res = await cancelTrip(rentId, userId)
+            let res = await cancelTrip(rentId, token)
             if (res) {
                 toast.success("Hủy chuyến thành công")
                 navigate("/account/mytrip")
@@ -63,7 +64,7 @@ function DetailRent() {
                 <i className="fa-solid fa-chevron-left fa-xl"></i>
                 <p>Quay lại</p>
             </div>
-            <div className='p-4 bg-white'>
+            <div className='p-4 bg-white rounded-lg border-2'>
                 <div className='flex flex-row justify-between'>
                     <h2 className='font-bold text-2xl mb-2'>{`${rent.car && rent.car.model && rent.car.model} ${rent.car && rent.car.modelYear && rent.car.modelYear}`}</h2>
                     <label className='font-semibold'>
@@ -72,10 +73,10 @@ function DetailRent() {
                     </label>
                 </div>
                 <div className='flex flex-row w-full border-t-2 pt-4'>
-                    <div className='w-1/3'>
+                    <div className='w-1/2'>
                         <img src={rent.car && rent.car.images && rent.car.images[0].imageLink} className='rounded-xl' />
                     </div>
-                    <div className='w-2/3 pl-10'>
+                    <div className='w-1/2 pl-10'>
                         <h3 className='font-semibold text-lg'>Thời gian thuê xe</h3>
                         <div className='flex flex-col gap-2 w-full mt-2'>
                             {rent && rent.rentBeginDate && <p>Bắt đầu: {format(rent.rentBeginDate, 'PPPP', { locale: viLocale })}</p>}
@@ -89,7 +90,8 @@ function DetailRent() {
                                 <img className="h-20 rounded-full border" src={rent && rent.car && rent.car.owners && rent.car.owners.user ? rent.car.owners.user.avatarImage : "/avaMale.png"} />
                                 <div>
                                     <p className="font-semibold text-lg">{rent && rent.car && rent.car.owners && rent.car.owners.user && rent.car.owners.user.fullname}</p>
-                                    <p className='font-semibold'>Số điện thoại: {rent && rent.car && rent.car.owners && rent.car.owners.user && rent.car.owners.user.phone}</p>
+                                    <p className='font-normal'>Số điện thoại: {rent && rent.car && rent.car.owners && rent.car.owners.user && rent.car.owners.user.phone}</p>
+                                    <p className='font-normal'>Email: {rent && rent.car && rent.car.owners && rent.car.owners.user && rent.car.owners.user.email}</p>
                                 </div>
                             </div>
                             <div className='flex items-center'>
@@ -277,7 +279,7 @@ function DetailRent() {
                     </ul>
                 </div>
                 {
-                    rent.rentStatus !== "cancel" &&
+                    rent.rentStatus !== "cancel" && rent.rentStatus !== "ongoing" &&
                     <button className='mt-4  rounded-lg w-full p-3 font-bold bg-red-500 text-white' onClick={() => handleCancelTrip(rentId)}>HỦY CHUYẾN</button>
                 }
             </div>

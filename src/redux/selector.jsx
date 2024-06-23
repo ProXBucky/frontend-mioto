@@ -34,3 +34,6 @@ export const modalViewCarSelector = (state) => state.modal.modalViewCar
 export const modalAddVoucherSelector = (state) => state.modal.modalAddVoucher
 export const modalVoucherIdSelector = (state) => state.modal.modalVoucherId
 export const modalFeedVoucherSelector = (state) => state.modal.modalFeedVoucher
+
+export const modalViewRentSelector = (state) => state.modal.modalViewRent
+export const modalRentIdSelector = (state) => state.modal.modalRentId
