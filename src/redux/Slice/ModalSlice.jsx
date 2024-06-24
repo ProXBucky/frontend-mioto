@@ -20,7 +20,11 @@ const initialState = {
     modalFeedVoucher: false,
 
     modalRentId: 0,
-    modalViewRent: false
+    modalViewRent: false,
+
+    modalBlogId: 0,
+    modalViewBlog: false,
+    modalAddBlog: false
 };
 
 export const ModalSlice = createSlice({
@@ -135,6 +139,26 @@ export const ModalSlice = createSlice({
         clearModalRentId(state, action) {
             state.modalRentId = 0
         },
+
+
+        setModalBlogId(state, action) {
+            state.modalBlogId = action.payload
+        },
+        clearModalBlogId(state, action) {
+            state.modalBlogId = 0
+        },
+        setModalViewBlog(state, action) {
+            state.modalViewBlog = true
+        },
+        clearModalViewBlog(state, action) {
+            state.modalViewBlog = false
+        },
+        setModalAddBlog(state, action) {
+            state.modalAddBlog = true
+        },
+        clearModalAddBlog(state, action) {
+            state.modalAddBlog = false
+        },
     },
 });
 
@@ -143,6 +167,7 @@ export const { setModalUserId, clearModalUserId, setModalEditUser, clearModalEdi
     setModalObject, clearModalObject,
     setModalCarId, clearModalCarId, setModalEditCar, clearModalEditCar, setModalDeleteCar, clearModalDeleteCar, setModalViewCar, clearModalViewCar,
     setModalAddCar, clearModalAddCar, setModalAddVoucher, clearModalAddVoucher, setModalVoucherId, clearModalVoucherId, setModalFeedVoucher, clearModalFeedVoucher,
-    setModalViewRent, clearModalViewRent, setModalRentId, clearModalRentId
+    setModalViewRent, clearModalViewRent, setModalRentId, clearModalRentId,
+    setModalAddBlog, clearModalAddBlog, setModalViewBlog, clearModalViewBlog, setModalBlogId, clearModalBlogId
 } = ModalSlice.actions;
 

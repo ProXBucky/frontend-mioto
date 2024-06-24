@@ -30,8 +30,6 @@ const SampleNextArrow = (props) => {
     );
 }
 
-
-
 function City() {
     const navigate = useNavigate()
     const dispatch = useDispatch()

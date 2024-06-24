@@ -207,11 +207,54 @@ const deleteAdmin = async (adminId, token) => {
     }
 }
 
+const createBlog = async (body, token) => {
+    try {
+        const response = await axios.post(`${API_URL}/api/blog`, body, {
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        })
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        throw error;
+    }
+}
+
+const editBlog = async (blogId, token) => {
+    try {
+        const response = await axios.put(`${API_URL}/api/blog/${blogId}`, {
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        })
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        throw error;
+    }
+}
+
+const deleteBlog = async (blogId, token) => {
+    try {
+        const response = await axios.delete(`${API_URL}/api/blog/${blogId}`, {
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        })
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        throw error;
+    }
+}
+
 
 
 
 
 export {
     changePasswordUser, createNewUserByAdmin, findInformationAdminById, createNewAdmin, editInformationAdminById, changePasswordAdmin,
-    confimCarByAdmin, createNewVoucher, deleteVoucher, feedVoucherToUser, deleteReviewByReviewId, deleteTripByAdmin, deleteAdmin
+    confimCarByAdmin, createNewVoucher, deleteVoucher, feedVoucherToUser, deleteReviewByReviewId, deleteTripByAdmin, deleteAdmin,
+    createBlog, editBlog, deleteBlog
 }

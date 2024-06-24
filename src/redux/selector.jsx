@@ -3,18 +3,31 @@ export const userIdSelector = (state) => state.cookie.userId
 export const fullnameSelector = (state) => state.cookie.fullname
 export const avatarImageSelector = (state) => state.cookie.avatarImage
 
+
+
+
 export const locationSelector = (state) => state.search.location
 export const locationCodeSelector = (state) => state.search.locationCode
 export const beginDateSelector = (state) => state.search.beginDate
 export const endDateSelector = (state) => state.search.endDate
 
+
+
+
 export const appLoadSelector = (state) => state.app.appLoad
 export const loadingSelector = (state) => state.app.loading
+
+
+
 
 export const adminTokenSelector = (state) => state.cookie.tokenAdmin
 export const adminIdSelector = (state) => state.cookie.adminId
 export const adminFullnameSelector = (state) => state.cookie.adminFullname
 export const avatarImageAdminSelector = (state) => state.cookie.avatarImageAdmin
+
+
+
+
 
 
 export const modalUserIdSelector = (state) => state.modal.modalUserId
@@ -37,3 +50,7 @@ export const modalFeedVoucherSelector = (state) => state.modal.modalFeedVoucher
 
 export const modalViewRentSelector = (state) => state.modal.modalViewRent
 export const modalRentIdSelector = (state) => state.modal.modalRentId
+
+export const modalBlogIdSelector = (state) => state.modal.modalBlogId
+export const modalAddBlogSelector = (state) => state.modal.modalAddBlog
+export const modalViewBlogSelector = (state) => state.modal.modalViewBlog

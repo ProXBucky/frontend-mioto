@@ -20,7 +20,7 @@ import { createNewUser } from './api/userAPI';
 import { loginUser } from './api/authAPI';
 import { setAvatarImage, setFullname, setToken, setUserId } from './redux/Slice/CookieSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import { adminIdSelector, appLoadSelector, loadingSelector, modalAddCarSelector, modalAddUserSelector, modalAddVoucherSelector, modalChangePasswordUserSelector, modalEditCarSelector, modalEditUserSelector, modalFeedVoucherSelector, modalViewCarSelector, modalViewRentSelector, modalViewUserSelector, tokenSelector } from './redux/selector';
+import { adminIdSelector, appLoadSelector, loadingSelector, modalAddBlogSelector, modalAddCarSelector, modalAddUserSelector, modalAddVoucherSelector, modalChangePasswordUserSelector, modalEditCarSelector, modalEditUserSelector, modalFeedVoucherSelector, modalViewBlogSelector, modalViewCarSelector, modalViewRentSelector, modalViewUserSelector, tokenSelector } from './redux/selector';
 import { setAppLoad, setHideLoading, setShowLoading } from './redux/Slice/AppSlice';
 import ModalViewUser from './container/Admin/User/ModalViewUser';
 import ModalEditUser from './container/Admin/User/ModalEditUser';
@@ -32,7 +32,12 @@ import ModalEditCar from './container/Admin/Car/ModalEditCar';
 import ModalAddVoucher from './container/Admin/Voucher/ModalAddVoucher';
 import ModalFeedVoucher from './container/Admin/Voucher/ModalFeedVoucher';
 import ModalViewTrip from './container/Admin/Trip/ModalViewTrip';
+import ModalAddBlog from './container/Admin/Blog/ModalAddBlog';
+import ModalViewBlog from './container/Admin/Blog/ModalViewBlog';
 
+const DetailBlog = lazy(() =>
+  import('./features/blog/DetailBlog')
+);
 const AccountInformation = lazy(() =>
   import('./container/AccountInformation/AccountInformation')
 );
@@ -123,6 +128,9 @@ const DetailTrip = lazy(() =>
 const DashboardAdmin = lazy(() =>
   import('./container/Admin/DashboardAdmin')
 );
+const ManageBlog = lazy(() =>
+  import('./container/Admin/Blog/ManageBlog')
+);
 
 
 function App() {
@@ -147,7 +155,9 @@ function App() {
   const modalEditCar = useSelector(modalEditCarSelector)
   const modalAddVoucher = useSelector(modalAddVoucherSelector)
   const modalFeedVoucher = useSelector(modalFeedVoucherSelector)
-  const moadlViewRent = useSelector(modalViewRentSelector)
+  const modalViewRent = useSelector(modalViewRentSelector)
+  const modalAddBlog = useSelector(modalAddBlogSelector)
+  const modalViewBlog = useSelector(modalViewBlogSelector)
 
   const handleCloseRegisterModal = () => {
     setShowRegisterModal(false);
@@ -310,11 +320,13 @@ function App() {
           <Route path="/car/:carId" element={<DetailCar handleOpenDateModal={handleOpenDateModal} handleOpenLoginModal={handleOpenLoginModal} />} />
           <Route path="/find" element={<CarMenu handleOpenDateModal={handleOpenDateModal} handleOpenLocationModal={handleOpenLocationModal} />} />
           <Route path="/city/:city" element={<CarByCity handleOpenDateModal={handleOpenDateModal} handleOpenLocationModal={handleOpenLocationModal} />} />
+          <Route path="/blog/:blog" element={<DetailBlog />} />
           <Route path="/login" element={<LoginAdmin />} />
           <Route path="/admin/*" element={adminId ? <AdminApp /> : <Navigate to="/login" />} >
             <Route path="dashboard" element={<DashboardAdmin />} />
             <Route path="user" element={<ManageUser />} />
             <Route path="staff" element={<ManageAdmin />} />
+            <Route path="blog" element={<ManageBlog />} />
             <Route path="car" element={<ManageCar />} />
             <Route path="voucher" element={<ManageVoucher />} />
             <Route path="review" element={<ManageReview />} />
@@ -341,7 +353,10 @@ function App() {
       {modalAddVoucher && <ModalAddVoucher />}
       {modalFeedVoucher && <ModalFeedVoucher />}
 
-      {moadlViewRent && <ModalViewTrip />}
+      {modalViewRent && <ModalViewTrip />}
+
+      {modalAddBlog && <ModalAddBlog />}
+      {modalViewBlog && <ModalViewBlog />}
 
 
       <ModalComponent

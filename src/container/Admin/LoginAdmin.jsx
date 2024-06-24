@@ -43,7 +43,7 @@ function LoginAdmin() {
                 dispatch(setAdminRole(res.role))
                 dispatch(setAvatarImageAdmin(res.avatar))
                 toast.success('Đăng nhập thành công');
-                navigate("/admin")
+                navigate("/admin/dashboard")
             }
         } catch (error) {
             if (error.response && error.response.status === 409) {
