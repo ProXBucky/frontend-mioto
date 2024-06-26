@@ -88,8 +88,8 @@ function ManageTripFinished() {
                     trips && trips.length > 0 ?
                         trips.map((trip, index) => {
                             return (
-                                <div className="w-full bg-white p-3 rounded-xl border-2">
-                                    <div className="w-full flex flex-row" key={index}>
+                                <div className="w-full bg-white p-3 rounded-xl border-2" key={index}>
+                                    <div className="w-full flex flex-row">
                                         <div className="w-1/6">
                                             <img src={trip.car.images && trip.car.images[0] && trip.car.images[0].imageLink} className="rounded-xl" />
                                         </div>
@@ -126,8 +126,8 @@ function ManageTripFinished() {
                                             <div className="flex flex-row gap-2 items-center w-full">
                                                 <h3 className="text-sm w-1/4">Chủ xe</h3>
                                                 <div className="flex justify-center flex-col items-center w-3/4 gap-2">
-                                                    <img className="h-10 w-10 rounded-full" src={trip.car.owners.user && trip.car.owners.user.avatarImage ? trip.car.owners.user.avatarImage : "/maleAva.png"} />
-                                                    <p className="text-xs">{trip.car.owners.user && trip.car.owners.user.fullname && trip.car.owners.user.fullname}</p>
+                                                    <img className="h-10 w-10 rounded-full" src={trip.car.user && trip.car.user.avatarImage ? trip.car.user.avatarImage : "/maleAva.png"} />
+                                                    <p className="text-xs">{trip.car.user && trip.car.user.fullname && trip.car.user.fullname}</p>
                                                 </div>
                                             </div>
                                             <div className="flex flex-row gap-2 items-center w-full">

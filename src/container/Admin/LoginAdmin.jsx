@@ -102,9 +102,9 @@ function LoginAdmin() {
                         }
                     </div>
 
-                    <>
+                    {/* <>
                         <p className='text-right pt-2 text-main font-semibold cursor-pointer' onClick={() => openForget()}>Quên mật khẩu?</p>
-                    </>
+                    </> */}
 
                     <button variant="primary" type="submit" className="mt-4 w-full py-3 text-lg font-semibold border-none rounded-lg text-white bg-main hover:opacity-80">
                         Đăng nhập

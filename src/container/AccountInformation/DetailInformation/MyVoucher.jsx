@@ -6,10 +6,10 @@ import { compareDay } from "../../../utils/compareDay";
 import { format } from "date-fns";
 
 function MyVoucher() {
-    const [allVoucher, setAllVoucher] = useState('');
     const userId = useSelector(userIdSelector)
     const token = useSelector(tokenSelector)
     const today = new Date()
+    const [allVoucher, setAllVoucher] = useState('');
 
     const fetchAllVoucherByUserId = async () => {
         if (userId) {

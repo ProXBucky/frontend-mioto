@@ -4,19 +4,20 @@ import { useSelector } from 'react-redux'
 import { adminTokenSelector } from '../../redux/selector'
 import { useState } from 'react'
 import { statistic } from '../../api/appAPI'
+import ChartStatusRent from '../../component/ChartStatusRent'
+import ChartBarBrand from '../../component/ChartBarBrand'
 function DashboardAdmin() {
     const adminToken = useSelector(adminTokenSelector)
     const [count, setCount] = useState({})
 
     const fetchStatistic = async () => {
         let res = await statistic(adminToken)
-        if(res){
+        if (res) {
             setCount(res)
-        }else{
+        } else {
             setCount({})
         }
     }
-
 
     useEffect(() => {
         fetchStatistic()
@@ -34,10 +35,10 @@ function DashboardAdmin() {
 
     return (
         <>
-            <div className="w-full">
+            <div className="w-full pb-10">
                 <h2 className="font-black text-xl">Chào mừng đã quay trở lại 👋</h2>
-                <div className="flex flex-wrap gap-4 mt-5">
-                    <div className="w-[23%] flex flew-row bg-white rounded-xl px-3 py-[36px]">
+                <div className="w-full flex flex-wrap gap-3 mt-5">
+                    <div className="w-[calc(25%-12px)] flex flew-row bg-white rounded-xl px-3 py-[36px]">
                         <div className="w-1/3 flex justify-center items-center">
                             <i class="fa-solid fa-user-tie text-5xl" style={{ color: "#3f8be9" }}></i>
                         </div>
@@ -47,7 +48,7 @@ function DashboardAdmin() {
                         </div>
                     </div>
 
-                    <div className="w-[23%] flex flew-row bg-white rounded-xl px-3 py-[36px]">
+                    <div className="w-[calc(25%-12px)] flex flew-row bg-white rounded-xl px-3 py-[36px]">
                         <div className="w-1/3 flex justify-center items-center" style={{ color: "#7db2f4" }}>
                             <i class="fa-solid fa-user text-5xl"></i>
                         </div>
@@ -57,7 +58,7 @@ function DashboardAdmin() {
                         </div>
                     </div>
 
-                    <div className="w-[23%] flex flew-row bg-white rounded-xl px-3 py-[36px]">
+                    <div className="w-[calc(25%-12px)] flex flew-row bg-white rounded-xl px-3 py-[36px]">
                         <div className="w-1/3 flex justify-center items-center">
                             <i class="fa-solid fa-car text-5xl" style={{ color: "#5fcf86" }}></i>
                         </div>
@@ -67,7 +68,7 @@ function DashboardAdmin() {
                         </div>
                     </div>
 
-                    <div className="w-[23%] flex flew-row bg-white rounded-xl px-3 py-[36px]">
+                    <div className="w-[calc(25%-12px)] flex flew-row bg-white rounded-xl px-3 py-[36px]">
                         <div className="w-1/3 flex justify-center items-center">
                             <i class="fa-regular fa-calendar text-5xl" style={{ color: "#f8b01b" }}></i>
                         </div>
@@ -77,7 +78,7 @@ function DashboardAdmin() {
                         </div>
                     </div>
 
-                    <div className="w-[23%] flex flew-row bg-white rounded-xl px-3 py-[36px]">
+                    <div className="w-[calc(25%-12px)] flex flew-row bg-white rounded-xl px-3 py-[36px]">
                         <div className="w-1/3 flex justify-center items-center">
                             <i class="fa-solid fa-book text-5xl" style={{ color: "#fc845e" }}></i>
                         </div>
@@ -87,7 +88,7 @@ function DashboardAdmin() {
                         </div>
                     </div>
 
-                    <div className="w-[23%] flex flew-row bg-white rounded-xl px-3 py-[36px]">
+                    <div className="w-[calc(25%-12px)] flex flew-row bg-white rounded-xl px-3 py-[36px]">
                         <div className="w-1/3 flex justify-center items-center">
                             <i class="fa-solid fa-ticket text-5xl" style={{ color: "#df3e30" }}></i>
                         </div>
@@ -97,7 +98,7 @@ function DashboardAdmin() {
                         </div>
                     </div>
 
-                    <div className="w-[23%] flex flew-row bg-white rounded-xl px-3 py-[36px]">
+                    <div className="w-[calc(25%-12px)] flex flew-row bg-white rounded-xl px-3 py-[36px]">
                         <div className="w-1/3 flex justify-center items-center">
                             <i class="fa-solid fa-flag text-5xl" style={{ color: "#1877f2" }}></i>
                         </div>
@@ -107,7 +108,7 @@ function DashboardAdmin() {
                         </div>
                     </div>
 
-                    <div className="w-[23%] flex flew-row bg-white rounded-xl px-3 py-[36px]">
+                    <div className="w-[calc(25%-12px)] flex flew-row bg-white rounded-xl px-3 py-[36px]">
                         <div className="w-1/3 flex justify-center items-center">
                             <i class="fa-solid fa-comment text-5xl" style={{ color: "#e78bda" }}></i>
                         </div>
@@ -116,9 +117,19 @@ function DashboardAdmin() {
                             <p className="text-gray-500 text-sm font-semibold">Bình luận</p>
                         </div>
                     </div>
-
-
                 </div>
+                <div className='w-full justify-between flex mt-5'>
+                    <div className='w-[63%] rounded-lg bg-white p-3'>
+                        <h3 className='font-bold text-lg mb-4'>Thống kê theo hãng xe</h3>
+                        <ChartBarBrand data={count && count} />
+                    </div>
+                    <div className='w-[35%] rounded-lg bg-white p-3'>
+                        <h3 className='font-bold text-lg mb-4'>Trạng thái các chuyến xe</h3>
+                        <ChartStatusRent data={count.chartStatus} />
+                    </div>
+                </div>
+
+
 
 
             </div>

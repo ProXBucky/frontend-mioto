@@ -27,8 +27,7 @@ function ModalComponent({ showModal, handleClose, modalType, onSubmit, handleOpe
         handleClose();
     };
 
-    const openForget = (e) => {
-        e.preventDefault();
+    const openForget = () => {
         handleClose();
         handleOpenModalForgetPassword();
     }
@@ -82,7 +81,7 @@ function ModalComponent({ showModal, handleClose, modalType, onSubmit, handleOpe
                     {
                         modalType !== 'register' && (
                             <>
-                                <p className='text-right pt-2 text-main font-semibold cursor-pointer' onClick={() => openForget()}>Quên mật khẩu?</p>
+                                <p className='text-right pt-2 text-main font-semibold cursor-pointer' onClick={openForget}>Quên mật khẩu?</p>
                             </>
                         )
                     }

@@ -249,14 +249,24 @@ const getOneBlogByBlogId = async (blogId) => {
     }
 };
 
+const countTrip = async (userId) => {
+    try {
+        const response = await axios.get(`${API_URL}/api/rent/count/${userId}`)
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        throw error;
+    }
+};
+
 const statistic = async (token) => {
     try {
         const response = await axios.get(`${API_URL}/api/statistic`,
-        {
-            headers: {
-                Authorization: 'Bearer ' + token
-            }
-        })
+            {
+                headers: {
+                    Authorization: 'Bearer ' + token
+                }
+            })
         return response.data;
     } catch (error) {
         console.error('Error fetching data:', error);
@@ -268,5 +278,5 @@ const statistic = async (token) => {
 export {
     getAllCarFeature, checkLikeCar, getAllCarLiked, getAllReviewOfCar, getAllReviewByCity, getReviewScore, getAllVoucherByUserId, getInformationUserById, getAllTripByUserId,
     getTripByRentId, checkStatusRent, getAllUser, getAllAdmin, getAllVoucher, getAllReport, getAllPendingTrip, getAllFinishedTrip, getAllOrderByUserId,
-    getAllBlogs, getOneBlogByBlogId, statistic
+    getAllBlogs, getOneBlogByBlogId, statistic, countTrip
 }

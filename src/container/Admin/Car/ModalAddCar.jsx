@@ -3,7 +3,7 @@ import { adminTokenSelector, modalAddCarSelector } from "../../../redux/selector
 import { ModalBody } from "react-bootstrap";
 import Modal from 'react-bootstrap/Modal';
 import { clearModalAddCar } from "../../../redux/Slice/ModalSlice";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import ChooseSelector from "../../../features/search/ChooseSelector";
 import AddressSelector from "../../../features/search/AdressSelector";
 import { getAllCarFeature, getAllUser } from "../../../api/appAPI";
@@ -14,22 +14,23 @@ import { setHideLoading, setShowLoading } from "../../../redux/Slice/AppSlice";
 import { postNewCarByAdmin } from "../../../api/carAPI";
 
 function ModalAddCar() {
-    const dispatch = useDispatch()
-    const modalAddCar = useSelector(modalAddCarSelector)
+    const dispatch = useDispatch();
+    const modalAddCar = useSelector(modalAddCarSelector);
+    const fileInputRef = useRef(null);  // Thêm tham chiếu cho input file
 
     const handleCloseModal = () => {
-        dispatch(clearModalAddCar())
-    }
+        dispatch(clearModalAddCar());
+    };
 
-    const adminToken = useSelector(adminTokenSelector)
-    const [featureArray, setFeatureArray] = useState([])
+    const adminToken = useSelector(adminTokenSelector);
+    const [featureArray, setFeatureArray] = useState([]);
     const [valueAddress, setValueAddress] = useState({
         location: '',
         city: '',
         district: '',
         ward: '',
         streetAddress: ''
-    })
+    });
 
     const handleChangeAddress = (name, value) => {
         setValueAddress(prevState => ({
@@ -83,8 +84,11 @@ function ModalAddCar() {
     const [selectedImages, setSelectedImages] = useState([]);
 
     const handleDeleteAllImages = () => {
-        setSelectedImages([])
-    }
+        setSelectedImages([]);
+        if (fileInputRef.current) {
+            fileInputRef.current.value = "";  // Đặt lại giá trị của input file
+        }
+    };
 
     const handleImageChange = async (event) => {
         const files = event.target.files;
@@ -111,10 +115,9 @@ function ModalAddCar() {
         setSelectedUser(event.target.value);
     };
 
-
     const handleAddCar = async () => {
         try {
-            dispatch(setShowLoading())
+            dispatch(setShowLoading());
             let res = await postNewCarByAdmin(+selectedUser, {
                 brand: formData1.hangXe,
                 model: formData1.mauXe,
@@ -133,53 +136,47 @@ function ModalAddCar() {
                 location: valueAddress.location,
                 arrayFeatureCode: selectedFeatures,
                 arrayImageCar: selectedImages
-            }, adminToken)
+            }, adminToken);
             if (res) {
-                handleCloseModal()
-                toast.success('Đăng ký xe thành công')
+                handleCloseModal();
+                toast.success('Đăng ký xe thành công');
             }
-        }
-        catch (error) {
+        } catch (error) {
             if (error.response && error.response.status === 409) {
                 toast.error('Lỗi hệ thống');
-            }
-            else if (error.response && error.response.status === 400) {
-                toast.error('Lỗi ảnh')
-            }
-            else {
+            } else if (error.response && error.response.status === 400) {
+                toast.error('Lỗi ảnh');
+            } else {
                 toast.error('Đã xảy ra lỗi trong quá trình đăng ký Xe. Vui lòng thử lại sau.');
             }
             console.error('Error:', error);
         } finally {
-            dispatch(setHideLoading())
+            dispatch(setHideLoading());
         }
-    }
-
+    };
 
     const fetchAllFeature = async () => {
         try {
-            const res = await getAllCarFeature()
+            const res = await getAllCarFeature();
             if (res && res.length > 0) {
-                setFeatureArray(res)
+                setFeatureArray(res);
             }
         } catch (err) {
-            console.log(err)
+            console.log(err);
         }
-    }
+    };
 
     const fetchData = async () => {
-        const res = await getAllUser(adminToken)
+        const res = await getAllUser(adminToken);
         if (res) {
-            setUsers(res)
+            setUsers(res);
         }
     };
 
     useEffect(() => {
-        fetchAllFeature()
-        fetchData()
-    }, [])
-
-
+        fetchAllFeature();
+        fetchData();
+    }, []);
 
 
     return (
@@ -372,7 +369,6 @@ function ModalAddCar() {
                                     }
                                 </div>
 
-
                                 <input
                                     id="ip"
                                     type="file"
@@ -403,7 +399,7 @@ function ModalAddCar() {
                                 <button className="mt-4 w-1/3 py-3 text-lg font-semibold rounded-md text-white bg-gray-400 hover:opacity-80" onClick={handleCloseModal}>
                                     Hủy bỏ
                                 </button>
-                                <button className="mt-4 w-1/3 py-3 text-lg font-semibold border-none rounded-md text-white bg-main hover:opacity-80" onClick={() => handleAddCar()}>
+                                <button className="mt-4 w-1/3 py-3 text-lg font-semibold border-none rounded-md text-white bg-main hover:opacity-80" onClick={handleAddCar}>
                                     Tạo mới
                                 </button>
                             </div>

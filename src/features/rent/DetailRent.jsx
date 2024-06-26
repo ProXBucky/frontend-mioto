@@ -87,11 +87,11 @@ function DetailRent() {
                         <h3 className='font-semibold text-lg mt-2'>Chủ xe</h3>
                         <div className="flex flex-col gap-3 mt-2">
                             <div className="flex flex-row gap-3 items-center">
-                                <img className="h-20 rounded-full border" src={rent && rent.car && rent.car.owners && rent.car.owners.user ? rent.car.owners.user.avatarImage : "/avaMale.png"} />
+                                <img className="h-20 rounded-full border" src={rent && rent.car && rent.car && rent.car.user ? rent.car.user.avatarImage : "/avaMale.png"} />
                                 <div>
-                                    <p className="font-semibold text-lg">{rent && rent.car && rent.car.owners && rent.car.owners.user && rent.car.owners.user.fullname}</p>
-                                    <p className='font-normal'>Số điện thoại: {rent && rent.car && rent.car.owners && rent.car.owners.user && rent.car.owners.user.phone}</p>
-                                    <p className='font-normal'>Email: {rent && rent.car && rent.car.owners && rent.car.owners.user && rent.car.owners.user.email}</p>
+                                    <p className="font-semibold text-lg">{rent && rent.car && rent.car && rent.car.user && rent.car.user.fullname}</p>
+                                    <p className='font-normal'>Số điện thoại: {rent && rent.car && rent.car && rent.car.user && rent.car.user.phone}</p>
+                                    <p className='font-normal'>Email: {rent && rent.car && rent.car && rent.car.user && rent.car.user.email}</p>
                                 </div>
                             </div>
                             <div className='flex items-center'>
@@ -136,15 +136,16 @@ function DetailRent() {
                                     <div className="flex flex-row items-center w-3/4 gap-3">
                                         <p>Mã giảm giá</p>
                                         {
-                                            rent.voucher && rent.voucher.voucherCode &&
+                                            rent.voucherOwner && rent.voucherOwner.voucher && rent.voucherOwner.voucher.voucherCode &&
                                             <>
-                                                <p className="text-black font-bold text-lg">{rent.voucher.voucherCode}</p>
+                                                <p className="text-black font-bold text-lg">{rent.voucherOwner.voucher.voucherCode}</p>
                                             </>
                                         }
                                     </div>
                                     <span className="font-semibold">
-                                        {rent.voucher && rent.voucher.discountPercent === 0 && formatMoney(0)}
-                                        {rent.voucher && rent.voucher.discountPercent !== 0 && formatMoney(-rent.voucher.discountPercent * 1000)}
+                                        {!rent.voucherOwner && formatMoney(0)}
+                                        {rent.voucherOwner && rent.voucherOwner.voucher && rent.voucherOwner.voucher.discountPercent === 0 && formatMoney(0)}
+                                        {rent.voucherOwner && rent.voucherOwner.voucher && rent.voucherOwner.voucher.discountPercent !== 0 && formatMoney(-rent.voucherOwner.voucher.discountPercent * 1000)}
 
                                     </span>
                                 </div>

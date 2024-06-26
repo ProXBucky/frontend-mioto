@@ -74,8 +74,8 @@ function ManageReport() {
                                             <span>{report.reason}</span>
                                         </td>
                                         <td className="py-3 w-[200px] text-center flex flex-col justify-center items-center">
-                                            <img className="h-10 rounded-full border" src={report.car.owners.user.avatarImage ? report.car.owners.user.avatarImage : "/avaMale.png"} />
-                                            <span>{report.car.owners.user.fullname}</span>
+                                            <img className="h-10 rounded-full border" src={report.car.user.avatarImage ? report.car.user.avatarImage : "/avaMale.png"} />
+                                            <span>{report.car.user.fullname}</span>
                                             <p className="font-semibold">{report.car.model}</p>
                                             <p className="font-semibold">{report.car.plateNumber}</p>
                                         </td>

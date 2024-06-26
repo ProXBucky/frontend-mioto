@@ -20,8 +20,8 @@ function ModalViewCar() {
             let res = await getDetailCar(carId)
             if (res) {
                 setCar(res)
-                if (res.owners) {
-                    setUserInfo(res.owners.user)
+                if (res.user) {
+                    setUserInfo(res.user)
                 }
             } else {
                 setCar({})
@@ -34,8 +34,6 @@ function ModalViewCar() {
         dispatch(clearModalCarId())
         dispatch(clearModalViewCar())
     }
-
-    console.log(car)
 
     useEffect(() => {
         fetchDataCar()
@@ -151,8 +149,8 @@ function ModalViewCar() {
                         <div className='mt-3'>
                             <div className="flex flex-col gap-3 w-full">
                                 <label className='font-bold text-xl'>Tính năng</label>
-                                <div className="mt-3 flex flex-wrap gap-5">
-                                    <div className="list-feature flex flex-wrap gap-3">
+                                <div className="mt-3 flex flex-wrap gap-5 w-full">
+                                    <div className="list-feature flex flex-wrap gap-3 w-full">
                                         {
                                             car && car.carFeatures && car.carFeatures.length > 0 &&
                                             car.carFeatures.map((item, index) => {

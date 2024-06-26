@@ -23,6 +23,7 @@ function MyCar() {
 
     const handleDeleteCar = (carId) => {
 
+
     }
 
     useEffect(() => {
@@ -45,10 +46,6 @@ function MyCar() {
         <>
             <h1 className="text-4xl font-bold">Danh sách xe của tôi</h1>
             <div className="flex w-full flex-col justify-center items-center mt-10">
-                {
-                    listMyCar.length > 0 &&
-                    <button className="mb-4 px-4 py-3 rounded-xl font-semibold bg-main text-white" onClick={() => handleOpenModalAddCar()}>Đăng ký xe tự lái</button>
-                }
                 {
                     listMyCar && listMyCar.length > 0 ?
                         listMyCar.map((item, index) => {
@@ -104,10 +101,10 @@ function MyCar() {
                                     </div>
                                     <div className="w-1/3 pl-8 flex flex-col justify-center items-center gap-5">
                                         <img className="rounded-lg" src={item.images && item.images.length > 0 && item.images[0].imageLink} />
-                                        <div className="flex justify-between w-full">
+                                        <div className="flex justify-evenly w-full">
                                             <i className="cursor-pointer fa-regular fa-eye fa-xl" onClick={() => handleNavigateDetailCar(item.carId)}></i>
                                             <i className="cursor-pointer fa-regular fa-pen-to-square fa-xl" onClick={() => handlenNavigateEditCar(item.carId)}></i>
-                                            <i className="cursor-pointer fa-regular fa-trash-can fa-xl" onClick={() => handleDeleteCar(item.carId)}></i>(Chưa làm)
+                                            {/* <i className="cursor-pointer fa-regular fa-trash-can fa-xl" onClick={() => handleDeleteCar(item.carId)}></i> */}
                                         </div>
                                     </div>
                                 </div>
@@ -121,6 +118,10 @@ function MyCar() {
                             <h3 className="font-bold text-xl text-gray-500">Không tìm thấy xe nào</h3>
                             <button className="mt-5 px-4 py-3 rounded-xl font-semibold bg-main text-white" onClick={() => handleOpenModalAddCar()}>Đăng ký xe tự lái</button>
                         </>
+                }
+                {
+                    listMyCar.length > 0 &&
+                    <button className="mt-2 px-4 py-3 rounded-xl font-semibold bg-main text-white" onClick={() => handleOpenModalAddCar()}>Đăng ký xe tự lái</button>
                 }
             </div>
 

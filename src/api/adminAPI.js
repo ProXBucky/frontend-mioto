@@ -249,6 +249,34 @@ const deleteBlog = async (blogId, token) => {
     }
 }
 
+const deleteCar = async (carId, token) => {
+    try {
+        const response = await axios.delete(`${API_URL}/api/car/delete/${carId}`, {
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        })
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        throw error;
+    }
+}
+
+const deleteUser = async (userId, token) => {
+    try {
+        const response = await axios.delete(`${API_URL}/api/user/${userId}`, {
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        })
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        throw error;
+    }
+}
+
 
 
 
@@ -256,5 +284,5 @@ const deleteBlog = async (blogId, token) => {
 export {
     changePasswordUser, createNewUserByAdmin, findInformationAdminById, createNewAdmin, editInformationAdminById, changePasswordAdmin,
     confimCarByAdmin, createNewVoucher, deleteVoucher, feedVoucherToUser, deleteReviewByReviewId, deleteTripByAdmin, deleteAdmin,
-    createBlog, editBlog, deleteBlog
+    createBlog, editBlog, deleteBlog, deleteCar, deleteUser
 }

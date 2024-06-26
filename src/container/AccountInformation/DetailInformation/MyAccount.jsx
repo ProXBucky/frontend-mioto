@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { tokenSelector, userIdSelector } from "../../../redux/selector";
 import { format } from "date-fns";
 import { setShowLoading } from "../../../redux/Slice/AppSlice";
-import { getInformationUserById } from "../../../api/appAPI";
+import { countTrip, getInformationUserById } from "../../../api/appAPI";
 import { useNavigate } from "react-router-dom";
 import { getListCar } from "../../../api/carAPI";
 
@@ -25,6 +25,8 @@ function MyAccount({ handleOpenEdit, showModalEdit }) {
     const [formData, setFormData] = useState({
         licenseNumber: '',
     });
+    const [listMyCar, setListMyCar] = useState([])
+    const [tripCnt, setTripCnt] = useState(0)
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -43,12 +45,20 @@ function MyAccount({ handleOpenEdit, showModalEdit }) {
         setScale(newScale);
     };
 
+    const fetchCountTrip = async () => {
+        if (userId && token) {
+            let res = await countTrip(userId)
+            setTripCnt(res)
+        }
+    }
+
     const fetchDataUser = async () => {
         if (userId && token) {
-            let res = await getInformationUserById(userId, token)           // FIX_DATA
+            let res = await getInformationUserById(userId, token)
             setUserInfo(res)
         }
     }
+
     const fetchDataLicense = async () => {
         if (userId && token) {
             let ress = await getInformationLicenseById(userId, token)
@@ -64,6 +74,8 @@ function MyAccount({ handleOpenEdit, showModalEdit }) {
             let res = await getListCar(userId)
             if (res) {
                 setListMyCar(res)
+            } else {
+                setListMyCar([])
             }
         } catch (error) {
             if (error.response && error.response.status === 500) {
@@ -73,18 +85,18 @@ function MyAccount({ handleOpenEdit, showModalEdit }) {
         }
     }
 
+
     useEffect(() => {
         fetchDataUser()
         fetchDataLicense()
         fetchListMyCar()
+        fetchCountTrip()
     }, [])
 
     useEffect(() => {
         fetchDataUser()
     }, [showModalEdit])
 
-    const navigate = useNavigate()
-    const [listMyCar, setListMyCar] = useState([])
 
 
     const closeEditLicense = () => {
@@ -128,7 +140,7 @@ function MyAccount({ handleOpenEdit, showModalEdit }) {
                     <div className="border border-gray-300 rounded-lg flex flex-row items-center gap-1 p-3">
                         <svg width="40" height="41" viewBox="0 0 60 61" fill="none" xmlns="http://www.w3.org/2000/svg" className=""><path d="M8.11719 55.5V52.3883" stroke="#5FCF86" strokeWidth="4" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path><path d="M40.2734 55.5V52.3883" stroke="#5FCF86" strokeWidth="4" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path><path d="M11.2188 52.3884V28.5931" stroke="#5FCF86" strokeWidth="4" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path><path d="M25.9484 21.0604H18.8959C17.5209 21.0604 16.4062 22.1751 16.4062 23.5501V28.5933" stroke="#5FCF86" strokeWidth="4" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path><path d="M25.9531 28.5931H7.07471C5.92895 28.5931 5 29.522 5 30.6678V50.3137C5 51.4596 5.92895 52.3884 7.07471 52.3884H28.0278" stroke="#5FCF86" strokeWidth="4" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path><path d="M52.9282 18.2196H28.0317C26.8859 18.2196 25.957 19.1484 25.957 20.2943V50.3137C25.957 51.4596 26.8859 52.3884 28.0317 52.3884H52.9282C54.0741 52.3884 55.0029 51.4596 55.0029 50.3137V20.2943C55.0029 19.1484 54.0741 18.2196 52.9282 18.2196Z" stroke="#5FCF86" strokeWidth="4" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path><path d="M32.1797 52.3884V18.2196" stroke="#5FCF86" strokeWidth="4" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path><path d="M48.7695 18.2196V52.3884" stroke="#5FCF86" strokeWidth="4" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path><path d="M29.0625 55.5V52.3883" stroke="#5FCF86" strokeWidth="4" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path><path d="M51.8828 55.5V52.3883" stroke="#5FCF86" strokeWidth="4" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path><path d="M35.293 18.2197V7.98977C35.293 6.61486 36.4076 5.50013 37.7826 5.50013H43.1768C44.5519 5.50013 45.6665 6.61486 45.6665 7.98977V18.2197" stroke="#5FCF86" strokeWidth="4" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path></svg>
                         <span className="text-main text-4xl font-bold">
-                            0
+                            {tripCnt}
                         </span>
                         <p>chuyến</p>
                     </div>
@@ -139,7 +151,7 @@ function MyAccount({ handleOpenEdit, showModalEdit }) {
                             <img src={userInfo && userInfo.avatarImage ? userInfo.avatarImage : '/avaMale.png'} />
                         </div>
                         <h2 className="text-lg font-semibold">{userInfo && userInfo.fullname && userInfo.fullname}</h2>
-                        <p className="text-sm">Tham gia: {userInfo && userInfo.joinDate && userInfo.joinDate}</p>
+                        <p className="text-sm">Tham gia: {userInfo && userInfo.joinDate && format(userInfo.joinDate, "dd/MM/yyyy")}</p>
                     </div>
                     <div className="w-2/3 text-gray-500 pl-5">
                         <div className="bg-gray-100 rounded-lg p-3 flex flex-col gap-3">
@@ -210,7 +222,7 @@ function MyAccount({ handleOpenEdit, showModalEdit }) {
                         <div>
                             <label className="font-semibold text-gray-500 text-md w-full">Ngày sinh</label>
                             <p className="outline-none w-full p-2 mt-2 rounded-lg bg-white border" >
-                                {userInfo && userInfo.dob && format(userInfo.dob, 'dd-MM-yyyy')}
+                                {userInfo && userInfo.dob ? format(userInfo.dob, 'dd-MM-yyyy') : "----/----/--------"}
                             </p>
                         </div>
                     </div>

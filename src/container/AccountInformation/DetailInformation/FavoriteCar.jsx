@@ -92,7 +92,7 @@ function FavoriteCar() {
                                 </div>
                                 <div className="w-[calc(25%-40px)] border-l-2 flex flex-col justify-center items-center gap-3 pl-4">
                                     <div className="rounded-full border border-gray-600 ">
-                                        <img src={item.car && item.car.owners && item.car.owners.user && item.car.owners.user.avatarImage} className="rounded-full h-10" />
+                                        <img src={item.car && item.car && item.car.user && item.car.user.avatarImage} className="rounded-full h-10" />
                                     </div>
                                     <p><label className="font-bold text-xl">{item.car && item.car.pricePerDay && item.car.pricePerDay}K </label><label className="font-normal text-md">/Ngày</label></p>
                                     <button className="py-[10px] px-[40px] rounded-md text-white font-bold bg-main hover:opacity-85" onClick={() => dislikeCarAction(item.car.carId)}>Bỏ thích</button>

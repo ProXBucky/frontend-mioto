@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { getListCar } from "../../../api/carAPI"
 import { useDispatch, useSelector } from "react-redux"
 import { tokenSelector, userIdSelector } from "../../../redux/selector"
 import { getAllOrderByUserId } from "../../../api/appAPI"
@@ -182,9 +181,11 @@ function MyOrder() {
                         )
                     })
                     :
-                    <div className="w-full flex flex-col items-center">
-                        <p className="text-center font-semibold text-3xl">Chưa có chuyến xe nào.</p>
+                    <div className="flex w-full flex-col justify-center items-center mt-10">
+                        <img src="/noTrip.svg" />
+                        <h3 className="font-bold text-xl text-gray-500">Bạn chưa có chuyến xe nào</h3>
                     </div>
+
             }
 
         </>

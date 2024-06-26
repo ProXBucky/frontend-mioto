@@ -3,7 +3,7 @@ import { getListCarByCity, getListCarByCityByAdmin, getListCarS } from "../../..
 import { setModalAddCar, setModalCarId, setModalDeleteCar, setModalEditCar, setModalViewCar } from "../../../redux/Slice/ModalSlice"
 import { useDispatch, useSelector } from "react-redux"
 import { toast } from "react-toastify"
-import { confimCarByAdmin } from "../../../api/adminAPI"
+import { confimCarByAdmin, deleteCar } from "../../../api/adminAPI"
 import { adminTokenSelector } from "../../../redux/selector"
 import { setHideLoading, setShowLoading } from "../../../redux/Slice/AppSlice"
 import CitySelect from "../../../component/CitySelect"
@@ -30,9 +30,34 @@ function ManageCar() {
         dispatch(setModalEditCar())
     }
 
-    const handleOpenModalDelete = (carId) => {
-        dispatch(setModalCarId(carId))
-        dispatch(setModalDeleteCar())
+    const handleOpenModalDelete = async (carId) => {
+        try {
+            if (window.confirm("Bạn có xóa phương tiện này không?")) {
+                dispatch(setShowLoading())
+                let res = await deleteCar(carId, adminToken)
+                if (res) {
+                    toast.success("Xóa thành công")
+                    fetchAllCars(selectedCity)
+                }
+            }
+        } catch (error) {
+            if (error.response) {
+                switch (error.response.status) {
+                    case 401:
+                        toast.error('Bạn chưa được cấp quyền');
+                        break;
+                    case 403:
+                        toast.error('Bạn không có quyền xóa');
+                        break;
+                    default:
+                        toast.error('Đã xảy ra lỗi. Vui lòng thử lại sau.');
+                }
+            } else {
+                toast.error('Đã xảy ra lỗi. Vui lòng thử lại sau.');
+            }
+        } finally {
+            dispatch(setHideLoading())
+        }
     }
 
     const handleConfirmCar = async (carId) => {
@@ -51,7 +76,7 @@ function ManageCar() {
 
     }
 
-    const [selectedCity, setSelectedCity] = useState('Hà Nội');
+    const [selectedCity, setSelectedCity] = useState('Tất cả');
 
     const handleCityChange = (event) => {
         setSelectedCity(event.target.value);
@@ -97,7 +122,7 @@ function ManageCar() {
                                         }
 
                                         <div className="h-10 rounded-full border w-10 absolute bottom-[-7%] left-[5%]">
-                                            <img src={car.owners && car.owners.user && car.owners.user.avatarImage ? car.owners.user.avatarImage : "/avaMale.png"} className="rounded-full" />
+                                            <img src={car && car.user && car.user.avatarImage ? car.user.avatarImage : "/avaMale.png"} className="rounded-full" />
                                         </div>
 
                                         <img src={car.images && car.images[0] && car.images[0].imageLink} className="rounded-xl h-48" />

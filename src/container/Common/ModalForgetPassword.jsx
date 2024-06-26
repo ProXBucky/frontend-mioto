@@ -2,11 +2,16 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { useState } from 'react';
 import Form from 'react-bootstrap/Form';
+import { setHideLoading, setShowLoading } from '../../redux/Slice/AppSlice';
+import { toast } from 'react-toastify';
+import { resetPassword } from '../../api/authAPI';
+import { useDispatch } from 'react-redux';
 
 function ModalForgetPassword({ showModalForgetPassword, handleCloseModalForgetPassword }) {
     const [formData, setFormData] = useState({
         email: ''
     });
+    const dispatch = useDispatch()
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -16,8 +21,30 @@ function ModalForgetPassword({ showModalForgetPassword, handleCloseModalForgetPa
         }));
     };
 
-    const handleSubmitModalForgetPassword = () => {
-        handleCloseModalForgetPassword()
+    const handleSubmitModalForgetPassword = async (e) => {
+        e.preventDefault()
+        try {
+            dispatch(setShowLoading())
+            let res = await resetPassword({ email: formData.email })
+            if (res) {
+                toast.success("Mật khẩu mới đã được gửi tới gmail của bạn.")
+                handleCloseModalForgetPassword()
+            }
+        } catch (error) {
+            if (error.response) {
+                switch (error.response.status) {
+                    case 404:
+                        toast.error('Gmail này chưa được đăng ký tài khoản');
+                        break;
+                    default:
+                        toast.error('Đã xảy ra lỗi. Vui lòng thử lại sau.');
+                }
+            } else {
+                toast.error('Đã xảy ra lỗi. Vui lòng thử lại sau.');
+            }
+        } finally {
+            dispatch(setHideLoading())
+        }
     }
 
     return (

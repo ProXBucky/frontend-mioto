@@ -42,4 +42,14 @@ const logoutAdmin = async (body) => {
     }
 }
 
-export { loginUser, logoutUser, loginAdmin, logoutAdmin }
+const resetPassword = async (body) => {
+    try {
+        const response = await axios.post(`${API_URL}/api/auth/reset-password`, body)
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        throw error;
+    }
+}
+
+export { loginUser, logoutUser, loginAdmin, logoutAdmin, resetPassword }

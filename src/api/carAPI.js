@@ -18,7 +18,7 @@ const postNewCar = async (userId, body, token) => {
 
 const getListCar = async (userId) => {
     try {
-        const response = await axios.get(`${API_URL}/api/owner/${userId}`)
+        const response = await axios.get(`${API_URL}/api/car/owner/${userId}`)
         return response.data;
     } catch (error) {
         console.log('Error fetching data:', error);

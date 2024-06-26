@@ -4,6 +4,9 @@ import { useDispatch, useSelector } from "react-redux"
 import { adminTokenSelector, modalAddUserSelector, modalChangePasswordUserSelector, modalDeleteUserSelector, modalEditUserSelector } from "../../../redux/selector"
 import { format } from "date-fns"
 import { setModalAddUser, setModalChangePasswordUser, setModalDeleteUser, setModalEditUser, setModalObject, setModalUserId, setModalViewUser } from "../../../redux/Slice/ModalSlice"
+import { setHideLoading, setShowLoading } from "../../../redux/Slice/AppSlice"
+import { toast } from "react-toastify"
+import { deleteUser } from "../../../api/adminAPI"
 
 function ManageUser() {
     const dispatch = useDispatch()
@@ -48,11 +51,35 @@ function ManageUser() {
         dispatch(setModalEditUser())
     }
 
-    const handleOpenModalDelete = (userId, index) => {
-        toggleDropdown(index)
-        dispatch(setModalObject("user"))
-        dispatch(setModalUserId(userId))
-        dispatch(setModalDeleteUser())
+    const handleOpenModalDelete = async (userId, index) => {
+        try {
+            toggleDropdown(index)
+            if (window.confirm("Bạn có xóa nhân viên này không?")) {
+                dispatch(setShowLoading())
+                let res = await deleteUser(userId, adminToken)
+                if (res) {
+                    toast.success("Xóa thành công")
+                    fetchAllUsers()
+                }
+            }
+        } catch (error) {
+            if (error.response) {
+                switch (error.response.status) {
+                    case 401:
+                        toast.error('Bạn chưa được cấp quyền');
+                        break;
+                    case 403:
+                        toast.error('Bạn không có quyền xóa');
+                        break;
+                    default:
+                        toast.error('Đã xảy ra lỗi. Vui lòng thử lại sau.');
+                }
+            } else {
+                toast.error('Đã xảy ra lỗi. Vui lòng thử lại sau.');
+            }
+        } finally {
+            dispatch(setHideLoading())
+        }
     }
 
     const handleOpenModalChangePassword = (userId, index) => {
@@ -145,7 +172,7 @@ function ManageUser() {
                                                             </li>
                                                             <li className="hover:bg-gray-200 px-3 text-sm font-semibold py-2 cursor-pointer transition-colors duration-200 flex gap-2 items-center" onClick={() => handleOpenModalDelete(user.userId, index)}>
                                                                 <i className="fa-solid fa-trash-can"></i>
-                                                                <p>Xóa (loading)</p>
+                                                                <p>Xóa</p>
                                                             </li>
                                                         </ul>
                                                     </div>

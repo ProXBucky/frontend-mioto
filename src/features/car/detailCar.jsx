@@ -697,9 +697,9 @@ function DetailCar({ handleOpenDateModal, handleOpenLoginModal }) {
                             <h3 className="font-semibold text-xl">Chủ xe</h3>
                             <div className="flex justify-between mt-4">
                                 <div className="flex flex-row gap-3 items-center">
-                                    <img className="h-20 rounded-full border" src={car && car.owners && car.owners.user ? car.owners.user.avatarImage : "/avaMale.png"} />
+                                    <img className="h-20 rounded-full border" src={car && car && car.user ? car.user.avatarImage : "/avaMale.png"} />
                                     <div>
-                                        <p className="font-bold text-xl">{car && car.owners && car.owners.user && car.owners.user.fullname}</p>
+                                        <p className="font-bold text-xl">{car && car && car.user && car.user.fullname}</p>
                                         <div className="flex flex-row gap-1 font-semibold text-sm">
                                             <label className="flex items-center gap-1">
                                                 <svg className="star-rating" width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14.6667 7.23331C14.7333 6.89998 14.4667 6.49998 14.1333 6.49998L10.3333 5.96665L8.59999 2.49998C8.53333 2.36665 8.46666 2.29998 8.33333 2.23331C7.99999 2.03331 7.59999 2.16665 7.39999 2.49998L5.73333 5.96665L1.93333 6.49998C1.73333 6.49998 1.59999 6.56665 1.53333 6.69998C1.26666 6.96665 1.26666 7.36665 1.53333 7.63331L4.26666 10.3L3.59999 14.1C3.59999 14.2333 3.59999 14.3666 3.66666 14.5C3.86666 14.8333 4.26666 14.9666 4.59999 14.7666L7.99999 12.9666L11.4 14.7666C11.4667 14.8333 11.6 14.8333 11.7333 14.8333C11.8 14.8333 11.8 14.8333 11.8667 14.8333C12.2 14.7666 12.4667 14.4333 12.4 14.0333L11.7333 10.2333L14.4667 7.56665C14.6 7.49998 14.6667 7.36665 14.6667 7.23331Z" fill="#FFC634"></path></svg>
