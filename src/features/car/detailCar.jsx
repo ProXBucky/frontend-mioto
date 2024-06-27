@@ -543,7 +543,7 @@ function DetailCar({ handleOpenDateModal, handleOpenLoginModal }) {
                             <p className="mt-4 text-gray-500">
                                 {car && car.description ? car.description
                                     :
-                                    <p>Không có</p>
+                                    <label>Không có</label>
                                 }
                             </p>
                         </div>
@@ -714,7 +714,7 @@ function DetailCar({ handleOpenDateModal, handleOpenLoginModal }) {
                                     </div>
 
                                 </div>
-                                <div className="flex flex-row items-center gap-5 font-bold">
+                                {/* <div className="flex flex-row items-center gap-5 font-bold">
                                     <div className="flex flex-col items-center">
                                         <p className="font-normal text-gray-500">Tỉ lệ phản hồi</p>
                                         <span>100%</span>
@@ -727,7 +727,7 @@ function DetailCar({ handleOpenDateModal, handleOpenLoginModal }) {
                                         <p className="font-normal text-gray-500">Tỉ lệ đồng ý</p>
                                         <span>80%</span>
                                     </div>
-                                </div>
+                                </div> */}
                             </div>
                         </div>
                         {

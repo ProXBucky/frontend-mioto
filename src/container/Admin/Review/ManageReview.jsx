@@ -99,7 +99,8 @@ function ManageReview() {
                                 })
                                 :
                                 <tr className="w-full text-base h-20 text-center">
-                                    <td colSpan={5}>Không có bình luận tại khu vực này</td></tr>
+                                    <td colSpan={5}>Không có bình luận tại khu vực này</td>
+                                </tr>
                         }
                     </tbody>
                 </table>

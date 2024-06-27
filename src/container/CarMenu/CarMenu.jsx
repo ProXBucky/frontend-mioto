@@ -2,32 +2,77 @@ import { useParams } from "react-router-dom"
 import CarList from "../../features/car/carList"
 import { useEffect, useState } from "react"
 import { findCarUsingParam } from "../../api/carAPI"
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { beginDateSelector, endDateSelector, locationCodeSelector, locationSelector, userIdSelector } from "../../redux/selector"
+import { clearModalFilterBrand, clearModalFilterFuel, clearModalFilterTrans, setModalFilterBrand, setModalFilterFuel, setModalFilterTrans } from "../../redux/Slice/ModalSlice"
+import ModalFilterBrand from "./ModalFilterBrand"
+import ModalFilterTrans from "./ModalFilterTrans"
+import ModalFilterFuel from "./ModalFilterFuel"
 
 function CarMenu({ handleOpenDateModal, handleOpenLocationModal }) {
+    const dispatch = useDispatch()
     const [carArray, setCarArray] = useState([])
     const userId = useSelector(userIdSelector)
     const location = useSelector(locationSelector)
-    const locationCode = useSelector(locationCodeSelector)
+    const city = useSelector(locationCodeSelector)
     const beginDate = useSelector(beginDateSelector)
     const endDate = useSelector(endDateSelector)
-    let { userIds } = useParams("userId")
-    let { locationCodes } = useParams("city")
-    let { beginDates } = useParams("beginDate")
-    let { endDates } = useParams("endDate")
 
-    const fetchFindCar = async () => {
-        let res = await findCarUsingParam(locationCode, userId, beginDate, endDate)
-        if (res && res.length > 0) {
-            setCarArray(res)
-        } else {
-            setCarArray([])
-        }
+    const handleOpenModalBrand = () => {
+        dispatch(setModalFilterBrand())
     }
 
-    const fetchFindCarFirst = async () => {
-        let res = await findCarUsingParam(locationCodes, userIds, beginDates, endDates)
+    const handleOpenModalTrans = () => {
+        dispatch(setModalFilterTrans())
+    }
+
+    const handleOpenModalFuel = () => {
+        dispatch(setModalFilterFuel())
+    }
+
+    const [selectedBrand, setSelectedBrand] = useState('Tất cả');
+
+    const handleRadioChange = (event) => {
+        setSelectedBrand(event.target.value);
+    };
+
+    const handleApplyFilter = () => {
+        dispatch(clearModalFilterBrand())
+
+    };
+
+    const [selectedTrans, setSelectedTrans] = useState('Tất cả');
+
+    const handleRadioChangeTrans = (event) => {
+        setSelectedTrans(event.target.value);
+    };
+
+    const handleApplyFilterTrans = () => {
+        dispatch(clearModalFilterTrans())
+
+    };
+
+    const [selectedFuel, setSelectedFuel] = useState('Tất cả');
+
+    const handleRadioChangeFuel = (event) => {
+        setSelectedFuel(event.target.value);
+    };
+
+    const handleApplyFilterFuel = () => {
+        dispatch(clearModalFilterFuel())
+
+    };
+
+    const fetchFindCar = async () => {
+        let res = await findCarUsingParam({
+            city: city,
+            userId: userId,
+            beginDate: beginDate,
+            endDate: endDate,
+            brand: selectedBrand,
+            transmission: selectedTrans,
+            fuelType: selectedFuel
+        })
         if (res && res.length > 0) {
             setCarArray(res)
         } else {
@@ -36,17 +81,19 @@ function CarMenu({ handleOpenDateModal, handleOpenLocationModal }) {
     }
 
     useEffect(() => {
-        fetchFindCarFirst()
+        fetchFindCar()
     }, [])
 
     useEffect(() => {
         fetchFindCar()
-    }, [location, locationCode, beginDate, endDate, userId])
+    }, [location, city, beginDate, endDate, userId, selectedBrand, selectedFuel, selectedTrans])
 
 
     return (
         <>
-
+            <ModalFilterBrand selectedBrand={selectedBrand} handleRadioChange={handleRadioChange} handleApplyFilter={handleApplyFilter} />
+            <ModalFilterTrans selectedTrans={selectedTrans} handleRadioChangeTrans={handleRadioChangeTrans} handleApplyFilterTrans={handleApplyFilterTrans} />
+            <ModalFilterFuel selectedFuel={selectedFuel} handleRadioChangeFuel={handleRadioChangeFuel} handleApplyFilterFuel={handleApplyFilterFuel} />
             <div className="border-t-2 p-2">
                 <div className="bg-white shadow-xl px-32 py-2">
                     <div className="flex justify-center items-center gap-10">
@@ -61,34 +108,19 @@ function CarMenu({ handleOpenDateModal, handleOpenLocationModal }) {
                     </div>
 
                     <div className="flex justify-center gap-2 mt-3">
-                        <div className="rounded-full flex flex-row gap-1 border border-[#aaa] py-1 px-3 cursor-pointer">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M19.15 15.7199H19.6C20.51 15.7199 21.24 14.8599 21.24 13.8399V12.4499C21.24 11.7199 20.86 11.0399 20.27 10.7399L18.79 9.96995L17.47 7.59994C17.09 6.90994 16.42 6.49994 15.71 6.50994H10.12C9.47 6.50994 8.86 6.84995 8.47 7.42995L6.77 9.93994L3.96 10.7999C3.24 11.0199 2.75 11.7599 2.75 12.5999V13.8299C2.75 14.8499 3.48 15.7099 4.39 15.7099H4.63" stroke="black" strokeLinecap="round" strokeLinejoin="round"></path><path d="M8.87 15.7197H14.77" stroke="black" strokeLinecap="round" strokeLinejoin="round"></path><path d="M6.69 17.4598C7.83322 17.4598 8.76 16.5331 8.76 15.3898C8.76 14.2466 7.83322 13.3198 6.69 13.3198C5.54677 13.3198 4.62 14.2466 4.62 15.3898C4.62 16.5331 5.54677 17.4598 6.69 17.4598Z" stroke="black" strokeLinecap="round" strokeLinejoin="round"></path><path d="M17.08 17.4598C18.2232 17.4598 19.15 16.5331 19.15 15.3898C19.15 14.2466 18.2232 13.3198 17.08 13.3198C15.9368 13.3198 15.01 14.2466 15.01 15.3898C15.01 16.5331 15.9368 17.4598 17.08 17.4598Z" stroke="black" strokeLinecap="round" strokeLinejoin="round"></path></svg>
-                            <p>Loại xe</p>
-                        </div>
-
-                        <div className="rounded-full flex flex-row gap-1 border border-[#aaa] py-1 px-3 cursor-pointer">
+                        <div className={`rounded-full flex flex-row gap-1 border border-[#aaa] py-1 px-3 cursor-pointer ${selectedBrand === "Tất cả" ? "" : "border-[#5fcf86] bg-[#dff5e7]"}`} onClick={handleOpenModalBrand}>
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M19.15 15.7199H19.6C20.51 15.7199 21.24 14.8599 21.24 13.8399V12.4499C21.24 11.7199 20.86 11.0399 20.27 10.7399L18.79 9.96995L17.47 7.59994C17.09 6.90994 16.42 6.49994 15.71 6.50994H10.12C9.47 6.50994 8.86 6.84995 8.47 7.42995L6.77 9.93994L3.96 10.7999C3.24 11.0199 2.75 11.7599 2.75 12.5999V13.8299C2.75 14.8499 3.48 15.7099 4.39 15.7099H4.63" stroke="black" strokeLinecap="round" strokeLinejoin="round"></path><path d="M8.87 15.7197H14.77" stroke="black" strokeLinecap="round" strokeLinejoin="round"></path><path d="M6.69 17.4598C7.83322 17.4598 8.76 16.5331 8.76 15.3898C8.76 14.2466 7.83322 13.3198 6.69 13.3198C5.54677 13.3198 4.62 14.2466 4.62 15.3898C4.62 16.5331 5.54677 17.4598 6.69 17.4598Z" stroke="black" strokeLinecap="round" strokeLinejoin="round"></path><path d="M17.08 17.4598C18.2232 17.4598 19.15 16.5331 19.15 15.3898C19.15 14.2466 18.2232 13.3198 17.08 13.3198C15.9368 13.3198 15.01 14.2466 15.01 15.3898C15.01 16.5331 15.9368 17.4598 17.08 17.4598Z" stroke="black" strokeLinecap="round" strokeLinejoin="round"></path></svg>
                             <p>Hãng xe</p>
                         </div>
 
-                        <div className="rounded-full flex flex-row gap-1 border border-[#aaa] py-1 px-3 cursor-pointer">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M19.15 15.7199H19.6C20.51 15.7199 21.24 14.8599 21.24 13.8399V12.4499C21.24 11.7199 20.86 11.0399 20.27 10.7399L18.79 9.96995L17.47 7.59994C17.09 6.90994 16.42 6.49994 15.71 6.50994H10.12C9.47 6.50994 8.86 6.84995 8.47 7.42995L6.77 9.93994L3.96 10.7999C3.24 11.0199 2.75 11.7599 2.75 12.5999V13.8299C2.75 14.8499 3.48 15.7099 4.39 15.7099H4.63" stroke="black" strokeLinecap="round" strokeLinejoin="round"></path><path d="M8.87 15.7197H14.77" stroke="black" strokeLinecap="round" strokeLinejoin="round"></path><path d="M6.69 17.4598C7.83322 17.4598 8.76 16.5331 8.76 15.3898C8.76 14.2466 7.83322 13.3198 6.69 13.3198C5.54677 13.3198 4.62 14.2466 4.62 15.3898C4.62 16.5331 5.54677 17.4598 6.69 17.4598Z" stroke="black" strokeLinecap="round" strokeLinejoin="round"></path><path d="M17.08 17.4598C18.2232 17.4598 19.15 16.5331 19.15 15.3898C19.15 14.2466 18.2232 13.3198 17.08 13.3198C15.9368 13.3198 15.01 14.2466 15.01 15.3898C15.01 16.5331 15.9368 17.4598 17.08 17.4598Z" stroke="black" strokeLinecap="round" strokeLinejoin="round"></path></svg>
+                        <div className={`rounded-full flex flex-row gap-1 border border-[#aaa] py-1 px-3 cursor-pointer ${selectedTrans === "Tất cả" ? "" : "border-[#5fcf86] bg-[#dff5e7]"}`} onClick={handleOpenModalTrans}>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="18" cy="6" r="1.5" stroke="black"></circle><circle cx="18" cy="18" r="1.5" stroke="black"></circle><circle cx="12" cy="6" r="1.5" stroke="black"></circle><circle cx="12" cy="18" r="1.5" stroke="black"></circle><circle cx="6" cy="6" r="1.5" stroke="black"></circle><path d="M7.57715 20V16H5.99902C5.69694 16 5.43913 16.054 5.22559 16.1621C5.01074 16.2689 4.84733 16.4206 4.73535 16.6172C4.62207 16.8125 4.56543 17.0423 4.56543 17.3066C4.56543 17.5723 4.62272 17.8008 4.7373 17.9922C4.85189 18.1823 5.0179 18.3281 5.23535 18.4297C5.4515 18.5312 5.71322 18.582 6.02051 18.582H7.07715V17.9023H6.15723C5.99577 17.9023 5.86165 17.8802 5.75488 17.8359C5.64811 17.7917 5.56868 17.7253 5.5166 17.6367C5.46322 17.5482 5.43652 17.4382 5.43652 17.3066C5.43652 17.1738 5.46322 17.0618 5.5166 16.9707C5.56868 16.8796 5.64876 16.8105 5.75684 16.7637C5.86361 16.7155 5.99837 16.6914 6.16113 16.6914H6.73145V20H7.57715ZM5.41699 18.1797L4.42285 20H5.35645L6.3291 18.1797H5.41699Z" fill="black"></path><path d="M18 8V12M18 16V12M12 8V16M6 8V11.5C6 11.7761 6.22386 12 6.5 12H18" stroke="black" stroke-linecap="round"></path></svg>
                             <p>Truyền động</p>
                         </div>
 
-                        <div className="rounded-full flex flex-row gap-1 border border-[#aaa] py-1 px-3 cursor-pointer">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M19.15 15.7199H19.6C20.51 15.7199 21.24 14.8599 21.24 13.8399V12.4499C21.24 11.7199 20.86 11.0399 20.27 10.7399L18.79 9.96995L17.47 7.59994C17.09 6.90994 16.42 6.49994 15.71 6.50994H10.12C9.47 6.50994 8.86 6.84995 8.47 7.42995L6.77 9.93994L3.96 10.7999C3.24 11.0199 2.75 11.7599 2.75 12.5999V13.8299C2.75 14.8499 3.48 15.7099 4.39 15.7099H4.63" stroke="black" strokeLinecap="round" strokeLinejoin="round"></path><path d="M8.87 15.7197H14.77" stroke="black" strokeLinecap="round" strokeLinejoin="round"></path><path d="M6.69 17.4598C7.83322 17.4598 8.76 16.5331 8.76 15.3898C8.76 14.2466 7.83322 13.3198 6.69 13.3198C5.54677 13.3198 4.62 14.2466 4.62 15.3898C4.62 16.5331 5.54677 17.4598 6.69 17.4598Z" stroke="black" strokeLinecap="round" strokeLinejoin="round"></path><path d="M17.08 17.4598C18.2232 17.4598 19.15 16.5331 19.15 15.3898C19.15 14.2466 18.2232 13.3198 17.08 13.3198C15.9368 13.3198 15.01 14.2466 15.01 15.3898C15.01 16.5331 15.9368 17.4598 17.08 17.4598Z" stroke="black" strokeLinecap="round" strokeLinejoin="round"></path></svg>
-                            <p>Xe điện</p>
-                        </div>
-
-                        <div className="rounded-full flex flex-row gap-1 border border-[#aaa] py-1 px-3 cursor-pointer">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M19.15 15.7199H19.6C20.51 15.7199 21.24 14.8599 21.24 13.8399V12.4499C21.24 11.7199 20.86 11.0399 20.27 10.7399L18.79 9.96995L17.47 7.59994C17.09 6.90994 16.42 6.49994 15.71 6.50994H10.12C9.47 6.50994 8.86 6.84995 8.47 7.42995L6.77 9.93994L3.96 10.7999C3.24 11.0199 2.75 11.7599 2.75 12.5999V13.8299C2.75 14.8499 3.48 15.7099 4.39 15.7099H4.63" stroke="black" strokeLinecap="round" strokeLinejoin="round"></path><path d="M8.87 15.7197H14.77" stroke="black" strokeLinecap="round" strokeLinejoin="round"></path><path d="M6.69 17.4598C7.83322 17.4598 8.76 16.5331 8.76 15.3898C8.76 14.2466 7.83322 13.3198 6.69 13.3198C5.54677 13.3198 4.62 14.2466 4.62 15.3898C4.62 16.5331 5.54677 17.4598 6.69 17.4598Z" stroke="black" strokeLinecap="round" strokeLinejoin="round"></path><path d="M17.08 17.4598C18.2232 17.4598 19.15 16.5331 19.15 15.3898C19.15 14.2466 18.2232 13.3198 17.08 13.3198C15.9368 13.3198 15.01 14.2466 15.01 15.3898C15.01 16.5331 15.9368 17.4598 17.08 17.4598Z" stroke="black" strokeLinecap="round" strokeLinejoin="round"></path></svg>
-                            <p>Xe xăng</p>
-                        </div>
-
-                        <div className="rounded-full flex flex-row gap-1 border border-[#aaa] py-1 px-3 cursor-pointer">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M19.15 15.7199H19.6C20.51 15.7199 21.24 14.8599 21.24 13.8399V12.4499C21.24 11.7199 20.86 11.0399 20.27 10.7399L18.79 9.96995L17.47 7.59994C17.09 6.90994 16.42 6.49994 15.71 6.50994H10.12C9.47 6.50994 8.86 6.84995 8.47 7.42995L6.77 9.93994L3.96 10.7999C3.24 11.0199 2.75 11.7599 2.75 12.5999V13.8299C2.75 14.8499 3.48 15.7099 4.39 15.7099H4.63" stroke="black" strokeLinecap="round" strokeLinejoin="round"></path><path d="M8.87 15.7197H14.77" stroke="black" strokeLinecap="round" strokeLinejoin="round"></path><path d="M6.69 17.4598C7.83322 17.4598 8.76 16.5331 8.76 15.3898C8.76 14.2466 7.83322 13.3198 6.69 13.3198C5.54677 13.3198 4.62 14.2466 4.62 15.3898C4.62 16.5331 5.54677 17.4598 6.69 17.4598Z" stroke="black" strokeLinecap="round" strokeLinejoin="round"></path><path d="M17.08 17.4598C18.2232 17.4598 19.15 16.5331 19.15 15.3898C19.15 14.2466 18.2232 13.3198 17.08 13.3198C15.9368 13.3198 15.01 14.2466 15.01 15.3898C15.01 16.5331 15.9368 17.4598 17.08 17.4598Z" stroke="black" strokeLinecap="round" strokeLinejoin="round"></path></svg>
-                            <p>Xe dầu</p>
+                        <div className={`rounded-full flex flex-row gap-1 border border-[#aaa] py-1 px-3 cursor-pointer ${selectedFuel === "Tất cả" ? "" : "border-[#5fcf86] bg-[#dff5e7]"}`} onClick={handleOpenModalFuel}>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M19.15 19.7199H19.6C20.51 19.7199 21.24 18.8599 21.24 17.8399V16.4499C21.24 15.7199 20.86 15.0399 20.27 14.7399L18.79 13.9699L17.47 11.5999C17.09 10.9099 16.42 10.4999 15.71 10.5099H10.12C9.47 10.5099 8.86 10.8499 8.47 11.4299L6.77 13.9399L3.96 14.7999C3.24 15.0199 2.75 15.7599 2.75 16.5999V17.8299C2.75 18.8499 3.48 19.7099 4.39 19.7099H4.63" stroke="black" stroke-linecap="round" stroke-linejoin="round"></path><path d="M8.87012 19.72H14.7701" stroke="black" stroke-linecap="round" stroke-linejoin="round"></path><path d="M6.69012 21.4598C7.83335 21.4598 8.76012 20.5331 8.76012 19.3898C8.76012 18.2466 7.83335 17.3198 6.69012 17.3198C5.54689 17.3198 4.62012 18.2466 4.62012 19.3898C4.62012 20.5331 5.54689 21.4598 6.69012 21.4598Z" stroke="black" stroke-linecap="round" stroke-linejoin="round"></path><path d="M17.0798 21.4598C18.223 21.4598 19.1498 20.5331 19.1498 19.3898C19.1498 18.2466 18.223 17.3198 17.0798 17.3198C15.9365 17.3198 15.0098 18.2466 15.0098 19.3898C15.0098 20.5331 15.9365 21.4598 17.0798 21.4598Z" stroke="black" stroke-linecap="round" stroke-linejoin="round"></path><path d="M8 7.5H5.5V2.5H8C9.38068 2.5 10.5 3.61932 10.5 5C10.5 6.38068 9.38068 7.5 8 7.5Z" stroke="black"></path><path d="M5.5 3.5H3" stroke="black" stroke-linecap="round"></path><path d="M5.5 6.5H3" stroke="black" stroke-linecap="round"></path><path d="M20 10V5H11" stroke="black" stroke-linecap="round" stroke-linejoin="round"></path><path d="M12 13L11 15H13L12 17" stroke="black" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                            <p>Loại nhiên liệu</p>
                         </div>
                     </div>
                 </div>

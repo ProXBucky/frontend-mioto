@@ -29,7 +29,8 @@ function Banner({ city, cityName, handleOpenDateModal, handleOpenLocationModal }
     const handleSearchCar = () => {
         // Hiển thị loading
         dispatch(setShowLoading());
-        navigate(`/find?city=${locationCode}&userId=${userId}&beginDate=${beginDate}&endDate=${endDate}`)
+        // navigate(`/find`)
+        navigate(`/find`)
 
         // Đặt hẹn giờ để ẩn loading sau 1 giây
         setTimeout(() => {

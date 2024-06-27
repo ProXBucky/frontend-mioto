@@ -33,13 +33,12 @@ function ModalEditComponent({ showModalEdit, handleCloseEdit }) {
     const [editor, setEditor] = useState(null);
 
     const handleFileChange = (e) => {
-        console.log('Chay')
         setSelectedFile(e.target.files[0]);
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        try{
+        try {
             dispatch(setShowLoading())
             if (editor) {
                 const canvas = editor.getImageScaledToCanvas();
@@ -49,9 +48,9 @@ function ModalEditComponent({ showModalEdit, handleCloseEdit }) {
             let res = await editInformationUserById(userId, formData, token)              //FIX-DATA
             setFormData({ fullname: '', phone: '', email: '', dob: '', gender: '' });
             handleCloseEdit();
-        }catch(e){
+        } catch (e) {
             console.log(e)
-        } finally{
+        } finally {
             dispatch(setHideLoading())
         }
     };

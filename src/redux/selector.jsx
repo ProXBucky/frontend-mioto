@@ -54,3 +54,7 @@ export const modalRentIdSelector = (state) => state.modal.modalRentId
 export const modalBlogIdSelector = (state) => state.modal.modalBlogId
 export const modalAddBlogSelector = (state) => state.modal.modalAddBlog
 export const modalViewBlogSelector = (state) => state.modal.modalViewBlog
+
+export const modalFilterBrandSelector = (state) => state.modal.modalFilterBrand
+export const modalFilterTransSelector = (state) => state.modal.modalFilterTrans
+export const modalFilterFuelSelector = (state) => state.modal.modalFilterFuel

@@ -24,7 +24,11 @@ const initialState = {
 
     modalBlogId: 0,
     modalViewBlog: false,
-    modalAddBlog: false
+    modalAddBlog: false,
+
+    modalFilterBrand: false,
+    modalFilterTrans: false,
+    modalFilterFuel: false,
 };
 
 export const ModalSlice = createSlice({
@@ -159,6 +163,25 @@ export const ModalSlice = createSlice({
         clearModalAddBlog(state, action) {
             state.modalAddBlog = false
         },
+
+        setModalFilterBrand(state) {
+            state.modalFilterBrand = true
+        },
+        clearModalFilterBrand(state) {
+            state.modalFilterBrand = false
+        },
+        setModalFilterTrans(state) {
+            state.modalFilterTrans = true
+        },
+        clearModalFilterTrans(state) {
+            state.modalFilterTrans = false
+        },
+        setModalFilterFuel(state) {
+            state.modalFilterFuel = true
+        },
+        clearModalFilterFuel(state) {
+            state.modalFilterFuel = false
+        },
     },
 });
 
@@ -168,6 +191,8 @@ export const { setModalUserId, clearModalUserId, setModalEditUser, clearModalEdi
     setModalCarId, clearModalCarId, setModalEditCar, clearModalEditCar, setModalDeleteCar, clearModalDeleteCar, setModalViewCar, clearModalViewCar,
     setModalAddCar, clearModalAddCar, setModalAddVoucher, clearModalAddVoucher, setModalVoucherId, clearModalVoucherId, setModalFeedVoucher, clearModalFeedVoucher,
     setModalViewRent, clearModalViewRent, setModalRentId, clearModalRentId,
-    setModalAddBlog, clearModalAddBlog, setModalViewBlog, clearModalViewBlog, setModalBlogId, clearModalBlogId
+    setModalAddBlog, clearModalAddBlog, setModalViewBlog, clearModalViewBlog, setModalBlogId, clearModalBlogId,
+    setModalFilterBrand, setModalFilterTrans, setModalFilterFuel,
+    clearModalFilterBrand, clearModalFilterTrans, clearModalFilterFuel
 } = ModalSlice.actions;
 
