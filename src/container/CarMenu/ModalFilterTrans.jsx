@@ -20,9 +20,9 @@ function ModalFilterTrans({ selectedTrans, handleRadioChangeTrans, handleApplyFi
             show={modalFilterTrans} onHide={handleCloseModal}
         >
             <Modal.Header className='mt-2 flex justify-between'>
-                <i className="fa-regular fa-circle-xmark fa-2xl cursor-pointer invisible" onClick={handleCloseModal}></i>
+                <i className="fa-solid fa-xmark fa-2xl cursor-pointer invisible" onClick={handleCloseModal}></i>
                 <h2 className='font-semibold text-2xl text-center'>Truyền động</h2>
-                <i className="fa-regular fa-circle-xmark fa-2xl cursor-pointer" onClick={handleCloseModal}></i>
+                <i className="fa-solid fa-xmark fa-2xl cursor-pointer" onClick={handleCloseModal}></i>
             </Modal.Header>
             <Modal.Body className='p-4 flex flex-col gap-2' >
                 <div>

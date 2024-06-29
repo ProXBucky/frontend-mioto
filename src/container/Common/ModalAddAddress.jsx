@@ -47,9 +47,9 @@ function ModalAddAdress({ showModalAddress, handleCloseModalAddress }) {
             show={showModalAddress} onHide={handleCloseModalAddress}
         >
             <Modal.Header className='mt-3 flex justify-between'>
-                <i className="fa-regular fa-circle-xmark fa-2xl cursor-pointer invisible" onClick={() => handleCloseModalAddress()}></i>
+                <i className="fa-solid fa-xmark fa-2xl cursor-pointer invisible" onClick={() => handleCloseModalAddress()}></i>
                 <h2 className='font-semibold text-2xl text-center'>Thêm địa chỉ mới</h2>
-                <i className="fa-regular fa-circle-xmark fa-2xl cursor-pointer" onClick={() => handleCloseModalAddress()}></i>
+                <i className="fa-solid fa-xmark fa-2xl cursor-pointer" onClick={() => handleCloseModalAddress()}></i>
             </Modal.Header>
             <Modal.Body className='p-4 pt-2' >
                 <AddressSelector handleChangeAddress={handleChangeAddress} />

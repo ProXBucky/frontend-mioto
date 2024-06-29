@@ -848,7 +848,7 @@ function DetailCar({ handleOpenDateModal, handleOpenLoginModal }) {
                                         voucher.voucherCode ?
                                             <>
                                                 <p className="text-black font-bold text-lg">{voucher.voucherCode}</p>
-                                                <i className="fa-regular fa-circle-xmark fa-lg cursor-pointer" onClick={handleCancelVoucher}></i>
+                                                <i className="fa-solid fa-xmark fa-lg cursor-pointer" onClick={handleCancelVoucher}></i>
                                             </>
                                             :
                                             <button className="p-1 bg-main text-white rounded-md w-1/3" onClick={handleOpenModalVoucher}>Chọn mã</button>

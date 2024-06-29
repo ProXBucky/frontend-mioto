@@ -145,31 +145,31 @@ const checkStatusRent = async (carId, beginDate, endDate) => {
     }
 }
 
-const getAllUser = async (token) => {
+const getAllUser = async (token, page, limit) => {
     try {
-        const response = await axios.get(`${API_URL}/api/user`, {
+        const response = await axios.get(`${API_URL}/api/user?page=${page}&limit=${limit}`, {
             headers: {
-                Authorization: 'Bearer ' + token
+                Authorization: `Bearer ${token}`
             }
-        })
+        });
         return response.data;
     } catch (error) {
-        console.error('Error fetching data:', error);
-        throw error;
+        console.error('Failed to fetch users:', error);
+        return { users: [], total: 0 };
     }
 };
 
-const getAllAdmin = async (token) => {
+const getAllAdmin = async (token, page, limit) => {
     try {
-        const response = await axios.get(`${API_URL}/api/admin`, {
+        const response = await axios.get(`${API_URL}/api/admin?page=${page}&limit=${limit}`, {
             headers: {
-                Authorization: 'Bearer ' + token
+                Authorization: `Bearer ${token}`
             }
-        })
+        });
         return response.data;
     } catch (error) {
-        console.error('Error fetching data:', error);
-        throw error;
+        console.error('Failed to fetch admins:', error);
+        return { admins: [], total: 0 };
     }
 };
 
@@ -239,6 +239,16 @@ const getAllBlogs = async () => {
     }
 };
 
+const getAllBlogsWithLimit = async (limit) => {
+    try {
+        const response = await axios.get(`${API_URL}/api/blog/limit/${limit}`,)
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        throw error;
+    }
+};
+
 const getOneBlogByBlogId = async (blogId) => {
     try {
         const response = await axios.get(`${API_URL}/api/blog/${blogId}`)
@@ -274,9 +284,24 @@ const statistic = async (token) => {
     }
 };
 
+const statisticIncome = async (token) => {
+    try {
+        const response = await axios.get(`${API_URL}/api/rent/income`,
+            {
+                headers: {
+                    Authorization: 'Bearer ' + token
+                }
+            })
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        throw error;
+    }
+};
+
 
 export {
     getAllCarFeature, checkLikeCar, getAllCarLiked, getAllReviewOfCar, getAllReviewByCity, getReviewScore, getAllVoucherByUserId, getInformationUserById, getAllTripByUserId,
     getTripByRentId, checkStatusRent, getAllUser, getAllAdmin, getAllVoucher, getAllReport, getAllPendingTrip, getAllFinishedTrip, getAllOrderByUserId,
-    getAllBlogs, getOneBlogByBlogId, statistic, countTrip
+    getAllBlogs, getOneBlogByBlogId, statistic, countTrip, getAllBlogsWithLimit, statisticIncome
 }

@@ -34,6 +34,7 @@ import ModalFeedVoucher from './container/Admin/Voucher/ModalFeedVoucher';
 import ModalViewTrip from './container/Admin/Trip/ModalViewTrip';
 import ModalAddBlog from './container/Admin/Blog/ModalAddBlog';
 import ModalViewBlog from './container/Admin/Blog/ModalViewBlog';
+import ModalDeleteComponent from './container/Common/ModalDeleteComponent';
 
 const DetailBlog = lazy(() =>
   import('./features/blog/DetailBlog')
@@ -358,7 +359,7 @@ function App() {
       {modalAddBlog && <ModalAddBlog />}
       {modalViewBlog && <ModalViewBlog />}
 
-
+      <ModalDeleteComponent />
       <ModalComponent
         showModal={showRegisterModal}
         handleClose={handleCloseRegisterModal}

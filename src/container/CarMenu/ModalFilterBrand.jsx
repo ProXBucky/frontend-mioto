@@ -3,8 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { modalFilterBrandSelector } from '../../redux/selector';
 import { clearModalFilterBrand } from '../../redux/Slice/ModalSlice';
 import carBrands from '../../features/car/brandCar.json';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 
 function ModalFilterBrand({ selectedBrand, handleRadioChange, handleApplyFilter }) {
     const dispatch = useDispatch();
@@ -28,9 +26,9 @@ function ModalFilterBrand({ selectedBrand, handleRadioChange, handleApplyFilter 
             onHide={handleCloseModal}
         >
             <Modal.Header className='mt-2 flex justify-between'>
-                <i className="fa-regular fa-circle-xmark fa-2xl cursor-pointer invisible" onClick={handleCloseModal}></i>
+                <i className="fa-solid fa-xmark fa-2xl cursor-pointer invisible" onClick={handleCloseModal}></i>
                 <h2 className='font-semibold text-2xl text-center'>Hãng xe</h2>
-                <i className="fa-regular fa-circle-xmark fa-2xl cursor-pointer" onClick={handleCloseModal}></i>
+                <i className="fa-solid fa-xmark fa-2xl cursor-pointer" onClick={handleCloseModal}></i>
             </Modal.Header>
             <Modal.Body className='p-4 flex justify-between'>
                 <div className='w-1/2 px-6'>

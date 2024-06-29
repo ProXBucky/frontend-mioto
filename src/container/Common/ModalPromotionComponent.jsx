@@ -14,10 +14,10 @@ function ModalPromotionComponent({ showModal, handleClose, imageURL, title, cont
             show={showModal} onHide={handleClose}
         >
             <Modal.Header className='border-none justify-end mt-3'>
-                <i className="fa-regular fa-circle-xmark fa-2xl cursor-pointer" onClick={() => handleClose()}></i>
+                <i className="fa-solid fa-xmark fa-2xl cursor-pointer" onClick={() => handleClose()}></i>
             </Modal.Header>
-            <Modal.Body className='p-4 pt-2' >
-                <img className='w-full mb-3' src={imageURL} />
+            <Modal.Body className='p-10 pt-2' >
+                <img className='w-full mb-3 mt-3 rounded-lg' src={imageURL} />
                 <div className='px-4'>
                     <h1 className='py-2 pb-4 text-xl text-center font-semibold'>{title}</h1>
                     <div className='border-b-[3px] border-main mx-auto w-1/4'>

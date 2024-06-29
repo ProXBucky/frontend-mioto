@@ -10,7 +10,7 @@ import { getAllCarFeature, getAllUser } from "../../../api/appAPI";
 import "../../AccountInformation/DetailInformation/RegisterSelfDrive.css"
 import { format } from "date-fns";
 import { toast } from "react-toastify";
-import { setHideLoading, setShowLoading } from "../../../redux/Slice/AppSlice";
+import { setConponentLoad, setHideLoading, setShowLoading } from "../../../redux/Slice/AppSlice";
 import { postNewCarByAdmin } from "../../../api/carAPI";
 
 function ModalAddCar() {
@@ -139,6 +139,7 @@ function ModalAddCar() {
             }, adminToken);
             if (res) {
                 handleCloseModal();
+                dispatch(setConponentLoad())
                 toast.success('Đăng ký xe thành công');
             }
         } catch (error) {

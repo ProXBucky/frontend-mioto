@@ -14,6 +14,7 @@ import ModalPromotionComponent from '../Common/ModalPromotionComponent';
 import { getListCarByCity } from '../../api/carAPI';
 import { useSelector } from 'react-redux';
 import { locationCodeSelector, locationSelector, userIdSelector } from '../../redux/selector';
+import FacebookLoginComponent from '../../component/FacebookLoginComponent';
 
 
 function Home({ handleOpenDateModal, handleOpenLocationModal }) {

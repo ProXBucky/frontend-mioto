@@ -31,13 +31,63 @@
 
 ::-webkit-scrollbar-thumb {
     cursor: pointer;
-    background: #e1e1e1;
+    background: #bebebe;
     /* Màu của thanh cuộn */
     border-radius: 4px;
     /* Bo tròn các góc */
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: #b1b1b1;
+    background: #8c8c8c;
     /* Màu của thanh cuộn khi di chuột qua */
+}
+
+.pagination {
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding: 15px;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+.pagination li {
+    margin: 0 5px;
+}
+
+.pagination a {
+    font-weight: 700;
+    display: block;
+    padding: 8px 12px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    background-color: #f8f9fa;
+    color: #12cd54;
+    text-decoration: none;
+    transition: background-color 0.2s;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.pagination a:hover {
+    background-color: #e9ecef;
+    color: #12cd54;
+}
+
+.pagination .active a {
+    background-color: #d0f4db;
+    color: #12cd54;
+    border-color: #12cd54;
+}
+
+.pagination .active a:hover {
+    background-color: #d0f4db;
+    color: #12cd54;
+    border-color: #12cd54;
+}
+
+.pagination .disabled a {
+    color: #6c757d;
+    pointer-events: none;
 }

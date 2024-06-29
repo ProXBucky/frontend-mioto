@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react"
-import { getAllAdmin, getAllBlogs } from "../../../api/appAPI"
+import { getAllBlogs } from "../../../api/appAPI"
 import { useDispatch, useSelector } from "react-redux"
-import { adminTokenSelector, modalAddUserSelector, modalChangePasswordUserSelector, modalDeleteUserSelector, modalEditUserSelector } from "../../../redux/selector"
-import { setModalAddBlog, setModalAddUser, setModalBlogId, setModalChangePasswordUser, setModalDeleteUser, setModalEditUser, setModalObject, setModalUserId, setModalViewBlog, setModalViewUser } from "../../../redux/Slice/ModalSlice"
+import { adminTokenSelector } from "../../../redux/selector"
+import { setModalAddBlog, setModalBlogId, setModalViewBlog } from "../../../redux/Slice/ModalSlice"
 import { format } from "date-fns"
 import { deleteBlog } from "../../../api/adminAPI"
 import { setHideLoading, setShowLoading } from "../../../redux/Slice/AppSlice";

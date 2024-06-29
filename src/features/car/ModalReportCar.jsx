@@ -11,9 +11,9 @@ function ModalReportCar({ showModalReport, handleCloseModalReport, handleChangeR
             show={showModalReport} onHide={handleCloseModalReport}
         >
             <Modal.Header className='mt-3 flex justify-between'>
-                <i className="fa-regular fa-circle-xmark fa-2xl cursor-pointer invisible" onClick={() => handleCloseModalReport()}></i>
+                <i className="fa-solid fa-xmark fa-2xl cursor-pointer invisible" onClick={() => handleCloseModalReport()}></i>
                 <h2 className='font-semibold text-2xl text-center'>Báo xấu</h2>
-                <i className="fa-regular fa-circle-xmark fa-2xl cursor-pointer" onClick={() => handleCloseModalReport()}></i>
+                <i className="fa-solid fa-xmark fa-2xl cursor-pointer" onClick={() => handleCloseModalReport()}></i>
             </Modal.Header>
             <Modal.Body className='p-4 pt-4 flex flex-col items-center gap-3' >
                 <textarea

@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react"
-import { getAllReport, getAllReviewByCity, getAllUser } from "../../../api/appAPI"
+import { getAllReport } from "../../../api/appAPI"
 import { useDispatch, useSelector } from "react-redux"
-import { adminTokenSelector, modalAddUserSelector, modalChangePasswordUserSelector, modalDeleteUserSelector, modalEditUserSelector } from "../../../redux/selector"
+import { adminTokenSelector } from "../../../redux/selector"
 import { format } from "date-fns"
-import { setModalAddUser, setModalChangePasswordUser, setModalDeleteUser, setModalEditUser, setModalObject, setModalUserId, setModalViewUser } from "../../../redux/Slice/ModalSlice"
 import { toast } from "react-toastify"
 import { deleteReviewByReviewId } from "../../../api/adminAPI"
 

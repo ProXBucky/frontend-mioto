@@ -2,12 +2,11 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { useState } from 'react';
 import Form from 'react-bootstrap/Form';
-import AvatarEditor from 'react-avatar-editor';
 import { useDispatch, useSelector } from 'react-redux';
-import { clearModalAddUser, clearModalAddVoucher, setModalObject } from '../../../redux/Slice/ModalSlice';
+import { clearModalAddVoucher } from '../../../redux/Slice/ModalSlice';
 import { setHideLoading, setShowLoading } from '../../../redux/Slice/AppSlice';
-import { adminTokenSelector, modalAddUserSelector, modalAddVoucherSelector, modalObjectSelector, } from '../../../redux/selector';
-import { createNewAdmin, createNewUserByAdmin, createNewVoucher } from '../../../api/adminAPI';
+import { adminTokenSelector, modalAddVoucherSelector, } from '../../../redux/selector';
+import { createNewVoucher } from '../../../api/adminAPI';
 import { toast } from 'react-toastify';
 
 function ModalAddVoucher() {

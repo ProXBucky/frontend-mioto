@@ -32,9 +32,9 @@ function ModalConfirmRent({ showModalConfirmRent, handleCloseModalConfirmRent, h
             show={showModalConfirmRent} onHide={handleCloseModalConfirmRent}
         >
             <Modal.Header className='mt-3 flex justify-between'>
-                <i className="fa-regular fa-circle-xmark fa-2xl cursor-pointer invisible" onClick={handleCloseModalConfirmRent}></i>
+                <i className="fa-solid fa-xmark fa-2xl cursor-pointer invisible" onClick={handleCloseModalConfirmRent}></i>
                 <h2 className='font-semibold text-2xl text-center'>Xác nhận thuê xe</h2>
-                <i className="fa-regular fa-circle-xmark fa-2xl cursor-pointer" onClick={handleCloseModalConfirmRent}></i>
+                <i className="fa-solid fa-xmark fa-2xl cursor-pointer" onClick={handleCloseModalConfirmRent}></i>
             </Modal.Header>
             <Modal.Body className='px-5 flex flex-col items-center' >
                 <h2 className='font-bold text-2xl mb-2'>{`${car && car.model && car.model} ${car && car.modelYear && car.modelYear}`}</h2>

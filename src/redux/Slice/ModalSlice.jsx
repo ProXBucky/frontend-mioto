@@ -5,7 +5,6 @@ const initialState = {
     modalViewUser: false,
     modalEditUser: false,
     modalAddUser: false,
-    modalDeleteUser: false,
     modalChangePasswordUser: false,
     modalObject: null,
 
@@ -13,7 +12,6 @@ const initialState = {
     modalViewCar: false,
     modalEditCar: false,
     modalAddCar: false,
-    modalDeleteCar: false,
 
     modalAddVoucher: false,
     modalVoucherId: 0,
@@ -29,12 +27,30 @@ const initialState = {
     modalFilterBrand: false,
     modalFilterTrans: false,
     modalFilterFuel: false,
+
+    modalDelete: false,
+    modalObjectDelete: null
 };
 
 export const ModalSlice = createSlice({
     name: 'modal',
     initialState,
     reducers: {
+        setModalDelete(state, action) {
+            state.modalDelete = true
+        },
+        clearModalDelete(state) {
+            state.modalDelete = false
+        },
+        setModalObjectDelete(state, action) {
+            state.modalObjectDelete = action.payload
+        },
+        clearModalObjectDelete(state, action) {
+            state.modalObjectDelete = null
+        },
+
+
+
         setModalUserId(state, action) {
             state.modalUserId = action.payload
         },
@@ -58,12 +74,6 @@ export const ModalSlice = createSlice({
         },
         clearModalAddUser(state, action) {
             state.modalAddUser = false
-        },
-        setModalDeleteUser(state, action) {
-            state.modalDeleteUser = true
-        },
-        clearModalDeleteUser(state, action) {
-            state.modalDeleteUser = false
         },
         setModalChangePasswordUser(state, action) {
             state.modalChangePasswordUser = true
@@ -102,15 +112,6 @@ export const ModalSlice = createSlice({
         clearModalAddCar(state, action) {
             state.modalAddCar = false
         },
-        setModalDeleteCar(state, action) {
-            state.modalDeleteCar = true
-        },
-        clearModalDeleteCar(state, action) {
-            state.modalDeleteCar = false
-        },
-
-
-
         setModalAddVoucher(state, action) {
             state.modalAddVoucher = true
         },
@@ -185,10 +186,10 @@ export const ModalSlice = createSlice({
     },
 });
 
-export const { setModalUserId, clearModalUserId, setModalEditUser, clearModalEditUser, setModalDeleteUser, clearModalDeleteUser,
+export const { setModalUserId, clearModalUserId, setModalEditUser, clearModalEditUser, setModalDelete, clearModalDelete,
     setModalViewUser, clearModalViewUser, setModalAddUser, clearModalAddUser, setModalChangePasswordUser, clearModalChangePasswordUser,
     setModalObject, clearModalObject,
-    setModalCarId, clearModalCarId, setModalEditCar, clearModalEditCar, setModalDeleteCar, clearModalDeleteCar, setModalViewCar, clearModalViewCar,
+    setModalCarId, clearModalCarId, setModalEditCar, clearModalEditCar, setModalViewCar, clearModalViewCar, setModalObjectDelete, clearModalObjectDelete,
     setModalAddCar, clearModalAddCar, setModalAddVoucher, clearModalAddVoucher, setModalVoucherId, clearModalVoucherId, setModalFeedVoucher, clearModalFeedVoucher,
     setModalViewRent, clearModalViewRent, setModalRentId, clearModalRentId,
     setModalAddBlog, clearModalAddBlog, setModalViewBlog, clearModalViewBlog, setModalBlogId, clearModalBlogId,

@@ -1,17 +1,15 @@
 import { useEffect, useState } from "react"
-import { getListCarByCity, getListCarByCityByAdmin, getListCarS } from "../../../api/carAPI"
-import { setModalAddCar, setModalCarId, setModalDeleteCar, setModalEditCar, setModalRentId, setModalViewCar, setModalViewRent } from "../../../redux/Slice/ModalSlice"
+import { setModalRentId, setModalViewRent } from "../../../redux/Slice/ModalSlice"
 import { useDispatch, useSelector } from "react-redux"
 import { toast } from "react-toastify"
-import { confimCarByAdmin, deleteTripByAdmin } from "../../../api/adminAPI"
+import { deleteTripByAdmin } from "../../../api/adminAPI"
 import { adminTokenSelector } from "../../../redux/selector"
 import { setHideLoading, setShowLoading } from "../../../redux/Slice/AppSlice"
 import CitySelect from "../../../component/CitySelect"
 import { convertCityName } from "../../../utils/convertCityName"
-import { getAllFinishedTrip, getAllPendingTrip } from "../../../api/appAPI"
+import { getAllFinishedTrip } from "../../../api/appAPI"
 import { format } from "date-fns"
 import { formatMoney } from "../../../utils/formatMoney"
-
 
 function ManageTripFinished() {
     const [trips, setTrips] = useState([])
@@ -53,12 +51,11 @@ function ManageTripFinished() {
         }
     }
 
-    const [selectedCity, setSelectedCity] = useState('Tất cả');
+    const [selectedCity, setSelectedCity] = useState('Hà Nội');
 
     const handleCityChange = (event) => {
         setSelectedCity(event.target.value);
-    };
-
+    }
     const fetchAllCars = async (cityCode) => {
         let res = await getAllFinishedTrip(convertCityName(cityCode), adminToken)
         if (res && res.length > 0) {
@@ -174,7 +171,6 @@ function ManageTripFinished() {
                             <p className="text-center font-semibold text-3xl">Chưa có chuyến xe nào tại khu vực này</p>
                         </div>
                 }
-
             </div>
         </div>
     )

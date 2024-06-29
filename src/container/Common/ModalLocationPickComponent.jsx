@@ -34,9 +34,9 @@ function ModalLocationPickComponent({ showLocationModal, handleCloseLocationModa
             show={showLocationModal} onHide={handleCloseLocationModal}
         >
             <Modal.Header className='mt-3 flex justify-between'>
-                <i className="fa-regular fa-circle-xmark fa-2xl cursor-pointer invisible" onClick={() => handleCloseLocationModal()}></i>
+                <i className="fa-solid fa-xmark fa-2xl cursor-pointer invisible" onClick={() => handleCloseLocationModal()}></i>
                 <h2 className='font-semibold text-2xl text-center'>Địa điểm</h2>
-                <i className="fa-regular fa-circle-xmark fa-2xl cursor-pointer" onClick={() => handleCloseLocationModal()}></i>
+                <i className="fa-solid fa-xmark fa-2xl cursor-pointer" onClick={() => handleCloseLocationModal()}></i>
             </Modal.Header>
             <Modal.Body className='p-4 pt-4 relative' >
                 <select className="cursor-pointer text-lg font-semibold py-2 pl-12 pr-12 w-full border-2 rounded-lg outline-none"

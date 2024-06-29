@@ -87,7 +87,7 @@ function ModalEditComponent({ showModalEdit, handleCloseEdit }) {
             show={showModalEdit} onHide={handleCloseEdit}
         >
             <Modal.Header className='border-none justify-end mt-3'>
-                <i className="fa-regular fa-circle-xmark fa-2xl cursor-pointer" onClick={() => handleCloseEdit()}></i>
+                <i className="fa-solid fa-xmark fa-2xl cursor-pointer" onClick={() => handleCloseEdit()}></i>
             </Modal.Header>
             <Modal.Body className='p-4 pt-2' >
                 <Form onSubmit={handleSubmit}>

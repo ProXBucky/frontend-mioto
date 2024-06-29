@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react"
-import { getListCarByCity, getListCarByCityByAdmin, getListCarS } from "../../../api/carAPI"
-import { setModalAddCar, setModalCarId, setModalDeleteCar, setModalEditCar, setModalRentId, setModalViewCar, setModalViewRent } from "../../../redux/Slice/ModalSlice"
+import { setModalRentId, setModalViewRent } from "../../../redux/Slice/ModalSlice"
 import { useDispatch, useSelector } from "react-redux"
 import { toast } from "react-toastify"
-import { confimCarByAdmin, deleteTripByAdmin } from "../../../api/adminAPI"
+import { deleteTripByAdmin } from "../../../api/adminAPI"
 import { adminTokenSelector } from "../../../redux/selector"
 import { setHideLoading, setShowLoading } from "../../../redux/Slice/AppSlice"
 import CitySelect from "../../../component/CitySelect"
@@ -18,11 +17,11 @@ function ManageTripPending() {
     const [trips, setTrips] = useState([])
     const dispatch = useDispatch()
     const adminToken = useSelector(adminTokenSelector)
-
-    const [selectedCity, setSelectedCity] = useState('Tất cả');
+    const [selectedCity, setSelectedCity] = useState('Hà Nội');
 
     const handleCityChange = (event) => {
         setSelectedCity(event.target.value);
+        setCurrentPage(1);
     };
 
     const handleOpenModalView = (rentId) => {
@@ -30,13 +29,35 @@ function ManageTripPending() {
         dispatch(setModalViewRent())
     }
 
+    useEffect(() => {
+        fetchTrips(selectedCity);
+    }, []);
+
+    useEffect(() => {
+        fetchTrips(selectedCity);
+    }, [selectedCity]);
+
+
+    const fetchTrips = async (city) => {
+        try {
+            const response = await getAllPendingTrip(convertCityName(city), adminToken);
+            if (response) {
+                setTrips(response);
+            }
+        } catch (error) {
+            toast.error("Đã xảy ra lỗi khi tải dữ liệu");
+            console.error(error);
+        }
+    };
+
+
     const handleCancelTrip = async (rentId) => {
         try {
             if (window.confirm("Bạn có muốn hủy chuyến này không?")) {
                 dispatch(setShowLoading())
                 let res = await cancelTrip(rentId, adminToken)
                 if (res) {
-                    toast.success("Hủy thành công thành công")
+                    toast.success("Hủy thành công")
                     fetchAllCars(selectedCity)
                 }
             }
@@ -90,23 +111,6 @@ function ManageTripPending() {
         }
     }
 
-    const fetchAllCars = async (cityCode) => {
-        let res = await getAllPendingTrip(convertCityName(cityCode), adminToken)
-        if (res && res.length > 0) {
-            setTrips(res)
-        } else {
-            setTrips([])
-        }
-    }
-
-    useEffect(() => {
-        fetchAllCars(selectedCity)
-    }, [])
-
-    useEffect(() => {
-        fetchAllCars(selectedCity)
-    }, [selectedCity])
-
 
     return (
         <div className="w-full">
@@ -114,7 +118,7 @@ function ManageTripPending() {
                 <h2 className="font-bold text-xl">Chuyến đi</h2>
                 <CitySelect value={selectedCity} onChange={handleCityChange} />
             </div>
-            <div className="flex flex-wrap gap-3 mt-4 pb-10">
+            <div className="flex flex-wrap gap-3 mt-4">
                 {
                     trips && trips.length > 0 ?
                         trips.map((trip, index) => {
@@ -206,13 +210,13 @@ function ManageTripPending() {
                                     </div>
                                 </div>
                             )
-                        })
+                        }
+                        )
                         :
                         <div className="w-full flex flex-col items-center">
                             <p className="text-center font-semibold text-3xl">Chưa có chuyến xe nào tại khu vực này</p>
                         </div>
                 }
-
             </div>
         </div>
     )

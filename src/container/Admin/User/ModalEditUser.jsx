@@ -5,7 +5,7 @@ import Form from 'react-bootstrap/Form';
 import AvatarEditor from 'react-avatar-editor';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearModalEditUser, clearModalUserId, setModalObject } from '../../../redux/Slice/ModalSlice';
-import { setHideLoading, setShowLoading } from '../../../redux/Slice/AppSlice';
+import { setConponentLoad, setHideLoading, setShowLoading } from '../../../redux/Slice/AppSlice';
 import { editInformationUserById } from '../../../api/userAPI';
 import { getInformationUserById } from '../../../api/appAPI';
 import { adminTokenSelector, modalEditUserSelector, modalObjectSelector, modalUserIdSelector } from '../../../redux/selector';
@@ -55,11 +55,13 @@ function ModalEditUser() {
                 let res = await editInformationUserById(userId, formData, token)
                 setFormData({ fullname: '', phone: '', email: '', dob: '', gender: '', role: '' });
                 handleCloseEdit();
+                dispatch(setConponentLoad())
             }
             else if (modalObject === "admin") {
                 let res = await editInformationAdminById(userId, formData, token)
                 setFormData({ fullname: '', phone: '', email: '', dob: '', gender: '', role: '' });
                 handleCloseEdit();
+                dispatch(setConponentLoad())
             }
         } catch (error) {
             console.log(error)

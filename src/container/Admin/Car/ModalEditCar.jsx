@@ -5,7 +5,7 @@ import { ModalBody } from "react-bootstrap"
 import Modal from 'react-bootstrap/Modal';
 import { clearModalCarId, clearModalEditCar } from "../../../redux/Slice/ModalSlice";
 import { editCarByAdmin, getDetailCar } from "../../../api/carAPI";
-import { setHideLoading, setShowLoading } from "../../../redux/Slice/AppSlice";
+import { setConponentLoad, setHideLoading, setShowLoading } from "../../../redux/Slice/AppSlice";
 import { toast } from "react-toastify";
 import AddressSelector from "../../../features/search/AdressSelector";
 import ChooseSelector from "../../../features/search/ChooseSelector";
@@ -107,6 +107,7 @@ function ModalEditCar() {
                 if (res) {
                     handleCloseModal()
                     toast.success('Cập nhật xe thành công')
+                    dispatch(setConponentLoad())
                 }
             }
         }

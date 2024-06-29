@@ -7,7 +7,7 @@ import { clearModalChangePasswordUser, clearModalUserId, setModalObject } from "
 import { changePasswordAdmin, changePasswordUser } from "../../../api/adminAPI";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import { setHideLoading, setShowLoading } from "../../../redux/Slice/AppSlice";
+import { setConponentLoad, setHideLoading, setShowLoading } from "../../../redux/Slice/AppSlice";
 import { toast } from "react-toastify";
 
 function ModalChangePassword() {
@@ -42,12 +42,14 @@ function ModalChangePassword() {
                 let res = await changePasswordUser(userId, formData.password, token)
                 if (res) {
                     handleCloseModal()
+                    dispatch(setConponentLoad())
                 }
             }
             else if (modalObject === "admin") {
                 let res = await changePasswordAdmin(userId, formData.password, token)
                 if (res) {
                     handleCloseModal()
+                    dispatch(setConponentLoad())
                 }
             }
         } catch (error) {

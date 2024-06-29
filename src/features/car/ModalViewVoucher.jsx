@@ -13,9 +13,9 @@ function ModalViewVoucher({ showModalVoucher, handleCloseModalVoucher, allVouche
             show={showModalVoucher} onHide={handleCloseModalVoucher}
         >
             <Modal.Header className='mt-3 flex justify-between'>
-                <i className="fa-regular fa-circle-xmark fa-2xl cursor-pointer invisible" onClick={() => handleCloseModalVoucher()}></i>
+                <i className="fa-solid fa-xmark fa-2xl cursor-pointer invisible" onClick={() => handleCloseModalVoucher()}></i>
                 <h2 className='font-semibold text-2xl text-center'>Mã khuyến mãi</h2>
-                <i className="fa-regular fa-circle-xmark fa-2xl cursor-pointer" onClick={() => handleCloseModalVoucher()}></i>
+                <i className="fa-solid fa-xmark fa-2xl cursor-pointer" onClick={() => handleCloseModalVoucher()}></i>
             </Modal.Header>
             <Modal.Body className='p-4 flex flex-col gap-4' >
                 {

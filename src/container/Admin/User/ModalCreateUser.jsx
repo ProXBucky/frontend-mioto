@@ -5,7 +5,7 @@ import Form from 'react-bootstrap/Form';
 import AvatarEditor from 'react-avatar-editor';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearModalAddUser, setModalObject } from '../../../redux/Slice/ModalSlice';
-import { setHideLoading, setShowLoading } from '../../../redux/Slice/AppSlice';
+import { setConponentLoad, setHideLoading, setShowLoading } from '../../../redux/Slice/AppSlice';
 import { adminTokenSelector, modalAddUserSelector, modalObjectSelector, } from '../../../redux/selector';
 import { createNewAdmin, createNewUserByAdmin } from '../../../api/adminAPI';
 import { toast } from 'react-toastify';
@@ -55,6 +55,7 @@ function ModalCreateUser() {
                 if (res) {
                     setFormData({ fullname: '', phone: '', email: '', dob: '', gender: '', username: '', password: '', role: '' });
                     handleCloseCreate()
+                    dispatch(setConponentLoad())
                 }
             }
             else if (modalObject === "admin") {
@@ -62,6 +63,7 @@ function ModalCreateUser() {
                 if (res) {
                     setFormData({ fullname: '', phone: '', email: '', dob: '', gender: '', username: '', password: '', role: '' });
                     handleCloseCreate()
+                    dispatch(setConponentLoad())
                 }
             }
         } catch (error) {

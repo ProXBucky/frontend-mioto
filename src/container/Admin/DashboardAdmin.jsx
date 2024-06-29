@@ -6,6 +6,7 @@ import { useState } from 'react'
 import { statistic } from '../../api/appAPI'
 import ChartStatusRent from '../../component/ChartStatusRent'
 import ChartBarBrand from '../../component/ChartBarBrand'
+import ChartLineIncome from '../../component/ChartLineIncome'
 function DashboardAdmin() {
     const adminToken = useSelector(adminTokenSelector)
     const [count, setCount] = useState({})
@@ -18,6 +19,7 @@ function DashboardAdmin() {
             setCount({})
         }
     }
+
 
     useEffect(() => {
         fetchStatistic()
@@ -32,6 +34,7 @@ function DashboardAdmin() {
         })
         return <animated.div>{number.to((n) => n.toFixed(0))}</animated.div>
     }
+
 
     return (
         <>
@@ -127,6 +130,10 @@ function DashboardAdmin() {
                         <h3 className='font-bold text-lg mb-4'>Trạng thái các chuyến xe</h3>
                         <ChartStatusRent data={count.chartStatus} />
                     </div>
+                </div>
+                <div className='w-full rounded-lg bg-white mt-5 p-3'>
+                    <h3 className='font-bold text-lg mb-4'>Biểu đồ doanh thu theo tháng</h3>
+                    <ChartLineIncome />
                 </div>
 
 

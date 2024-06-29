@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react"
-import { getListCarByCity, getListCarByCityByAdmin, getListCarS } from "../../../api/carAPI"
-import { setModalAddCar, setModalCarId, setModalDeleteCar, setModalEditCar, setModalViewCar } from "../../../redux/Slice/ModalSlice"
+import { getListCarByCityByAdmin } from "../../../api/carAPI"
+import { setModalAddCar, setModalCarId, setModalEditCar, setModalViewCar } from "../../../redux/Slice/ModalSlice"
 import { useDispatch, useSelector } from "react-redux"
 import { toast } from "react-toastify"
 import { confimCarByAdmin, deleteCar } from "../../../api/adminAPI"
-import { adminTokenSelector } from "../../../redux/selector"
+import { adminTokenSelector, componentLoadSelector } from "../../../redux/selector"
 import { setHideLoading, setShowLoading } from "../../../redux/Slice/AppSlice"
 import CitySelect from "../../../component/CitySelect"
 import { convertCityName } from "../../../utils/convertCityName"
@@ -76,7 +76,7 @@ function ManageCar() {
 
     }
 
-    const [selectedCity, setSelectedCity] = useState('Tất cả');
+    const [selectedCity, setSelectedCity] = useState('Hà Nội');
 
     const handleCityChange = (event) => {
         setSelectedCity(event.target.value);
@@ -96,9 +96,11 @@ function ManageCar() {
         fetchAllCars(selectedCity)
     }, [])
 
+    const load = useSelector(componentLoadSelector)
+
     useEffect(() => {
         fetchAllCars(selectedCity)
-    }, [selectedCity])
+    }, [selectedCity, load])
 
 
     return (

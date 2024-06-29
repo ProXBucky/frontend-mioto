@@ -12,7 +12,7 @@ function ManageReview() {
     const [reviews, setReviews] = useState([])
     const adminToken = useSelector(adminTokenSelector)
 
-    const [selectedCity, setSelectedCity] = useState('Tất cả');
+    const [selectedCity, setSelectedCity] = useState('Hà Nội');
 
     const handleCityChange = (event) => {
         setSelectedCity(event.target.value);

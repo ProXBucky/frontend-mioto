@@ -2,6 +2,7 @@ import React, { memo, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { avatarImageSelector, fullnameSelector, tokenSelector } from '../../redux/selector';
+import FacebookLoginComponent from '../../component/FacebookLoginComponent';
 
 
 function LoggedOutNavbar({ handleOpenLoginModal, handleOpenRegisterModal }) {
@@ -56,7 +57,6 @@ function LoggedInNavbar() {
                     Chuyến của tôi
                 </Link>
             </li>
-
             <li className="nav-item">
                 <Link to={`/account/myaccount`} className="nav-link">
                     <div className='flex flex-row gap-2 items-center cursor-pointer'>

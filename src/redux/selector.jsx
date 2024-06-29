@@ -16,6 +16,7 @@ export const endDateSelector = (state) => state.search.endDate
 
 export const appLoadSelector = (state) => state.app.appLoad
 export const loadingSelector = (state) => state.app.loading
+export const componentLoadSelector = (state) => state.app.componentLoad
 
 
 
@@ -28,11 +29,12 @@ export const avatarImageAdminSelector = (state) => state.cookie.avatarImageAdmin
 
 
 
+export const modalDeleteSelector = (state) => state.modal.modalDelete
+export const modalObjectDeleteSelector = (state) => state.modal.modalObjectDelete
 
 
 export const modalUserIdSelector = (state) => state.modal.modalUserId
 export const modalAddUserSelector = (state) => state.modal.modalAddUser
-export const modalDeleteUserSelector = (state) => state.modal.modalDeleteUser
 export const modalEditUserSelector = (state) => state.modal.modalEditUser
 export const modalViewUserSelector = (state) => state.modal.modalViewUser
 export const modalChangePasswordUserSelector = (state) => state.modal.modalChangePasswordUser
@@ -40,7 +42,6 @@ export const modalObjectSelector = (state) => state.modal.modalObject
 
 export const modalCarIdSelector = (state) => state.modal.modalCarId
 export const modalAddCarSelector = (state) => state.modal.modalAddCar
-export const modalDeleteCarSelector = (state) => state.modal.modalDeleteCar
 export const modalEditCarSelector = (state) => state.modal.modalEditCar
 export const modalViewCarSelector = (state) => state.modal.modalViewCar
 

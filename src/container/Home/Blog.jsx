@@ -1,7 +1,6 @@
 
 import { useEffect, useState } from 'react';
-import Slider from 'react-slick';
-import { getAllBlogs } from '../../api/appAPI';
+import { getAllBlogsWithLimit } from '../../api/appAPI';
 import { format } from 'date-fns';
 import { useNavigate } from 'react-router-dom';
 
@@ -11,7 +10,7 @@ function Blog() {
     const navigate = useNavigate()
 
     const fetchAllBlogs = async () => {
-        let res = await getAllBlogs()
+        let res = await getAllBlogsWithLimit(3)
         if (res && res.length > 0) {
             setBlogs(res)
         } else {
@@ -23,64 +22,52 @@ function Blog() {
         navigate(`/blog/${blogId}`)
     }
 
+    const formatDate = (date) => {
+        if (!date) return ''; // Handle null or undefined date
+        try {
+            return format(new Date(date), "dd/MM/yyyy");
+        } catch (error) {
+            console.error('Error formatting date:', error);
+            return ''; // Return empty string or handle gracefully
+        }
+    };
+
     useEffect(() => {
         fetchAllBlogs()
     }, [])
 
-    const SamplePrevArrow = (props) => {
-        const { style, onClick } = props;
-        return (
-            <div
-                className="absolute"
-                style={{ ...style, zIndex: "1", left: "10px", top: "45%", cursor: "pointer" }}
-                onClick={onClick}
-            >
-                <i className="fa-solid fa-chevron-left fa-2xl text-black" style={{ fontSize: "50px" }}></i>
-            </div>
-        );
-    }
-
-    const SampleNextArrow = (props) => {
-        const { style, onClick } = props;
-        return (
-            <div
-                className="absolute"
-                style={{ ...style, zIndex: "1", right: "10px", top: "45%", cursor: "pointer" }}
-                onClick={onClick}
-            >
-                <i className="fa-solid fa-chevron-right fa-2xl text-black" style={{ fontSize: "50px" }}></i>
-            </div>
-        );
-    }
-
-    var settings = {
-        dots: true,
-        infinite: true,
-        speed: 500,
-        slidesToScroll: 1,
-        slidesToShow: 1,
-        nextArrow: <SampleNextArrow />,
-        prevArrow: <SamplePrevArrow />,
-    };
     return (
         <div className="px-32 py-20">
             <div className='text-center mb-20'>
                 <h1 className='h-12 text-5xl font-bold'>MIOTO Blog</h1>
             </div>
-            <Slider {...settings}>
-                {blogs && blogs.length > 0 &&
-                    blogs.map((blog, index) => (
-                        <div key={index} className='relative w-full overflow-hidden outline-none h-[calc(100vh-100px)]'
-                        >
-                            <img src={blog.imageTitle} className='cursor-pointer w-5/6 mx-auto bg-white border-2 border-gray-200' alt={`Image ${index}`} onClick={() => handleClick(blog.blogId)} />
-                            <div className='absolute bottom-10 text-white mx-[150px] bg-black bg-opacity-50 backdrop-filter backdrop-blur-sm p-3 rounded-md'>
-                                <p className='text-xl font-semibold'>{format(blog.publishDate, "dd/MM/yyyy")}</p>
-                                <h2 className='text-3xl font-bold'>{blog.title}</h2>
-                            </div>
+            <div className="flex flex-row gap-5">
+                <div className="flex flex-col w-1/3 gap-4">
+                    <div className="relative cursor-pointer" onClick={() => handleClick(blogs[0].blogId)}>
+                        <img src={blogs && blogs[0] && blogs[0].imageTitle} className="h-[250px] w-full rounded-3xl object-cover" />
+                        <div className="text-white absolute bottom-5 left-5 pr-2">
+                            <p className='font-semibold text-lg'>{formatDate(blogs && blogs[0] && blogs[0].publishDate)}</p>
+                            <h2 className="font-bold text-xl">{blogs && blogs[0] && blogs[0].title}</h2>
                         </div>
-                    ))}
-            </Slider>
-        </div>
+                    </div>
+                    <div className="relative cursor-pointer" onClick={() => handleClick(blogs[1].blogId)}>
+                        <img src={blogs && blogs[1] && blogs[1].imageTitle} className="h-[250px] w-full rounded-3xl object-cover" />
+                        <div className="text-white absolute bottom-5 left-5 pr-2">
+                            <p className='font-semibold text-lg'>{formatDate(blogs && blogs[1] && blogs[1].publishDate)}</p>
+                            <h2 className="font-bold text-xl">{blogs && blogs[1] && blogs[1].title}</h2>
+                        </div>
+                    </div>
+
+                </div>
+                <div className="w-2/3 relative cursor-pointer" onClick={() => handleClick(blogs[2].blogId)}>
+                    <img src={blogs && blogs[2] && blogs[2].imageTitle} className="h-[520px] w-full rounded-3xl object-cover" />
+                    <div className="text-white absolute bottom-10 left-5 pr-2">
+                        <p className='font-semibold text-2xl'>{formatDate(blogs && blogs[2] && blogs[2].publishDate)}</p>
+                        <h2 className="font-bold text-4xl">{blogs && blogs[2] && blogs[2].title}</h2>
+                    </div>
+                </div>
+            </div>
+        </div >
     )
 
 }
