@@ -35,6 +35,7 @@ import ModalViewTrip from './container/Admin/Trip/ModalViewTrip';
 import ModalAddBlog from './container/Admin/Blog/ModalAddBlog';
 import ModalViewBlog from './container/Admin/Blog/ModalViewBlog';
 import ModalDeleteComponent from './container/Common/ModalDeleteComponent';
+import MenuLeft from './container/Common/MenuLeft';
 
 const DetailBlog = lazy(() =>
   import('./features/blog/DetailBlog')
@@ -340,25 +341,22 @@ function App() {
         </Routes>
       </Suspense>
       {!isNoHeaderFooterRoute && <Footer />}
-      {loading && <LoadingComponent />}
 
+
+      <MenuLeft handleOpenRegisterModal={handleOpenRegisterModal} handleOpenLoginModal={handleOpenLoginModal} />
+      {loading && <LoadingComponent />}
       {modalViewUser && <ModalViewUser />}
       {modalEditUser && <ModalEditUser />}
       {modalChangePasswordUser && <ModalChangePassword />}
       {modalAddUser && <ModalCreateUser />}
-
       {modalViewCar && <ModalViewCar />}
       {modalAddCar && <ModalAddCar />}
       {modalEditCar && <ModalEditCar />}
-
       {modalAddVoucher && <ModalAddVoucher />}
       {modalFeedVoucher && <ModalFeedVoucher />}
-
       {modalViewRent && <ModalViewTrip />}
-
       {modalAddBlog && <ModalAddBlog />}
       {modalViewBlog && <ModalViewBlog />}
-
       <ModalDeleteComponent />
       <ModalComponent
         showModal={showRegisterModal}

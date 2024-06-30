@@ -45,7 +45,8 @@
     "react-toastify": "^10.0.5",
     "rehype-raw": "^7.0.0",
     "remark-html": "^16.0.1",
-    "simplemde": "^1.11.2"
+    "simplemde": "^1.11.2",
+    "slick-carousel": "^1.8.1"
   },
   "devDependencies": {
     "@types/react": "^18.2.66",

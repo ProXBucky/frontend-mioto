@@ -30,6 +30,33 @@ const SampleNextArrow = (props) => {
     );
 }
 
+const SamplePrevArrowSmall = (props) => {
+    const { style, onClick } = props;
+    return (
+        <div
+            className="absolute"
+            style={{ ...style, zIndex: "1", left: "-10px", top: "42%", cursor: "pointer", borderRadius: "50%", border: "1px solid #d8dae5", backgroundColor: "#f6f6f6" }}
+            onClick={onClick}
+        >
+            <i className="fa-solid fa-chevron-left fa-xs text-black py-[18px] px-3"></i>
+        </div>
+    );
+}
+
+const SampleNextArrowSmall = (props) => {
+    const { style, onClick } = props;
+    return (
+        <div
+            className="absolute"
+            style={{ ...style, zIndex: "1", right: "-10px", top: "42%", cursor: "pointer", borderRadius: "50%", border: "1px solid #d8dae5", backgroundColor: "#f6f6f6" }}
+            onClick={onClick}
+        >
+            <i className="fa-solid fa-chevron-right fa-xs text-black py-[18px] px-3"></i>
+        </div>
+    );
+}
+
+
 function City() {
     const navigate = useNavigate()
     const dispatch = useDispatch()
@@ -106,23 +133,50 @@ function City() {
         slidesToScroll: 4,
         slidesToShow: 4,
         nextArrow: <SampleNextArrow />,
-        prevArrow: <SamplePrevArrow />
+        prevArrow: <SamplePrevArrow />,
+        responsive: [
+            {
+                breakpoint: 1025, // laptop and larger
+                settings: {
+                    slidesToShow: 4,
+                    slidesToScroll: 4,
+                }
+            },
+            {
+                breakpoint: 1024, // tablet
+                settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 2,
+                    nextArrow: <SampleNextArrowSmall />,
+                    prevArrow: <SamplePrevArrowSmall />,
+                }
+            },
+            {
+                breakpoint: 640, // smartphone
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
+                    nextArrow: <SampleNextArrowSmall />,
+                    prevArrow: <SamplePrevArrowSmall />,
+                }
+            }
+        ]
     };
 
     return (
-        <div className="px-32 py-20">
-            <div className='text-center mb-20'>
-                <h1 className='h-12 text-5xl font-bold'>Địa Điểm Nổi Bật</h1>
+        <div className="sm:px-3 md:px-5 lg:px-32 sm:py-12 md:py-20 lg:py-20">
+            <div className='text-center sm:mb-10 md:mb-20 lg:mb-20'>
+                <h1 className='h-12 sm:text-3xl md:text-4xl lg:text-5xl font-bold'>Địa Điểm Nổi Bật</h1>
             </div>
 
             <Slider {...settings}>
                 {images &&
                     images.map((item, index) => (
-                        <div key={index} className='relative h-[460px] px-2 overflow-hidden cursor-pointer hover:opacity-90 outline-none' onClick={() => navigateCarByCity(item)}>
-                            <img src={item.link} className='rounded-xl h-[460px]' alt={`Image ${index}`} />
+                        <div key={index} className='relative sm:h-[500px] md:h-[520px] lg:h-[460px] px-2 overflow-hidden cursor-pointer hover:opacity-90 outline-none' onClick={() => navigateCarByCity(item)}>
+                            <img src={item.link} className='rounded-xl sm:h-[500px] md:h-[520px] lg:h-[460px]' alt={`Image ${index}`} />
                             <div className='text-white absolute h-20 bottom-0 left-6'>
-                                <p className='font-bold text-xl'>{item.name}</p>
-                                <p className='font-semibold'>{item.sumCar} xe</p>
+                                <p className='font-bold sm:text-2xl md:text-xl lg:text-xl'>{item.name}</p>
+                                <p className='font-semibold sm:text-xl md:text-base lg:text-base'>{item.sumCar} xe</p>
                             </div>
                         </div>
                     ))}

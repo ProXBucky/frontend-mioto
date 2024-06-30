@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { getAllBlogsWithLimit } from '../../api/appAPI';
 import { format } from 'date-fns';
 import { useNavigate } from 'react-router-dom';
+import Slider from 'react-slick';
 
 function Blog() {
 
@@ -36,12 +37,20 @@ function Blog() {
         fetchAllBlogs()
     }, [])
 
+    var settings = {
+        dots: true,
+        infinite: true,
+        speed: 500,
+        slidesToScroll: 1,
+        slidesToShow: 1,
+    }
+
     return (
-        <div className="px-32 py-20">
+        <div className="sm:px-3 md:px-5 lg:px-32 py-20">
             <div className='text-center mb-20'>
-                <h1 className='h-12 text-5xl font-bold'>MIOTO Blog</h1>
+                <h1 className='h-12 sm:text-3xl md:text-4xl lg:text-5xl font-bold'>MIOTO Blog</h1>
             </div>
-            <div className="flex flex-row gap-5">
+            <div className="flex flex-row gap-5 sm:hidden md:hidden">
                 <div className="flex flex-col w-1/3 gap-4">
                     <div className="relative cursor-pointer" onClick={() => handleClick(blogs[0].blogId)}>
                         <img src={blogs && blogs[0] && blogs[0].imageTitle} className="h-[250px] w-full rounded-3xl object-cover" />
@@ -66,6 +75,24 @@ function Blog() {
                         <h2 className="font-bold text-4xl">{blogs && blogs[2] && blogs[2].title}</h2>
                     </div>
                 </div>
+            </div>
+            <div className="sm:block md:block lg:hidden">
+                <Slider {...settings}>
+                    {
+                        blogs && blogs.length > 0 &&
+                        blogs.map((blog, index) => {
+                            return (
+                                <div className="w-full relative cursor-pointer" onClick={() => handleClick(blog.blogId)} key={index}>
+                                    <img src={blog.imageTitle} className="sm:h-[250px] md:h-[520px] w-full rounded-3xl object-cover" />
+                                    <div className="text-white absolute sm:bottom-3 md:bottom-10 sm:left-3 md:left-5 sm:pr-1 md:pr-2">
+                                        <p className='font-semibold sm:text-base md:text-2xl'>{formatDate(blog.publishDate)}</p>
+                                        <h2 className="font-bold sm:text-lg md:text-4xl">{blog.title}</h2>
+                                    </div>
+                                </div>
+                            )
+                        })
+                    }
+                </Slider>
             </div>
         </div >
     )

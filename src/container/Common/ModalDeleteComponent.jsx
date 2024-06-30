@@ -7,6 +7,7 @@ import { logoutAdmin, logoutUser } from '../../api/authAPI';
 import Cookies from 'js-cookie';
 import { clearAdminFullname, clearAdminId, clearAdminRole, clearAdminToken, clearAvatarImage, clearAvatarImageAdmin, clearFullname, clearToken, clearUserId } from '../../redux/Slice/CookieSlice';
 import { toast } from 'react-toastify';
+import { setMenuLeft } from '../../redux/Slice/AppSlice';
 
 
 function ModalDeleteComponent() {
@@ -57,6 +58,7 @@ function ModalDeleteComponent() {
                     dispatch(clearModalDelete())
                     dispatch(clearModalObjectDelete())
                     navigate('/')
+                    dispatch(setMenuLeft())
                     toast.success("Hẹn gặp bạn lần sau");
                 }
             }
@@ -81,8 +83,8 @@ function ModalDeleteComponent() {
                 <i className="fa-solid fa-xmark fa-2xl cursor-pointer" onClick={() => handleCloseModalDelete()}></i>
             </Modal.Header>
             <Modal.Body className='p-4 flex flex-col justify-center items-center'>
-                <h2 className='font-bold text-3xl mb-12'>Bạn muốn đăng xuất ?</h2>
-                <button className='w-1/3 rounded-lg p-3 bg-main text-white font-semibold' onClick={handleLogout}>Đăng xuất</button>
+                <h2 className='font-bold sm:text-2xl md:text-3xl mb-12'>Bạn muốn đăng xuất ?</h2>
+                <button className='sm:w-1/2 md:w-1/3 rounded-lg p-3 bg-main text-white font-semibold' onClick={handleLogout}>Đăng xuất</button>
             </Modal.Body>
 
         </Modal>

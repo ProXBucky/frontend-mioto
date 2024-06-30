@@ -7,7 +7,11 @@ export default {
   theme: {
     extend: {
       screens: {
-
+        'sm': { 'max': '640px' },   // smartphone
+        'md': { 'min': '641px', 'max': '1024px' }, // tablet
+        'lg': { 'min': '1025px' }, // laptop
+        // 'lg': { 'min': '1025px', 'max': '1280px' }, // laptop
+        // 'xl': { 'min': '1281px' },  // larger laptop or desktop
       },
       colors: {
         main: '#5fcf86',
@@ -24,5 +28,15 @@ export default {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    function ({ addUtilities }) {
+      const newUtilities = {
+        '.bg-gradient-custom': {
+          background: 'linear-gradient(180deg, transparent 50%, rgba(0, 0, 0, .7))',
+        },
+      }
+
+      addUtilities(newUtilities, ['responsive', 'hover'])
+    }
+  ],
 }

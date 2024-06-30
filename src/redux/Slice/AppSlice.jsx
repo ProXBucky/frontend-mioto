@@ -3,7 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
     appLoad: false,
     loading: false,
-    componentLoad: false
+    componentLoad: false,
+    menuLeft: false
 };
 
 export const AppSlice = createSlice({
@@ -22,8 +23,11 @@ export const AppSlice = createSlice({
         setConponentLoad(state) {
             state.componentLoad = !state.componentLoad
         },
+        setMenuLeft(state) {
+            state.menuLeft = !state.menuLeft
+        },
     },
 });
 
-export const { setAppLoad, setShowLoading, setHideLoading, setConponentLoad } = AppSlice.actions;
+export const { setAppLoad, setShowLoading, setHideLoading, setConponentLoad, setMenuLeft } = AppSlice.actions;
 

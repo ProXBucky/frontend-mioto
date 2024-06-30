@@ -6,10 +6,10 @@ const SamplePrevArrow = (props) => {
     return (
         <div
             className="absolute"
-            style={{ ...style, zIndex: "1", left: "-20px", top: "42%", cursor: "pointer", borderRadius: "50%", border: "1px solid #d8dae5", backgroundColor: "#f6f6f6" }}
+            style={{ ...style, zIndex: "1", left: "-23px", top: "42%", cursor: "pointer", borderRadius: "50%", border: "1px solid #d8dae5", backgroundColor: "#f6f6f6" }}
             onClick={onClick}
         >
-            <i className="fa-solid fa-chevron-left fa-sm text-black py-4 px-4"></i>
+            <i className="fa-solid fa-chevron-left fa-sm text-black py-[26px] px-4"></i>
         </div>
     );
 }
@@ -19,10 +19,36 @@ const SampleNextArrow = (props) => {
     return (
         <div
             className="absolute"
-            style={{ ...style, zIndex: "1", right: "-20px", top: "42%", cursor: "pointer", borderRadius: "50%", border: "1px solid #d8dae5", backgroundColor: "#f6f6f6" }}
+            style={{ ...style, zIndex: "1", right: "-23px", top: "42%", cursor: "pointer", borderRadius: "50%", border: "1px solid #d8dae5", backgroundColor: "#f6f6f6" }}
             onClick={onClick}
         >
-            <i className="fa-solid fa-chevron-right fa-sm text-black py-4 px-4"></i>
+            <i className="fa-solid fa-chevron-right fa-sm text-black py-[26px] px-4"></i>
+        </div>
+    );
+}
+
+const SamplePrevArrowSmall = (props) => {
+    const { style, onClick } = props;
+    return (
+        <div
+            className="absolute"
+            style={{ ...style, zIndex: "1", left: "-10px", top: "42%", cursor: "pointer", borderRadius: "50%", border: "1px solid #d8dae5", backgroundColor: "#f6f6f6" }}
+            onClick={onClick}
+        >
+            <i className="fa-solid fa-chevron-left fa-xs text-black py-[18px] px-3"></i>
+        </div>
+    );
+}
+
+const SampleNextArrowSmall = (props) => {
+    const { style, onClick } = props;
+    return (
+        <div
+            className="absolute"
+            style={{ ...style, zIndex: "1", right: "-10px", top: "42%", cursor: "pointer", borderRadius: "50%", border: "1px solid #d8dae5", backgroundColor: "#f6f6f6" }}
+            onClick={onClick}
+        >
+            <i className="fa-solid fa-chevron-right fa-xs text-black py-[18px] px-3"></i>
         </div>
     );
 }
@@ -95,20 +121,47 @@ function Promotion({ handleOpenModal }) {
         slidesToScroll: 1,
         slidesToShow: 3,
         nextArrow: <SampleNextArrow />,
-        prevArrow: <SamplePrevArrow />
+        prevArrow: <SamplePrevArrow />,
+        responsive: [
+            {
+                breakpoint: 1025, // laptop and larger
+                settings: {
+                    slidesToShow: 3,
+                    slidesToScroll: 1,
+                }
+            },
+            {
+                breakpoint: 1024, // tablet
+                settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 1,
+                    nextArrow: <SampleNextArrowSmall />,
+                    prevArrow: <SamplePrevArrowSmall />,
+                }
+            },
+            {
+                breakpoint: 640, // smartphone
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
+                    nextArrow: <SampleNextArrowSmall />,
+                    prevArrow: <SamplePrevArrowSmall />,
+                }
+            }
+        ]
     };
 
     return (
-        <div className="px-32 py-20 h-[620px]">
+        <div className="sm:px-3 md:px-5 lg:px-32 sm:py-48 md:py-36 lg:py-20 h-[620px]">
             <div className='text-center mb-20'>
-                <h1 className='h-12 text-5xl font-bold'>Chương Trình Khuyến Mãi</h1>
-                <h2 className='h-6 text-2xl font-medium mt-5'>Nhận nhiều ưu đãi hấp dẫn từ Mioto</h2>
+                <h1 className='sm:h-18 md:h-12 lg:h-12 sm:text-3xl md:text-4xl lg:text-5xl font-bold'>Chương Trình Khuyến Mãi</h1>
+                <h2 className='h-6 sm:text-xl md:text-2xl lg:text-2xl font-medium sm:mt-4 md:mt-4 lg:mt-5'>Nhận nhiều ưu đãi hấp dẫn từ Mioto</h2>
             </div>
             <Slider {...settings}>
                 {images &&
                     images.map((item, index) => (
-                        <div key={index} className='h-[275px] px-2 overflow-hidden outline-none border-none' onClick={() => handleOpenModal(item.url, item.title, item.content)}>
-                            <img src={item.url} className='rounded-xl h-[275px] cursor-pointer' alt={`Image ${index}`} />
+                        <div key={index} className='sm:h-[250px] md:h-[250px] lg:h-[275px] px-2 overflow-hidden outline-none border-none' onClick={() => handleOpenModal(item.url, item.title, item.content)}>
+                            <img src={item.url} className='rounded-xl sm:h-[250px] md:h-[250px] lg:h-[275px] cursor-pointer' alt={`Image ${index}`} />
                         </div>
                     ))}
             </Slider>
