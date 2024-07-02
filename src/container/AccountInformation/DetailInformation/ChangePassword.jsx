@@ -48,7 +48,7 @@ function ChangePassword() {
     }
     return (
         <>
-            <h1 className="text-4xl font-bold">Đổi mật khẩu</h1>
+            <h1 className="sm:text-2xl md:text-3xl lg:text-4xl xl:text-4xl font-bold">Đổi mật khẩu</h1>
             <p className="text-md py-2">Vui lòng nhập mật khẩu hiện tại của bạn để thay đổi mật khẩu</p>
             <div className="flex w-full flex-col gap-2 mt-2 bg-white py-3 px-4 rounded-xl">
                 <h1 className="text-2xl font-bold mb-4">Nhập mật khẩu</h1>
@@ -61,7 +61,7 @@ function ChangePassword() {
                     <input className="border outline-none w-full p-2 mt-2 rounded-lg" name="newPassword" value={formData.newPassword} onChange={handleChange} />
                 </div>
                 <div className="w-full flex justify-end">
-                    <button className="p-2 py-3 bg-main rounded-md mt-2 w-1/6 font-bold text-white" onClick={() => changePassSubmit()}>Xác nhận</button>
+                    <button className="p-2 py-3 bg-main rounded-md mt-2 sm:w-full md:w-1/6 lg:w-1/6 xl:w-1/6 font-bold text-white" onClick={() => changePassSubmit()}>Xác nhận</button>
                 </div>
             </div>
         </>

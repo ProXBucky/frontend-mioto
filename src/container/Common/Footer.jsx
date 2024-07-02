@@ -1,13 +1,13 @@
 function Footer() {
     return (
-        <div className="h-auto pt-12 pb-6 sm:px-3 md:px-5 lg:px-32 flex flex-col border-t-2 border-gray-200">
-            <div className="w-full h-auto flex sm:flex-col md:flex-col lg:flex-row">
-                <div className="sm:w-full md:w-full lg:w-1/3">
-                    <div className="flex sm:flex-col md:flex-row lg:flex-col sm:gap-4 md:gap-3 lg:gap-5">
+        <div className="h-auto pt-12 pb-6 sm:px-3 md:px-5 lg:px-16 xl:px-32 flex flex-col border-t-2 border-gray-200">
+            <div className="w-full h-auto flex sm:flex-col md:flex-col lg:flex-row xl:flex-row">
+                <div className="sm:w-full md:w-full lg:w-1/3 xl:w-1/3">
+                    <div className="flex sm:flex-col md:flex-row lg:flex-col xl:flex-col sm:gap-4 md:gap-3 lg:gap-5 xl:gap-5">
                         <div>
-                            <img src='/logo-full.png' className='sm:h-14 md:h-10 lg:h-14' />
+                            <img src='/logo-full.png' className='sm:h-14 md:h-10 lg:h-14 xl:h-14' />
                         </div>
-                        <div className="flex flex-col sm:gap-2 md:gap-2 lg:gap-5 md:px-5">
+                        <div className="flex flex-col sm:gap-2 md:gap-2 lg:gap-5 xl:gap-5 md:px-5">
                             <div>
                                 <p>1900 9217</p>
                                 <p className="text-gray-600">Tổng đài hỗ trợ: 7AM - 10PM</p>
@@ -17,7 +17,7 @@ function Footer() {
                                 <p className="text-gray-600">Gửi email cho Mioto</p>
                             </div>
                         </div>
-                        <div className="flex flex-row sm:gap-3 md:gap-3 lg:gap-5">
+                        <div className="flex flex-row sm:gap-3 md:gap-3 lg:gap-5 xl:gap-5">
                             <div className="rounded-full border border-gray-300 p-3 h-14 w-14">
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11.94 21.2501V14.1601H9.5V11.4301H11.94V9.43012C11.94 8.31012 12.22 7.47012 12.86 6.83012C13.5 6.19012 14.34 5.87012 15.42 5.87012C16.22 5.87012 16.94 5.91012 17.5 5.99012V8.39012H16.06C15.54 8.39012 15.18 8.51012 14.98 8.75012C14.82 8.99012 14.74 9.31012 14.74 9.71012V11.4301H17.51L17.15 14.1601H14.75V21.2501" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path><path d="M17.14 21.25H6.86C4.59 21.25 2.75 19.41 2.75 17.14V6.86C2.75 4.59 4.59 2.75 6.86 2.75H17.14C19.41 2.75 21.25 4.59 21.25 6.86V17.14C21.25 19.41 19.41 21.25 17.14 21.25Z" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path></svg>
                             </div>
@@ -30,10 +30,10 @@ function Footer() {
                         </div>
                     </div>
                 </div>
-                <div className="sm:w-full md:w-full sm:mt-3 md:mt-5 lg:mt-0 lg:w-2/3 flex sm:flex-col md:flex-row lg:flex-row justify-between sm:gap-10">
+                <div className="sm:w-full md:w-full sm:mt-3 md:mt-5 lg:mt-0 xl:mt-0 lg:w-2/3 xl:w-2/3 flex sm:flex-col md:flex-row lg:flex-row xl:flex-row justify-between sm:gap-10 lg:gap-5">
                     <div>
-                        <p className="sm:mb-4 md:mb-8 lg:mb-8 font-bold">Chính Sách</p>
-                        <div className="flex flex-col sm:gap-4 md:gap-6 lg:gap-6">
+                        <p className="sm:mb-4 md:mb-8 lg:mb-8 xl:mb-8 font-bold">Chính Sách</p>
+                        <div className="flex flex-col sm:gap-4 md:gap-6 lg:gap-6 xl:gap-6">
                             <a className="text-gray-600">Chính sách và quy định</a>
                             <a className="text-gray-600">Quy chế hoạt động</a>
                             <a className="text-gray-600">Bảo mật thông tin</a>
@@ -41,8 +41,8 @@ function Footer() {
                         </div>
                     </div>
                     <div>
-                        <p className="sm:mb-4 md:mb-8 lg:mb-8 font-bold">Tìm Hiểu Thêm</p>
-                        <div className="flex flex-col sm:gap-4 md:gap-6 lg:gap-6">
+                        <p className="sm:mb-4 md:mb-8 lg:mb-8 xl:mb-8 font-bold">Tìm Hiểu Thêm</p>
+                        <div className="flex flex-col sm:gap-4 md:gap-6 lg:gap-6 xl:gap-6">
                             <a className="text-gray-600">Hướng dẫn chung</a>
                             <a className="text-gray-600">Hướng dẫn đặt xe</a>
                             <a className="text-gray-600">Hướng dẫn thanh toán</a>
@@ -50,16 +50,16 @@ function Footer() {
                         </div>
                     </div>
                     <div>
-                        <p className="sm:mb-4 md:mb-8 lg:mb-8 font-bold invisible">Ví dụ</p>
-                        <div className="flex flex-col sm:gap-4 md:gap-6 lg:gap-6">
+                        <p className="sm:mb-4 md:mb-8 lg:mb-8 xl:mb-8 font-bold invisible">Ví dụ</p>
+                        <div className="flex flex-col sm:gap-4 md:gap-6 lg:gap-6 xl:gap-6">
                             <a className="text-gray-600">Về Mioto</a>
                             <a className="text-gray-600">Mioto Blog</a>
                             <a className="text-gray-600">Tuyển dụng</a>
                         </div>
                     </div>
                     <div>
-                        <p className="sm:mb-4 md:mb-8 lg:mb-8 font-bold">Đối tác</p>
-                        <div className="flex flex-col sm:gap-4 md:gap-6 lg:gap-6">
+                        <p className="sm:mb-4 md:mb-8 lg:mb-8 xl:mb-8 font-bold">Đối tác</p>
+                        <div className="flex flex-col sm:gap-4 md:gap-6 lg:gap-6 xl:gap-6">
                             <a className="text-gray-600">Đăng ký chủ xe Mioto</a>
                             <a className="text-gray-600">Đăng ký GPS</a>
                             <a className="text-gray-600">Đăng ký cho thuê xe dài hạn MICAR</a>
@@ -70,11 +70,11 @@ function Footer() {
                 </div>
             </div>
             <div className="w-full h-auto py-5 flex items-center border-t border-b border-gray-300 mt-5">
-                <div className="h-auto flex sm:flex-col md:flex-row lg:flex-row items-center w-full">
-                    <div className="sm:w-full md:w-1/4 lg:w-1/3 sm:mb-5">
+                <div className="h-auto flex sm:flex-col md:flex-row lg:flex-row xl:flex-row items-center w-full">
+                    <div className="sm:w-full md:w-1/4 lg:w-1/3 xl:w-1/3 sm:mb-5">
                         <p className="text-gray-600">© Công ty Cổ Phần Mioto Asia</p>
                     </div>
-                    <div className="sm:w-full md:w-3/4 lg:w-2/3 flex sm:gap-2 sm:flex-col md:flex-row lg:flex-row justify-between">
+                    <div className="sm:w-full md:w-3/4 lg:w-2/3 xl:w-2/3 flex sm:gap-2 sm:flex-col md:flex-row lg:flex-row xl:flex-row justify-between">
                         <p className="text-gray-600">Số GCNĐKKD: 0317307544</p>
                         <p className="text-gray-600">Ngày cấp: 24-05-22</p>
                         <p className="text-gray-600">Nơi cấp: Sở Kế hoạch và Đầu tư TPHCM</p>
@@ -84,19 +84,19 @@ function Footer() {
             </div>
 
             <div className="w-full h-auto pt-8">
-                <div className="h-auto flex sm:flex-col md:flex-col lg:flex-row w-full">
-                    <div className="sm:w-full md:full lg:w-1/3 pr-24">
+                <div className="h-auto flex sm:flex-col md:flex-col lg:flex-row xl:flex-row w-full">
+                    <div className="sm:w-full md:full lg:w-1/3 xl:w-1/3 pr-24">
                         <p className="text-gray-600">Địa chỉ: Văn phòng 02, Tầng 08, Tòa nhà Pearl Plaza, Số 561A Điện Biên Phủ, Phường 25, Quận Bình Thạnh, Thành phố Hồ Chí Minh, Việt Nam.</p>
-                        <img src="/bocongthuong.png" className="sm:h-16 md:h-12 lg:h-16 my-10" />
+                        <img src="/bocongthuong.png" className="sm:h-16 md:h-12 lg:h-16 xl:h-16 my-10" />
                     </div>
-                    <div className="sm:w-full md:w-full lg:w-2/3 flex sm:flex-col md:flex-col lg:flex-col">
-                        <div className="w-full flex sm:flex-col md:flex-row lg:flex-row justify-between">
+                    <div className="sm:w-full md:w-full lg:w-2/3 xl:w-2/3 flex sm:flex-col md:flex-col lg:flex-col xl:flex-col">
+                        <div className="w-full flex sm:flex-col md:flex-row lg:flex-row xl:flex-row justify-between">
                             <p className="text-gray-600">Tên TK: CT CP MIOTO ASIA</p>
                             <p className="text-gray-600">Số TK: 102-989-1989</p>
                             <p className="text-gray-600">Ngân hàng Vietcombank - CN Tân Định</p>
                             <p className="invisible">Ngày cấppppppp</p>
                         </div>
-                        <div className="sm:mt-5 md:mt-10 lg:mt-32 flex flex-row sm:gap-4 md:gap-6 lg:gap-6">
+                        <div className="sm:mt-5 md:mt-10 lg:mt-32 xl:mt-32 flex flex-row sm:gap-4 md:gap-6 lg:gap-6 xl:gap-6">
                             <p className="text-gray-600 sm:hidden">Phương thức thanh toán</p>
                             <img className="h-11" src="/momo.png" />
                             <img className="h-11" src="/vnpay.png" />

@@ -5,6 +5,9 @@ import MapComponent from '../../container/Common/MapComponent';
 import { formatMoney } from '../../utils/formatMoney';
 import { calculateDays } from '../../utils/calculateDays';
 import { useState } from 'react';
+import { format } from 'date-fns';
+import viLocale from 'date-fns/locale/vi';
+
 
 
 function ModalConfirmRent({ showModalConfirmRent, handleCloseModalConfirmRent, handleConfirmRent, car, voucher, totalRentNotVoucher, totalRentVoucher, carImg, locationName }) {
@@ -24,53 +27,44 @@ function ModalConfirmRent({ showModalConfirmRent, handleCloseModalConfirmRent, h
     };
 
     const isContinueButtonEnabled = isTerm1Checked && isTerm2Checked;
+
     return (
         <Modal
-            size="xl"
             aria-labelledby="contained-modal-title-vcenter"
+            dialogClassName="custom-modal"
             centered
             show={showModalConfirmRent} onHide={handleCloseModalConfirmRent}
         >
             <Modal.Header className='mt-3 flex justify-between'>
                 <i className="fa-solid fa-xmark fa-2xl cursor-pointer invisible" onClick={handleCloseModalConfirmRent}></i>
                 <h2 className='font-semibold text-2xl text-center'>Xác nhận thuê xe</h2>
-                <i className="fa-solid fa-xmark fa-2xl cursor-pointer" onClick={handleCloseModalConfirmRent}></i>
+                <i className="fa-solid fa-xmark fa-2xl cursor-pointer mr-3" onClick={handleCloseModalConfirmRent}></i>
             </Modal.Header>
-            <Modal.Body className='px-5 flex flex-col items-center' >
-                <h2 className='font-bold text-2xl mb-2'>{`${car && car.model && car.model} ${car && car.modelYear && car.modelYear}`}</h2>
-                <div className='flex flex-row w-full border-t-2 pt-4'>
-                    <div className='w-1/3'>
+            <Modal.Body className='sm:px-4 md:px-5 lg:px-5 xl:px-5 flex flex-col items-center' >
+                <h2 className='font-bold sm:text-lg md:text-xl lg:text-2xl xl:text-2xl mb-2'>{`${car && car.model && car.model} ${car && car.modelYear && car.modelYear}`}</h2>
+                <div className='flex sm:flex-col md:flex-row lg:flex-row xl:flex-row w-full pt-4'>
+                    <div className='sm:w-full md:w-1/3 lg:w-1/3 xl:w-1/3'>
                         <img src={carImg} className='rounded-xl' />
                     </div>
-                    <div className='w-2/3 pl-10'>
+                    <div className='sm:w-full md:w-2/3 lg:w-2/3 xl:w-2/3 sm:pl-0 md:pl-10 lg:pl-10 xl:pl-10 sm:mt-2'>
                         <h3 className='font-semibold text-lg'>Thời gian thuê xe</h3>
-                        <div className='flex flex-row gap-20 w-full mt-2'>
-                            <p>Bắt đầu: {beginDate}</p>
-                            <p>Kết thúc: {endDate}</p>
+                        <div className='flex flex-col gap-3 w-full mt-2'>
+                            <p>Bắt đầu: {format(beginDate, 'PPP', { locale: viLocale })}</p>
+                            <p>Kết thúc: {format(endDate, 'PPP', { locale: viLocale })}</p>
                         </div>
 
-                        <h3 className='font-semibold text-lg mt-5'>Chủ xe</h3>
+                        <h3 className='font-semibold text-lg mt-2'>Chủ xe</h3>
                         <div className="flex flex-col gap-3 mt-2">
                             <div className="flex flex-row gap-3 items-center">
-                                <img className="h-20 rounded-full border" src={car && car && car.user ? car.user.avatarImage : "/avaMale.png"} />
+                                <img className="sm:h-10 md:h-14 lg:h-16 xl:h-20 rounded-full border" src={car && car && car.user ? car.user.avatarImage : "/avaMale.png"} />
                                 <div>
                                     <p className="font-semibold text-lg">{car && car && car.user && car.user.fullname}</p>
-                                    <div className="flex flex-row gap-1 font-semibold text-sm">
-                                        <label className="flex items-center gap-1">
-                                            <svg className="star-rating" width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14.6667 7.23331C14.7333 6.89998 14.4667 6.49998 14.1333 6.49998L10.3333 5.96665L8.59999 2.49998C8.53333 2.36665 8.46666 2.29998 8.33333 2.23331C7.99999 2.03331 7.59999 2.16665 7.39999 2.49998L5.73333 5.96665L1.93333 6.49998C1.73333 6.49998 1.59999 6.56665 1.53333 6.69998C1.26666 6.96665 1.26666 7.36665 1.53333 7.63331L4.26666 10.3L3.59999 14.1C3.59999 14.2333 3.59999 14.3666 3.66666 14.5C3.86666 14.8333 4.26666 14.9666 4.59999 14.7666L7.99999 12.9666L11.4 14.7666C11.4667 14.8333 11.6 14.8333 11.7333 14.8333C11.8 14.8333 11.8 14.8333 11.8667 14.8333C12.2 14.7666 12.4667 14.4333 12.4 14.0333L11.7333 10.2333L14.4667 7.56665C14.6 7.49998 14.6667 7.36665 14.6667 7.23331Z" fill="#FFC634"></path></svg>
-                                            <span>5.0</span>
-                                        </label>
-                                        <span className="px-1">•</span>
-                                        <label className="flex items-center gap-1">
-                                            <svg width="20" height="20" viewBox="0 0 60 61" fill="none" xmlns="http://www.w3.org/2000/svg" className=""><path d="M8.11719 55.5V52.3883" stroke="#5FCF86" strokeWidth="4" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path><path d="M40.2734 55.5V52.3883" stroke="#5FCF86" strokeWidth="4" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path><path d="M11.2188 52.3884V28.5931" stroke="#5FCF86" strokeWidth="4" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path><path d="M25.9484 21.0604H18.8959C17.5209 21.0604 16.4062 22.1751 16.4062 23.5501V28.5933" stroke="#5FCF86" strokeWidth="4" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path><path d="M25.9531 28.5931H7.07471C5.92895 28.5931 5 29.522 5 30.6678V50.3137C5 51.4596 5.92895 52.3884 7.07471 52.3884H28.0278" stroke="#5FCF86" strokeWidth="4" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path><path d="M52.9282 18.2196H28.0317C26.8859 18.2196 25.957 19.1484 25.957 20.2943V50.3137C25.957 51.4596 26.8859 52.3884 28.0317 52.3884H52.9282C54.0741 52.3884 55.0029 51.4596 55.0029 50.3137V20.2943C55.0029 19.1484 54.0741 18.2196 52.9282 18.2196Z" stroke="#5FCF86" strokeWidth="4" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path><path d="M32.1797 52.3884V18.2196" stroke="#5FCF86" strokeWidth="4" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path><path d="M48.7695 18.2196V52.3884" stroke="#5FCF86" strokeWidth="4" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path><path d="M29.0625 55.5V52.3883" stroke="#5FCF86" strokeWidth="4" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path><path d="M51.8828 55.5V52.3883" stroke="#5FCF86" strokeWidth="4" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path><path d="M35.293 18.2197V7.98977C35.293 6.61486 36.4076 5.50013 37.7826 5.50013H43.1768C44.5519 5.50013 45.6665 6.61486 45.6665 7.98977V18.2197" stroke="#5FCF86" strokeWidth="4" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path></svg>
-                                            <span>23 chuyến</span>
-                                        </label>
+                                    <div className='flex items-center'>
+                                        <p className='font-semibold'>Số điện thoại: {car && car && car.user && car.user.phone}</p>
                                     </div>
                                 </div>
                             </div>
-                            <div className='flex items-center'>
-                                <p className='font-semibold'>Số điện thoại: {car && car && car.user && car.user.phone}</p>
-                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -82,8 +76,8 @@ function ModalConfirmRent({ showModalConfirmRent, handleCloseModalConfirmRent, h
 
                 <div className='mt-3 w-full'>
                     <h3 className='font-semibold text-lg mb-2'>Bảng giá</h3>
-                    <div className='flex flex-row items-end'>
-                        <div className="w-3/5">
+                    <div className='flex sm:flex-col md:flex-row lg:flex-row xl:flex-row items-end'>
+                        <div className="sm:w-full md:w-3/5 lg:w-3/5 xl:w-3/5">
                             <div className=" bg-gray-100 flex flex-col p-4 gap-3 border">
                                 <div>
                                     <div className="flex justify-between">
@@ -126,8 +120,8 @@ function ModalConfirmRent({ showModalConfirmRent, handleCloseModalConfirmRent, h
                                 </div>
                             </div>
                         </div>
-                        <div className='w-2/5 pl-5'>
-                            <div className="rounded-lg flex flex-col gap-3 text-center">
+                        <div className='sm:w-full md:w-2/5 lg:w-2/5 xl:w-2/5 sm:pl-0 md:pl-5 lg:pl-5 xl:pl-5'>
+                            <div className="rounded-lg flex flex-col gap-3 text-center sm:mt-3">
                                 <div className="flex flex-col font-semibold text-lg w-full bg-gray-100 p-3">
                                     <p className='text-gray-400 uppercase text-sm font-bold mb-2'>Tiền cọc</p>
                                     <span className="font-semibold text-green-500">{formatMoney(totalRentVoucher * 30 / 100)}</span>
@@ -266,9 +260,9 @@ function ModalConfirmRent({ showModalConfirmRent, handleCloseModalConfirmRent, h
                     </div>
                 </div>
             </Modal.Body>
-            <Modal.Footer className='flex justify-between'>
-                <button className='p-3 bg-gray-600 rounded-lg text-white font-semibold px-4 w-[48%]' onClick={handleCloseModalConfirmRent}>Hủy bỏ</button>
-                <button className={`p-3 rounded-lg text-white font-semibold px-4 w-[48%] ${isContinueButtonEnabled ? "bg-main" : "bg-green-200"}`} disabled={!isContinueButtonEnabled} onClick={handleConfirmRent}>Đặt xe</button>
+            <Modal.Footer className='flex sm:flex-col md:flex-row lg:flex-row xl:flex-row justify-between'>
+                <button className='p-3 bg-gray-600 rounded-lg text-white font-semibold px-4 sm:w-full md:w-[48%] lg:w-[48%] xl:w-[48%]' onClick={handleCloseModalConfirmRent}>Hủy bỏ</button>
+                <button className={`p-3 rounded-lg text-white font-semibold px-4 sm:w-full md:w-[48%] lg:w-[48%] xl:w-[48%] ${isContinueButtonEnabled ? "bg-main" : "bg-green-200"}`} disabled={!isContinueButtonEnabled} onClick={handleConfirmRent}>Đặt xe</button>
             </Modal.Footer>
         </Modal>
     )

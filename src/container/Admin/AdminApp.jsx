@@ -5,8 +5,6 @@ import { useSelector } from "react-redux";
 import { adminFullnameSelector, avatarImageAdminSelector } from "../../redux/selector";
 import { setAvatarImageAdmin } from "../../redux/Slice/CookieSlice";
 
-
-
 function AdminApp() {
 
     const adminFullname = useSelector(adminFullnameSelector)
@@ -14,9 +12,9 @@ function AdminApp() {
 
 
     return (
-        <div className="bg-gray-100 h-dvh flex flex-row">
-            <div className="w-1/6 border-r-2 px-3 py-5 flex flex-col items-center  overflow-y-auto">
-                <img className="h-8 mb-4" src="/logo-mini.png" />
+        <div className="bg-gray-100 sm:h-dvh md:min-h-screen lg:h-dvh xl:h-dvh flex sm:flex-col md:flex-row lg:flex-row xl:flex-row sm:justify-center md:justify-center">
+            <div className="sm:hidden md:hidden lg:w-1/6 xl:w-1/6 sm:border-2 md:border-none lg:border-r-2 xl:border-r-2 px-3 sm:py-2 md:py-5 lg:py-8 xl:py-10 flex sm:flex-row md:flex-row lg:flex-col xl:flex-col sm:justify-center md:justify-center sm:gap-2 md:gap-2 items-center">
+                <img className="h-8 mb-4 sm:hidden md:hidden" src="/logo-mini.png" />
                 {avatar && avatar != "null" ? (
                     <img
                         src={avatar}
@@ -31,7 +29,7 @@ function AdminApp() {
                     />
                 )}
                 <p className="text-lg font-semibold">{adminFullname}</p>
-                <div className="w-full border-t-2 border-gray-300 mt-2 mb-1"></div>
+                <div className="sm:hidden md:hidden w-full border-t-2 border-gray-300 mt-2 mb-1"></div>
                 <div className="mt-3 w-full">
                     <NavLink to="/admin/dashboard" className={(navData) => (navData.isActive ? 'active' : 'link')}>
                         <div className="flex flex-row items-center rounded-md py-[10px] px-3">
@@ -95,9 +93,9 @@ function AdminApp() {
                     </NavLink>
                 </div>
             </div>
-            <div className="w-5/6 overflow-y-auto">
+            <div className="sm:w-full md:w-full lg:w-5/6 xl:w-5/6 overflow-y-auto">
                 <HeaderAdmin />
-                <div className="px-12 mt-10 h-full pb-12">
+                <div className="sm:px-4 md:px-5 lg:px-12 xl:px-12 mt-10 h-full pb-12">
                     <Outlet />
                 </div>
             </div>

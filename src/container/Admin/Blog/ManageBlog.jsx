@@ -82,32 +82,32 @@ function ManageBlog() {
                 <button className="py-2 px-3 bg-black text-white font-semibold rounded-md" onClick={handleOpenModalCreate}><i className="fa-solid fa-plus mr-2"></i>Tạo Blog</button>
             </div>
             <div className="w-full h-40 bg-white mt-10">
-                <table class="min-w-full bg-white">
+                <table className="min-w-full bg-white">
                     <thead>
-                        <tr class="bg-gray-50 text-gray-500 text-sm leading-normal">
-                            <th class="py-3 px-6 text-left">Tác giả</th>
-                            <th class="py-3 px-6 text-left">Tiêu đề</th>
-                            <th class="py-3 px-6 text-center">Ngày xuất bản</th>
-                            <th class="py-3 px-6 text-center">Hành động</th>
+                        <tr className="bg-gray-50 text-gray-500 text-sm leading-normal">
+                            <th className="py-3 px-6 text-left">Tác giả</th>
+                            <th className="py-3 px-6 text-left">Tiêu đề</th>
+                            <th className="py-3 px-6 text-center">Ngày xuất bản</th>
+                            <th className="py-3 px-6 text-center">Hành động</th>
                         </tr>
                     </thead>
-                    <tbody class="text-gray-600 text-sm font-normal">
+                    <tbody className="text-gray-600 text-sm font-normal">
                         {
                             blogs && blogs.length > 0 &&
                             blogs.map((blog, index) => {
                                 return (
-                                    <tr class="border-b border-gray-200 hover:bg-gray-100" key={index}>
-                                        <td class="py-3 px-6 text-left whitespace-nowrap">
-                                            <div class="flex items-center gap-2">
+                                    <tr className="border-b border-gray-200 hover:bg-gray-100" key={index}>
+                                        <td className="py-3 px-6 text-left whitespace-nowrap">
+                                            <div className="flex items-center gap-2">
                                                 <img className="h-10 rounded-full border" src={blog.admin && blog.admin.avatarImage ? blog.admin && blog.admin.avatarImage : "/avaMale.png"} />
-                                                <span class="font-medium">{blog.admin && blog.admin.fullname}</span>
+                                                <span className="font-medium">{blog.admin && blog.admin.fullname}</span>
                                             </div>
                                         </td>
-                                        <td class="py-3 px-6 text-left">
-                                            <span class="text-sm">{blog.title}</span>
+                                        <td className="py-3 px-6 text-left">
+                                            <span className="text-sm">{blog.title}</span>
                                         </td>
-                                        <td class="py-3 px-6 text-center">
-                                            <span class="bg-green-200 text-gray-700 py-1 px-3 rounded-full text-sm">{format(blog.publishDate, "dd/MM/yyyy")}</span>
+                                        <td className="py-3 px-6 text-center">
+                                            <span className="bg-green-200 text-gray-700 py-1 px-3 rounded-full text-sm">{format(blog.publishDate, "dd/MM/yyyy")}</span>
                                         </td>
                                         <td className="py-3 px-6 text-center">
                                             <div className="flex item-center justify-center relative">

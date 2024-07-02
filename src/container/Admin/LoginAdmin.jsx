@@ -64,16 +64,16 @@ function LoginAdmin() {
 
     return (
         <div className="login-container w-full h-screen relative" style={{ background: `center no-repeat url("/backLogin.png")` }}>
-            <div className="absolute h-full w-[80%] left-0" style={{ background: `center no-repeat url("/backLoginSVG.svg")` }}>
-                <div className="absolute left-[8%] top-[35%]">
+            <div className="absolute h-full sm:w-full md:w-full lg:w-[80%] xl:w-[80%] left-0" style={{ background: `center no-repeat url("/backLoginSVG.svg")` }}>
+                <div className="absolute left-[8%] top-[35%] sm:hidden md:hidden">
                     <img className="h-[70px]" src="/logoWhite.png" />
                     <p className="text-white font-bold text-6xl mt-10">Cùng Bạn Đến</p>
                     <p className="text-white font-bold text-6xl mt-2">Mọi Hành Trình</p>
                 </div>
             </div>
-            <div className="bg-white w-[30%] h-full absolute right-[8%] px-4 py-3">
-                <h2 className="text-center text-2xl font-bold">Đăng nhập</h2>
-                <img className="h-[350px] w-full mb-2" src="/logoLogin.svg" />
+            <div className="bg-white sm:w-[80%] md:w-[80%] lg:w-[30%] xl:w-[30%] sm:h-auto md:h-auto lg:h-full xl:h-full absolute sm:rounded-lg md:rounded-lg sm:right-[10%] sm:bottom-[25%]  md:right-[10%] md:bottom-[15%] lg:right-[8%] xl:right-[8%] px-4 py-3">
+                <h2 className="text-center text-2xl font-bold sm:mb-5">Đăng nhập</h2>
+                <img className="h-[350px] w-full mb-2 sm:hidden" src="/logoLogin.svg" />
                 <form onSubmit={handleLogin}>
                     <div className='' controlId="formBasicUsername">
                         <label className='font-semibold text-gray-500'>Tên đăng nhập</label>

@@ -15,7 +15,7 @@ function ModalViewAllImg({ showModalViewImg, handleCloseModalViewImg, allImgCar 
                 fullscreen
             >
                 <Modal.Header className='border-none justify-end mt-3'>
-                    <i className="fa-solid fa-x fa-2xl cursor-pointer" onClick={() => handleCloseModalViewImg()}></i>
+                    <i className="fa-solid fa-x fa-2xl cursor-pointer" onClick={handleCloseModalViewImg}></i>
                 </Modal.Header>
                 <ImageGallery showIndex={true} showFullscreenButton={false} showThumbnails={false} items={allImgCar && allImgCar.length > 0 && allImgCar}></ImageGallery>
             </Modal>

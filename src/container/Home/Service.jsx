@@ -11,9 +11,9 @@ function Service() {
     }
 
     return (
-        <div className="sm:px-3 md:px-5 lg:px-32 sm:py-16 md:py-24 lg:py-20">
+        <div className="sm:px-3 md:px-5 lg:px-16 xl:px-32 sm:py-16 md:py-24 md:pb-[600px] lg:py-20 xl:py-20">
             <div className='text-center mb-20'>
-                <h1 className='h-12 sm:text-3xl md:text-4xl lg:text-5xl font-bold'>Dịch Vụ Của Mioto</h1>
+                <h1 className='h-12 sm:text-3xl md:text-4xl lg:text-5xl xl:text-5xl font-bold'>Dịch Vụ Của Mioto</h1>
             </div>
             <div className="sm:hidden flex justify-between relative">
                 <div className="relative">
@@ -27,7 +27,7 @@ function Service() {
                         <button className="mt-10 px-20 py-4 rounded-lg bg-main text-white font-semibold">Thuê xe tự lái</button>
                     </div>
                 </div>
-                <div className="absolute md:top-[100%] lg:top-[50px] right-0">
+                <div className="absolute md:top-[100%] lg:top-[50px] xl:top-[50px] right-0">
                     <img src="/service2.png" />
                     <div className="absolute right-12 bottom-10 text-right ">
                         <h1 className="text-4xl font-bold mb-3 text-white">Tài xế của bạn đã đến!</h1>
@@ -40,7 +40,7 @@ function Service() {
                 </div>
             </div>
 
-            <div className="sm:block md:hidden lg:hidden">
+            <div className="sm:block md:hidden lg:hidden xl:hidden">
                 <Slider {...settings}>
                     <div className="relative">
                         <img src="/service1.png" className="h-[250px]" />

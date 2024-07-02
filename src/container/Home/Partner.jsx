@@ -41,15 +41,15 @@ function Partner() {
         ]
     };
     return (
-        <div className="sm:px-3 md:px-5 lg:px-32 py-20 bg-gray-100">
+        <div className="sm:px-3 md:px-5 lg:px-16 xl:px-32 py-20 bg-gray-100">
             <div className='text-center mb-20'>
-                <h1 className='h-12 sm:text-3xl md:text-4xl lg:text-5xl font-bold'>Hành Trình Của Bạn Luôn Được Bảo Vệ</h1>
+                <h1 className='h-12 sm:text-3xl md:text-4xl lg:text-5xl xl:text-5xl font-bold'>Hành Trình Của Bạn Luôn Được Bảo Vệ</h1>
             </div>
             <Slider {...settings}>
                 {images &&
                     images.map((item, index) => (
                         <div key={index} className='overflow-hidden outline-none'>
-                            <img src={item} className='mx-auto cursor-pointer sm:h-[160px] md:h-[130px] lg:h-[150px] sm:w-[320px] md:w-[230px] lg:w-[300px] bg-white border-2 border-gray-200 rounded-xl' alt={`Image ${index}`} />
+                            <img src={item} className='mx-auto cursor-pointer sm:h-[160px] md:h-[130px] lg:h-[130px] xl:h-[150px] sm:w-[320px] md:w-[230px] lg:w-[250px] xl:w-[300px] bg-white border-2 border-gray-200 rounded-xl' alt={`Image ${index}`} />
                         </div>
                     ))}
             </Slider>

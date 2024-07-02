@@ -36,6 +36,7 @@ import ModalAddBlog from './container/Admin/Blog/ModalAddBlog';
 import ModalViewBlog from './container/Admin/Blog/ModalViewBlog';
 import ModalDeleteComponent from './container/Common/ModalDeleteComponent';
 import MenuLeft from './container/Common/MenuLeft';
+import MenuLeftAdmin from './container/Common/MenuLeftAdmin';
 
 const DetailBlog = lazy(() =>
   import('./features/blog/DetailBlog')
@@ -344,6 +345,7 @@ function App() {
 
 
       <MenuLeft handleOpenRegisterModal={handleOpenRegisterModal} handleOpenLoginModal={handleOpenLoginModal} />
+      <MenuLeftAdmin />
       {loading && <LoadingComponent />}
       {modalViewUser && <ModalViewUser />}
       {modalEditUser && <ModalEditUser />}

@@ -45,11 +45,11 @@ function MyAddress({ handleOpenModalAddress }) {
 
     return (
         <>
-            <h1 className="text-4xl font-bold">Địa chỉ của tôi</h1>
+            <h1 className="sm:text-2xl md:text-3xl lg:text-4xl xl:text-4xl font-bold">Địa chỉ của tôi</h1>
             <div className="rounded-xl mt-4 bg-white p-4">
-                <div className="flex justify-between">
-                    <h1 className="text-3xl font-bold">Địa chỉ đã lưu</h1>
-                    <div className="p-2 px-3 cursor-pointer rounded-lg font-bold text-md border border-black" onClick={() => handleOpenModalAddress()}>
+                <div className="flex sm:flex-col md:flex-row lg:flex-row xl:flex-row sm:gap-2 justify-between">
+                    <h1 className="sm:text-xl md:text-2xl lg:text-3xl xl:text-3xl font-bold">Địa chỉ đã lưu</h1>
+                    <div className="sm:text-center p-2 px-3 cursor-pointer rounded-lg font-bold text-md border border-black" onClick={() => handleOpenModalAddress()}>
                         Thêm địa chỉ mới
                     </div>
                 </div>
@@ -74,9 +74,6 @@ function MyAddress({ handleOpenModalAddress }) {
                                                 </div>
                                             </div>
                                             <div className="flex flex-row gap-2">
-                                                {/* <div className="cursor-pointer">
-                                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.46001 21.24L21.25 6.45L17.55 2.75L2.75999 17.54L2.75 21.25L6.46001 21.24Z" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path><path d="M15.3496 6.12988L17.8696 8.64987" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path></svg>
-                                                </div> */}
                                                 <div className="cursor-pointer" onClick={() => hanldeDeleteAddress(item.addressId)}>
                                                     <i className="fa-regular fa-trash-can fa-lg"></i>
                                                 </div>

@@ -152,16 +152,16 @@ function Promotion({ handleOpenModal }) {
     };
 
     return (
-        <div className="sm:px-3 md:px-5 lg:px-32 sm:py-48 md:py-36 lg:py-20 h-[620px]">
+        <div className="sm:px-3 md:px-5 lg:px-16 xl:px-32 sm:py-48 md:py-36 lg:py-20 xl:py-20 h-[620px]">
             <div className='text-center mb-20'>
-                <h1 className='sm:h-18 md:h-12 lg:h-12 sm:text-3xl md:text-4xl lg:text-5xl font-bold'>Chương Trình Khuyến Mãi</h1>
-                <h2 className='h-6 sm:text-xl md:text-2xl lg:text-2xl font-medium sm:mt-4 md:mt-4 lg:mt-5'>Nhận nhiều ưu đãi hấp dẫn từ Mioto</h2>
+                <h1 className='sm:h-18 md:h-12 lg:h-12 xl:h-12 sm:text-3xl md:text-4xl lg:text-5xl xl:text-5xl font-bold'>Chương Trình Khuyến Mãi</h1>
+                <h2 className='h-6 sm:text-xl md:text-2xl lg:text-2xl xl:text-2xl font-medium sm:mt-4 md:mt-4 lg:mt-5 xl:mt-5'>Nhận nhiều ưu đãi hấp dẫn từ Mioto</h2>
             </div>
             <Slider {...settings}>
                 {images &&
                     images.map((item, index) => (
-                        <div key={index} className='sm:h-[250px] md:h-[250px] lg:h-[275px] px-2 overflow-hidden outline-none border-none' onClick={() => handleOpenModal(item.url, item.title, item.content)}>
-                            <img src={item.url} className='rounded-xl sm:h-[250px] md:h-[250px] lg:h-[275px] cursor-pointer' alt={`Image ${index}`} />
+                        <div key={index} className='sm:h-[250px] md:h-[250px] lg:h-[235px] xl:h-[275px] px-2 overflow-hidden outline-none border-none' onClick={() => handleOpenModal(item.url, item.title, item.content)}>
+                            <img src={item.url} className='rounded-xl sm:h-[250px] md:h-[250px] lg:h-[235px] xl:h-[275px] cursor-pointer' alt={`Image ${index}`} />
                         </div>
                     ))}
             </Slider>

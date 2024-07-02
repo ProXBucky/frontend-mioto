@@ -1,4 +1,4 @@
-import { NavLink, Outlet } from "react-router-dom"
+import { NavLink, Outlet, useNavigate } from "react-router-dom"
 import "./style.css"
 import { useDispatch } from "react-redux";
 import { setModalDelete, setModalObjectDelete } from "../../redux/Slice/ModalSlice";
@@ -6,16 +6,21 @@ import { setModalDelete, setModalObjectDelete } from "../../redux/Slice/ModalSli
 
 function AccountInformation() {
     const dispatch = useDispatch()
+    const navigate = useNavigate()
 
     const handleDeleteModal = () => {
         dispatch(setModalDelete())
         dispatch(setModalObjectDelete("logout-user"))
     }
 
+    const handleOnchange = (e) => {
+        navigate(e.target.value)
+    }
+
     return (
-        <div className="px-32 py-20 bg-gray-100 flex flex-row">
-            <div className="w-1/3">
-                <h2 className="text-4xl font-bold">Xin chào bạn!</h2>
+        <div className="sm:px-3 md:px-5 lg:px-16 xl:px-32 sm:py-10 md:py-10 lg:py-20 xl:py-20 bg-gray-100 flex sm:flex-col md:flex-col lg:flex-row xl:flex-row">
+            <div className="w-1/3 sm:hidden md:hidden">
+                <h2 className="lg:text-3xl xl:text-4xl font-bold">Xin chào bạn!</h2>
                 <div className="py-5 pr-5">
                     <NavLink to="/account/myaccount" className={(navData) => (navData.isActive ? 'active' : 'link')}>
                         <div className="flex flex-row gap-1 items-center border-t-2 py-3 px-3">
@@ -73,7 +78,55 @@ function AccountInformation() {
                     </div>
                 </div>
             </div>
-            <div className="w-2/3">
+            <div className="w-full lg:hidden xl:hidden">
+                <h2 className="sm:text-2xl md:text-3xl text-center font-bold">Xin chào bạn!</h2>
+                <div className="py-3">
+                    <select className="w-full py-3 px-3 border-2 rounded-lg sm:text-lg md:text-xl font-semibold outline-none" onChange={(e) => handleOnchange(e)}>
+                        <option className="py-2 border-2" value="/account/myaccount">
+                            <div className="flex flex-row gap-1 items-center border-t-2 py-3 px-3">
+                                <p>Tài khoản của tôi</p>
+                            </div>
+                        </option>
+                        <option className="py-2 border-2" value="/account/favorite">
+                            <div className="flex flex-row gap-1 items-center border-t-2 py-3 px-3">
+                                <p>Xe yêu thích</p>
+                            </div>
+                        </option>
+                        <option className="py-2 border-2" value="/account/mycar">
+                            <div className="flex flex-row gap-1 items-center border-t-2 py-3 px-3">
+                                <p>Xe của tôi</p>
+                            </div>
+                        </option>
+                        <option className="py-2 border-2" value="/account/order">
+                            <div className="flex flex-row gap-1 items-center border-t-2 py-3 px-3">
+                                <p>Đơn đặt xe</p>
+                            </div>
+                        </option>
+                        <option className="py-2 border-2" value="/account/mytrip">
+                            <div className="flex flex-row gap-1 items-center border-t-2 py-3 px-3">
+                                <p>Chuyến của tôi</p>
+                            </div>
+
+                        </option>
+                        <option className="py-2 border-2" value="/account/myvoucher">
+                            <div className="flex flex-row gap-1 items-center border-t-2 py-3 px-3">
+                                <p>Quà tặng</p>
+                            </div>
+                        </option>
+                        <option className="py-2 border-2" value="/account/myaddress">
+                            <div className="flex flex-row gap-1 items-center border-t-2 py-3 px-3">
+                                <p>Địa chỉ của tôi</p>
+                            </div>
+                        </option>
+                        <option className="py-2 border-2" value="/account/changepassword">
+                            <div className="flex flex-row gap-1 items-center border-t-2 py-3 px-3">
+                                <p>Đổi mật khẩu</p>
+                            </div>
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div className="sm:w-full md:w-full lg:w-2/3 xl:w-2/3">
                 <Outlet />
             </div>
         </div>

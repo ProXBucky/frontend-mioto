@@ -31,6 +31,7 @@ function ChartBarBrand({ data }) {
     };
 
     const options = {
+        responsive: true,
         indexAxis: 'x', // Sắp xếp theo trục x
         plugins: {
             datalabels: {
@@ -70,9 +71,36 @@ function ChartBarBrand({ data }) {
     };
 
     return (
-        <div style={{ height: '400px', width: '100%' }}>
-            <Bar data={chartData} options={options} />
-        </div>
+        <>
+            <div className='sm:hidden md:h-[500px] lg:h-[400px] xl:h-[400px] w-full'>
+                <Bar data={chartData} options={options} />
+            </div>
+            <div className='md:hidden lg:hidden xl:hidden w-full'>
+                <table className="min-w-full bg-white border border-gray-300">
+                    <thead>
+                        <tr>
+                            <th className="px-2 py-2 border-b border-gray-300 bg-gray-200 text-center text-sm font-medium text-gray-600">Hãng xe</th>
+                            <th className="px-2 py-2 border-b border-gray-300 bg-gray-200 text-center text-sm font-medium text-gray-600">Đăng ký</th>
+                            <th className="px-2 py-2 border-b border-gray-300 bg-gray-200 text-center text-sm font-medium text-gray-600">Lượt thuê</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {
+                            data.res && data.res.brand && data.res.brand.length > 0 &&
+                            data.res.brand.map((item, index) => {
+                                return (
+                                    <tr key={index}>
+                                        <td className="px-4 py-2 border-b text-sm text-center border-gray-300">{data.res && data.res.brand && data.res.brand[index]}</td>
+                                        <td className="px-4 py-2 border-b text-sm text-center border-gray-300">{data.res && data.res.count && data.res.count[index]}</td>
+                                        <td className="px-4 py-2 border-b text-sm text-center border-gray-300">{data.res1 && data.res1.countRent && data.res1.countRent[index]}</td>
+                                    </tr>
+                                )
+                            })
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </>
     );
 };
 

@@ -291,13 +291,13 @@ function RegisterSelfDrive({ type }) {
     }, [])
 
     return (
-        <div className={`${type == "create" ? "px-32" : ""} bg-gray-100 border-t-2`} >
+        <div className={`${type == "create" ? "sm:px-3 md:px-5 lg:px-10 xl:px-32" : ""} bg-gray-100 border-t-2`} >
             <div className='border-none justify-start mt-3 flex flex-row items-center gap-2 cursor-pointer font-bold' onClick={() => backto()}>
                 <i className="fa-solid fa-chevron-left fa-xl"></i>
                 <p>Quay lại</p>
             </div>
-            <div className='p-4 pt-2 flex flex-col items-center gap-4' >
-                <h1 className='text-center text-3xl font-bold'>
+            <div className='sm:p-0 md:p-4 lg:p-4 xl:p-4 pt-2 flex flex-col items-center gap-4' >
+                <h1 className='text-center sm:text-xl md:text-2xl lg:text-3xl xl:text-3xl font-bold'>
                     {
                         type == "create" && <p>Đăng ký xe</p>
                     }
@@ -309,9 +309,9 @@ function RegisterSelfDrive({ type }) {
                     }
 
                 </h1>
-                <div className={`${type == "create" ? "w-2/3" : "w-full"} border-2 bg-white p-5`} >
+                <div className={`${type == "create" ? "sm:w-full md:w-full lg:w-2/3 xl:w-2/3" : "w-full"} border-2 bg-white sm:p-3 md:p-5 lg:p-5 xl:p-5`} >
                     <div className=''>
-                        <div className="flex flex-col gap-3 w-1/2">
+                        <div className="flex flex-col gap-3 sm:w-full md:w-1/2 lg:w-1/2 xl:w-1/2">
                             <label className='font-bold text-xl'>Biển số xe</label>
                             {
                                 type == "create" &&
@@ -350,9 +350,9 @@ function RegisterSelfDrive({ type }) {
                                 {
                                     type == "create" && <p className="text-red-500 text-sm">Lưu ý: Các thông tin cơ bản sẽ không thể thay đổi sau khi đăng kí.</p>
                                 }
-                                <div className="flex flex-wrap gap-14">
+                                <div className="flex flex-wrap sm:gap-5 md:gap-14 lg:gap-14 xl:gap-14">
                                     <ChooseSelector handleChange1={handleChange1} />
-                                    <div className="flex-col flex w-[calc(50%-30px)]">
+                                    <div className="flex-col flex sm:w-full md:w-[calc(50%-30px)] lg:w-[calc(50%-30px)] xl:w-[calc(50%-30px)]">
                                         <label htmlFor="year">Năm sản xuất</label>
                                         <select id="year" className='p-2 border mt-2 rounded-md cursor-pointer' name="namSanXuat" onChange={handleChange}>
                                             <option value="">Chọn năm</option>
@@ -363,7 +363,7 @@ function RegisterSelfDrive({ type }) {
                                     </div>
 
 
-                                    <div className="flex-col flex w-[calc(50%-30px)]">
+                                    <div className="flex-col flex sm:w-full md:w-[calc(50%-30px)] lg:w-[calc(50%-30px)] xl:w-[calc(50%-30px)]">
                                         <label>Truyền động</label>
                                         <select id="transition" className='p-2 border mt-2 rounded-md cursor-pointer' name="truyenDong" onChange={handleChange}>
                                             <option className="cursor-pointer" value="">Chọn truyền động</option>
@@ -372,7 +372,7 @@ function RegisterSelfDrive({ type }) {
                                         </select>
                                     </div>
 
-                                    <div className="flex-col flex w-[calc(50%-30px)]">
+                                    <div className="flex-col flex sm:w-full md:w-[calc(50%-30px)] lg:w-[calc(50%-30px)] xl:w-[calc(50%-30px)]">
                                         <label>Loại nhiên liệu</label>
                                         <select id="fuelType" className='p-2 border mt-2 rounded-md cursor-pointer' name="loaiNhienLieu" onChange={handleChange}>
                                             <option className="cursor-pointer" value="">Chọn nhiên liệu</option>
@@ -382,7 +382,7 @@ function RegisterSelfDrive({ type }) {
                                         </select>
                                     </div>
 
-                                    <div className="flex-col flex w-[calc(50%-30px)]">
+                                    <div className="flex-col flex sm:w-full md:w-[calc(50%-30px)] lg:w-[calc(50%-30px)] xl:w-[calc(50%-30px)]">
                                         <label htmlFor="capacity">Số ghế</label>
                                         <select id="capacity" className='p-2 border mt-2 rounded-md cursor-pointer' name="soGhe" onChange={handleChange}>
                                             <option value="">Chọn số ghế</option>
@@ -408,32 +408,32 @@ function RegisterSelfDrive({ type }) {
                                     type == "create" && <p className="text-red-500 text-sm">Lưu ý: Các thông tin cơ bản sẽ không thể thay đổi sau khi đăng kí.</p>
                                 }
                                 <div className="flex flex-wrap gap-14">
-                                    <div className="flex-col flex w-[calc(50%-30px)]">
+                                    <div className="flex-col flex sm:w-full md:w-[calc(50%-30px)] lg:w-[calc(50%-30px)] xl:w-[calc(50%-30px)]">
                                         <label htmlFor="brand">Hãng xe</label>
                                         <span className="text-xl font-semibold">{formData1.hangXe}</span>
                                     </div>
 
-                                    <div className="flex-col flex w-[calc(50%-30px)]">
+                                    <div className="flex-col flex sm:w-full md:w-[calc(50%-30px)] lg:w-[calc(50%-30px)] xl:w-[calc(50%-30px)]">
                                         <label htmlFor="model">Mẫu xe</label>
                                         <span className="text-xl font-semibold">{formData1.mauXe}</span>
                                     </div>
-                                    <div className="flex-col flex w-[calc(50%-30px)]">
+                                    <div className="flex-col flex sm:w-full md:w-[calc(50%-30px)] lg:w-[calc(50%-30px)] xl:w-[calc(50%-30px)]">
                                         <label htmlFor="year">Năm sản xuất</label>
                                         <span className="text-xl font-semibold">{formData.namSanXuat}</span>
                                     </div>
 
 
-                                    <div className="flex-col flex w-[calc(50%-30px)]">
+                                    <div className="flex-col flex sm:w-full md:w-[calc(50%-30px)] lg:w-[calc(50%-30px)] xl:w-[calc(50%-30px)]">
                                         <label>Truyền động</label>
                                         <span className="text-xl font-semibold">{formData.truyenDong}</span>
                                     </div>
 
-                                    <div className="flex-col flex w-[calc(50%-30px)]">
+                                    <div className="flex-col flex sm:w-full md:w-[calc(50%-30px)] lg:w-[calc(50%-30px)] xl:w-[calc(50%-30px)]">
                                         <label>Loại nhiên liệu</label>
                                         <span className="text-xl font-semibold">{formData.loaiNhienLieu}</span>
                                     </div>
 
-                                    <div className="flex-col flex w-[calc(50%-30px)]">
+                                    <div className="flex-col flex sm:w-full md:w-[calc(50%-30px)] lg:w-[calc(50%-30px)] xl:w-[calc(50%-30px)]">
                                         <label htmlFor="capacity">Số ghế</label>
                                         <span className="text-xl font-semibold">{formData.soGhe}</span>
                                     </div>
@@ -476,7 +476,7 @@ function RegisterSelfDrive({ type }) {
                                             featureArray && featureArray.length > 0 &&
                                             featureArray.map((item, index) => {
                                                 return (
-                                                    <div className="squaredThree have-label cursor-pointer border w-[calc(33%-10px)]" key={index}>
+                                                    <div className="squaredThree have-label cursor-pointer border sm:w-[calc(50%-10px)]  md:w-[calc(33%-10px)] lg:w-[calc(33%-10px)] xl:w-[calc(33%-10px)]" key={index}>
                                                         <input id={item.featureCode} type="checkbox"
                                                             className="hidden" name="filter-car-feature" value={item.featureCode}
                                                             onChange={handleCheckboxChange}
@@ -510,7 +510,7 @@ function RegisterSelfDrive({ type }) {
                                             featureArray && featureArray.length > 0 &&
                                             featureArray.map((item, index) => {
                                                 return (
-                                                    <div className="squaredThree have-label cursor-pointer border w-[calc(33%-10px)]" key={index}>
+                                                    <div className="squaredThree have-label cursor-pointer border sm:w-[calc(50%-10px)]  md:w-[calc(33%-10px)] lg:w-[calc(33%-10px)] xl:w-[calc(33%-10px)]" key={index}>
                                                         <div className="thumbnail flex flex-col items-center justify-center py-2">
                                                             <img loading="lazy" className="img-fluid h-7" src={item.featureIcon}
                                                                 alt={item.featureName} />
@@ -726,7 +726,7 @@ function RegisterSelfDrive({ type }) {
                                             key={index}
                                             src={imageUrl}
                                             alt={`Image ${index}`}
-                                            style={{ maxWidth: '300px', maxHeight: '250px', margin: '15px' }}
+                                            style={{ maxWidth: '200px', maxHeight: '150px', margin: '10px' }}
                                         />
                                     )
                                 })

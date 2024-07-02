@@ -9,9 +9,9 @@ export default {
       screens: {
         'sm': { 'max': '640px' },   // smartphone
         'md': { 'min': '641px', 'max': '1024px' }, // tablet
-        'lg': { 'min': '1025px' }, // laptop
-        // 'lg': { 'min': '1025px', 'max': '1280px' }, // laptop
-        // 'xl': { 'min': '1281px' },  // larger laptop or desktop
+        'lg': { 'min': '1025px', 'max': '1280px' }, // laptop
+        'xl': { 'min': '1281px' },  // larger laptop or desktop
+        // 'lg': { 'min': '1025px' }, // laptop
       },
       colors: {
         main: '#5fcf86',

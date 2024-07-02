@@ -7,21 +7,21 @@ import { format } from 'date-fns';
 function ReviewByCity({ cityName, allReview }) {
     const location = useSelector(locationSelector)
     return (
-        <div className={`px-32 py-10 bg-gray-50 `}>
+        <div className={`sm:px-3 md:px-5 lg:px-16 xl:px-32 py-10 bg-gray-50 `}>
             <div className='text-center mb-20'>
-                <h1 className='h-12 text-5xl font-bold'>Những nhận xét tại {cityName}</h1>
+                <h1 className='h-12 sm:text-3xl md:text-4xl lg:text-5xl xl:text-5xl font-bold'>Những nhận xét tại {cityName}</h1>
             </div>
             <div className="flex flex-wrap gap-3 mt-3 justify-center">
                 {
                     allReview && allReview.length > 0 ?
                         allReview.map((item, index) => {
                             return (
-                                <div className="rounded-lg border border-gray-500 p-4 flex justify-between w-[32.3%] bg-white" key={index}>
-                                    <div className="w-5/6">
-                                        <div className="flex flex-row gap-4">
+                                <div className="rounded-lg border border-gray-500 p-4 flex justify-between sm:w-full md:w-[48%] lg:w-[32.3%] xl:w-[32.3%] bg-white" key={index}>
+                                    <div className="w-full">
+                                        <div className="flex flex-row sm:gap-2 md:gap-3 lg:gap-3 xl:gap-4">
                                             <img src={item.user && item.user.avatarImage ? item.user.avatarImage : "/avaMale.png"} className="rounded-full h-20 border" />
                                             <div className="flex flex-col justify-center gap-2">
-                                                <h2 className="text-xl font-semibold">{item.user && item.user.fullname}</h2>
+                                                <h2 className="sm:text-base md:text-lg lg:text-xl xl:text-xl font-semibold">{item.user && item.user.fullname}</h2>
                                                 <div>
                                                     <Rating
                                                         initialRating={item.reviewScore && item.reviewScore}
@@ -32,16 +32,15 @@ function ReviewByCity({ cityName, allReview }) {
                                                         direction="ltr"
                                                     />
                                                 </div>
+                                                <div className="w-full flex items-center text-gray-500 text-md">
+                                                    <span>{format(item.reviewDate && item.reviewDate, 'dd/MM/yyyy')}</span>
+                                                </div>
                                             </div>
                                         </div>
                                         <div className="mt-3 text-gray-500">
                                             {item.content && item.content}
                                         </div>
                                     </div>
-                                    <div className="w-1/6 flex items-center justify-end text-gray-500 text-md">
-                                        <span>{format(item.reviewDate && item.reviewDate, 'dd/MM')}</span>
-                                    </div>
-
                                 </div>
                             )
                         })

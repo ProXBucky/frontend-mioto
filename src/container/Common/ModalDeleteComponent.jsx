@@ -83,7 +83,7 @@ function ModalDeleteComponent() {
                 <i className="fa-solid fa-xmark fa-2xl cursor-pointer" onClick={() => handleCloseModalDelete()}></i>
             </Modal.Header>
             <Modal.Body className='p-4 flex flex-col justify-center items-center'>
-                <h2 className='font-bold sm:text-2xl md:text-3xl mb-12'>Bạn muốn đăng xuất ?</h2>
+                <h2 className='font-bold sm:text-2xl md:text-3xl lg:text-3xl xl:text-3xl mb-12'>Bạn muốn đăng xuất ?</h2>
                 <button className='sm:w-1/2 md:w-1/3 rounded-lg p-3 bg-main text-white font-semibold' onClick={handleLogout}>Đăng xuất</button>
             </Modal.Body>
 

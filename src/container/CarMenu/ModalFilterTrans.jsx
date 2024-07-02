@@ -39,7 +39,7 @@ function ModalFilterTrans({ selectedTrans, handleRadioChangeTrans, handleApplyFi
                             selectedTrans === "Tất cả" ?
                                 <i className={`fa-solid fa-circle-dot text-green-400`}></i>
                                 :
-                                <i class="fa-regular fa-circle text-gray-300"></i>
+                                <i className="fa-regular fa-circle text-gray-300"></i>
                         }
                         <p className='text-lg'>
                             Tất cả
@@ -60,7 +60,7 @@ function ModalFilterTrans({ selectedTrans, handleRadioChangeTrans, handleApplyFi
                             selectedTrans === "Số tự động" ?
                                 <i className={`fa-solid fa-circle-dot text-green-400`}></i>
                                 :
-                                <i class="fa-regular fa-circle text-gray-300"></i>
+                                <i className="fa-regular fa-circle text-gray-300"></i>
                         }
                         <p className='text-lg'>
                             Số tự động
@@ -81,7 +81,7 @@ function ModalFilterTrans({ selectedTrans, handleRadioChangeTrans, handleApplyFi
                             selectedTrans === "Số sàn" ?
                                 <i className={`fa-solid fa-circle-dot text-green-400`}></i>
                                 :
-                                <i class="fa-regular fa-circle text-gray-300"></i>
+                                <i className="fa-regular fa-circle text-gray-300"></i>
                         }
                         <p className='text-lg'>
                             Số sàn

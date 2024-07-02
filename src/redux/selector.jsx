@@ -18,6 +18,7 @@ export const appLoadSelector = (state) => state.app.appLoad
 export const loadingSelector = (state) => state.app.loading
 export const componentLoadSelector = (state) => state.app.componentLoad
 export const menuLeftSelector = (state) => state.app.menuLeft
+export const menuLeftAdminSelector = (state) => state.app.menuLeftAdmin
 
 
 

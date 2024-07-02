@@ -65,9 +65,9 @@ function DetailTrip() {
                 <p>Quay lại</p>
             </div>
             <div className='p-4 bg-white border-2 rounded-lg'>
-                <div className='flex flex-row justify-between'>
-                    <h2 className='font-bold text-2xl mb-2'>{`${rent.car && rent.car.model && rent.car.model} ${rent.car && rent.car.modelYear && rent.car.modelYear} - ${rent.car && rent.car.plateNumber && rent.car.plateNumber}`}</h2>
-                    <label className='font-semibold'>
+                <div className='flex sm:flex-col md:flex-col lg:flex-row xl:flex-row justify-between'>
+                    <h2 className='font-bold sm:text-lg md:text-xl lg:text-2xl xl:text-2xl mb-2'>{`${rent.car && rent.car.model && rent.car.model} ${rent.car && rent.car.modelYear && rent.car.modelYear} - ${rent.car && rent.car.plateNumber && rent.car.plateNumber}`}</h2>
+                    <label className='font-semibold mb-2'>
                         {rent.rentStatus === "cancel" &&
                             <>
                                 <i className="fa-solid fa-circle ml-1 text-red-500"></i>
@@ -100,8 +100,8 @@ function DetailTrip() {
                         }
                     </label>
                 </div>
-                <div className='flex flex-row w-full border-t-2 pt-4'>
-                    <div className='w-1/2'>
+                <div className='flex sm:flex-col md:flex-row lg:flex-row xl:flex-row w-full border-t-2 pt-4'>
+                    <div className='sm:w-full md:w-1/2 lg:w-1/2 xl:w-1/2'>
                         <img src={rent.car && rent.car.images && rent.car.images[0].imageLink} className='rounded-xl' />
                         <div className="w-full flex justify-center gap-2 mt-3">
                             <div className="flex flex-row justify-center items-center gap-1">
@@ -118,11 +118,11 @@ function DetailTrip() {
                             </div>
                         </div>
                     </div>
-                    <div className='w-1/2 pl-10'>
+                    <div className='sm:w-full md:w-1/2 lg:w-1/2 xl:w-1/2 sm:pl-0 md:pl-10 lg:pl-10 xl:pl-10'>
                         <h3 className='font-semibold text-lg'>Thời gian thuê xe</h3>
                         <div className='flex flex-col gap-2 w-full mt-2'>
-                            {rent && rent.rentBeginDate && <p>Bắt đầu: {format(rent.rentBeginDate, 'PPPP', { locale: viLocale })}</p>}
-                            {rent && rent.rentBeginDate && <p>Kết thúc: {format(rent.rentEndDate, 'PPPP', { locale: viLocale })}</p>}
+                            {rent && rent.rentBeginDate && <p>Bắt đầu: {format(rent.rentBeginDate, 'PPP', { locale: viLocale })}</p>}
+                            {rent && rent.rentBeginDate && <p>Kết thúc: {format(rent.rentEndDate, 'PPP', { locale: viLocale })}</p>}
 
                         </div>
                         <div className="flex flex-row justify-between">
@@ -148,16 +148,16 @@ function DetailTrip() {
 
                 <div className='mt-3 w-full'>
                     <h3 className='font-semibold text-lg mb-2'>Bảng giá</h3>
-                    <div className='flex flex-row items-end'>
-                        <div className="w-3/5">
-                            <div className=" bg-gray-100 flex flex-col p-4 gap-3 border">
+                    <div className='flex sm:flex-col md:flex-row lg:flex-row xl:flex-row items-end'>
+                        <div className="sm:w-full md:w-3/5 lg:w-3/5 xl:w-3/5">
+                            <div className=" bg-gray-100 flex flex-col p-3 gap-3 border">
                                 <div>
                                     <div className="flex justify-between">
                                         <p>Đơn giá thuê</p>
                                         <span className="font-semibold">{formatMoney(rent.car && rent.car.pricePerDay * 1000)} / ngày</span>
                                     </div>
                                     <div className="flex justify-between">
-                                        <p>Bảo hiểm thuê xe</p>
+                                        <p>Bảo hiểm xe</p>
                                         <span className="font-semibold">{formatMoney(rent.car && rent.car.pricePerDay / 10 * 1000)}/ ngày</span>
                                     </div>
                                 </div>
@@ -196,7 +196,7 @@ function DetailTrip() {
                                 </div>
                             </div>
                         </div>
-                        <div className='w-2/5 pl-5'>
+                        <div className='sm:w-full md:w-2/5 lg:w-2/5 xl:w-2/5 sm:pl-0 md:pl-5 lg:pl-5 xl:pl-5 sm:mt-4'>
                             <div className="rounded-lg flex flex-col gap-3 text-center">
                                 <div className="flex flex-col font-semibold text-lg w-full bg-gray-100 p-3">
                                     <p className='text-gray-400 uppercase text-sm font-bold mb-2'>Tiền cọc</p>

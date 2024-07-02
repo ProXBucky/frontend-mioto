@@ -4,7 +4,8 @@ const initialState = {
     appLoad: false,
     loading: false,
     componentLoad: false,
-    menuLeft: false
+    menuLeft: false,
+    menuLeftAdmin: false
 };
 
 export const AppSlice = createSlice({
@@ -26,8 +27,11 @@ export const AppSlice = createSlice({
         setMenuLeft(state) {
             state.menuLeft = !state.menuLeft
         },
+        setMenuLeftAdmin(state) {
+            state.menuLeftAdmin = !state.menuLeftAdmin
+        },
     },
 });
 
-export const { setAppLoad, setShowLoading, setHideLoading, setConponentLoad, setMenuLeft } = AppSlice.actions;
+export const { setAppLoad, setShowLoading, setHideLoading, setConponentLoad, setMenuLeft, setMenuLeftAdmin } = AppSlice.actions;
 

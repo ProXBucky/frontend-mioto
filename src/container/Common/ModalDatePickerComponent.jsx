@@ -20,7 +20,6 @@ function ModalDatePickerComponent({ showDateModal, handleCloseDateModal }) {
     return (
         <Modal
             size="lg"
-            className=''
             aria-labelledby="contained-modal-title-vcenter"
             centered
             show={showDateModal} onHide={handleCloseDateModal}

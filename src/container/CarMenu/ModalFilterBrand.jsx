@@ -30,7 +30,7 @@ function ModalFilterBrand({ selectedBrand, handleRadioChange, handleApplyFilter 
                 <h2 className='font-semibold text-2xl text-center'>Hãng xe</h2>
                 <i className="fa-solid fa-xmark fa-2xl cursor-pointer" onClick={handleCloseModal}></i>
             </Modal.Header>
-            <Modal.Body className='p-4 flex justify-between'>
+            <Modal.Body className='sm:p-2 md:p-4 lg:p-4 xl:p-4 flex justify-between'>
                 <div className='w-1/2 px-6'>
                     {brandsLeftColumn.map((brand, index) => (
                         <div key={index} className='mt-2'>
@@ -47,7 +47,7 @@ function ModalFilterBrand({ selectedBrand, handleRadioChange, handleApplyFilter 
                                     selectedBrand === brand.name ?
                                         <i className={`fa-solid fa-circle-dot text-green-400`}></i>
                                         :
-                                        <i class="fa-regular fa-circle text-gray-300"></i>
+                                        <i className="fa-regular fa-circle text-gray-300"></i>
                                 }
                                 {
                                     brand.logo &&
@@ -76,7 +76,7 @@ function ModalFilterBrand({ selectedBrand, handleRadioChange, handleApplyFilter 
                                     selectedBrand === brand.name ?
                                         <i className={`fa-solid fa-circle-dot text-green-400`}></i>
                                         :
-                                        <i class="fa-regular fa-circle text-gray-300"></i>
+                                        <i className="fa-regular fa-circle text-gray-300"></i>
                                 }
                                 <img className='h-6' src={brand.logo} />
                                 <p className='text-lg'>

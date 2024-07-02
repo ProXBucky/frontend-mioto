@@ -43,7 +43,7 @@ function ModalViewVoucher({ showModalVoucher, handleCloseModalVoucher, allVouche
                                                 isExpired && item.status === "NotUsed" ?
                                                     <button className={`rounded-md p-2 px-4 font-bold text-white bg-main`} onClick={() => handleChooseVoucher(item.voucher)}>Áp dụng</button>
                                                     :
-                                                    <p className='rounded-md p-2 px-4 font-bold text-gray-500 bg-gray-200 cursor-not-allowed'>Đã hết</p>
+                                                    <p className='rounded-md p-2 sm:px-1 md:px-4 lg:px-4 xl:px-4 text-center font-bold text-gray-500 bg-gray-200 cursor-not-allowed'>Đã hết</p>
 
                                             }
                                         </div>

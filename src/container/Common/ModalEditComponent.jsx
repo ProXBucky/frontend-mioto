@@ -85,6 +85,7 @@ function ModalEditComponent({ showModalEdit, handleCloseEdit }) {
             aria-labelledby="contained-modal-title-vcenter"
             centered
             show={showModalEdit} onHide={handleCloseEdit}
+            responsive
         >
             <Modal.Header className='border-none justify-end mt-3'>
                 <i className="fa-solid fa-xmark fa-2xl cursor-pointer" onClick={() => handleCloseEdit()}></i>
@@ -92,8 +93,8 @@ function ModalEditComponent({ showModalEdit, handleCloseEdit }) {
             <Modal.Body className='p-4 pt-2' >
                 <Form onSubmit={handleSubmit}>
                     <h1 className='text-center text-2xl font-semibold mb-5'>Cập nhật thông tin</h1>
-                    <div className='flex flex-row gap-5'>
-                        <div className='w-1/2'>
+                    <div className='flex sm:flex-col md:flex-col lg:flex-row xl:flex-row gap-5'>
+                        <div className='sm:w-full md:w-full lg:w-1/2 xl:w-1/2'>
                             <Form.Group className='' controlId="formBasicFullname">
                                 <Form.Label className='font-semibold text-gray-500'>Họ và tên</Form.Label>
                                 <Form.Control
@@ -145,22 +146,26 @@ function ModalEditComponent({ showModalEdit, handleCloseEdit }) {
                                 />
                             </Form.Group>
                         </div>
-                        <div className='text-center w-1/2'>
+                        <div className='text-center sm:w-full md:w-full lg:w-1/2 xl:w-1/2'>
                             <label htmlFor="avaInput" className="rounded-2xl bg-main p-3 mb-2 text-white font-semibold">
                                 Chọn ảnh
                             </label>
                             <input type="file" id="avaInput" className='hidden' onChange={handleFileChange} />
-                            {selectedFile && (
-                                <AvatarEditor
-                                    ref={setEditor}
-                                    image={selectedFile}
-                                    width={250}
-                                    height={250}
-                                    border={50}
-                                    color={[0, 0, 0, 0.3]} // Màu nền của khung cắt
-                                    scale={1}
-                                />
-                            )}
+                            <div className='flex justify-center w-full border-2'>
+                                {selectedFile && (
+                                    <div className='sm:h-1/2 md:h-1/2 lg:w-full xl:w-full'>
+                                        <AvatarEditor
+                                            ref={setEditor}
+                                            image={selectedFile}
+                                            width={250}
+                                            height={250}
+                                            border={50}
+                                            color={[0, 0, 0, 0.5]} // Màu nền của khung cắt
+                                            scale={1}
+                                        />
+                                    </div>
+                                )}
+                            </div>
                         </div>
                     </div>
 

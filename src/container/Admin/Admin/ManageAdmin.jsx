@@ -124,44 +124,44 @@ function ManageAdmin() {
                     onChange={(e) => setSearchTerm(e.target.value)}
                 />
                 <div className="w-full h-40 bg-white mt-6">
-                    <table class="min-w-full bg-white">
+                    <table className="min-w-full bg-white">
                         <thead>
-                            <tr class="bg-gray-50 text-gray-500 text-sm leading-normal">
-                                <th class="py-3 px-6 text-left">Họ tên</th>
-                                <th class="py-3 px-6 text-left">Tên đăng nhập</th>
-                                <th class="py-3 px-6 text-left">Ngày sinh</th>
-                                <th class="py-3 px-6 text-left">Số điện thoại</th>
-                                <th class="py-3 px-6 text-center">Email</th>
-                                <th class="py-3 px-6 text-center">Chức vụ</th>
-                                <th class="py-3 px-6 text-center">Hành động</th>
+                            <tr className="bg-gray-50 text-gray-500 text-sm leading-normal">
+                                <th className="py-3 px-6 text-left">Họ tên</th>
+                                <th className="py-3 px-6 text-left">Tên đăng nhập</th>
+                                <th className="py-3 px-6 text-left">Ngày sinh</th>
+                                <th className="py-3 px-6 text-left">Số điện thoại</th>
+                                <th className="py-3 px-6 text-center">Email</th>
+                                <th className="py-3 px-6 text-center">Chức vụ</th>
+                                <th className="py-3 px-6 text-center">Hành động</th>
                             </tr>
                         </thead>
-                        <tbody class="text-gray-600 text-sm font-normal">
+                        <tbody className="text-gray-600 text-sm font-normal">
                             {
                                 filteredAdmin && filteredAdmin.length > 0 ?
                                     filteredAdmin.map((admin, index) => {
                                         return (
-                                            <tr class="border-b border-gray-200 hover:bg-gray-100" key={index}>
-                                                <td class="py-3 px-6 text-left whitespace-nowrap">
-                                                    <div class="flex items-center gap-2">
+                                            <tr className="border-b border-gray-200 hover:bg-gray-100" key={index}>
+                                                <td className="py-3 px-6 text-left whitespace-nowrap">
+                                                    <div className="flex items-center gap-2">
                                                         <img className="h-10 rounded-full border" src={admin.avatarImage ? admin.avatarImage : "/avaMale.png"} />
-                                                        <span class="font-medium">{admin.fullname}</span>
+                                                        <span className="font-medium">{admin.fullname}</span>
                                                     </div>
                                                 </td>
-                                                <td class="py-3 px-6 text-left whitespace-nowrap">
-                                                    <span class="font-medium">{admin.username}</span>
+                                                <td className="py-3 px-6 text-left whitespace-nowrap">
+                                                    <span className="font-medium">{admin.username}</span>
                                                 </td>
-                                                <td class="py-3 px-6 text-left whitespace-nowrap">
-                                                    <span class="font-medium">{admin.dob ? format(admin.dob, "dd/MM/yyyy") : "Không có"}</span>
+                                                <td className="py-3 px-6 text-left whitespace-nowrap">
+                                                    <span className="font-medium">{admin.dob ? format(admin.dob, "dd/MM/yyyy") : "Không có"}</span>
                                                 </td>
-                                                <td class="py-3 px-6 text-left">
+                                                <td className="py-3 px-6 text-left">
                                                     <span>{admin.phone}</span>
                                                 </td>
-                                                <td class="py-3 px-6 text-center">
-                                                    <span class="text-sm">{admin.email}</span>
+                                                <td className="py-3 px-6 text-center">
+                                                    <span className="text-sm">{admin.email}</span>
                                                 </td>
-                                                <td class="py-3 px-6 text-center">
-                                                    <span class="bg-green-200 text-gray-700 py-1 px-3 rounded-full text-sm">{admin.role === "Staff" ? "Nhân viên" : "Quản trị viên"}</span>
+                                                <td className="py-3 px-6 text-center">
+                                                    <span className="bg-green-200 text-gray-700 py-1 px-3 rounded-full text-sm">{admin.role === "Staff" ? "Nhân viên" : "Quản trị viên"}</span>
                                                 </td>
                                                 <td className="py-3 px-6 text-center">
                                                     <div className="flex item-center justify-center relative">

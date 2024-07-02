@@ -33,6 +33,7 @@ const ChartStatusRent = ({ data }) => {
 
 
     const options = {
+        responsive: true,
         plugins: {
             datalabels: {
                 color: 'white',
@@ -55,7 +56,7 @@ const ChartStatusRent = ({ data }) => {
     };
 
     return (
-        <div className="chart-container">
+        <div className="chart-container flex h-auto sm:max-w-[300px] md:max-w-[600px] lg:max-w-[400px] xl:max-w-[600px]">
             <Pie data={chartData} options={options} />
         </div>
     );

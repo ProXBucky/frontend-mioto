@@ -26,18 +26,18 @@ function LoggedOutNavbar({ handleOpenLoginModal, handleOpenRegisterModal }) {
                 </Link>
             </li>
 
-            <li className="sm:hidden md:hidden lg:block">
+            <li className="sm:hidden md:hidden lg:block xl:block">
                 <a className="nav-link font-bold text-sm cursor-pointer" onClick={() => handleOpenRegisterModal()}>
                     Đăng ký
                 </a>
             </li>
 
-            <li className="sm:hidden md:hidden lg:block border border-black py-3 px-4 rounded-lg font-bold text-sm cursor-pointer" onClick={() => handleOpenLoginModal()} >
+            <li className="sm:hidden md:hidden lg:block xl:block border border-black py-3 px-4 rounded-lg font-bold text-sm cursor-pointer" onClick={() => handleOpenLoginModal()} >
                 <a className="nav-link">
                     Đăng nhập
                 </a>
             </li>
-            <li className="sm:block md:block lg:hidden">
+            <li className="sm:block md:block lg:hidden xl:hidden">
                 <i className="fa-solid fa-bars fa-xl cursor-pointer hover:opacity-80" onClick={handleOpenMenu}></i>
             </li>
         </ul>
@@ -92,7 +92,7 @@ function LoggedInNavbar() {
                     </div>
                 </Link>
             </li>
-            <li className="sm:block md:block lg:hidden">
+            <li className="sm:block md:block lg:hidden xl:hidden">
                 <i className="fa-solid fa-bars fa-xl cursor-pointer hover:opacity-80" onClick={handleOpenMenu}></i>
             </li>
         </ul>
@@ -109,12 +109,12 @@ function Header({ handleOpenLoginModal, handleOpenRegisterModal }) {
     const token = useSelector(tokenSelector);
     return (
         <>
-            <nav className="h-[88px] sm:px-7 md:px-8 lg:px-32">
+            <nav className="h-[88px] sm:px-7 md:px-8 lg:px-16 xl:px-32">
                 <div className="flex flex-row" >
                     <div className='w-1/4 h-[88px] flex items-center'>
                         <Link to="/" className="">
                             <img src='/logo-full.png' className='h-8 sm:hidden' />
-                            <img src='/logo-mini.png' className='h-8 md:hidden lg:hidden' />
+                            <img src='/logo-mini.png' className='h-8 md:hidden lg:hidden xl:hidden' />
                         </Link>
                     </div>
                     {token ? <LoggedInNavbar /> : <LoggedOutNavbar handleOpenLoginModal={handleOpenLoginModal} handleOpenRegisterModal={handleOpenRegisterModal} />}

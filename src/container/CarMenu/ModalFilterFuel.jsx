@@ -39,7 +39,7 @@ function ModalFilterFuel({ selectedFuel, handleRadioChangeFuel, handleApplyFilte
                             selectedFuel === "Tất cả" ?
                                 <i className={`fa-solid fa-circle-dot text-green-400`}></i>
                                 :
-                                <i class="fa-regular fa-circle text-gray-300"></i>
+                                <i className="fa-regular fa-circle text-gray-300"></i>
                         }
 
                         <p className='text-lg'>
@@ -61,7 +61,7 @@ function ModalFilterFuel({ selectedFuel, handleRadioChangeFuel, handleApplyFilte
                             selectedFuel === "Xăng" ?
                                 <i className={`fa-solid fa-circle-dot text-green-400`}></i>
                                 :
-                                <i class="fa-regular fa-circle text-gray-300"></i>
+                                <i className="fa-regular fa-circle text-gray-300"></i>
                         }
                         <p className='text-lg'>
                             Xăng
@@ -82,7 +82,7 @@ function ModalFilterFuel({ selectedFuel, handleRadioChangeFuel, handleApplyFilte
                             selectedFuel === "Dầu diesel" ?
                                 <i className={`fa-solid fa-circle-dot text-green-400`}></i>
                                 :
-                                <i class="fa-regular fa-circle text-gray-300"></i>
+                                <i className="fa-regular fa-circle text-gray-300"></i>
                         }
                         <p className='text-lg'>
                             Dầu diesel
@@ -103,7 +103,7 @@ function ModalFilterFuel({ selectedFuel, handleRadioChangeFuel, handleApplyFilte
                             selectedFuel === "Điện" ?
                                 <i className={`fa-solid fa-circle-dot text-green-400`}></i>
                                 :
-                                <i class="fa-regular fa-circle text-gray-300"></i>
+                                <i className="fa-regular fa-circle text-gray-300"></i>
                         }
                         <p className='text-lg'>
                             Điện

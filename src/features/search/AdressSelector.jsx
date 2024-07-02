@@ -60,17 +60,17 @@ function AddressSelector({ handleChangeAddress }) {
 
     return (
         <>
-            <div className="flex justify-between">
-                <div className='w-1/4'>
-                    <label className="text-gray-500 font-semibold">Tỉnh/thành phố</label>
+            <div className="flex sm:flex-col md:flex-row lg:flex-row xl:flex-row sm:gap-3 justify-between">
+                <div className='sm:w-full md:w-1/4 lg:w-1/4 xl:w-1/4'>
+                    <label className="text-gray-500 font-semibold">Tỉnh/T.phố</label>
                     <select onChange={(e) => handleProvinceChange(e)} className="w-full block px-2 py-2 bg-white border rounded-md focus:outline-none">
-                        <option value="">Chọn tỉnh/thành phố</option>
+                        <option value="">Chọn tỉnh/tphố</option>
                         {provinces.map((province) => (
                             <option key={province.province_id} value={`${province.province_id},${province.province_name}`}>{province.province_name}</option>
                         ))}
                     </select>
                 </div>
-                <div className='w-1/4'>
+                <div className='sm:w-full md:w-1/4 lg:w-1/4 xl:w-1/4'>
                     <label className="text-gray-500 font-semibold">Quận/huyện</label>
                     <select onChange={(e) => handleDistrictChange(e)} className="w-full block px-2 py-2 bg-white border rounded-md focus:outline-none">
                         <option value="">Chọn quận/huyện</option>
@@ -79,7 +79,7 @@ function AddressSelector({ handleChangeAddress }) {
                         ))}
                     </select>
                 </div>
-                <div className='w-1/4'>
+                <div className='sm:w-full md:w-1/4 lg:w-1/4 xl:w-1/4'>
                     <label className="text-gray-500 font-semibold">Phường/xã</label>
                     <select onChange={(e) => handleWardChange(e)} className="w-full block px-2 py-2 bg-white border rounded-md focus:outline-none">
                         <option value="">Chọn phường/xã</option>

@@ -1,14 +1,14 @@
 function RegisterBanner({ handleRegistCar }) {
     return (
-        <div className="px-32 pb-20">
+        <div className="sm:px-3 md:px-5 lg:px-16 xl:px-32 pb-20">
             <div className="p-10 text-black text-base h-[700px] rounded-2xl relative "
                 style={{
                     backgroundImage: `url("/backRegister.png")`
                 }}>
-                <div className="w-[53%] p-14 pr-24 absolute bottom-10" style={{
+                <div className="sm:w-[90%] md:w-[90%] lg:w-[66%] xl:w-[53%] sm:p-4 md:p-14 lg:p-14 xl:p-14 sm:pr-4 md:pr-24 lg:pr-24 xl:pr-24 absolute sm:bottom-[100px] sm:left-[5%]  bottom-10" style={{
                     background: `url("/backWhite.png") no-repeat`
                 }}>
-                    <h2 className="text-4xl font-bold mb-3"><b className="text-main">Cho Thuê Xe</b> Trên Mioto Để Gia Tăng Thu Nhập Đến 10tr/Tháng!</h2>
+                    <h2 className="sm:text-2xl md:text-4xl lg:text-4xl xl:text-4xl font-bold mb-3"><b className="text-main">Cho Thuê Xe</b> Trên Mioto Để Gia Tăng Thu Nhập Đến 10tr/Tháng!</h2>
                     <p>
                         Mioto không thu phí khi bạn đăng xe. Bạn chỉ chia sẻ phí dịch vụ với Mioto khi có giao dịch cho thuê thành công.
                     </p>

@@ -29,23 +29,25 @@ function MenuLeft({ handleOpenLoginModal, handleOpenRegisterModal }) {
                 fullname ?
                     <div className="w-full h-screen flex justify-center items-center">
                         <ul className="flex flex-col justify-end items-center w-full">
-                            <li className="py-4 text-center w-full rounded-lg bg-white font-bold sm:text-base md:text-xl" >
-                                <div className='flex flex-row gap-2 justify-center items-center cursor-pointer'>
-                                    {avatarImage && avatarImage != "null" ? (
-                                        <img
-                                            src={avatarImage}
-                                            className="h-10 rounded-full border"
-                                            alt="User avatar"
-                                        />
-                                    ) : (
-                                        <img
-                                            src="/avaMale.png"
-                                            className="h-10 rounded-full border"
-                                            alt="Default avatar for male users"
-                                        />
-                                    )}
-                                    <label className='font-semibold cursor-pointer'>{fullname}</label>
-                                </div>
+                            <li className="py-4 hover:text-main text-center w-full rounded-lg bg-white font-bold sm:text-base md:text-xl cursor-pointer" onClick={handleCloseMenu}>
+                                <Link to={`/account/myaccount`} className="nav-link">
+                                    <div className='flex flex-row gap-2 justify-center items-center cursor-pointer'>
+                                        {avatarImage && avatarImage != "null" ? (
+                                            <img
+                                                src={avatarImage}
+                                                className="h-10 rounded-full border"
+                                                alt="User avatar"
+                                            />
+                                        ) : (
+                                            <img
+                                                src="/avaMale.png"
+                                                className="h-10 rounded-full border"
+                                                alt="Default avatar for male users"
+                                            />
+                                        )}
+                                        <label className='font-semibold cursor-pointer'>{fullname}</label>
+                                    </div>
+                                </Link>
                             </li>
                             <li className="py-4 hover:text-main text-center w-full rounded-lg bg-white font-bold sm:text-base md:text-xl cursor-pointer" onClick={handleCloseMenu} >
                                 <Link to="/account/mycar" className="nav-link font-bold sm:text-base md:text-xl">

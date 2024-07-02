@@ -74,17 +74,17 @@ function MyOrder() {
 
     return (
         <>
-            <h1 className="text-4xl font-bold mb-4">Danh sách thuê xe</h1>
+            <h1 className="sm:text-2xl md:text-3xl lg:text-4xl xl:text-4xl font-bold mb-4">Danh sách thuê xe</h1>
             {
                 listOrders && listOrders.length > 0 ?
                     listOrders.map((order, index) => {
                         return (
                             <div className="w-full bg-white p-3 rounded-xl border-2 mb-4" key={index}>
-                                <div className="w-full flex flex-row" >
-                                    <div className="w-1/3">
-                                        <img src={order.car.images && order.car.images[0] && order.car.images[0].imageLink} className="rounded-xl" />
+                                <div className="w-full flex sm:flex-col md:flex-row lg:flex-row xl:flex-row" >
+                                    <div className="sm:w-full sm:flex sm:justify-center md:w-1/3 lg:w-1/3 xl:w-1/3">
+                                        <img src={order.car.images && order.car.images[0] && order.car.images[0].imageLink} className="rounded-xl sm:w-2/3" />
                                     </div>
-                                    <div className="w-2/3 flex flex-col px-6">
+                                    <div className="sm:w-full md:w-2/3 lg:w-2/3 xl:w-2/3 flex flex-col sm:mt-3 sm:px-1 md:px-6 lg:px-6 xl:px-6">
                                         <span className="font-semibold text-xl text-center">
                                             {`${order.car.model && order.car.model} ${order.car.modelYear && order.car.modelYear}`}
                                         </span>
@@ -105,7 +105,7 @@ function MyOrder() {
                                                 <span className="font-semibold text-sm">{order.car.fuelType}</span>
                                             </div>
                                         </div>
-                                        <div className="flex flex-row justify-between mt-2">
+                                        <div className="flex flex-row justify-between mt-3">
                                             <div className="w-1/2 flex flex-col justify-center items-center gap-3">
                                                 <div className="flex justify-center flex-col items-center gap-2">
                                                     <h3 className="text-md font-semibold">Người đặt</h3>
@@ -114,7 +114,7 @@ function MyOrder() {
                                                     <p className="text-xs">SĐT: {order.user && order.user.phone && order.user.phone}</p>
                                                 </div>
                                             </div>
-                                            <div className="w-1/2 flex flex-col items justify-center">
+                                            <div className="w-1/2 flex flex-col justify-center">
                                                 <div className="w-full flex justify-center items-center flex-col">
                                                     <p className="text-md font-semibold">Chi phí ước tính</p>
                                                     <span className="font-semibold text-xl">
@@ -136,43 +136,43 @@ function MyOrder() {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="text-base border-t-2 pt-2 mt-4 flex justify-between">
+                                <div className="text-base border-t-2 pt-2 mt-4 flex sm:flex-col md:flex-row lg:flex-row xl:flex-row">
                                     {order.rentStatus === "cancel" &&
-                                        <div>
+                                        <div className="sm:w-full md:w-full lg:w-full xl:w-1/2">
                                             Trạng thái:
                                             <i className="fa-solid fa-circle ml-1 text-red-500"></i>
                                             <span className="ml-1">Chuyến xe đã bị hủy</span>
                                         </div>
                                     }
                                     {order.rentStatus === "finish" &&
-                                        <div>
+                                        <div className="sm:w-full md:w-full lg:w-full xl:w-1/2">
                                             Trạng thái:
                                             <i className="fa-solid fa-circle ml-1 text-blue-500"></i>
                                             <span className="ml-1">Chuyến xe đã hoàn thành</span>
                                         </div>
                                     }
                                     {order.rentStatus === "pending" &&
-                                        <div>
+                                        <div className="sm:w-full md:w-full lg:w-full xl:w-1/2">
                                             Trạng thái:
                                             <i className="fa-solid fa-circle ml-1 text-yellow-400"></i>
                                             <span className="ml-1"> Đang chờ xác nhận từ Bạn</span>
                                         </div>
                                     }
                                     {order.rentStatus === "ongoing" &&
-                                        <div>
+                                        <div className="sm:w-full md:w-full lg:w-full xl:w-1/2">
                                             Trạng thái:
                                             <i className="fa-solid fa-circle ml-1 text-green-400"></i>
                                             <span className="ml-1">Chuyến xe đang diễn ra</span>
                                         </div>
                                     }
                                     {order.rentStatus === "ready" &&
-                                        <div>
+                                        <div className="sm:w-full md:w-full lg:w-full xl:w-1/2">
                                             Trạng thái:
                                             <i className="fa-solid fa-circle ml-1 text-pink-300"></i>
                                             <span className="ml-1">Chuyến xe đã sẵn sàng</span>
                                         </div>
                                     }
-                                    <div className="text-base"><i className="fa-regular fa-calendar-days mr-1 text-black"></i>
+                                    <div className="sm:w-full md:w-full lg:w-full xl:w-1/2 sm:text-left text-right text-base"><i className="fa-regular fa-calendar-days mr-1 text-black"></i>
                                         <span className="mr-2">Ngày đặt:</span>
                                         {`${format(order.rentBeginDate && order.rentBeginDate, "dd/MM/yyyy")} - ${format(order.rentEndDate && order.rentEndDate, "dd/MM/yyyy")}`}
                                     </div>

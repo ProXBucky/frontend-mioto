@@ -18,7 +18,7 @@ function ChooseSelector({ handleChange1 }) {
 
     return (
         <>
-            <div className="flex-col flex w-[calc(50%-30px)]">
+            <div className="flex-col flex sm:w-full md:w-[calc(50%-30px)] lg:w-[calc(50%-30px)] xl:w-[calc(50%-30px)]">
                 <label htmlFor="brand">Hãng xe</label>
                 <select id="brand" value={selectedBrand} onChange={handleBrandChange} className='p-2 border mt-2 rounded-md cursor-pointer'>
                     <option value="">Chọn hãng xe</option>
@@ -28,7 +28,7 @@ function ChooseSelector({ handleChange1 }) {
                 </select>
             </div>
 
-            <div className="flex-col flex w-[calc(50%-30px)]">
+            <div className="flex-col flex sm:w-full md:w-[calc(50%-30px)] lg:w-[calc(50%-30px)] xl:w-[calc(50%-30px)]">
                 <label htmlFor="model">Mẫu xe</label>
                 <select id="model" value={selectedModel} onChange={handleModelChange} className='p-2 border mt-2 rounded-md cursor-pointer'>
                     <option value="">Chọn mẫu xe</option>

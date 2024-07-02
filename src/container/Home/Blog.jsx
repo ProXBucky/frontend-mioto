@@ -46,9 +46,9 @@ function Blog() {
     }
 
     return (
-        <div className="sm:px-3 md:px-5 lg:px-32 py-20">
+        <div className="sm:px-3 md:px-5 lg:px-16 xl:px-32 py-20">
             <div className='text-center mb-20'>
-                <h1 className='h-12 sm:text-3xl md:text-4xl lg:text-5xl font-bold'>MIOTO Blog</h1>
+                <h1 className='h-12 sm:text-3xl md:text-4xl lg:text-5xl xl:text-5xl font-bold'>MIOTO Blog</h1>
             </div>
             <div className="flex flex-row gap-5 sm:hidden md:hidden">
                 <div className="flex flex-col w-1/3 gap-4">
@@ -76,7 +76,7 @@ function Blog() {
                     </div>
                 </div>
             </div>
-            <div className="sm:block md:block lg:hidden">
+            <div className="sm:block md:block lg:hidden xl:hidden">
                 <Slider {...settings}>
                     {
                         blogs && blogs.length > 0 &&

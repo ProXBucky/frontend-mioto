@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { format, differenceInDays } from 'date-fns';
 import { DayPicker } from 'react-day-picker';
 import 'react-day-picker/dist/style.css';
@@ -31,12 +31,25 @@ function DatePicker({ setBeDate, setEnDate }) {
         }
     }
 
+    //responsive
+    const [numberOfMonths, setNumberOfMonths] = useState(2);
+    useEffect(() => {
+        const updateNumberOfMonths = () => {
+            if (window.innerWidth <= 1023) {
+                setNumberOfMonths(1);
+            } else {
+                setNumberOfMonths(2);
+            }
+        };
+        updateNumberOfMonths();
+    }, [])
+
 
     return (
         <div>
             <DayPicker
                 className='h-80'
-                numberOfMonths={2}
+                numberOfMonths={numberOfMonths}
                 id="test"
                 mode="range"
                 defaultMonth={pastMonth}
@@ -45,8 +58,10 @@ function DatePicker({ setBeDate, setEnDate }) {
                 locale={viLocale}
                 disabled={{ before: today }}
             />
-            <div className='text-lg font-semibold'>{footer}</div>
-            <div>Số ngày thuê: {totalDays} ngày</div>
+            <div className='sm:px-5'>
+                <div className='text-lg font-semibold'>{footer}</div>
+                <div>Số ngày thuê: {totalDays} ngày</div>
+            </div>
         </div>
     );
 }
