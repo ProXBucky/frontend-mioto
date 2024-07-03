@@ -159,6 +159,20 @@ const getAllUser = async (token, page, limit) => {
     }
 };
 
+const getAllUserByAdmin = async (token) => {
+    try {
+        const response = await axios.get(`${API_URL}/api/user/get-all-by-admin`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        return response.data;
+    } catch (error) {
+        console.error('Failed to fetch users:', error);
+        return { users: [] }
+    }
+};
+
 const getAllAdmin = async (token, page, limit) => {
     try {
         const response = await axios.get(`${API_URL}/api/admin?page=${page}&limit=${limit}`, {
@@ -303,5 +317,5 @@ const statisticIncome = async (token) => {
 export {
     getAllCarFeature, checkLikeCar, getAllCarLiked, getAllReviewOfCar, getAllReviewByCity, getReviewScore, getAllVoucherByUserId, getInformationUserById, getAllTripByUserId,
     getTripByRentId, checkStatusRent, getAllUser, getAllAdmin, getAllVoucher, getAllReport, getAllPendingTrip, getAllFinishedTrip, getAllOrderByUserId,
-    getAllBlogs, getOneBlogByBlogId, statistic, countTrip, getAllBlogsWithLimit, statisticIncome
+    getAllBlogs, getOneBlogByBlogId, statistic, countTrip, getAllBlogsWithLimit, statisticIncome, getAllUserByAdmin
 }

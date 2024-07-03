@@ -77,7 +77,7 @@ function ManageBlog() {
 
     return (
         <div className="w-full">
-            <div className="flex justify-between">
+            <div className="flex sm:flex-col md:flex-row lg:flex-row xl:flex-row sm:gap-4 justify-between">
                 <h2 className="font-bold text-xl">Blog</h2>
                 <button className="py-2 px-3 bg-black text-white font-semibold rounded-md" onClick={handleOpenModalCreate}><i className="fa-solid fa-plus mr-2"></i>Tạo Blog</button>
             </div>
@@ -85,9 +85,9 @@ function ManageBlog() {
                 <table className="min-w-full bg-white">
                     <thead>
                         <tr className="bg-gray-50 text-gray-500 text-sm leading-normal">
-                            <th className="py-3 px-6 text-left">Tác giả</th>
+                            <th className="py-3 px-6 text-left sm:hidden">Tác giả</th>
                             <th className="py-3 px-6 text-left">Tiêu đề</th>
-                            <th className="py-3 px-6 text-center">Ngày xuất bản</th>
+                            <th className="py-3 px-6 text-center sm:hidden">Ngày xuất bản</th>
                             <th className="py-3 px-6 text-center">Hành động</th>
                         </tr>
                     </thead>
@@ -97,7 +97,7 @@ function ManageBlog() {
                             blogs.map((blog, index) => {
                                 return (
                                     <tr className="border-b border-gray-200 hover:bg-gray-100" key={index}>
-                                        <td className="py-3 px-6 text-left whitespace-nowrap">
+                                        <td className="py-3 px-6 text-left whitespace-nowrap sm:hidden">
                                             <div className="flex items-center gap-2">
                                                 <img className="h-10 rounded-full border" src={blog.admin && blog.admin.avatarImage ? blog.admin && blog.admin.avatarImage : "/avaMale.png"} />
                                                 <span className="font-medium">{blog.admin && blog.admin.fullname}</span>
@@ -106,11 +106,11 @@ function ManageBlog() {
                                         <td className="py-3 px-6 text-left">
                                             <span className="text-sm">{blog.title}</span>
                                         </td>
-                                        <td className="py-3 px-6 text-center">
-                                            <span className="bg-green-200 text-gray-700 py-1 px-3 rounded-full text-sm">{format(blog.publishDate, "dd/MM/yyyy")}</span>
+                                        <td className="py-3 px-6 text-center sm:hidden">
+                                            <span className="bg-green-200 text-gray-700 py-1 px-3 rounded-full text-sm sm:hidden">{format(blog.publishDate, "dd/MM/yyyy")}</span>
                                         </td>
                                         <td className="py-3 px-6 text-center">
-                                            <div className="flex item-center justify-center relative">
+                                            <div className="relative w-full">
                                                 <i
                                                     className="fa-solid fa-ellipsis fa-xl cursor-pointer"
                                                     onClick={() => toggleDropdown(index)}

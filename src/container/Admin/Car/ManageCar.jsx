@@ -105,19 +105,21 @@ function ManageCar() {
 
     return (
         <div className="w-full">
-            <div className="flex justify-between">
+            <div className="flex sm:flex-col md:flex-row lg:flex-row xl:flex-row sm:gap-4 justify-between">
                 <h2 className="font-bold text-xl">Phương tiện</h2>
                 <button className="py-2 px-3 bg-black text-white font-semibold rounded-md" onClick={handleOpenModalCreate}><i className="fa-solid fa-plus mr-2"></i>Thêm phương tiện</button>
             </div>
-            <CitySelect value={selectedCity} onChange={handleCityChange} />
+            <div className="sm:w-full md:w-1/4 lg:w-1/4 xl:w-1/4">
+                <CitySelect value={selectedCity} onChange={handleCityChange} />
+            </div>
 
             <div className="flex flex-wrap gap-2 mt-4 pb-10">
                 {
                     carArray && carArray.length > 0 ?
                         carArray.map((car, index) => {
                             return (
-                                <div className="w-[calc(24%)] bg-white p-3 rounded-xl border-2 cursor-pointer" key={index}>
-                                    <div className="relative">
+                                <div className="sm:w-full md:w-[calc(49%)] lg:w-[calc(32%)] w-[calc(24%)] bg-white p-3 rounded-xl border-2 cursor-pointer" key={index}>
+                                    <div className="relative flex justify-center">
                                         {
                                             car.mortgage === 0 &&
                                             <span className="rent flex flex-row items-center gap-1 text-[10px] rounded-full px-2 py-1 text-white absolute top-[5%] left-[5%]" style={{ background: "rgba(12, 12, 12, .5)" }}>Miễn thế chấp <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.06654 3.41201L3.30916 4.68289C3.50222 4.88033 3.81878 4.88389 4.01622 4.69084C4.21367 4.49778 4.21723 4.18122 4.02417 3.98378L2.73171 2.66192C4.08658 1.32458 5.9467 0.5 7.99999 0.5C12.1421 0.5 15.5 3.8579 15.5 8.00004C15.5 10.0709 14.6612 11.9454 13.3035 13.3031L11.9871 11.9806C11.7923 11.7849 11.4757 11.7842 11.28 11.979C11.0843 12.1738 11.0836 12.4904 11.2784 12.6861L12.5495 13.9631C11.2875 14.9276 9.71111 15.5001 7.99999 15.5001C3.85785 15.5001 0.5 12.1422 0.5 8.00004C0.5 6.27151 1.08422 4.68039 2.06654 3.41201Z" stroke="#5FCF86" strokeLinecap="round" strokeLinejoin="round"></path><path d="M10.3364 5.92398H10.1909C10.0678 5.21142 9.48584 4.66675 8.78821 4.66675H5.12098C4.65092 4.66675 4.26666 5.07712 4.26666 5.57703C4.26666 5.6106 4.27412 5.64045 4.27785 5.67402C4.27412 5.68895 4.26666 5.70387 4.26666 5.72252V9.93815C4.26666 10.7067 4.89341 11.3334 5.65819 11.3334H10.3364C11.1012 11.3334 11.728 10.7067 11.728 9.93815V7.31551C11.728 6.547 11.1012 5.92398 10.3364 5.92398ZM10.1275 9.09876C9.87009 9.09876 9.65745 8.88984 9.65745 8.6287C9.65745 8.36755 9.87009 8.1549 10.1275 8.1549C10.3887 8.1549 10.6013 8.36755 10.6013 8.6287C10.6013 8.88984 10.3887 9.09876 10.1275 9.09876ZM5.12098 5.22635H8.78821C9.17992 5.22635 9.50822 5.52107 9.61641 5.92398H5.12098C4.95683 5.92398 4.82626 5.76729 4.82626 5.57703C4.82626 5.38303 4.95683 5.22635 5.12098 5.22635Z" fill="#5FCF86"></path></svg></span>
@@ -127,15 +129,10 @@ function ManageCar() {
                                             <img src={car && car.user && car.user.avatarImage ? car.user.avatarImage : "/avaMale.png"} className="rounded-full" />
                                         </div>
 
-                                        <img src={car.images && car.images[0] && car.images[0].imageLink} className="rounded-xl h-48" />
+                                        <img src={car.images && car.images[0] && car.images[0].imageLink} className="rounded-xl w-full" />
                                     </div>
-                                    {/* <div className="tag mt-4 mb-2 flex flex-wrap gap-3">
-                                        <p className="p-1 bg-[#eef7ff] text-xs rounded-xl">{car.transmission && car.transmission}</p>
-                                        <p className="p-1 bg-[#eef7ff] text-xs rounded-xl">Giao xe tận nơi</p>
-                                    </div> */}
-                                    <span className="tag mt-4 text-xs font-bold flex flex-row">
+                                    <span className="tag mt-4 sm:text-xs md:text-sm lg:text-base xl:text-base font-bold flex flex-row">
                                         {`${car.model && car.model} ${car.modelYear && car.modelYear}`}
-                                        {/* <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.65372 3.63C9.89372 3.29813 11.2114 3 12 3C12.7886 3 14.1063 3.29813 15.3463 3.63C16.6149 3.9675 17.8937 4.36687 18.6457 4.60875C18.9601 4.71096 19.2389 4.8984 19.4499 5.14954C19.661 5.40068 19.7958 5.70533 19.8389 6.0285C20.52 11.0651 18.9394 14.7979 17.0217 17.2672C16.2085 18.3236 15.2388 19.2538 14.1451 20.0269C13.767 20.2944 13.3663 20.5296 12.9474 20.73C12.6274 20.8785 12.2834 21 12 21C11.7166 21 11.3737 20.8785 11.0526 20.73C10.6337 20.5296 10.233 20.2944 9.85486 20.0269C8.76118 19.2538 7.79153 18.3236 6.97829 17.2672C5.06058 14.7979 3.48001 11.0651 4.16115 6.0285C4.20422 5.70533 4.33903 5.40068 4.55008 5.14954C4.76114 4.8984 5.03988 4.71096 5.35429 4.60875C6.44594 4.25641 7.54607 3.93007 8.65372 3.63Z" stroke="#5FCF86" strokeWidth="1.5"></path><path d="M11.3333 12.6668L9.5 10.8335" stroke="#5FCF86" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path><path d="M14.9997 9L11.333 12.6667" stroke="#5FCF86" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path></svg> */}
                                     </span>
                                     <span className="text-xs text-gray-500"><i className="fa-solid fa-location-dot mr-1 text-black"></i>{`${car.district && car.district}, ${car.city && car.city}`}</span>
                                     <div className="border-b-2 py-1"></div>

@@ -20,7 +20,7 @@ const CitySelect = ({ value, onChange }) => {
 
     return (
         <select
-            className="p-2 border-2 rounded-lg px-3 cursor-pointer"
+            className="p-2 border-2 rounded-lg px-3 cursor-pointer w-full sm:mt-4"
             value={value}
             onChange={onChange}
         >

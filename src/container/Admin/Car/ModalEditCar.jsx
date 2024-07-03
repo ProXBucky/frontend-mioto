@@ -158,11 +158,12 @@ function ModalEditCar() {
         <Modal
             size="xl"
             aria-labelledby="contained-modal-title-vcenter"
+            dialogClassName="custom-modal"
             centered
             show={modalEditCar}
         >
             <Modal.Header className='border-none justify-between mt-3 px-10'>
-                <h2 className="text-2xl font-bold">Sửa thông tin phương tiện</h2>
+                <h2 className="sm:text-xl md:text-2xl lg:text-2xl xl:text-2xl font-bold">Sửa thông tin xe</h2>
                 <i className="fa-solid fa-xmark fa-2xl cursor-pointer" onClick={handleCloseModal}></i>
             </Modal.Header>
             <ModalBody>
@@ -170,7 +171,7 @@ function ModalEditCar() {
                     <div className='pt-2 flex flex-col items-center gap-4' >
                         <div className={`w-full bg-white p-4`} >
                             <div className=''>
-                                <div className="flex flex-col gap-3 w-1/2">
+                                <div className="flex flex-col gap-3 sm:w-full md:w-1/2 lg:w-1/2 xl:w-1/2">
                                     <label className='font-bold text-xl'>Biển số xe</label>
                                     <input
                                         className="p-2 px-3 border rounded-md outline-none" type="text" name="bienSo"
@@ -184,8 +185,8 @@ function ModalEditCar() {
                             <div className='mt-3'>
                                 <div className="flex flex-col gap-3 w-full">
                                     <label className='font-bold text-xl'>Thông tin cơ bản</label>
-                                    <div className="flex flex-wrap gap-10">
-                                        <div className="flex-col flex w-[calc(50%-30px)]">
+                                    <div className="flex flex-wrap sm:gap-5 md:gap-10 lg:gap-10 xl:gap-10">
+                                        <div className="flex-col flex sm:w-full md:w-[calc(50%-30px)] lg:w-[calc(50%-30px)] xl:w-[calc(50%-30px)]">
                                             <label htmlFor="year">Năm sản xuất</label>
                                             <select id="year" className='p-2 border mt-2 rounded-md cursor-pointer' name="namSanXuat" value={formData.namSanXuat} onChange={handleChange}>
                                                 <option value="">Chọn năm</option>
@@ -196,7 +197,7 @@ function ModalEditCar() {
                                         </div>
 
 
-                                        <div className="flex-col flex w-[calc(50%-30px)]">
+                                        <div className="flex-col flex sm:w-full md:w-[calc(50%-30px)] lg:w-[calc(50%-30px)] xl:w-[calc(50%-30px)]">
                                             <label>Truyền động</label>
                                             <select id="transition" className='p-2 border mt-2 rounded-md cursor-pointer' name="truyenDong" value={formData.truyenDong} onChange={handleChange}>
                                                 <option className="cursor-pointer" value="">Chọn truyền động</option>
@@ -205,7 +206,7 @@ function ModalEditCar() {
                                             </select>
                                         </div>
 
-                                        <div className="flex-col flex w-[calc(50%-30px)]">
+                                        <div className="flex-col flex sm:w-full md:w-[calc(50%-30px)] lg:w-[calc(50%-30px)] xl:w-[calc(50%-30px)]">
                                             <label>Loại nhiên liệu</label>
                                             <select id="fuelType" className='p-2 border mt-2 rounded-md cursor-pointer' name="loaiNhienLieu" value={formData.loaiNhienLieu} onChange={handleChange}>
                                                 <option className="cursor-pointer" value="">Chọn nhiên liệu</option>
@@ -215,7 +216,7 @@ function ModalEditCar() {
                                             </select>
                                         </div>
 
-                                        <div className="flex-col flex w-[calc(50%-30px)]">
+                                        <div className="flex-col flex sm:w-full md:w-[calc(50%-30px)] lg:w-[calc(50%-30px)] xl:w-[calc(50%-30px)]">
                                             <label htmlFor="capacity">Số ghế</label>
                                             <select id="capacity" className='p-2 border mt-2 rounded-md cursor-pointer' name="soGhe" value={formData.soGhe} onChange={handleChange}>
                                                 <option value="">Chọn số ghế</option>
@@ -296,7 +297,7 @@ function ModalEditCar() {
                                     className="hidden"
                                 />
 
-                                <div className="flex flex-wrap gap-2">
+                                <div className="flex flex-wrap gap-2 justify-center">
                                     {
                                         selectedImages.map((imageUrl, index) => {
                                             return (
@@ -314,10 +315,10 @@ function ModalEditCar() {
                             </div>
 
                             <div className="flex justify-around">
-                                <button className="mt-4 w-1/3 py-3 text-lg font-semibold rounded-md text-white bg-gray-400 hover:opacity-80" onClick={() => backto()}>
+                                <button className="mt-4 w-1/3 py-3 text-lg font-semibold rounded-md text-white bg-gray-400 hover:opacity-80" onClick={handleCloseModal}>
                                     Hủy bỏ
                                 </button>
-                                <button className="mt-4 w-1/3 py-3 text-lg font-semibold border-none rounded-md text-white bg-main hover:opacity-80" onClick={() => handleEditCar()}>
+                                <button className="mt-4 w-1/3 py-3 text-lg font-semibold border-none rounded-md text-white bg-main hover:opacity-80" onClick={handleEditCar}>
                                     Cập nhật
                                 </button>
                             </div>

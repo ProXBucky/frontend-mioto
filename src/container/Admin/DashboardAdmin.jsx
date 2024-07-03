@@ -43,7 +43,7 @@ function DashboardAdmin() {
                 <div className="w-full flex flex-wrap gap-3 mt-5">
                     <div className="sm:w-[calc(50%-12px)] md:w-[calc(33%-12px)] lg:w-[calc(25%-12px)] xl:w-[calc(25%-12px)] flex sm:flex-col md:flex-row lg:flew-row xl:flex-row sm:gap-2 sm:justify-center bg-white rounded-xl px-3 py-[36px]">
                         <div className="sm:w-full md:w-1/3 lg:w-1/3 xl:w-1/3 flex justify-center items-center">
-                            <i className="fa-solid fa-user-tie text-5xl" style={{ color: "#3f8be9" }}></i>
+                            <i className="fa-solid fa-user-tie sm:text-4xl md:text-4xl lg:text-5xl xl:text-5xl" style={{ color: "#3f8be9" }}></i>
                         </div>
                         <div className="sm:w-full md:w-2/3 lg:w-2/3 xl:w-2/3 flex flex-col justify-center sm:items-center md:items-start lg:items-start xl:items-start">
                             <h2 className="text-2xl font-black tracking-wider">{increaseNumberEffect(count.adminCount)}</h2>
@@ -53,7 +53,7 @@ function DashboardAdmin() {
 
                     <div className="sm:w-[calc(50%-12px)] md:w-[calc(33%-12px)] lg:w-[calc(25%-12px)] xl:w-[calc(25%-12px)] flex sm:flex-col md:flex-row lg:flew-row xl:flex-row sm:gap-2 sm:justify-center bg-white rounded-xl px-3 py-[36px]">
                         <div className="sm:w-full md:w-1/3 lg:w-1/3 xl:w-1/3 flex justify-center items-center" style={{ color: "#7db2f4" }}>
-                            <i className="fa-solid fa-user text-5xl"></i>
+                            <i className="fa-solid fa-user sm:text-4xl md:text-4xl lg:text-5xl xl:text-5xl"></i>
                         </div>
                         <div className="sm:w-full md:w-2/3 lg:w-2/3 xl:w-2/3 flex flex-col justify-center sm:items-center md:items-start lg:items-start xl:items-start">
                             <h2 className="text-2xl font-black tracking-wider">{increaseNumberEffect(count.userCount)}</h2>
@@ -63,7 +63,7 @@ function DashboardAdmin() {
 
                     <div className="sm:w-[calc(50%-12px)] md:w-[calc(33%-12px)] lg:w-[calc(25%-12px)] xl:w-[calc(25%-12px)] flex sm:flex-col md:flex-row lg:flew-row xl:flex-row sm:gap-2 sm:justify-center bg-white rounded-xl px-3 py-[36px]">
                         <div className="sm:w-full md:w-1/3 lg:w-1/3 xl:w-1/3 flex justify-center items-center">
-                            <i className="fa-solid fa-car text-5xl" style={{ color: "#5fcf86" }}></i>
+                            <i className="fa-solid fa-car sm:text-4xl md:text-4xl lg:text-5xl xl:text-5xl" style={{ color: "#5fcf86" }}></i>
                         </div>
                         <div className="sm:w-full md:w-2/3 lg:w-2/3 xl:w-2/3 flex flex-col justify-center sm:items-center md:items-start lg:items-start xl:items-start">
                             <h2 className="text-2xl font-black tracking-wider">{increaseNumberEffect(count.carCount)}</h2>
@@ -73,7 +73,7 @@ function DashboardAdmin() {
 
                     <div className="sm:w-[calc(50%-12px)] md:w-[calc(33%-12px)] lg:w-[calc(25%-12px)] xl:w-[calc(25%-12px)] flex sm:flex-col md:flex-row lg:flew-row xl:flex-row sm:gap-2 sm:justify-center bg-white rounded-xl px-3 py-[36px]">
                         <div className="sm:w-full md:w-1/3 lg:w-1/3 xl:w-1/3 flex justify-center items-center">
-                            <i className="fa-regular fa-calendar text-5xl" style={{ color: "#f8b01b" }}></i>
+                            <i className="fa-regular fa-calendar sm:text-4xl md:text-4xl lg:text-5xl xl:text-5xl" style={{ color: "#f8b01b" }}></i>
                         </div>
                         <div className="sm:w-full md:w-2/3 lg:w-2/3 xl:w-2/3 flex flex-col justify-center sm:items-center md:items-start lg:items-start xl:items-start">
                             <h2 className="text-2xl font-black tracking-wider">{increaseNumberEffect(count.rentCount)}</h2>
@@ -83,7 +83,7 @@ function DashboardAdmin() {
 
                     <div className="sm:w-[calc(50%-12px)] md:w-[calc(33%-12px)] lg:w-[calc(25%-12px)] xl:w-[calc(25%-12px)] flex sm:flex-col md:flex-row lg:flew-row xl:flex-row sm:gap-2 sm:justify-center bg-white rounded-xl px-3 py-[36px]">
                         <div className="sm:w-full md:w-1/3 lg:w-1/3 xl:w-1/3 flex justify-center items-center">
-                            <i className="fa-solid fa-book text-5xl" style={{ color: "#fc845e" }}></i>
+                            <i className="fa-solid fa-book sm:text-4xl md:text-4xl lg:text-5xl xl:text-5xl" style={{ color: "#fc845e" }}></i>
                         </div>
                         <div className="sm:w-full md:w-2/3 lg:w-2/3 xl:w-2/3 flex flex-col justify-center sm:items-center md:items-start lg:items-start xl:items-start">
                             <h2 className="text-2xl font-black tracking-wider">{increaseNumberEffect(count.blogCount)}</h2>
@@ -93,7 +93,7 @@ function DashboardAdmin() {
 
                     <div className="sm:w-[calc(50%-12px)] md:w-[calc(33%-12px)] lg:w-[calc(25%-12px)] xl:w-[calc(25%-12px)] flex sm:flex-col md:flex-row lg:flew-row xl:flex-row sm:gap-2 sm:justify-center bg-white rounded-xl px-3 py-[36px]">
                         <div className="sm:w-full md:w-1/3 lg:w-1/3 xl:w-1/3 flex justify-center items-center">
-                            <i className="fa-solid fa-ticket text-5xl" style={{ color: "#df3e30" }}></i>
+                            <i className="fa-solid fa-ticket sm:text-4xl md:text-4xl lg:text-5xl xl:text-5xl" style={{ color: "#df3e30" }}></i>
                         </div>
                         <div className="sm:w-full md:w-2/3 lg:w-2/3 xl:w-2/3 flex flex-col justify-center sm:items-center md:items-start lg:items-start xl:items-start">
                             <h2 className="text-2xl font-black tracking-wider">{increaseNumberEffect(count.voucherCount)}</h2>
@@ -103,7 +103,7 @@ function DashboardAdmin() {
 
                     <div className="sm:w-[calc(50%-12px)] md:w-[calc(33%-12px)] lg:w-[calc(25%-12px)] xl:w-[calc(25%-12px)] flex sm:flex-col md:flex-row lg:flew-row xl:flex-row sm:gap-2 sm:justify-center bg-white rounded-xl px-3 py-[36px]">
                         <div className="sm:w-full md:w-1/3 lg:w-1/3 xl:w-1/3 flex justify-center items-center">
-                            <i className="fa-solid fa-flag text-5xl" style={{ color: "#1877f2" }}></i>
+                            <i className="fa-solid fa-flag sm:text-4xl md:text-4xl lg:text-5xl xl:text-5xl" style={{ color: "#1877f2" }}></i>
                         </div>
                         <div className="sm:w-full md:w-2/3 lg:w-2/3 xl:w-2/3 flex flex-col justify-center sm:items-center md:items-start lg:items-start xl:items-start">
                             <h2 className="text-2xl font-black tracking-wider">{increaseNumberEffect(count.reportCount)}</h2>
@@ -113,7 +113,7 @@ function DashboardAdmin() {
 
                     <div className="sm:w-[calc(50%-12px)] md:w-[calc(33%-12px)] lg:w-[calc(25%-12px)] xl:w-[calc(25%-12px)] flex sm:flex-col md:flex-row lg:flew-row xl:flex-row sm:gap-2 sm:justify-center bg-white rounded-xl px-3 py-[36px]">
                         <div className="sm:w-full md:w-1/3 lg:w-1/3 xl:w-1/3 flex justify-center items-center">
-                            <i className="fa-solid fa-comment text-5xl" style={{ color: "#e78bda" }}></i>
+                            <i className="fa-solid fa-comment sm:text-4xl md:text-4xl lg:text-5xl xl:text-5xl" style={{ color: "#e78bda" }}></i>
                         </div>
                         <div className="sm:w-full md:w-2/3 lg:w-2/3 xl:w-2/3 flex flex-col justify-center sm:items-center md:items-start lg:items-start xl:items-start">
                             <h2 className="text-2xl font-black tracking-wider">{increaseNumberEffect(count.reviewCount)}</h2>

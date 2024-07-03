@@ -70,6 +70,9 @@ function ManageTripPending() {
                     case 403:
                         toast.error('Bạn không có quyền hủy');
                         break;
+                    case 409:
+                        toast.error('Chuyến đi đang diễn ra, không thể hủy');
+                        break;
                     default:
                         toast.error('Đã xảy ra lỗi. Vui lòng thử lại sau.');
                 }
@@ -114,21 +117,23 @@ function ManageTripPending() {
 
     return (
         <div className="w-full">
-            <div className="flex justify-between">
+            <div className="flex sm:flex-col md:flex-row lg:flex-row xl:flex-row items-center justify-between">
                 <h2 className="font-bold text-xl">Chuyến đi</h2>
-                <CitySelect value={selectedCity} onChange={handleCityChange} />
+                <div className="sm:w-full md:w-1/4 lg:w-1/4 xl:w-1/4">
+                    <CitySelect value={selectedCity} onChange={handleCityChange} />
+                </div>
             </div>
             <div className="flex flex-wrap gap-3 mt-4">
                 {
                     trips && trips.length > 0 ?
                         trips.map((trip, index) => {
                             return (
-                                <div className="w-full bg-white p-3 rounded-xl border-2" key={index}>
-                                    <div className="w-full flex flex-row">
-                                        <div className="w-1/6">
+                                <div className="w-full bg-white p-3 rounded-xl border-2 sm:w-full md:w-[48%] lg:w-full xl:w-full " key={index}>
+                                    <div className="w-full flex sm:flex-col md:flex-col lg:flex-row xl:flex-row">
+                                        <div className="sm:w-full md:w-full lg:w-1/6 xl:w-1/6">
                                             <img src={trip.car.images && trip.car.images[0] && trip.car.images[0].imageLink} className="rounded-xl" />
                                         </div>
-                                        <div className="w-1/2 flex flex-col px-6">
+                                        <div className="sm:w-full md:w-full lg:w-1/2 xl:w-1/2 flex flex-col sm:mt-2 md:mt-2 sm:px-2 md:px-2 lg:px-6 xl:px-6">
                                             <span className="font-semibold text-lg">
                                                 {`${trip.car.model && trip.car.model} ${trip.car.modelYear && trip.car.modelYear}`}
                                             </span>
@@ -149,7 +154,7 @@ function ManageTripPending() {
                                                     <span className="font-semibold text-sm">{trip.car.fuelType}</span>
                                                 </div>
                                             </div>
-                                            <span className="text-sm text-gray-500 mt-1"><i className="fa-solid fa-location-dot mr-1 text-black"></i>
+                                            <span className="text-sm text-gray-500 mt-2"><i className="fa-solid fa-location-dot mr-1 text-black"></i>
                                                 {`${trip.car.streetAddress && trip.car.streetAddress}, ${trip.car.ward && trip.car.ward}, ${trip.car.district && trip.car.district}, ${trip.car.city && trip.car.city}`}
                                             </span>
                                             <div className="text-sm text-gray-500 mt-1"><i className="fa-regular fa-calendar-days mr-1 text-black"></i>
@@ -157,33 +162,33 @@ function ManageTripPending() {
                                                 {`${format(trip.rentBeginDate && trip.rentBeginDate, "dd/MM/yyyy")} - ${format(trip.rentEndDate && trip.rentEndDate, "dd/MM/yyyy")}`}
                                             </div>
                                         </div>
-                                        <div className="w-1/6 flex flex-col justify-center items-center gap-3">
-                                            <div className="flex flex-row gap-2 items-center w-full">
-                                                <h3 className="text-sm w-1/4">Chủ xe</h3>
-                                                <div className="flex justify-center flex-col items-center w-3/4 gap-2">
+                                        <div className="sm:w-full md:w-full lg:w-1/6 xl:w-1/6 flex sm:flex-row md:flex-row lg:flex-col xl:flex-col justify-center items-center gap-3 sm:mt-2 md:mt-4">
+                                            <div className="flex sm:flex-col md:flex-col lg:flex-row xl:flex-row gap-2 items-center w-full">
+                                                <h3 className="text-sm sm:w-full md:w-full lg:w-1/4 xl:w-1/4 text-center">Chủ xe</h3>
+                                                <div className="flex justify-center flex-col items-center sm:w-full md:w-full lg:w-3/4 xl:w-3/4 gap-2">
                                                     <img className="h-10 w-10 rounded-full" src={trip.car.user && trip.car.user.avatarImage ? trip.car.user.avatarImage : "/maleAva.png"} />
                                                     <p className="text-xs">{trip.car.user && trip.car.user.fullname && trip.car.user.fullname}</p>
                                                 </div>
                                             </div>
-                                            <div className="flex flex-row gap-2 items-center w-full">
-                                                <h3 className="text-sm w-1/4">Người đặt</h3>
-                                                <div className="flex justify-center flex-col items-center w-3/4 gap-2">
+                                            <div className="flex sm:flex-col md:flex-col lg:flex-row xl:flex-row gap-2 items-center w-full">
+                                                <h3 className="text-sm sm:w-full md:w-full lg:w-1/4 xl:w-1/4 text-center">Người đặt</h3>
+                                                <div className="flex justify-center flex-col items-center sm:w-full md:w-full lg:w-3/4 xl:w-3/4 gap-2">
                                                     <img className="h-10 w-10 rounded-full" src={trip.user && trip.user.avatarImage ? trip.user.avatarImage : "/maleAva.png"} />
                                                     <p className="text-xs">{trip.user && trip.user.fullname && trip.user.fullname}</p>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="w-1/6 flex flex-col items-center justify-center">
-                                            <div className="h-4/5 w-full flex justify-center items-center flex-col">
+                                        <div className="sm:w-full md:w-full lg:w-1/6 xl:w-1/6 flex flex-col items-center justify-center sm:mt-4 md:mt-4">
+                                            <div className="h-3/5 w-full flex justify-center items-center flex-col">
                                                 <p className="text-md font-semibold">Chi phí ước tính</p>
                                                 <span className="font-semibold text-xl">
                                                     {trip.payment && trip.payment.paymentAmount && formatMoney(trip.payment.paymentAmount)}
                                                 </span>
                                             </div>
-                                            <div className="h-1/5 w-full flex justify-evenly">
-                                                <button className="w-[25%] hover:opacity-80 p-1 px-2 text-sm bg-main text-white font-semibold rounded-md" onClick={() => handleOpenModalView(trip.rentId)}>Xem</button>
-                                                <button className="w-[25%] hover:opacity-80 p-1 px-2 text-sm bg-main text-white font-semibold rounded-md" onClick={() => handleCancelTrip(trip.rentId)}>Hủy</button>
-                                                <button className="w-[25%] hover:opacity-80 p-1 px-2 text-sm bg-main text-white font-semibold rounded-md" onClick={() => handleDeleteTrip(trip.rentId)}>Xóa</button>
+                                            <div className="h-2/5 w-full flex justify-center items-center sm:gap-4 md:gap-3 lg:gap-2 xl:gap-2 flex-row sm:mt-2 md:mt-3">
+                                                <button className="hover:opacity-80 py-2 sm:px-5 md:px-6 lg:px-2 xl:px-3 text-sm bg-main text-white font-semibold rounded-md" onClick={() => handleOpenModalView(trip.rentId)}>Xem</button>
+                                                <button className="hover:opacity-80 py-2 sm:px-5 md:px-6 lg:px-2 xl:px-3 text-sm bg-main text-white font-semibold rounded-md" onClick={() => handleCancelTrip(trip.rentId)}>Hủy</button>
+                                                <button className="hover:opacity-80 py-2 sm:px-5 md:px-6 lg:px-2 xl:px-3 text-sm bg-main text-white font-semibold rounded-md" onClick={() => handleDeleteTrip(trip.rentId)}>Xóa</button>
                                             </div>
                                         </div>
                                     </div>

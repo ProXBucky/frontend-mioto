@@ -138,8 +138,8 @@ function ModalEditUser() {
             </Modal.Header>
             <Modal.Body className='p-4 px-5' >
                 <Form onSubmit={handleSubmit}>
-                    <div className='flex flex-row gap-5'>
-                        <div className='w-1/2'>
+                    <div className='flex sm:flex-col md:flex-col lg:flex-row xl:flex-row gap-5'>
+                        <div className='sm:w-full md:w-full lg:w-1/2 xl:w-1/2'>
                             <Form.Group className='' controlId="formBasicFullname">
                                 <Form.Label className='font-semibold text-gray-500'>Họ và tên</Form.Label>
                                 <Form.Control
@@ -202,22 +202,26 @@ function ModalEditUser() {
                                 </>
                             }
                         </div>
-                        <div className='text-center w-1/2'>
+                        <div className='text-center sm:w-full md:w-full lg:w-1/2 xl:w-1/2'>
                             <label htmlFor="avaInput" className="rounded-2xl bg-main p-3 mb-2 text-white font-semibold">
                                 Chọn ảnh
                             </label>
                             <input type="file" id="avaInput" className='hidden' onChange={handleFileChange} />
-                            {selectedFile && (
-                                <AvatarEditor
-                                    ref={setEditor}
-                                    image={selectedFile}
-                                    width={250}
-                                    height={250}
-                                    border={50}
-                                    color={[0, 0, 0, 0.3]} // Màu nền của khung cắt
-                                    scale={1}
-                                />
-                            )}
+                            <div className='w-full flex justify-center'>
+                                {selectedFile && (
+                                    <div className='sm:h-1/2 md:h-1/2 lg:w-full xl:w-full'>
+                                        <AvatarEditor
+                                            ref={setEditor}
+                                            image={selectedFile}
+                                            width={250}
+                                            height={250}
+                                            border={50}
+                                            color={[0, 0, 0, 0.3]} // Màu nền của khung cắt
+                                            scale={1}
+                                        />
+                                    </div>
+                                )}
+                            </div>
                         </div>
                     </div>
 

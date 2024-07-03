@@ -41,6 +41,7 @@ function ModalViewTrip() {
             size="xl"
             aria-labelledby="contained-modal-title-vcenter"
             centered
+            dialogClassName="custom-modal"
             show={modalViewRent}
         >
             <Modal.Header className='border-none justify-between mt-3 px-10'>
@@ -49,9 +50,9 @@ function ModalViewTrip() {
             </Modal.Header>
             <ModalBody>
                 <>
-                    <div className='p-4 bg-white'>
-                        <div className='flex flex-row justify-between'>
-                            <h2 className='font-bold text-2xl mb-2'>{`${rent.car && rent.car.model && rent.car.model} ${rent.car && rent.car.modelYear && rent.car.modelYear} - ${rent.car && rent.car.plateNumber && rent.car.plateNumber}`}</h2>
+                    <div className='sm:p-2 md:p-3 lg:p-3 xl:p-3 bg-white'>
+                        <div className='flex sm:flex-col md:flex-col lg:flex-row xl:flex-row justify-between'>
+                            <h2 className='font-bold sm:text-lg md:text-2xl lg:text-2xl xl:text-2xl mb-2'>{`${rent.car && rent.car.model && rent.car.model} ${rent.car && rent.car.modelYear && rent.car.modelYear} - ${rent.car && rent.car.plateNumber && rent.car.plateNumber}`}</h2>
                             <label className='font-semibold'>
                                 {rent.rentStatus === "cancel" &&
                                     <>
@@ -85,8 +86,8 @@ function ModalViewTrip() {
                                 }
                             </label>
                         </div>
-                        <div className='flex flex-row w-full border-t-2 pt-4'>
-                            <div className='w-1/3'>
+                        <div className='flex sm:flex-col md:flex-row lg:flex-row xl:flex-row w-full sm:border-none md:border-none lg:border-t-2 xl:border-t-2 pt-4'>
+                            <div className='sm:w-full md:w-1/2 lg:w-1/3 xl:w-1/3'>
                                 <img src={rent.car && rent.car.images && rent.car.images[0].imageLink} className='rounded-xl' />
                                 <div className="w-full flex justify-center gap-2 mt-3">
                                     <div className="flex flex-row justify-center items-center gap-1">
@@ -103,14 +104,14 @@ function ModalViewTrip() {
                                     </div>
                                 </div>
                             </div>
-                            <div className='w-2/3 pl-10'>
+                            <div className='sm:w-full md:w-1/2 lg:w-2/3 xl:w-2/3 sm:mt-3 md:pl-5 lg:pl-10 xl:pl-10'>
                                 <h3 className='font-semibold text-lg'>Thời gian thuê xe</h3>
                                 <div className='flex flex-col gap-2 w-full mt-2'>
-                                    {rent && rent.rentBeginDate && <p>Bắt đầu: {format(rent.rentBeginDate, 'PPPP', { locale: viLocale })}</p>}
-                                    {rent && rent.rentBeginDate && <p>Kết thúc: {format(rent.rentEndDate, 'PPPP', { locale: viLocale })}</p>}
+                                    {rent && rent.rentBeginDate && <p>Bắt đầu: {format(rent.rentBeginDate, 'PPP', { locale: viLocale })}</p>}
+                                    {rent && rent.rentBeginDate && <p>Kết thúc: {format(rent.rentEndDate, 'PPP', { locale: viLocale })}</p>}
 
                                 </div>
-                                <div className="flex flex-row justify-between">
+                                <div className="flex sm:flex-col md:flex-col lg:flex-row xl:flex-row justify-between">
                                     <div className="flex flex-col">
                                         <h3 className='font-semibold text-lg mt-2'>Chủ xe</h3>
                                         <div className="flex flex-col gap-3 mt-2">
@@ -146,8 +147,8 @@ function ModalViewTrip() {
 
                         <div className='mt-3 w-full'>
                             <h3 className='font-semibold text-lg mb-2'>Bảng giá</h3>
-                            <div className='flex flex-row items-end'>
-                                <div className="w-3/5">
+                            <div className='flex sm:flex-col md:flex-row lg:flex-row xl:flex-row md:items-end lg:items-end xl:items-end'>
+                                <div className="sm:w-full md:w-3/5 lg:w-3/5 xl:w-3/5">
                                     <div className=" bg-gray-100 flex flex-col p-4 gap-3 border">
                                         <div>
                                             <div className="flex justify-between">
@@ -194,7 +195,7 @@ function ModalViewTrip() {
                                         </div>
                                     </div>
                                 </div>
-                                <div className='w-2/5 pl-5'>
+                                <div className='sm:w-full md:w-2/5 lg:w-2/5 xl:w-2/5 sm:mt-3 md:pl-5 lg:pl-5 xl:pl-5'>
                                     <div className="rounded-lg flex flex-col gap-3 text-center">
                                         <div className="flex flex-col font-semibold text-lg w-full bg-gray-100 p-3">
                                             <p className='text-gray-400 uppercase text-sm font-bold mb-2'>Tiền cọc</p>

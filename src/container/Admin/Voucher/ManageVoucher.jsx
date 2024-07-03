@@ -55,7 +55,7 @@ function ManageVoucher() {
 
     return (
         <div className="w-full">
-            <div className="flex justify-between">
+            <div className="flex sm:flex-col md:flex-col lg:flex-row xl:flex-row sm:gap-4 justify-between">
                 <h2 className="font-bold text-xl">Mã giảm giá</h2>
                 <button className="py-2 px-3 bg-black text-white font-semibold rounded-md" onClick={handleOpenModalCreate}><i className="fa-solid fa-plus mr-2"></i>Thêm mã giảm giá</button>
             </div>
@@ -64,11 +64,11 @@ function ManageVoucher() {
                     <thead>
                         <tr className="bg-gray-50 text-gray-500 text-sm leading-normal">
                             <th className="py-3 px-6 text-left">Mã code</th>
-                            <th className="py-3 px-3 text-center">Mô tả</th>
-                            <th className="py-3 px-4 text-center">Thể loại</th>
-                            <th className="py-3 px-6 text-center">Giá trị</th>
-                            <th className="py-3 px-3 text-center">Hạn sử dụng</th>
-                            <th className="py-3 px-6 text-center">Xóa</th>
+                            <th className="py-3 px-3 text-center sm:hidden">Mô tả</th>
+                            <th className="py-3 px-4 text-center sm:hidden">Thể loại</th>
+                            <th className="py-3 px-6 text-center sm:hidden">Giá trị</th>
+                            <th className="py-3 px-3 text-center sm:hidden">Hạn sử dụng</th>
+                            <th className="py-3 px-6 text-center">Hành động</th>
                         </tr>
                     </thead>
                     <tbody className="text-gray-600 text-sm font-normal">
@@ -79,21 +79,24 @@ function ManageVoucher() {
                                     <tr className="border-b font-semibold border-gray-200 hover:bg-gray-100" key={index}>
                                         <td className="py-3 px-6 text-left whitespace-nowrap">
                                             <span>{voucher.voucherCode}</span>
+                                            <p className="md:hidden lg:hidden xl:hidden">{voucher.type === "money" ? "Giảm thẳng" : "Giảm theo phần trăm"}</p>
+                                            <p className="text-sm md:hidden lg:hidden xl:hidden">{voucher.type === "money" ? formatMoney(voucher.discountPercent * 1000) : voucher.discountPercent + "%"}</p>
+                                            <p className="md:hidden lg:hidden xl:hidden">HSD: {voucher.expireDate && format(voucher.expireDate, 'dd/MM/yyyy')}</p>
                                         </td>
-                                        <td className="py-3 px-6 text-center">
+                                        <td className="py-3 px-6 text-center sm:hidden">
                                             <span>{voucher.description}</span>
                                         </td>
-                                        <td className="py-3 px-6 text-center">
+                                        <td className="py-3 px-6 text-center sm:hidden">
                                             <span>{voucher.type === "money" ? "Giảm thẳng" : "Giảm theo phần trăm"}</span>
                                         </td>
-                                        <td className="py-3 px-6 text-center">
+                                        <td className="py-3 px-6 text-center sm:hidden">
                                             <span className="text-sm">{voucher.type === "money" ? formatMoney(voucher.discountPercent * 1000) : voucher.discountPercent + "%"}</span>
                                         </td>
-                                        <td className="py-3 px-6 text-center">
+                                        <td className="py-3 px-6 text-center sm:hidden">
                                             <span>{voucher.expireDate && format(voucher.expireDate, 'dd/MM/yyyy')}</span>
                                         </td>
-                                        <td className="px-6 py-3 text-center">
-                                            <div className="flex flex-row gap-2">
+                                        <td className="sm:px-10 md:px-6 lg:px-6 xl:px-6 py-3 text-center items-center">
+                                            <div className="flex flex-row gap-2 items-center">
                                                 <i className="fa-solid fa-circle-plus fa-xl cursor-pointer" onClick={() => feedVoucherByID(voucher.voucherId)}></i>
                                                 <i className="fa-solid fa-trash fa-lg cursor-pointer fa-xl" style={{ color: "#ff0000" }} onClick={() => deleteVoucherByID(voucher.voucherId)}></i>
                                             </div>

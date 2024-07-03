@@ -40,6 +40,7 @@ function ModalViewBlog() {
             size="xl"
             aria-labelledby="contained-modal-title-vcenter"
             centered
+            dialogClassName="custom-modal"
             show={modalViewBlog}
         >
             <Modal.Header className='border-none justify-between mt-3 px-5'>

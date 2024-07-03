@@ -108,14 +108,14 @@ function ManageUser() {
 
     return (
         <div className="w-full">
-            <div className="flex justify-between">
+            <div className="flex sm:flex-col md:flex-row lg:flex-row xl:flex-row sm:gap-3 justify-between">
                 <h2 className="font-bold text-xl">Người dùng</h2>
                 <button className="py-2 px-3 bg-black text-white font-semibold rounded-md" onClick={handleOpenModalCreate}><i className="fa-solid fa-plus mr-2"></i>Thêm người dùng</button>
             </div>
             <input
                 type="text"
                 placeholder="Tìm kiếm theo tên"
-                className="p-2 border border-gray-300 rounded-md w-1/4"
+                className="p-2 border border-gray-300 rounded-md sm:mt-3 sm:w-full md:w-1/4 lg:w-1/4 xl:w-1/4"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
             />
@@ -124,11 +124,11 @@ function ManageUser() {
                     <thead>
                         <tr className="bg-gray-50 text-gray-500 text-sm leading-normal">
                             <th className="py-3 px-6 text-left">Họ tên</th>
-                            <th className="py-3 px-3 text-center">Tên đăng nhập</th>
-                            <th className="py-3 px-4 text-left">Số điện thoại</th>
-                            <th className="py-3 px-6 text-left">Ngày sinh</th>
-                            <th className="py-3 px-6 text-center">Email</th>
-                            <th className="py-3 px-6 text-center">Ngày tham gia</th>
+                            <th className="py-3 px-3 text-center sm:hidden">Tên đăng nhập</th>
+                            <th className="py-3 px-4 text-left sm:hidden md:hidden lg:hidden">Số điện thoại</th>
+                            <th className="py-3 px-6 text-left sm:hidden md:hidden">Ngày sinh</th>
+                            <th className="py-3 px-6 text-center sm:hidden md:hidden">Email</th>
+                            <th className="py-3 px-6 text-center sm:hidden md:hidden">Ngày tham gia</th>
                             <th className="py-3 px-6 text-center">Hành động</th>
                         </tr>
                     </thead>
@@ -143,19 +143,19 @@ function ManageUser() {
                                                 <span className="font-medium">{user.fullname}</span>
                                             </div>
                                         </td>
-                                        <td className="py-3 px-6 text-center">
+                                        <td className="py-3 px-6 text-center sm:hidden">
                                             <span>{user.username}</span>
                                         </td>
-                                        <td className="py-3 px-6 text-left">
+                                        <td className="py-3 px-6 text-left sm:hidden md:hidden lg:hidden">
                                             <span>{user.phone}</span>
                                         </td>
-                                        <td className="py-3 px-6 text-left">
+                                        <td className="py-3 px-6 text-left sm:hidden md:hidden">
                                             <span>{user.dob ? format(user.dob, 'dd/MM/yyyy') : "Không có"}</span>
                                         </td>
-                                        <td className="py-3 px-6 text-center">
+                                        <td className="py-3 px-6 text-center sm:hidden md:hidden">
                                             <span className="text-sm">{user.email}</span>
                                         </td>
-                                        <td className="py-3 px-6 text-center">
+                                        <td className="py-3 px-6 text-center sm:hidden md:hidden">
                                             <span className="bg-green-200 text-green-800 py-1 px-3 rounded-full text-sm">{format(user.joinDate, "dd/MM/yyyy")}</span>
                                         </td>
                                         <td className="py-3 px-6 text-center">

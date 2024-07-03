@@ -110,16 +110,15 @@ function ManageAdmin() {
 
     return (
         <>
-
             <div className="w-full">
-                <div className="flex justify-between">
+                <div className="flex sm:flex-col md:flex-row lg:flex-row xl:flex-row sm:gap-4 justify-between">
                     <h2 className="font-bold text-xl">Nhân viên</h2>
                     <button className="py-2 px-3 bg-black text-white font-semibold rounded-md" onClick={handleOpenModalCreate}><i className="fa-solid fa-plus mr-2"></i>Thêm nhân viên</button>
                 </div>
                 <input
                     type="text"
                     placeholder="Tìm kiếm theo tên"
-                    className="p-2 border border-gray-300 rounded-md w-1/4"
+                    className="p-2 border border-gray-300 rounded-md sm:mt-4 sm:w-full md:w-1/4 lg:w-1/4 xl:w-1/4"
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                 />
@@ -128,11 +127,11 @@ function ManageAdmin() {
                         <thead>
                             <tr className="bg-gray-50 text-gray-500 text-sm leading-normal">
                                 <th className="py-3 px-6 text-left">Họ tên</th>
-                                <th className="py-3 px-6 text-left">Tên đăng nhập</th>
-                                <th className="py-3 px-6 text-left">Ngày sinh</th>
-                                <th className="py-3 px-6 text-left">Số điện thoại</th>
-                                <th className="py-3 px-6 text-center">Email</th>
-                                <th className="py-3 px-6 text-center">Chức vụ</th>
+                                <th className="py-3 px-6 text-left sm:hidden md:hidden">Tên đăng nhập</th>
+                                <th className="py-3 px-6 text-left sm:hidden md:hidden lg:hidden">Ngày sinh</th>
+                                <th className="py-3 px-6 text-left sm:hidden md:hidden lg:hidden">Số điện thoại</th>
+                                <th className="py-3 px-6 text-center sm:hidden md:hidden">Email</th>
+                                <th className="py-3 px-6 text-center sm:hidden">Chức vụ</th>
                                 <th className="py-3 px-6 text-center">Hành động</th>
                             </tr>
                         </thead>
@@ -148,19 +147,19 @@ function ManageAdmin() {
                                                         <span className="font-medium">{admin.fullname}</span>
                                                     </div>
                                                 </td>
-                                                <td className="py-3 px-6 text-left whitespace-nowrap">
+                                                <td className="py-3 px-6 text-left whitespace-nowrap sm:hidden md:hidden">
                                                     <span className="font-medium">{admin.username}</span>
                                                 </td>
-                                                <td className="py-3 px-6 text-left whitespace-nowrap">
+                                                <td className="py-3 px-6 text-left whitespace-nowrap sm:hidden md:hidden lg:hidden">
                                                     <span className="font-medium">{admin.dob ? format(admin.dob, "dd/MM/yyyy") : "Không có"}</span>
                                                 </td>
-                                                <td className="py-3 px-6 text-left">
+                                                <td className="py-3 px-6 text-left sm:hidden md:hidden lg:hidden">
                                                     <span>{admin.phone}</span>
                                                 </td>
-                                                <td className="py-3 px-6 text-center">
+                                                <td className="py-3 px-6 text-center sm:hidden md:hidden">
                                                     <span className="text-sm">{admin.email}</span>
                                                 </td>
-                                                <td className="py-3 px-6 text-center">
+                                                <td className="py-3 px-6 text-center sm:hidden">
                                                     <span className="bg-green-200 text-gray-700 py-1 px-3 rounded-full text-sm">{admin.role === "Staff" ? "Nhân viên" : "Quản trị viên"}</span>
                                                 </td>
                                                 <td className="py-3 px-6 text-center">

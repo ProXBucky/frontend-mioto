@@ -55,12 +55,14 @@ function ManageReview() {
 
     return (
         <div className="w-full">
-            <div className="flex justify-between">
+            <div className="flex sm:flex-col md:flex-row lg:flex-row xl:flex-row justify-between items-center">
                 <h2 className="font-bold text-xl">Bình luận</h2>
-                <CitySelect value={selectedCity} onChange={handleCityChange} />
+                <div className="sm:w-full md:w-1/4 lg:w-1/4 xl:w-1/4">
+                    <CitySelect value={selectedCity} onChange={handleCityChange} />
+                </div>
             </div>
             <div className="w-full mt-10 pb-16">
-                <table className="min-w-full bg-white">
+                <table className="min-w-full bg-white sm:hidden">
                     <thead>
                         <tr className="bg-gray-50 text-gray-500 text-sm leading-normal">
                             <th className="py-3 px-6 text-center">Họ tên</th>
@@ -104,6 +106,37 @@ function ManageReview() {
                         }
                     </tbody>
                 </table>
+                <div className="md:hidden lg:hidden xl:hidden">
+                    <div className="text-gray-600 text-sm">
+                        {
+                            reviews && reviews.length > 0 ?
+                                reviews.map((review, index) => {
+                                    return (
+                                        <div className="border-b bg-white rounded-lg mb-3" key={index}>
+                                            <div className="py-3 px-6 text-center flex justify-between items-center">
+                                                <div className="flex items-center gap-2">
+                                                    <img className="h-10 rounded-full border" src={review.user.avatarImage ? review.user.avatarImage : "/avaMale.png"} />
+                                                    <span className="font-medium">{review.user.fullname}</span>
+                                                </div>
+                                                <span className="text-md">{review.reviewScore} <i className="fa-solid fa-star" style={{ color: "#FFD43B" }}></i></span>
+                                            </div>
+                                            <div className="py-3 px-4">
+                                                <span>{review.content}</span>
+                                            </div>
+                                            <div className="py-3 px-6 flex flex-row items-center justify-between">
+                                                <span className="bg-green-200 text-green-800 py-1 px-3 rounded-full text-sm">{format(review.reviewDate, "dd/MM/yyyy")}</span>
+                                                <i className="fa-solid fa-trash fa-lg cursor-pointer fa-lg" style={{ color: "#ff0000" }} onClick={() => deleteReviewByID(review.reviewId)}></i>
+                                            </div>
+                                        </div>
+                                    )
+                                })
+                                :
+                                <tr className="w-full text-base h-20 text-center">
+                                    <td colSpan={5}>Không có bình luận tại khu vực này</td>
+                                </tr>
+                        }
+                    </div>
+                </div>
             </div>
         </div>
     )

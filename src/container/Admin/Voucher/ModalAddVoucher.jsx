@@ -80,17 +80,18 @@ function ModalAddVoucher() {
             size="lg"
             aria-labelledby="contained-modal-title-vcenter"
             centered
+            dialogClassName="custom-modal"
             show={modalAddVoucher}
         >
             <Modal.Header className='border-none justify-between mt-3 px-5'>
-                <h1 className='text-center text-2xl font-bold'>Tạo mã giảm giá</h1>
+                <h1 className='text-center sm:text-xl md:text-2xl lg:text-2xl xl:text-2xl font-bold'>Tạo mã giảm giá</h1>
                 <i className="fa-solid fa-xmark fa-2xl cursor-pointer" onClick={handleCloseModal}></i>
             </Modal.Header>
             <Modal.Body className='p-4 px-5' >
                 <Form onSubmit={handleSubmit}>
                     <div className='flex flex-col gap-2'>
-                        <div className='w-full flex justify-between items-start'>
-                            <div className='w-[45%]'>
+                        <div className='w-full flex sm:flex-col md:flex-row lg:flex-row xl:flex-row sm:gap-2 justify-between items-start'>
+                            <div className='sm:w-full md:w-[45%] lg:w-[45%] xl:w-[45%]'>
                                 <Form.Group className='mt-2 relative' controlId="formBasicFullname">
                                     <Form.Label className='font-semibold text-gray-500'>Mã giảm giá</Form.Label>
                                     <Form.Control
@@ -112,7 +113,7 @@ function ModalAddVoucher() {
                                     />
                                 </Form.Group>
                             </div>
-                            <div className='w-[45%]'>
+                            <div className='sm:w-full md:w-[45%] lg:w-[45%] xl:w-[45%]'>
                                 <Form.Label className='font-semibold text-gray-500 mt-2 relative'>Thể loại</Form.Label>
                                 <Form.Select value={formData.type} name="type" onChange={handleChange}>
                                     <option value="">Hãy chọn thể loại</option>

@@ -102,18 +102,18 @@ function ModalViewUser() {
             </Modal.Header>
             <ModalBody>
                 <div className="bg-white rounded-2xl py-2 px-4" >
-                    <div className="flex flex-row items-center">
-                        <div className="w-1/3 flex justify-center flex-col gap-2 items-center px-3">
+                    <div className="flex sm:flex-col md:flex-col lg:flex-row xl:flex-row items-center">
+                        <div className="sm:w-full md:w-full lg:w-1/3 xl:w-1/3 flex justify-center flex-col gap-2 items-center px-3">
                             <div className="rounded-full overflow-hidden border-2">
-                                <img src={userInfo && userInfo.avatarImage ? userInfo.avatarImage : '/avaMale.png'} />
+                                <img className="h-48" src={userInfo && userInfo.avatarImage ? userInfo.avatarImage : '/avaMale.png'} />
                             </div>
-                            <h2 className="text-lg font-semibold">{userInfo && userInfo.fullname && userInfo.fullname}</h2>
+                            <h2 className="sm:text-xl md:text-xl lg:text-lg xl:text-lg font-semibold">{userInfo && userInfo.fullname && userInfo.fullname}</h2>
                             {
                                 modalObject === "user" &&
                                 <p className="text-sm">Tham gia: {userInfo && userInfo.joinDate && format(userInfo.joinDate, 'dd/MM/yyyy')}</p>
                             }
                         </div>
-                        <div className="w-2/3 text-gray-500 pl-5">
+                        <div className="sm:w-full md:w-full lg:w-2/3 xl:w-2/3 text-gray-500 sm:mt-4 md:mt-5 lg:pl-5 xl:pl-5">
                             <div className="bg-gray-100 rounded-lg p-3 flex flex-col gap-3">
                                 <div className="flex flex-row justify-between">
                                     <p className="text-sm">Tên đăng nhập</p>

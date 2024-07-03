@@ -12,7 +12,7 @@ function AdminApp() {
 
 
     return (
-        <div className="bg-gray-100 sm:h-dvh md:min-h-screen lg:h-dvh xl:h-dvh flex sm:flex-col md:flex-row lg:flex-row xl:flex-row sm:justify-center md:justify-center">
+        <div className="bg-gray-100 border-4 sm:min-h-dvh md:min-h-screen lg:h-dvh xl:h-dvh flex sm:flex-row md:flex-row lg:flex-row xl:flex-row sm:justify-center md:justify-center">
             <div className="sm:hidden md:hidden lg:w-1/6 xl:w-1/6 sm:border-2 md:border-none lg:border-r-2 xl:border-r-2 px-3 sm:py-2 md:py-5 lg:py-8 xl:py-10 flex sm:flex-row md:flex-row lg:flex-col xl:flex-col sm:justify-center md:justify-center sm:gap-2 md:gap-2 items-center">
                 <img className="h-8 mb-4 sm:hidden md:hidden" src="/logo-mini.png" />
                 {avatar && avatar != "null" ? (
@@ -95,7 +95,7 @@ function AdminApp() {
             </div>
             <div className="sm:w-full md:w-full lg:w-5/6 xl:w-5/6 overflow-y-auto">
                 <HeaderAdmin />
-                <div className="sm:px-4 md:px-5 lg:px-12 xl:px-12 mt-10 h-full pb-12">
+                <div className="sm:px-4 md:px-5 lg:px-12 xl:px-12 sm:mt-4 md:mt-5 lg:mt-8 xl:mt-10 h-full pb-12">
                     <Outlet />
                 </div>
             </div>

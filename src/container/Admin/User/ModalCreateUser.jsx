@@ -107,14 +107,14 @@ function ModalCreateUser() {
             show={modalCreateUser}
         >
             <Modal.Header className='border-none justify-between mt-3 px-5'>
-                <h1 className='text-center text-2xl font-bold'>Tạo mới {modalObject === "user" ? "người dùng" : "nhân viên"}</h1>
+                <h1 className='text-center text-2xl font-bold'>Thêm {modalObject === "user" ? "người dùng" : "nhân viên"}</h1>
                 <i className="fa-solid fa-xmark fa-2xl cursor-pointer" onClick={handleCloseCreate}></i>
             </Modal.Header>
             <Modal.Body className='p-4 px-5' >
                 <Form onSubmit={handleSubmit}>
                     <div className='flex flex-col gap-5'>
-                        <div className='w-full flex justify-between items-start'>
-                            <div className='w-[45%]'>
+                        <div className='w-full flex sm:flex-col md:flex-col lg:flex-row xl:flex-row justify-between items-start'>
+                            <div className='sm:w-full md:w-full lg:w-[45%] xl:w-[45%]'>
                                 <Form.Group className='mt-2 relative' controlId="formBasicFullname">
                                     <Form.Label className='font-semibold text-gray-500'>Tên đăng nhập</Form.Label>
                                     <Form.Control
@@ -157,7 +157,7 @@ function ModalCreateUser() {
                                     />
                                 </Form.Group>
                             </div>
-                            <div className='w-[45%]'>
+                            <div className='sm:w-full md:w-full lg:w-[45%] xl:w-[45%]'>
                                 <Form.Group className='mt-2 relative' controlId="formBasicEmail">
                                     <Form.Label className='font-semibold text-gray-500'>Email</Form.Label>
                                     <Form.Control
@@ -206,15 +206,17 @@ function ModalCreateUser() {
                             </label>
                             <input type="file" id="avaInput" className='hidden' onChange={handleFileChange} />
                             {selectedFile && (
-                                <AvatarEditor
-                                    ref={setEditor}
-                                    image={selectedFile}
-                                    width={250}
-                                    height={250}
-                                    border={50}
-                                    color={[0, 0, 0, 0.3]} // Màu nền của khung cắt
-                                    scale={1}
-                                />
+                                <div className='sm:h-1/2 md:h-1/2 lg:w-full xl:w-full'>
+                                    <AvatarEditor
+                                        ref={setEditor}
+                                        image={selectedFile}
+                                        width={250}
+                                        height={250}
+                                        border={50}
+                                        color={[0, 0, 0, 0.3]} // Màu nền của khung cắt
+                                        scale={1}
+                                    />
+                                </div>
                             )}
                         </div>
                     </div>

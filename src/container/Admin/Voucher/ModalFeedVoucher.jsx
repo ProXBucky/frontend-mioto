@@ -6,7 +6,7 @@ import { setHideLoading, setShowLoading } from '../../../redux/Slice/AppSlice';
 import { adminTokenSelector, modalFeedVoucherSelector, modalVoucherIdSelector } from '../../../redux/selector';
 import { feedVoucherToUser } from '../../../api/adminAPI';
 import { toast } from 'react-toastify';
-import { getAllUser } from '../../../api/appAPI';
+import { getAllUserByAdmin } from '../../../api/appAPI';
 import { format } from 'date-fns';
 
 function ModalFeedVoucher() {
@@ -19,7 +19,7 @@ function ModalFeedVoucher() {
     const [selectedUsers, setSelectedUsers] = useState([]);
 
     const fetchAllUsers = async () => {
-        let res = await getAllUser(adminToken)
+        let res = await getAllUserByAdmin(adminToken)
         if (res && res.length > 0) {
             setUsers(res)
         } else {
@@ -89,21 +89,22 @@ function ModalFeedVoucher() {
             size="xl"
             aria-labelledby="contained-modal-title-vcenter"
             centered
+            dialogClassName="custom-modal"
             show={modalFeedVoucher}
         >
             <Modal.Header className='border-none justify-between mt-3 px-5'>
-                <h1 className='text-center text-2xl font-bold'>Phân phát mã giảm giá</h1>
+                <h1 className='text-center sm:text-lg md:text-2xl lg:text-2xl xl:text-2xl font-bold'>Phân phát mã giảm giá</h1>
                 <i className="fa-solid fa-xmark fa-2xl cursor-pointer" onClick={handleCloseModal}></i>
             </Modal.Header>
             <Modal.Body className='p-4 px-5 flex justify-center items-center flex-col' >
-                <h3 className='font-semibold text-lg'>Nhấn chọn người dùng để phân phối mã giảm giá</h3>
+                <h3 className='font-semibold sm:text-sm md:text-lg lg:text-lg xl:text-lg'>Nhấn chọn người dùng để phân phối mã giảm giá</h3>
                 <table className="min-w-full bg-white mt-3">
                     <thead>
                         <tr className="bg-gray-50 text-gray-500 text-sm leading-normal">
                             <th className="py-3 px-6 text-left">Họ tên</th>
-                            <th className="py-3 px-4 text-left">Số điện thoại</th>
-                            <th className="py-3 px-6 text-left">Ngày sinh</th>
-                            <th className="py-3 px-6 text-center">Email</th>
+                            <th className="py-3 px-4 text-left sm:hidden md:hidden">Số điện thoại</th>
+                            <th className="py-3 px-6 text-left sm:hidden">Ngày sinh</th>
+                            <th className="py-3 px-6 text-center sm:hidden md:hidden">Email</th>
                             <th className="py-3 px-6 text-center">Trạng thái</th>
                         </tr>
                     </thead>
@@ -120,16 +121,16 @@ function ModalFeedVoucher() {
                                         <td className="py-3 px-6 text-left whitespace-nowrap">
                                             <div className="flex items-center gap-2">
                                                 <img className="h-10 rounded-full border" src={user.avatarImage ? user.avatarImage : "/avaMale.png"} />
-                                                <span className="font-medium">{user.fullname}</span>
+                                                <span className="sm:text-sm md:text-base lg:text-basexl:text-base font-medium">{user.fullname}</span>
                                             </div>
                                         </td>
-                                        <td className="py-3 px-6 text-left">
+                                        <td className="py-3 px-6 text-left sm:hidden md:hidden">
                                             <span>{user.phone}</span>
                                         </td>
-                                        <td className="py-3 px-6 text-left">
+                                        <td className="py-3 px-6 text-left sm:hidden">
                                             <span>{user.dob ? format(user.dob, 'dd/MM/yyyy') : "Không có"}</span>
                                         </td>
-                                        <td className="py-3 px-6 text-center">
+                                        <td className="py-3 px-6 text-center sm:hidden md:hidden">
                                             <span className="text-sm">{user.email}</span>
                                         </td>
                                         <td className="py-3 px-2 text-center">
@@ -141,7 +142,7 @@ function ModalFeedVoucher() {
                         }
                     </tbody>
                 </table>
-                <button className='p-3 w-1/3 bg-main text-white rounded-md mt-3 hover:opacity-80' onClick={handleSubmit}>Phân phát</button>
+                <button className='p-3 sm:w-full md:w-1/3 lg:w-1/4 xl:w-1/4 bg-main text-white rounded-md mt-3 hover:opacity-80' onClick={handleSubmit}>Phân phát</button>
             </Modal.Body>
         </Modal>
     );

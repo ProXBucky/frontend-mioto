@@ -6,7 +6,7 @@ import { clearModalAddCar } from "../../../redux/Slice/ModalSlice";
 import { useEffect, useRef, useState } from "react";
 import ChooseSelector from "../../../features/search/ChooseSelector";
 import AddressSelector from "../../../features/search/AdressSelector";
-import { getAllCarFeature, getAllUser } from "../../../api/appAPI";
+import { getAllCarFeature, getAllUser, getAllUserByAdmin } from "../../../api/appAPI";
 import "../../AccountInformation/DetailInformation/RegisterSelfDrive.css"
 import { format } from "date-fns";
 import { toast } from "react-toastify";
@@ -168,7 +168,7 @@ function ModalAddCar() {
     };
 
     const fetchData = async () => {
-        const res = await getAllUser(adminToken);
+        const res = await getAllUserByAdmin(adminToken);
         if (res) {
             setUsers(res);
         }
@@ -185,35 +185,36 @@ function ModalAddCar() {
             size="xl"
             aria-labelledby="contained-modal-title-vcenter"
             centered
+            dialogClassName="custom-modal"
             show={modalAddCar}
         >
             <Modal.Header className='border-none justify-between mt-3 px-10'>
-                <h2 className="text-2xl font-bold">Tạo mới phương tiện</h2>
+                <h2 className="text-2xl font-bold">Thêm phương tiện</h2>
                 <i className="fa-solid fa-xmark fa-2xl cursor-pointer" onClick={handleCloseModal}></i>
             </Modal.Header>
             <ModalBody>
                 <div>
-                    <div className='p-4 pt-2 flex flex-col items-center gap-4' >
-                        <div className={`w-fullbg-white`} >
+                    <div className='p-3 pt-2 flex flex-col items-center gap-4' >
+                        <div className={`w-full bg-white`} >
                             <div className=''>
-                                <div className="flex flex-col gap-3 w-1/2">
+                                <div className="flex flex-col gap-3 sm:w-full md:w-1/2 lg:w-1/2 xl:w-1/2">
                                     <label className='font-bold text-xl'>Chủ phương tiện</label>
-
                                     <div>
                                         <select value={selectedUser} onChange={handleChangeUser} className="w-full p-2 border rounded-md">
                                             <option className="border-2 w-1/3" value="" disabled>Hãy chọn thông tin chủ xe</option>
-                                            {users.map(user => (
-                                                <option className="border-2 flex items-center" key={user.userId} value={user.userId}>
-                                                    {user.fullname} | {user.dob ? format(user.dob, "dd/MM/yyyy") : "Chưa cập nhật"}
-                                                </option>
-                                            ))}
+                                            {users && users.length > 0 &&
+                                                users.map(user => (
+                                                    <option className="border-2 flex items-center" key={user.userId} value={user.userId}>
+                                                        {user.fullname} | {user.dob ? format(user.dob, "dd/MM/yyyy") : "Chưa cập nhật"}
+                                                    </option>
+                                                ))}
                                         </select>
                                     </div>
                                 </div>
                             </div>
 
                             <div className='mt-3'>
-                                <div className="flex flex-col gap-3 w-1/2">
+                                <div className="flex flex-col gap-3 sm:w-full md:w-1/2 lg:w-1/2 xl:w-1/2">
                                     <label className='font-bold text-xl'>Biển số xe</label>
                                     <input
                                         className="p-2 px-3 border rounded-md outline-none" type="text" name="bienSo"
@@ -228,9 +229,9 @@ function ModalAddCar() {
                             <div className='mt-3'>
                                 <div className="flex flex-col gap-3 w-full">
                                     <label className='font-bold text-xl'>Thông tin cơ bản</label>
-                                    <div className="flex flex-wrap gap-10">
+                                    <div className="flex flex-wrap sm:gap-5 md:gap-10 lg:gap-10 xl:gap-10">
                                         <ChooseSelector handleChange1={handleChange1} />
-                                        <div className="flex-col flex w-[calc(50%-30px)]">
+                                        <div className="flex-col flex sm:w-full md:w-[calc(50%-30px)] lg:w-[calc(50%-30px)] xl:w-[calc(50%-30px)]">
                                             <label htmlFor="year">Năm sản xuất</label>
                                             <select id="year" className='p-2 border mt-2 rounded-md cursor-pointer' name="namSanXuat" onChange={handleChange}>
                                                 <option value="">Chọn năm</option>
@@ -241,7 +242,7 @@ function ModalAddCar() {
                                         </div>
 
 
-                                        <div className="flex-col flex w-[calc(50%-30px)]">
+                                        <div className="flex-col flex sm:w-full md:w-[calc(50%-30px)] lg:w-[calc(50%-30px)] xl:w-[calc(50%-30px)]">
                                             <label>Truyền động</label>
                                             <select id="transition" className='p-2 border mt-2 rounded-md cursor-pointer' name="truyenDong" onChange={handleChange}>
                                                 <option className="cursor-pointer" value="">Chọn truyền động</option>
@@ -250,7 +251,7 @@ function ModalAddCar() {
                                             </select>
                                         </div>
 
-                                        <div className="flex-col flex w-[calc(50%-30px)]">
+                                        <div className="flex-col flex sm:w-full md:w-[calc(50%-30px)] lg:w-[calc(50%-30px)] xl:w-[calc(50%-30px)]">
                                             <label>Loại nhiên liệu</label>
                                             <select id="fuelType" className='p-2 border mt-2 rounded-md cursor-pointer' name="loaiNhienLieu" onChange={handleChange}>
                                                 <option className="cursor-pointer" value="">Chọn nhiên liệu</option>
@@ -260,7 +261,7 @@ function ModalAddCar() {
                                             </select>
                                         </div>
 
-                                        <div className="flex-col flex w-[calc(50%-30px)]">
+                                        <div className="flex-col flex sm:w-full md:w-[calc(50%-30px)] lg:w-[calc(50%-30px)] xl:w-[calc(50%-30px)]">
                                             <label htmlFor="capacity">Số ghế</label>
                                             <select id="capacity" className='p-2 border mt-2 rounded-md cursor-pointer' name="soGhe" onChange={handleChange}>
                                                 <option value="">Chọn số ghế</option>
@@ -298,7 +299,7 @@ function ModalAddCar() {
                                                 featureArray && featureArray.length > 0 &&
                                                 featureArray.map((item, index) => {
                                                     return (
-                                                        <div className="squaredThree have-label cursor-pointer border w-[calc(24%-10px)]" key={index}>
+                                                        <div className="squaredThree have-label cursor-pointer border sm:w-[calc(50%-10px)] md:w-[calc(32%-10px)] lg:w-[calc(24%-10px)] xl:w-[calc(24%-10px)]" key={index}>
                                                             <input id={item.featureCode} type="checkbox"
                                                                 className="hidden" name="filter-car-feature" value={item.featureCode}
                                                                 onChange={handleCheckboxChange}
@@ -307,7 +308,7 @@ function ModalAddCar() {
                                                                 <div className="thumbnail flex flex-col items-center justify-center py-2">
                                                                     <img loading="lazy" className="img-fluid h-7" src={item.featureIcon}
                                                                         alt={item.featureName} />
-                                                                    <span>{item.featureName}</span>
+                                                                    <span className="sm:text-sm">{item.featureName}</span>
                                                                 </div>
                                                             </label>
                                                         </div>
@@ -327,7 +328,7 @@ function ModalAddCar() {
                                     <p className="text-sm text-gray-600">Đơn giá áp dụng cho tất cả các ngày. Bạn có thuể tuỳ chỉnh giá khác cho các ngày đặc biệt (cuối tuần, lễ, tết...) trong mục quản lý xe sau khi đăng kí.</p>
                                     <div className="flex flex-row items-center gap-2">
                                         <input
-                                            className="p-2 px-3 border rounded-md outline-none w-1/2" type="number" name="giaThue" placeholder="Giá tiền/ngày K(VND)"
+                                            className="p-2 px-3 border rounded-md outline-none sm:w-2/3 md:w-1/2 lg:w-1/2 xl:w-1/2" type="number" name="giaThue" placeholder="Giá tiền/ngày K(VND)"
                                             value={formData.giaThue}
                                             onChange={handleChange}
                                             required
@@ -343,7 +344,7 @@ function ModalAddCar() {
                                     <p className="text-sm text-gray-600">Nếu không cần cọc thì để trống.</p>
                                     <div className="flex flex-row items-center gap-2">
                                         <input
-                                            className="p-2 px-3 border rounded-md outline-none w-1/2" type="number" name="giaCoc" placeholder="Giá cọc K(VND)"
+                                            className="p-2 px-3 border rounded-md outline-none sm:w-2/3 md:w-1/2 lg:w-1/2 xl:w-1/2" type="number" name="giaCoc" placeholder="Giá cọc K(VND)"
                                             value={formData.giaCoc}
                                             onChange={handleChange}
                                         />
@@ -379,7 +380,7 @@ function ModalAddCar() {
                                     className="hidden"
                                 />
 
-                                <div className="flex flex-wrap gap-2 mt-3">
+                                <div className="flex flex-wrap gap-2 mt-3 justify-center">
                                     {
                                         selectedImages.map((imageUrl, index) => {
                                             return (

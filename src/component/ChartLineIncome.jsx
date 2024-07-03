@@ -63,8 +63,6 @@ const ChartLineIncome = () => {
         fetchData();
     }, [adminToken]);
 
-    console.log(dataSet)
-
     const options = {
         responsive: true,
         plugins: {
