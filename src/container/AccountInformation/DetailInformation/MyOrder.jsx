@@ -109,7 +109,7 @@ function MyOrder() {
                                             <div className="w-1/2 flex flex-col justify-center items-center gap-3">
                                                 <div className="flex justify-center flex-col items-center gap-2">
                                                     <h3 className="text-md font-semibold">Người đặt</h3>
-                                                    <img className="h-10 w-10 rounded-full" src={order.user && order.user.avatarImage ? order.user.avatarImage : "/maleAva.png"} />
+                                                    <img className="h-10 w-10 rounded-full" src={order.user && order.user.avatarImage ? order.user.avatarImage : "/avaMale.png"} />
                                                     <p className="text-xs">{order.user && order.user.fullname && order.user.fullname}</p>
                                                     <p className="text-xs">SĐT: {order.user && order.user.phone && order.user.phone}</p>
                                                 </div>

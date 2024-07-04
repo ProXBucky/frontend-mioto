@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { tokenSelector, userIdSelector } from "../../../redux/selector";
 import { format } from "date-fns";
-import { setShowLoading } from "../../../redux/Slice/AppSlice";
+import { setHideLoading, setShowLoading } from "../../../redux/Slice/AppSlice";
 import { countTrip, getInformationUserById } from "../../../api/appAPI";
 import { useNavigate } from "react-router-dom";
 import { getListCar } from "../../../api/carAPI";
@@ -108,6 +108,10 @@ function MyAccount({ handleOpenEdit, showModalEdit }) {
         if (userId) {
             try {
                 dispatch(setShowLoading())
+                if (!formData.licenseNumber) {
+                    toast.error("Thiếu dữ liệu")
+                    return
+                }
                 if (editor) {
                     const canvas = editor.getImageScaledToCanvas();
                     const dataURL = canvas.toDataURL();
@@ -117,10 +121,10 @@ function MyAccount({ handleOpenEdit, showModalEdit }) {
                 if (res) {
                     toast.success('Cập nhật thành công')
                     setEditLicense(false)
+                    fetchDataLicense()
                 }
             } catch (error) {
-                console.log(error)
-                toast.error('Lỗi hệ thống')
+                toast.error('Đã xảy ra lỗi. Vui lòng thử lại sau.');
             } finally {
                 dispatch(setHideLoading())
             }
@@ -260,7 +264,7 @@ function MyAccount({ handleOpenEdit, showModalEdit }) {
                                                         width={250}
                                                         height={150}
                                                         border={50}
-                                                        color={[255, 255, 255, 0.2]}
+                                                        color={[0, 0, 0, 0.5]}
                                                         scale={scale}
                                                         rotate={0}
                                                     />

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { deleteAddress, getAllAddressByUserId } from "../../../api/userAPI"
 import { toast } from "react-toastify"
 import { useDispatch, useSelector } from "react-redux";
-import { tokenSelector, userIdSelector } from "../../../redux/selector";
+import { componentLoadSelector, tokenSelector, userIdSelector } from "../../../redux/selector";
 import { setHideLoading, setShowLoading } from "../../../redux/Slice/AppSlice";
 
 function MyAddress({ handleOpenModalAddress }) {
@@ -10,16 +10,22 @@ function MyAddress({ handleOpenModalAddress }) {
     const token = useSelector(tokenSelector)
     const userId = useSelector(userIdSelector);
     const [allAddress, setAllAddress] = useState([])
+    const load = useSelector(componentLoadSelector)
+
+    const fetchAllAddressById = async () => {
+        let res = await getAllAddressByUserId(userId, token)
+        if (res) {
+            setAllAddress(res)
+        }
+    }
 
     useEffect(() => {
-        const fetchAllAddressById = async () => {
-            let res = await getAllAddressByUserId(userId, token)
-            if (res) {
-                setAllAddress(res)
-            }
-        }
         fetchAllAddressById()
     }, [])
+
+    useEffect(() => {
+        fetchAllAddressById()
+    }, [load])
 
     const hanldeDeleteAddress = async (addressId) => {
         try {

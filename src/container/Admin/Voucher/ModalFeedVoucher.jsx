@@ -10,26 +10,26 @@ import { getAllUserByAdmin } from '../../../api/appAPI';
 import { format } from 'date-fns';
 
 function ModalFeedVoucher() {
-    const modalFeedVoucher = useSelector(modalFeedVoucherSelector)
-    const voucherId = useSelector(modalVoucherIdSelector)
-    const adminToken = useSelector(adminTokenSelector)
-    const dispatch = useDispatch()
+    const modalFeedVoucher = useSelector(modalFeedVoucherSelector);
+    const voucherId = useSelector(modalVoucherIdSelector);
+    const adminToken = useSelector(adminTokenSelector);
+    const dispatch = useDispatch();
 
-    const [users, setUsers] = useState([])
+    const [users, setUsers] = useState([]);
     const [selectedUsers, setSelectedUsers] = useState([]);
 
     const fetchAllUsers = async () => {
-        let res = await getAllUserByAdmin(adminToken)
+        let res = await getAllUserByAdmin(adminToken);
         if (res && res.length > 0) {
-            setUsers(res)
+            setUsers(res);
         } else {
-            setUsers([])
+            setUsers([]);
         }
-    }
+    };
 
     useEffect(() => {
-        fetchAllUsers()
-    }, [])
+        fetchAllUsers();
+    }, []);
 
     const handleRowClick = (id) => {
         if (selectedUsers.includes(id)) {
@@ -39,26 +39,35 @@ function ModalFeedVoucher() {
         }
     };
 
+    const handleSelectAll = () => {
+        setSelectedUsers(users.map(user => user.userId));
+    };
+
+    const handleDeselectAll = () => {
+        setSelectedUsers([]);
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            dispatch(setShowLoading())
+            dispatch(setShowLoading());
             if (!selectedUsers || selectedUsers.length === 0) {
-                toast.error("Chưa chọn người dùng nào")
+                toast.error("Chưa chọn người dùng nào");
+                return;
             }
             const res = await feedVoucherToUser(
                 voucherId,
                 {
                     userIdArray: selectedUsers
                 },
-                adminToken)
+                adminToken
+            );
             if (res) {
-                handleCloseModal()
-                toast.success("Phân phát mã giảm giá thành công")
+                handleCloseModal();
+                toast.success("Phân phát mã giảm giá thành công");
             }
         } catch (error) {
-            console.log(error)
+            console.log(error);
             if (error.response) {
                 switch (error.response.status) {
                     case 401:
@@ -73,16 +82,15 @@ function ModalFeedVoucher() {
             } else {
                 toast.error('Đã xảy ra lỗi. Vui lòng thử lại sau.');
             }
-        }
-        finally {
-            dispatch(setHideLoading())
+        } finally {
+            dispatch(setHideLoading());
         }
     };
 
     const handleCloseModal = () => {
-        dispatch(clearModalVoucherId())
-        dispatch(clearModalFeedVoucher())
-    }
+        dispatch(clearModalVoucherId());
+        dispatch(clearModalFeedVoucher());
+    };
 
     return (
         <Modal
@@ -96,8 +104,12 @@ function ModalFeedVoucher() {
                 <h1 className='text-center sm:text-lg md:text-2xl lg:text-2xl xl:text-2xl font-bold'>Phân phát mã giảm giá</h1>
                 <i className="fa-solid fa-xmark fa-2xl cursor-pointer" onClick={handleCloseModal}></i>
             </Modal.Header>
-            <Modal.Body className='p-4 px-5 flex justify-center items-center flex-col' >
+            <Modal.Body className='p-4 px-5 flex justify-center items-center flex-col'>
                 <h3 className='font-semibold sm:text-sm md:text-lg lg:text-lg xl:text-lg'>Nhấn chọn người dùng để phân phối mã giảm giá</h3>
+                <div className="flex gap-3 my-3">
+                    <button className='p-2 bg-main text-white rounded-md' onClick={handleSelectAll}>Chọn tất cả</button>
+                    <button className='p-2 bg-main text-white rounded-md' onClick={handleDeselectAll}>Xóa chọn tất cả</button>
+                </div>
                 <table className="min-w-full bg-white mt-3">
                     <thead>
                         <tr className="bg-gray-50 text-gray-500 text-sm leading-normal">
@@ -137,7 +149,7 @@ function ModalFeedVoucher() {
                                             {selectedUsers.includes(user.userId) ? <i className="fa-solid fa-check"></i> : <i className="fa-solid fa-xmark"></i>}
                                         </td>
                                     </tr>
-                                )
+                                );
                             })
                         }
                     </tbody>
@@ -148,4 +160,4 @@ function ModalFeedVoucher() {
     );
 }
 
-export default ModalFeedVoucher
+export default ModalFeedVoucher;

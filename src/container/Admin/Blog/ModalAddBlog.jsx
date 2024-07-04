@@ -4,7 +4,7 @@ import { adminIdSelector, adminTokenSelector, modalAddBlogSelector } from "../..
 import Modal from 'react-bootstrap/Modal';
 import { Form } from "react-bootstrap";
 import { toast } from "react-toastify";
-import { setHideLoading, setShowLoading } from "../../../redux/Slice/AppSlice";
+import { setConponentLoad, setHideLoading, setShowLoading } from "../../../redux/Slice/AppSlice";
 import { useState } from "react";
 import { createBlog } from "../../../api/adminAPI";
 import MarkdownIt from 'markdown-it';
@@ -48,6 +48,7 @@ function ModalAddBlog() {
             if (res) {
                 toast.success("Tạo blog thành công")
                 handleCloseCreate();
+                dispatch(setConponentLoad())
             }
         } catch (error) {
             console.log(error)

@@ -205,19 +205,21 @@ function ModalCreateUser() {
                                 Chọn ảnh
                             </label>
                             <input type="file" id="avaInput" className='hidden' onChange={handleFileChange} />
-                            {selectedFile && (
-                                <div className='sm:h-1/2 md:h-1/2 lg:w-full xl:w-full'>
-                                    <AvatarEditor
-                                        ref={setEditor}
-                                        image={selectedFile}
-                                        width={250}
-                                        height={250}
-                                        border={50}
-                                        color={[0, 0, 0, 0.3]} // Màu nền của khung cắt
-                                        scale={1}
-                                    />
-                                </div>
-                            )}
+                            <div className='w-full flex justify-center'>
+                                {selectedFile && (
+                                    <div className='sm:h-1/2 md:h-1/2 lg:w-1/2 xl:w-1/2'>
+                                        <AvatarEditor
+                                            ref={setEditor}
+                                            image={selectedFile}
+                                            width={250}
+                                            height={250}
+                                            border={50}
+                                            color={[0, 0, 0, 0.3]} // Màu nền của khung cắt
+                                            scale={1}
+                                        />
+                                    </div>
+                                )}
+                            </div>
                         </div>
                     </div>
 

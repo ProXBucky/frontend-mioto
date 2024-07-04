@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react"
 import { getAllVoucher } from "../../../api/appAPI"
 import { useDispatch, useSelector } from "react-redux"
-import { adminTokenSelector } from "../../../redux/selector"
+import { adminTokenSelector, componentLoadSelector } from "../../../redux/selector"
 import { format } from "date-fns"
 import { setModalAddVoucher, setModalFeedVoucher, setModalVoucherId } from "../../../redux/Slice/ModalSlice"
 import { formatMoney } from "../../../utils/formatMoney"
@@ -51,6 +51,12 @@ function ManageVoucher() {
     useEffect(() => {
         fetchAllVouchers()
     }, [])
+
+    const load = useSelector(componentLoadSelector)
+
+    useEffect(() => {
+        fetchAllVouchers()
+    }, [load])
 
 
     return (

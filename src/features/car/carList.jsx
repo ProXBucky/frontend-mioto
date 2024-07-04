@@ -19,7 +19,7 @@ function CarList({ ava, city, cityName, isHiddenTitle, carArray, menu }) {
 
     return (
         <div className={`sm:px-3 md:px-5 lg:px-16 xl:px-32 md:py-14 lg:py-14 xl:py-14 
-        ${menu === true ? "sm:py-5" : "sm:py-40"} 
+        ${menu === true ? "sm:py-5" : "sm:py-16"} 
         ${city === "city" ? "" : "bg-gray-100"}`}>
             {
                 !isHiddenTitle ?

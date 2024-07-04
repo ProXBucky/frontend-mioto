@@ -38,7 +38,7 @@ function Home({ handleOpenDateModal, handleOpenLocationModal }) {
     };
 
     const fetchListCarByCity = async () => {
-        let res = await getListCarByCity(cityCode, userId)
+        let res = await getListCarByCity(cityCode, userId, 8)
         if (res && res.length > 0) {
             setCarArray(res)
         } else {

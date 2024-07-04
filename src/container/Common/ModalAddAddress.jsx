@@ -4,7 +4,8 @@ import { useState } from 'react';
 import { postAddress } from '../../api/userAPI';
 import { toast } from 'react-toastify';
 import { tokenSelector, userIdSelector } from '../../redux/selector';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { setConponentLoad } from '../../redux/Slice/AppSlice';
 
 
 
@@ -17,6 +18,7 @@ function ModalAddAdress({ showModalAddress, handleCloseModalAddress }) {
         ward: '',
         streetAddress: ''
     })
+    const dispatch = useDispatch()
 
     const handleChangeAddress = (name, value) => {
         setValueAddress(prevState => ({
@@ -30,6 +32,7 @@ function ModalAddAdress({ showModalAddress, handleCloseModalAddress }) {
             if (res) {
                 toast.success('Thêm địa chỉ thành công')
                 handleCloseModalAddress()
+                dispatch(setConponentLoad())
             }
         }
         catch (e) {

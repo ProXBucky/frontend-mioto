@@ -32,7 +32,7 @@ function CarByCity({ handleOpenDateModal, handleOpenLocationModal }) {
     const citys = cityBackgrounds[city];
 
     const fetchListCarByCity = async () => {
-        let res = await getListCarByCity(city, userId)
+        let res = await getListCarByCity(city, userId, 8)
         if (res && res.length > 0) {
             setCarArray(res)
         } else {

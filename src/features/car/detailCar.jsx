@@ -454,7 +454,7 @@ function DetailCar({ handleOpenDateModal, handleOpenLoginModal }) {
                             <h3 className="font-semibold text-xl">Chủ xe</h3>
                             <div className="flex justify-between mt-4">
                                 <div className="flex flex-row gap-3 items-center">
-                                    <img className="h-20 rounded-full border" src={car && car && car.user ? car.user.avatarImage : "/avaMale.png"} />
+                                    <img className="h-20 rounded-full border" src={car && car && car.user && car.user.avatarImage ? car.user.avatarImage : "/avaMale.png"} />
                                     <div>
                                         <p className="font-bold text-xl">{car && car && car.user && car.user.fullname}</p>
                                         <div className="flex flex-row gap-1 font-semibold text-sm">

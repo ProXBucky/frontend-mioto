@@ -26,9 +26,9 @@ const getListCar = async (userId) => {
     }
 }
 
-const getListCarByCity = async (city, userId) => {
+const getListCarByCity = async (city, userId, limit) => {
     try {
-        const response = await axios.get(`${API_URL}/api/car/all-car-by-city?city=${city}&userId=${parseInt(userId)}`);
+        const response = await axios.get(`${API_URL}/api/car/all-car-by-city?city=${city}&userId=${parseInt(userId)}&limit=${parseInt(limit)}`);
         return response.data;
     } catch (error) {
         console.log('Error fetching data:', error);

@@ -132,7 +132,7 @@ const createNewVoucher = async (body, token) => {
 
 const deleteVoucher = async (voucherId, token) => {
     try {
-        const response = await axios.delete(`${API_URL}/api/voucher/${voucherId}`,
+        const response = await axios.put(`${API_URL}/api/voucher/${voucherId}`, {},
             {
                 headers: {
                     Authorization: 'Bearer ' + token

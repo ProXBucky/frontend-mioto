@@ -43,7 +43,7 @@ function Service() {
             <div className="sm:block md:hidden lg:hidden xl:hidden">
                 <Slider {...settings}>
                     <div className="relative">
-                        <img src="/service1.png" className="h-[250px]" />
+                        <img src="/service1.png" />
                         <div className="absolute bottom-[15px] left-[15px] pr-10">
                             <h1 className="text-xl font-bold mb-2 text-white">Xe đã sẵn sàng.</h1>
                             <h1 className="text-xl font-bold mb-2 text-white">Bắt đầu hành trình ngay!</h1>
@@ -54,10 +54,10 @@ function Service() {
                         </div>
                     </div>
                     <div className="relative">
-                        <img src="/service2.png" className="h-[250px]" />
+                        <img src="/service2.png" />
                         <div className="absolute right-[15px] bottom-[15px] text-right pl-16">
                             <h1 className="text-xl font-bold mb-3 text-white">Tài xế của bạn đã đến!</h1>
-                            <p className="text-base text-white">
+                            <p className="text-base text-white pl-10">
                                 Chuyến đi thêm thú vị
                                 cùng các bác tài 5* trên Mioto
                             </p>

@@ -49,14 +49,14 @@ function ModalConfirmRent({ showModalConfirmRent, handleCloseModalConfirmRent, h
                     <div className='sm:w-full md:w-2/3 lg:w-2/3 xl:w-2/3 sm:pl-0 md:pl-10 lg:pl-10 xl:pl-10 sm:mt-2'>
                         <h3 className='font-semibold text-lg'>Thời gian thuê xe</h3>
                         <div className='flex flex-col gap-3 w-full mt-2'>
-                            <p>Bắt đầu: {format(beginDate, 'PPP', { locale: viLocale })}</p>
-                            <p>Kết thúc: {format(endDate, 'PPP', { locale: viLocale })}</p>
+                            <p>Bắt đầu: {beginDate}</p>
+                            <p>Kết thúc: {endDate}</p>
                         </div>
 
                         <h3 className='font-semibold text-lg mt-2'>Chủ xe</h3>
                         <div className="flex flex-col gap-3 mt-2">
                             <div className="flex flex-row gap-3 items-center">
-                                <img className="sm:h-10 md:h-14 lg:h-16 xl:h-20 rounded-full border" src={car && car && car.user ? car.user.avatarImage : "/avaMale.png"} />
+                                <img className="sm:h-10 md:h-14 lg:h-16 xl:h-20 rounded-full border" src={car && car.user && car.user.avatarImage ? car.user.avatarImage : "/avaMale.png"} />
                                 <div>
                                     <p className="font-semibold text-lg">{car && car && car.user && car.user.fullname}</p>
                                     <div className='flex items-center'>

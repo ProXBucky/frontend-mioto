@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { getAllBlogs } from "../../../api/appAPI"
 import { useDispatch, useSelector } from "react-redux"
-import { adminTokenSelector } from "../../../redux/selector"
+import { adminTokenSelector, componentLoadSelector } from "../../../redux/selector"
 import { setModalAddBlog, setModalBlogId, setModalViewBlog } from "../../../redux/Slice/ModalSlice"
 import { format } from "date-fns"
 import { deleteBlog } from "../../../api/adminAPI"
@@ -74,6 +74,12 @@ function ManageBlog() {
     useEffect(() => {
         fetchAllBlogs()
     }, [])
+
+    const load = useSelector(componentLoadSelector)
+
+    useEffect(() => {
+        fetchAllBlogs()
+    }, [load])
 
     return (
         <div className="w-full">

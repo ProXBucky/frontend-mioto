@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearModalAddVoucher } from '../../../redux/Slice/ModalSlice';
-import { setHideLoading, setShowLoading } from '../../../redux/Slice/AppSlice';
+import { setConponentLoad, setHideLoading, setShowLoading } from '../../../redux/Slice/AppSlice';
 import { adminTokenSelector, modalAddVoucherSelector, } from '../../../redux/selector';
 import { createNewVoucher } from '../../../api/adminAPI';
 import { toast } from 'react-toastify';
@@ -48,6 +48,7 @@ function ModalAddVoucher() {
             if (res) {
                 handleCloseModal()
                 toast.success("Tạo mới mã giảm giá thành công")
+                dispatch(setConponentLoad())
             }
         } catch (error) {
             console.log(error)

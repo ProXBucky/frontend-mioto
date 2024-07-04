@@ -125,14 +125,14 @@ function ManageTripFinished() {
                                             <div className="flex sm:flex-col md:flex-col lg:flex-row xl:flex-row gap-2 items-center w-full">
                                                 <h3 className="text-sm sm:w-full md:w-full lg:w-1/4 xl:w-1/4 text-center">Chủ xe</h3>
                                                 <div className="flex justify-center flex-col items-center sm:w-full md:w-full lg:w-3/4 xl:w-3/4 gap-2">
-                                                    <img className="h-10 w-10 rounded-full" src={trip.car.user && trip.car.user.avatarImage ? trip.car.user.avatarImage : "/maleAva.png"} />
+                                                    <img className="h-10 w-10 rounded-full" src={trip.car.user && trip.car.user.avatarImage ? trip.car.user.avatarImage : "/avaMale.png"} />
                                                     <p className="text-xs">{trip.car.user && trip.car.user.fullname && trip.car.user.fullname}</p>
                                                 </div>
                                             </div>
                                             <div className="flex sm:flex-col md:flex-col lg:flex-row xl:flex-row gap-2 items-center w-full">
                                                 <h3 className="text-sm sm:w-full md:w-full lg:w-1/4 xl:w-1/4 text-center">Người đặt</h3>
                                                 <div className="flex justify-center flex-col items-center sm:w-full md:w-full lg:w-3/4 xl:w-3/4 gap-2">
-                                                    <img className="h-10 w-10 rounded-full" src={trip.user && trip.user.avatarImage ? trip.user.avatarImage : "/maleAva.png"} />
+                                                    <img className="h-10 w-10 rounded-full" src={trip.user && trip.user.avatarImage ? trip.user.avatarImage : "/avaMale.png"} />
                                                     <p className="text-xs">{trip.user && trip.user.fullname && trip.user.fullname}</p>
                                                 </div>
                                             </div>

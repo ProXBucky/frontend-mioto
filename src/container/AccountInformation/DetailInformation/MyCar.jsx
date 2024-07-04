@@ -47,6 +47,10 @@ function MyCar() {
             <h1 className="sm:text-2xl md:text-3xl lg:text-4xl xl:text-4xl font-bold">Danh sách xe của tôi</h1>
             <div className="flex w-full flex-col justify-center items-center mt-10">
                 {
+                    listMyCar.length > 0 &&
+                    <button className="mb-4 px-4 py-3 rounded-xl font-semibold bg-main text-white" onClick={() => handleOpenModalAddCar()}>Đăng ký xe tự lái</button>
+                }
+                {
                     listMyCar && listMyCar.length > 0 ?
                         listMyCar.map((item, index) => {
                             return (
@@ -118,10 +122,6 @@ function MyCar() {
                             <h3 className="font-bold text-xl text-gray-500">Không tìm thấy xe nào</h3>
                             <button className="mt-5 px-4 py-3 rounded-xl font-semibold bg-main text-white" onClick={() => handleOpenModalAddCar()}>Đăng ký xe tự lái</button>
                         </>
-                }
-                {
-                    listMyCar.length > 0 &&
-                    <button className="mt-2 px-4 py-3 rounded-xl font-semibold bg-main text-white" onClick={() => handleOpenModalAddCar()}>Đăng ký xe tự lái</button>
                 }
             </div>
 

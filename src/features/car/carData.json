@@ -9,6 +9,7 @@
         "Kia",
         "Lexus",
         "Mazda",
+        "Morris Garages",
         "Mercedes",
         "Mitsubishi",
         "Nissan",
@@ -238,6 +239,13 @@
             "MAZDA CX9",
             "MAZDA PREMACY"
         ],
+        "Morris Garages": [
+            "MG5",
+            "MG6",
+            "MG HS",
+            "MG RX5",
+            "MG ZS"
+        ],
         "Mercedes": [
             "MERCEDES A200 HATCHBACK",
             "MERCEDES A250",
@@ -356,7 +364,8 @@
             "SUZUKI SWIFT HATCHBACK",
             "SUZUKI SWIFT SPORT HATCHBACK",
             "SUZUKI VITARA (AT)",
-            "SUZUKI VITARA (MT)"
+            "SUZUKI VITARA (MT)",
+            "SUZUKI XL7"
         ],
         "Toyota": [
             "TOYOTA 4RUNNER",
@@ -429,7 +438,14 @@
             "VINFAST LUX A 2.0 (AT)",
             "VINFAST LUX SA 2.0 (AT)",
             "VINFAST LUX V 2.0 (AT)",
-            "VINFAST LUX V8.0 (AT)"
+            "VINFAST LUX V8.0 (AT)",
+            "VINFAST VF34",
+            "VINFAST VF3",
+            "VINFAST VF5",
+            "VINFAST VF8",
+            "VINFAST VF8 PLUS",
+            "VINFAST VF9",
+            "VINFAST VF9 PLUS"
         ],
         "Volkswagen": [
             "VOLKSWAGEN ATLAS",

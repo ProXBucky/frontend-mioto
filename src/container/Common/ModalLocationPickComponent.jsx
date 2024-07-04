@@ -43,12 +43,15 @@ function ModalLocationPickComponent({ showLocationModal, handleCloseLocationModa
                     value={locationPick}
                     onChange={handleLocationChange}>
                     <option value="">Chọn tỉnh/thành phố</option>
+                    <option value="Bắc Ninh">Bắc Ninh</option>
+                    <option value="Hà Nội">Hà Nội</option>
+                    <option value="Hồ Chí Minh">Hồ Chí Minh</option>
+                    <option value="Đà Nẵng">Đà Nẵng</option>
                     <option value="An Giang">An Giang</option>
                     <option value="Bà Rịa - Vũng Tàu">Bà Rịa - Vũng Tàu</option>
                     <option value="Bạc Liêu">Bạc Liêu</option>
                     <option value="Bắc Kạn">Bắc Kạn</option>
                     <option value="Bắc Giang">Bắc Giang</option>
-                    <option value="Bắc Ninh">Bắc Ninh</option>
                     <option value="Bến Tre">Bến Tre</option>
                     <option value="Bình Dương">Bình Dương</option>
                     <option value="Bình Định">Bình Định</option>
@@ -57,7 +60,6 @@ function ModalLocationPickComponent({ showLocationModal, handleCloseLocationModa
                     <option value="Cà Mau">Cà Mau</option>
                     <option value="Cao Bằng">Cao Bằng</option>
                     <option value="Cần Thơ">Cần Thơ</option>
-                    <option value="Đà Nẵng">Đà Nẵng</option>
                     <option value="Đắk Lắk">Đắk Lắk</option>
                     <option value="Đắk Nông">Đắk Nông</option>
                     <option value="Điện Biên">Điện Biên</option>
@@ -66,13 +68,11 @@ function ModalLocationPickComponent({ showLocationModal, handleCloseLocationModa
                     <option value="Gia Lai">Gia Lai</option>
                     <option value="Hà Giang">Hà Giang</option>
                     <option value="Hà Nam">Hà Nam</option>
-                    <option value="Hà Nội">Hà Nội</option>
                     <option value="Hà Tĩnh">Hà Tĩnh</option>
                     <option value="Hải Dương">Hải Dương</option>
                     <option value="Hải Phòng">Hải Phòng</option>
                     <option value="Hậu Giang">Hậu Giang</option>
                     <option value="Hòa Bình">Hòa Bình</option>
-                    <option value="Hồ Chí Minh">Hồ Chí Minh</option>
                     <option value="Hưng Yên">Hưng Yên</option>
                     <option value="Khánh Hòa">Khánh Hòa</option>
                     <option value="Kiên Giang">Kiên Giang</option>
@@ -128,9 +128,9 @@ function ModalLocationPickComponent({ showLocationModal, handleCloseLocationModa
                         <label className='font-medium text-lg cursor-pointer'>Đà Nẵng</label>
                     </div>
 
-                    <div className='rounded-3xl border border-gray-400 p-2 px-3 flex flex-row gap-2 justify-center items-center cursor-pointer hover:bg-gray-300' onClick={() => handleLocationClick('Bình Dương')}>
+                    <div className='rounded-3xl border border-gray-400 p-2 px-3 flex flex-row gap-2 justify-center items-center cursor-pointer hover:bg-gray-300' onClick={() => handleLocationClick('Bắc Ninh')}>
                         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M17.2748 2.72494C16.6831 2.13327 15.7248 2.14161 15.1498 2.74994L11.9915 6.04161L4.28314 3.49161L2.66647 5.10827L9.09147 9.06661L5.84147 12.4499L3.75814 12.1083L2.2998 13.5666L5.36647 14.6416L6.44147 17.7083L7.89981 16.2499L7.55814 14.1666L10.9415 10.9166L14.8998 17.3416L16.5165 15.7249L13.9665 8.01661L17.2581 4.85828C17.8498 4.27494 17.8581 3.31661 17.2748 2.72494Z" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path></svg>
-                        <label className='font-medium text-lg cursor-pointer'>Bình Dương</label>
+                        <label className='font-medium text-lg cursor-pointer'>Bắc Ninh</label>
                     </div>
 
                     <div className='rounded-3xl border border-gray-400 p-2 px-3 flex flex-row gap-2 justify-center items-center cursor-pointer hover:bg-gray-300' onClick={() => handleLocationClick('Lâm Đồng')}>
