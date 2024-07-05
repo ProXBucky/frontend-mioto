@@ -116,7 +116,7 @@ function ManageTripPending() {
 
 
     return (
-        <div className="w-full">
+        <div className="w-full pb-10">
             <div className="flex sm:flex-col md:flex-row lg:flex-row xl:flex-row items-center justify-between">
                 <h2 className="font-bold text-xl">Chuyến đi</h2>
                 <div className="sm:w-full md:w-1/4 lg:w-1/4 xl:w-1/4">

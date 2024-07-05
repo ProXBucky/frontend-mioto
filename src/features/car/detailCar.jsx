@@ -160,17 +160,17 @@ function DetailCar({ handleOpenDateModal, handleOpenLoginModal }) {
     const handleChooseVoucher = (item) => {
         let voucherMoney = 0
         let totalHaveTax = totalRentNotVoucher + totalRentNotVoucher / 10
-        if (item.type === "percent") {
-            voucherMoney = item.discountPercent / 100 * (dayRent * totalHaveTax)
+        if (item.voucher.type === "percent") {
+            voucherMoney = item.voucher.discountPercent / 100 * (dayRent * totalHaveTax)
             setTotalRentVoucher(totalHaveTax * dayRent - voucherMoney)
         }
         else {
-            voucherMoney = item.discountPercent * 1000
+            voucherMoney = item.voucher.discountPercent * 1000
             setTotalRentVoucher(totalHaveTax * dayRent - voucherMoney)
         }
         setVoucher({
-            voucherId: item.voucherId,
-            voucherCode: item.voucherCode,
+            voucherId: item.voucherOwnerId,
+            voucherCode: item.voucher.voucherCode,
             voucherMoney: voucherMoney
         })
         handleCloseModalVoucher()
@@ -370,6 +370,21 @@ function DetailCar({ handleOpenDateModal, handleOpenLoginModal }) {
         }
     }
 
+    const handleDeleteReview = async (reviewId) => {
+        try {
+            if (window.confirm("Bạn có muốn xóa bình luận này không?")) {
+                let res = await deleteReviewByReviewId(reviewId, token);
+                if (res) {
+                    fetchAllReviewOfCar()
+                    toast.success("Xóa bình luận thành công");
+                }
+            }
+        } catch (error) {
+            console.log(error)
+            toast.error("Lỗi hệ thống, xóa bình luận thất bại")
+        }
+    }
+
     useEffect(() => {
         if (userId && carId) {
             chkLikeCar()
@@ -454,7 +469,7 @@ function DetailCar({ handleOpenDateModal, handleOpenLoginModal }) {
                             <h3 className="font-semibold text-xl">Chủ xe</h3>
                             <div className="flex justify-between mt-4">
                                 <div className="flex flex-row gap-3 items-center">
-                                    <img className="h-20 rounded-full border" src={car && car && car.user && car.user.avatarImage ? car.user.avatarImage : "/avaMale.png"} />
+                                    <img className="h-20 rounded-full border" loading="lazy" src={car && car && car.user && car.user.avatarImage ? car.user.avatarImage : "/avaMale.png"} />
                                     <div>
                                         <p className="font-bold text-xl">{car && car && car.user && car.user.fullname}</p>
                                         <div className="flex flex-row gap-1 font-semibold text-sm">
@@ -489,7 +504,7 @@ function DetailCar({ handleOpenDateModal, handleOpenLoginModal }) {
                                 <span>{reviewScore && reviewScore.count} đánh giá</span>
                             </label>
                         </div>
-                        <ListReview allReview={allReview} handleRatingChange={handleRatingChange} />
+                        <ListReview allReview={allReview} handleRatingChange={handleRatingChange} userId={userId} handleDeleteReview={handleDeleteReview} />
                     </div>
                     <div className="sm:hidden md:hidden lg:w-1/3 xl:w-1/3">
                         <CarPrice

@@ -116,7 +116,7 @@ function DetailRent() {
                         <h3 className='font-semibold text-lg mt-2'>Chủ xe</h3>
                         <div className="flex flex-col gap-3 mt-2">
                             <div className="flex sm:flex-col md:flex-col lg:flex-col xl:flex-row gap-3 items-center">
-                                <img className="sm:h-14 md:h-16 lg:h-16 xl:h-20 rounded-full border" src={rent && rent.car && rent.car && rent.car.user ? rent.car.user.avatarImage : "/avaMale.png"} />
+                                <img className="sm:h-14 md:h-16 lg:h-16 xl:h-20 rounded-full border" src={rent && rent.car && rent.car && rent.car.user.avatarImage ? rent.car.user.avatarImage : "/avaMale.png"} />
                                 <div>
                                     <p className="font-semibold text-lg">{rent && rent.car && rent.car && rent.car.user && rent.car.user.fullname}</p>
                                     <p className='font-normal'>Số điện thoại: {rent && rent.car && rent.car && rent.car.user && rent.car.user.phone}</p>

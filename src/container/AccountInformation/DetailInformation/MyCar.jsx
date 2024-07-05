@@ -9,6 +9,7 @@ function MyCar() {
     const userId = useSelector(userIdSelector)
     const navigate = useNavigate()
     const [listMyCar, setListMyCar] = useState([])
+
     const handleOpenModalAddCar = () => {
         navigate('/register-mode/selfdrive')
     }
@@ -21,9 +22,8 @@ function MyCar() {
         navigate(`/account/mycar/edit/${carId}`)
     }
 
-    const handleDeleteCar = (carId) => {
-
-
+    const handleView = (carId) => {
+        navigate(`/car/${carId}`)
     }
 
     useEffect(() => {
@@ -104,7 +104,7 @@ function MyCar() {
                                         </div>
                                     </div>
                                     <div className="sm:mt-5 sm:w-full md:w-1/3 lg:w-1/3 xl:w-1/3 sm:pl-0 md:pl-8 lg:pl-8 xl:pl-8 flex flex-col justify-center items-center gap-5">
-                                        <img className="rounded-lg" src={item.images && item.images.length > 0 && item.images[0].imageLink} />
+                                        <img className="rounded-lg cursor-pointer" src={item.images && item.images.length > 0 && item.images[0].imageLink} onClick={() => handleView(item.carId)} />
                                         <div className="flex justify-evenly w-full">
                                             <i className="cursor-pointer fa-regular fa-eye fa-xl" onClick={() => handleNavigateDetailCar(item.carId)}></i>
                                             <i className="cursor-pointer fa-regular fa-pen-to-square fa-xl" onClick={() => handlenNavigateEditCar(item.carId)}></i>

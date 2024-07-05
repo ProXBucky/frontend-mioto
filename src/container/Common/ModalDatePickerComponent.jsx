@@ -24,7 +24,7 @@ function ModalDatePickerComponent({ showDateModal, handleCloseDateModal }) {
             centered
             show={showDateModal} onHide={handleCloseDateModal}
         >
-            <Modal.Header className='mt-3 flex justify-between'>
+            <Modal.Header className='mt-3 flex justify-between mx-3'>
                 <i className="fa-solid fa-xmark fa-2xl cursor-pointer invisible" onClick={() => handleCloseDateModal()}></i>
                 <h2 className='font-semibold text-2xl text-center'>Thời gian</h2>
                 <i className="fa-solid fa-xmark fa-2xl cursor-pointer" onClick={() => handleCloseDateModal()}></i>

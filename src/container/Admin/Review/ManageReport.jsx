@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { adminTokenSelector } from "../../../redux/selector"
 import { format } from "date-fns"
 import { toast } from "react-toastify"
-import { deleteReviewByReviewId } from "../../../api/adminAPI"
+import { deleteReportById } from "../../../api/adminAPI"
 
 function ManageReport() {
     const [reports, setReports] = useState([])
@@ -20,10 +20,10 @@ function ManageReport() {
         }
     }
 
-    const deleteReviewByID = async (reviewId) => {
+    const deleteReportByReportId = async (reportId) => {
         try {
             if (window.confirm("Bạn có muốn xóa báo cáo này không?")) {
-                let res = await deleteReviewByReviewId(reviewId, adminToken);
+                let res = await deleteReportById(reportId, adminToken);
                 if (res) {
                     fetchAllReports()
                     toast.success("Xóa báo cáo thành công");
@@ -82,7 +82,7 @@ function ManageReport() {
                                             <span className="bg-green-200 text-green-800 py-1 px-3 rounded-full text-sm">{format(report.reportDate, "dd/MM/yyyy")}</span>
                                         </td>
                                         <td className="py-3 px-6 text-center">
-                                            <i className="fa-solid fa-trash fa-lg cursor-pointer fa-lg" style={{ color: "#ff0000" }} onClick={() => deleteReviewByID(report.reportId)}></i>
+                                            <i className="fa-solid fa-trash fa-lg cursor-pointer fa-lg" style={{ color: "#ff0000" }} onClick={() => deleteReportByReportId(report.reportId)}></i>
                                         </td>
                                     </tr>
                                 )

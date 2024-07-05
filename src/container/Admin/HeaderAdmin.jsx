@@ -33,7 +33,7 @@ function HeaderAdmin() {
 
     return (
         <>
-            <nav className="sm:h-auto md:border-4 lg:h-auto xl:h-auto sm:px-5 md:px-5 lg:px-12 xl:px-12 py-3 w-full sticky top-0 bg-gray-100 z-50">
+            <nav className="sm:h-auto md:h-auto lg:h-auto xl:h-auto sm:px-5 md:px-5 lg:px-12 xl:px-12 py-3 w-full sticky top-0 bg-gray-100 z-50">
                 <div className="flex justify-end" >
                     <ul className="flex justify-end items-center">
                         <li className="hover:opacity-70 px-2 text-sm font-semibold py-2 cursor-pointer transition-colors duration-200" onClick={handleOpenModalEdit}><i className="fa-xl fa-solid fa-user-pen"></i></li>

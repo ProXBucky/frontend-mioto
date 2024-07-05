@@ -1,7 +1,7 @@
 import { format } from "date-fns"
 import Rating from "react-rating"
 
-function ListReview({ allReview, handleRatingChange }) {
+function ListReview({ allReview, handleRatingChange, userId, handleDeleteReview }) {
     return (
         <div className="flex flex-col gap-3 mt-3">
             {
@@ -24,8 +24,12 @@ function ListReview({ allReview, handleRatingChange }) {
                                                     readonly={true}
                                                     direction="ltr"
                                                 />
-                                                <div className="md:hidden lg:hidden xl:hidden w-full text-gray-500 text-md">
+                                                <div className="md:hidden lg:hidden xl:hidden w-full text-gray-500 text-md flex justify-between items-center">
                                                     <span>{format(item.reviewDate && item.reviewDate, 'dd/MM/yyyy')}</span>
+                                                    {
+                                                        item.user.userId === parseInt(userId) &&
+                                                        <i className="fa-solid fa-xmark fa-xl text-red-500 cursor-pointer" onClick={() => handleDeleteReview(item.reviewId)}></i>
+                                                    }
                                                 </div>
                                             </div>
                                         </div>
@@ -34,8 +38,12 @@ function ListReview({ allReview, handleRatingChange }) {
                                         {item.content && item.content}
                                     </div>
                                 </div>
-                                <div className="sm:hidden w-1/6 flex items-center justify-end text-gray-500 text-md">
+                                <div className="sm:hidden w-1/6 flex gap-2 items-center justify-end text-gray-500 text-md">
                                     <span>{format(item.reviewDate && item.reviewDate, 'dd/MM')}</span>
+                                    {
+                                        item.user.userId === parseInt(userId) &&
+                                        <i className="fa-solid fa-xmark fa-xl text-red-500 cursor-pointer" onClick={() => handleDeleteReview(item.reviewId)}></i>
+                                    }
                                 </div>
 
                             </div>

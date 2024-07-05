@@ -130,7 +130,7 @@ function DetailTrip() {
                                 <h3 className='font-semibold text-lg mt-2'>Người đặt</h3>
                                 <div className="flex flex-col gap-3 mt-2">
                                     <div className="flex flex-row gap-3 items-center">
-                                        <img className="h-14 rounded-full border" src={rent && rent.user ? rent.user.avatarImage : "/avaMale.png"} />
+                                        <img className="h-14 rounded-full border" src={rent && rent.user && rent.user.avatarImage ? rent.user.avatarImage : "/avaMale.png"} />
                                         <div>
                                             <p className="font-semibold text-lg">{rent && rent.user && rent.user.fullname}</p>
                                             <p className='font-normal'>Số điện thoại: {rent && rent.user && rent.user.phone}</p>
@@ -244,7 +244,7 @@ function DetailTrip() {
                 </div>
 
                 {
-                    rent.rentStatus !== "cancel" && rent.rentStatus !== "ongoing" &&
+                    rent.rentStatus !== "cancel" && rent.rentStatus !== "ongoing" && rent.rentStatus !== "ready" &&
                     <button className='mt-4  rounded-lg w-full p-3 font-bold bg-red-500 text-white' onClick={() => handleCancelTrip(rentId)}>HỦY CHUYẾN</button>
                 }
             </div>

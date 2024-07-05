@@ -49,7 +49,7 @@ function CarList({ ava, city, cityName, isHiddenTitle, carArray, menu }) {
                                         {
                                             ava &&
                                             <div className="h-10 rounded-full border w-10 absolute bottom-[-7%] left-[5%]">
-                                                <img src={car && car.user && car.user.avatarImage} className="rounded-full" />
+                                                <img src={car && car.user && car.user.avatarImage ? car.user.avatarImage : "/avaMale.png"} className="rounded-full" />
                                             </div>
                                         }
                                         <img src={car.images && car.images[0].imageLink} className="rounded-xl" />
