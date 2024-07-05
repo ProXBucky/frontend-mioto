@@ -17,7 +17,7 @@ function ModalPromotionComponent({ showModal, handleClose, imageURL, title, cont
                 <i className="fa-solid fa-xmark fa-2xl cursor-pointer" onClick={() => handleClose()}></i>
             </Modal.Header>
             <Modal.Body className='sm:p-5 md:p-5 lg:p-10 pt-2' >
-                <img className='w-full mb-3 mt-3 rounded-lg' src={imageURL} />
+                <img loading="lazy" className='w-full mb-3 mt-3 rounded-lg' src={imageURL} />
                 <div className='sm:px-2 md:px-2 lg:px-4'>
                     <h1 className='py-2 pb-4 text-xl text-center font-semibold'>{title}</h1>
                     <div className='border-b-[3px] border-main mx-auto w-1/4'>

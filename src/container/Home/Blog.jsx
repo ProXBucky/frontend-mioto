@@ -53,14 +53,14 @@ function Blog() {
             <div className="flex flex-row gap-5 sm:hidden md:hidden">
                 <div className="flex flex-col w-1/3 gap-4">
                     <div className="relative cursor-pointer" onClick={() => handleClick(blogs[0].blogId)}>
-                        <img src={blogs && blogs[0] && blogs[0].imageTitle} className="h-[250px] w-full rounded-3xl object-cover" />
+                        <img loading="lazy" src={blogs && blogs[0] && blogs[0].imageTitle} className="h-[250px] w-full rounded-3xl object-cover" />
                         <div className="text-white absolute bottom-5 left-5 pr-2">
                             <p className='font-semibold text-lg'>{formatDate(blogs && blogs[0] && blogs[0].publishDate)}</p>
                             <h2 className="font-bold text-xl">{blogs && blogs[0] && blogs[0].title}</h2>
                         </div>
                     </div>
                     <div className="relative cursor-pointer" onClick={() => handleClick(blogs[1].blogId)}>
-                        <img src={blogs && blogs[1] && blogs[1].imageTitle} className="h-[250px] w-full rounded-3xl object-cover" />
+                        <img loading="lazy" src={blogs && blogs[1] && blogs[1].imageTitle} className="h-[250px] w-full rounded-3xl object-cover" />
                         <div className="text-white absolute bottom-5 left-5 pr-2">
                             <p className='font-semibold text-lg'>{formatDate(blogs && blogs[1] && blogs[1].publishDate)}</p>
                             <h2 className="font-bold text-xl">{blogs && blogs[1] && blogs[1].title}</h2>
@@ -69,7 +69,7 @@ function Blog() {
 
                 </div>
                 <div className="w-2/3 relative cursor-pointer" onClick={() => handleClick(blogs[2].blogId)}>
-                    <img src={blogs && blogs[2] && blogs[2].imageTitle} className="h-[520px] w-full rounded-3xl object-cover" />
+                    <img loading="lazy" src={blogs && blogs[2] && blogs[2].imageTitle} className="h-[520px] w-full rounded-3xl object-cover" />
                     <div className="text-white absolute bottom-10 left-5 pr-2">
                         <p className='font-semibold text-2xl'>{formatDate(blogs && blogs[2] && blogs[2].publishDate)}</p>
                         <h2 className="font-bold text-4xl">{blogs && blogs[2] && blogs[2].title}</h2>
@@ -83,7 +83,7 @@ function Blog() {
                         blogs.map((blog, index) => {
                             return (
                                 <div className="w-full relative cursor-pointer" onClick={() => handleClick(blog.blogId)} key={index}>
-                                    <img src={blog.imageTitle} className="sm:h-[250px] md:h-[520px] w-full rounded-3xl object-cover" />
+                                    <img loading="lazy" src={blog.imageTitle} className="sm:h-[250px] md:h-[520px] w-full rounded-3xl object-cover" />
                                     <div className="text-white absolute sm:bottom-3 md:bottom-10 sm:left-3 md:left-5 sm:pr-1 md:pr-2">
                                         <p className='font-semibold sm:text-base md:text-2xl'>{formatDate(blog.publishDate)}</p>
                                         <h2 className="font-bold sm:text-lg md:text-4xl">{blog.title}</h2>

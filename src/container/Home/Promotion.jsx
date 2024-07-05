@@ -161,7 +161,7 @@ function Promotion({ handleOpenModal }) {
                 {images &&
                     images.map((item, index) => (
                         <div key={index} className='sm:h-[250px] md:h-[250px] lg:h-[235px] xl:h-[275px] px-2 overflow-hidden outline-none border-none' onClick={() => handleOpenModal(item.url, item.title, item.content)}>
-                            <img src={item.url} className='rounded-xl sm:h-[250px] md:h-[250px] lg:h-[235px] xl:h-[275px] cursor-pointer' alt={`Image ${index}`} />
+                            <img loading="lazy" src={item.url} className='rounded-xl sm:h-[250px] md:h-[250px] lg:h-[235px] xl:h-[275px] cursor-pointer' alt={`Image ${index}`} />
                         </div>
                     ))}
             </Slider>

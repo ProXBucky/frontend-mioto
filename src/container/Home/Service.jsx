@@ -17,7 +17,7 @@ function Service() {
             </div>
             <div className="sm:hidden flex justify-between relative">
                 <div className="relative">
-                    <img src="/service1.png" className="pb-10" />
+                    <img loading="lazy" src="/service1.png" className="pb-10" />
                     <div className="absolute left-12 bottom-20">
                         <h1 className="text-4xl font-bold mb-3 text-white">Xe đã sẵn sàng.</h1>
                         <h1 className="text-4xl font-bold mb-3 text-white">Bắt đầu hành trình ngay!</h1>
@@ -28,7 +28,7 @@ function Service() {
                     </div>
                 </div>
                 <div className="absolute md:top-[100%] lg:top-[50px] xl:top-[50px] right-0">
-                    <img src="/service2.png" />
+                    <img loading="lazy" src="/service2.png" />
                     <div className="absolute right-12 bottom-10 text-right ">
                         <h1 className="text-4xl font-bold mb-3 text-white">Tài xế của bạn đã đến!</h1>
                         <p className="text-base text-white">
@@ -43,7 +43,7 @@ function Service() {
             <div className="sm:block md:hidden lg:hidden xl:hidden">
                 <Slider {...settings}>
                     <div className="relative">
-                        <img src="/service1.png" />
+                        <img loading="lazy" src="/service1.png" />
                         <div className="absolute bottom-[15px] left-[15px] pr-10">
                             <h1 className="text-xl font-bold mb-2 text-white">Xe đã sẵn sàng.</h1>
                             <h1 className="text-xl font-bold mb-2 text-white">Bắt đầu hành trình ngay!</h1>
@@ -54,7 +54,7 @@ function Service() {
                         </div>
                     </div>
                     <div className="relative">
-                        <img src="/service2.png" />
+                        <img loading="lazy" src="/service2.png" />
                         <div className="absolute right-[15px] bottom-[15px] text-right pl-16">
                             <h1 className="text-xl font-bold mb-3 text-white">Tài xế của bạn đã đến!</h1>
                             <p className="text-base text-white pl-10">

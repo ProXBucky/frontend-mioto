@@ -132,7 +132,7 @@ function ModalFeedVoucher() {
                                     >
                                         <td className="py-3 px-6 text-left whitespace-nowrap">
                                             <div className="flex items-center gap-2">
-                                                <img className="h-10 rounded-full border" src={user.avatarImage ? user.avatarImage : "/avaMale.png"} />
+                                                <img loading="lazy" className="h-10 rounded-full border" src={user.avatarImage ? user.avatarImage : "/avaMale.png"} />
                                                 <span className="sm:text-sm md:text-base lg:text-basexl:text-base font-medium">{user.fullname}</span>
                                             </div>
                                         </td>

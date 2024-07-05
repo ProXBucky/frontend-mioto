@@ -21,15 +21,15 @@ function MenuLeftAdmin() {
         >
             <i className="absolute top-10 right-10 fa-solid fa-xmark fa-2xl cursor-pointer" onClick={handleCloseMenu}></i>
             <div className="flex flex-col justify-center items-center w-full h-screen sm:gap-3 md:gap-3">
-                <img className="h-8 mb-4 sm:hidden md:hidden" src="/logo-mini.png" />
+                <img loading="lazy" className="h-8 mb-4 sm:hidden md:hidden" src="/logo-mini.png" />
                 {avatar && avatar != "null" ? (
-                    <img
+                    <img loading="lazy"
                         src={avatar}
                         className="h-16 rounded-full border-2"
                         alt="User avatar"
                     />
                 ) : (
-                    <img
+                    <img loading="lazy"
                         src="/avaMale.png"
                         className="h-16 rounded-full border-2"
                         alt="Default avatar for male users"

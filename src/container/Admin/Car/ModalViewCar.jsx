@@ -58,7 +58,7 @@ function ModalViewCar() {
                             <div className="flex flex-col items-center justify-center">
                                 <div className="w-full flex justify-center items-center p-3">
                                     <div className="rounded-full overflow-hidden border-2">
-                                        <img className="sm:h-24 md:h-48 lg:h-48 xl:h-48" src={userInfo && userInfo.avatarImage ? userInfo.avatarImage : '/avaMale.png'} />
+                                        <img loading="lazy" className="sm:h-24 md:h-48 lg:h-48 xl:h-48" src={userInfo && userInfo.avatarImage ? userInfo.avatarImage : '/avaMale.png'} />
                                     </div>
                                 </div>
                                 <div className="sm:w-full md:w-full lg:w-1/2 xl:w-1/2 text-gray-500">
@@ -209,7 +209,7 @@ function ModalViewCar() {
                                     car && car.images && car.images.length > 0
                                     && car.images.map((image, index) => {
                                         return (
-                                            <img
+                                            <img loading="lazy"
                                                 className="cursor-pointer rounded-md"
                                                 key={index}
                                                 src={image.imageLink}

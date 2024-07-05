@@ -173,7 +173,7 @@ function City() {
                 {images &&
                     images.map((item, index) => (
                         <div key={index} className='relative md:h-[520px] lg:h-[380px] xl:h-[460px] px-2 overflow-hidden cursor-pointer hover:opacity-90 outline-none' onClick={() => navigateCarByCity(item)}>
-                            <img src={item.link} className='rounded-xl md:h-[520px] lg:h-[380px] xl:h-[460px]' alt={`Image ${index}`} />
+                            <img loading="lazy" src={item.link} className='rounded-xl md:h-[520px] lg:h-[380px] xl:h-[460px]' alt={`Image ${index}`} />
                             <div className='text-white absolute h-20 bottom-0 left-6'>
                                 <p className='font-bold sm:text-2xl md:text-xl lg:text-xl xl:text-xl'>{item.name}</p>
                                 <p className='font-semibold sm:text-xl md:text-base lg:text-base xl:text-base'>{item.sumCar} xe</p>

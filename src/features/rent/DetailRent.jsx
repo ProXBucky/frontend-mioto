@@ -103,7 +103,7 @@ function DetailRent() {
                 </div>
                 <div className='flex sm:flex-col md:flex-row lg:flex-row xl:flex-row w-full border-t-2 pt-4'>
                     <div className='sm:w-full md:w-1/2 lg:w-1/2 xl:w-1/2'>
-                        <img src={rent.car && rent.car.images && rent.car.images[0].imageLink} className='rounded-xl' />
+                        <img loading="lazy" src={rent.car && rent.car.images && rent.car.images[0].imageLink} className='rounded-xl' />
                     </div>
                     <div className='sm:w-full md:w-1/2 lg:w-1/2 xl:w-1/2 sm:pl-0 md:pl-10 lg:pl-10 xl:pl-10'>
                         <h3 className='font-semibold text-lg'>Thời gian thuê xe</h3>
@@ -116,7 +116,7 @@ function DetailRent() {
                         <h3 className='font-semibold text-lg mt-2'>Chủ xe</h3>
                         <div className="flex flex-col gap-3 mt-2">
                             <div className="flex sm:flex-col md:flex-col lg:flex-col xl:flex-row gap-3 items-center">
-                                <img className="sm:h-14 md:h-16 lg:h-16 xl:h-20 rounded-full border" src={rent && rent.car && rent.car && rent.car.user.avatarImage ? rent.car.user.avatarImage : "/avaMale.png"} />
+                                <img loading="lazy" className="sm:h-14 md:h-16 lg:h-16 xl:h-20 rounded-full border" src={rent && rent.car && rent.car && rent.car.user.avatarImage ? rent.car.user.avatarImage : "/avaMale.png"} />
                                 <div>
                                     <p className="font-semibold text-lg">{rent && rent.car && rent.car && rent.car.user && rent.car.user.fullname}</p>
                                     <p className='font-normal'>Số điện thoại: {rent && rent.car && rent.car && rent.car.user && rent.car.user.phone}</p>
@@ -206,11 +206,11 @@ function DetailRent() {
                     <div className="my-4 rounded-2xl bg-[#fef7f4] p-4 border-l-8 border-[#f26a2b]">
                         <p className="text-gray-500">Chọn 1 trong 2 hình thức:</p>
                         <div className="flex flex-row gap-4 items-center font-semibold mt-3">
-                            <img className="h-6" src="/gplx_cccd.png" />
+                            <img loading="lazy" className="h-6" src="/gplx_cccd.png" />
                             <p>GPLX & CCCD gắn chip (đối chiếu) </p>
                         </div>
                         <div className="flex flex-row gap-4 items-center font-semibold mt-2">
-                            <img className="h-6" src="/passport.png" />
+                            <img loading="lazy" className="h-6" src="/passport.png" />
                             <p>GPLX (đối chiếu) & Passport (giữ lại) </p>
                         </div>
                     </div>

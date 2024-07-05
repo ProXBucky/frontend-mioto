@@ -5,7 +5,7 @@ function Other() {
         <div className="sm:px-3 md:px-5 lg:px-16 xl:px-32 py-20">
             <div className=" rounded-2xl flex sm:flex-col md:flex-col lg:flex-row xl:flex-row h-auto sm:mb-8 md:mb-20 lg:mb-20 xl:mb-20 bg-[#effaf3]">
                 <div className="sm:w-full md:w-full lg:w-1/2 xl:w-1/2 sm:p-3 md:p-8 lg:p-8 xl:p-8 flex justify-center">
-                    <img src="/other1.png" />
+                    <img loading="lazy" src="/other1.png" />
                 </div>
                 <div className="sm:w-full md:w-full lg:w-1/2 xl:w-1/2 sm:p-5 md:p-16 lg:p-16 xl:p-16 flex flex-col justify-center items-center text-center">
                     <div>
@@ -37,7 +37,7 @@ function Other() {
                     </div>
                 </div>
                 <div className="sm:w-full md:w-full lg:w-1/2 xl:w-1/2 sm:p-3 md:p-8 lg:p-8 xl:p-8 flex justify-center">
-                    <img src="/other2.png" />
+                    <img loading="lazy" src="/other2.png" />
                 </div>
             </div>
 
@@ -49,15 +49,15 @@ function Other() {
                     <h1 className="sm:text-3xl md:text-4xl lg:text-5xl xl:text-5xl font-bold py-5">Trải nghiệm trọn vẹn cùng ứng dụng Mioto</h1>
                     <div className="flex flex-row gap-2 sm:mt-2 md:mt-3 lg:mt-5 xl:mt-5">
                         <a href="https://apps.apple.com/vn/app/mioto-%E1%BB%A9ng-d%E1%BB%A5ng-thu%C3%AA-xe/id1316420500?l=vi" target="_blank">
-                            <img className="cursor-pointer" src="/appstore.png" />
+                            <img loading="lazy" className="cursor-pointer" src="/appstore.png" />
                         </a>
                         <a href="https://play.google.com/store/apps/details?gl=vn&hl=vi&id=com.mioto.mioto&referrer=adjust_reftag%3DcYJK2ZHao91WK%26utm_source%3DWEBSITE%2Bredirect%26utm_campaign%3DANDROID&pli=1" target="_blank">
-                            <img className="cursor-pointer" src="/ggplay.png" />
+                            <img loading="lazy" className="cursor-pointer" src="/ggplay.png" />
                         </a>
                     </div>
                 </div>
                 <div className="sm:w-full md:w-full lg:w-1/2 xl:w-1/2">
-                    <img src="/other3.png" />
+                    <img loading="lazy" src="/other3.png" />
                 </div>
             </div>
 

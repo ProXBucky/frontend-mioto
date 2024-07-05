@@ -62,7 +62,7 @@ function CarInformation({ car, handleOpenModalMap }) {
                         car.carFeatures.map((item, index) => {
                             return (
                                 <div className="sm:w-[calc(50%-10px)] md:w-[calc(25%-10px)] lg:w-[calc(25%-10px)] xl:w-[calc(25%-10px)] h-10 py-2 flex flex-row items-center gap-2" key={index}>
-                                    <img className="h-full" src={item.feature && item.feature.featureIcon} />
+                                    <img loading="lazy" className="h-full" src={item.feature && item.feature.featureIcon} />
                                     <p className="">{item.feature && item.feature.featureName}</p>
                                 </div>
                             )
@@ -79,11 +79,11 @@ function CarInformation({ car, handleOpenModalMap }) {
                 <div className="my-4 rounded-2xl bg-[#fef7f4] p-4 border-l-8 border-[#f26a2b]">
                     <p className="text-gray-500">Chọn 1 trong 2 hình thức:</p>
                     <div className="flex flex-row gap-4 items-center font-semibold mt-3">
-                        <img className="h-6" src="/gplx_cccd.png" />
+                        <img loading="lazy" className="h-6" src="/gplx_cccd.png" />
                         <p>GPLX & CCCD gắn chip (đối chiếu) </p>
                     </div>
                     <div className="flex flex-row gap-4 items-center font-semibold mt-2">
-                        <img className="h-6" src="/passport.png" />
+                        <img loading="lazy" className="h-6" src="/passport.png" />
                         <p>GPLX (đối chiếu) & Passport (giữ lại) </p>
                     </div>
                 </div>

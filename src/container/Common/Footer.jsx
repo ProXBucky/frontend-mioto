@@ -5,7 +5,7 @@ function Footer() {
                 <div className="sm:w-full md:w-full lg:w-1/3 xl:w-1/3">
                     <div className="flex sm:flex-col md:flex-row lg:flex-col xl:flex-col sm:gap-4 md:gap-3 lg:gap-5 xl:gap-5">
                         <div>
-                            <img src='/logo-full.png' className='sm:h-14 md:h-10 lg:h-14 xl:h-14' />
+                            <img loading="lazy" src='/logo-full.png' className='sm:h-14 md:h-10 lg:h-14 xl:h-14' />
                         </div>
                         <div className="flex flex-col sm:gap-2 md:gap-2 lg:gap-5 xl:gap-5 md:px-5">
                             <div>
@@ -87,7 +87,7 @@ function Footer() {
                 <div className="h-auto flex sm:flex-col md:flex-col lg:flex-row xl:flex-row w-full">
                     <div className="sm:w-full md:full lg:w-1/3 xl:w-1/3 pr-24">
                         <p className="text-gray-600">Địa chỉ: Văn phòng 02, Tầng 08, Tòa nhà Pearl Plaza, Số 561A Điện Biên Phủ, Phường 25, Quận Bình Thạnh, Thành phố Hồ Chí Minh, Việt Nam.</p>
-                        <img src="/bocongthuong.png" className="sm:h-16 md:h-12 lg:h-16 xl:h-16 my-10" />
+                        <img loading="lazy" src="/bocongthuong.png" className="sm:h-16 md:h-12 lg:h-16 xl:h-16 my-10" />
                     </div>
                     <div className="sm:w-full md:w-full lg:w-2/3 xl:w-2/3 flex sm:flex-col md:flex-col lg:flex-col xl:flex-col">
                         <div className="w-full flex sm:flex-col md:flex-row lg:flex-row xl:flex-row justify-between">
@@ -98,11 +98,11 @@ function Footer() {
                         </div>
                         <div className="sm:mt-5 md:mt-10 lg:mt-32 xl:mt-32 flex flex-row sm:gap-4 md:gap-6 lg:gap-6 xl:gap-6">
                             <p className="text-gray-600 sm:hidden">Phương thức thanh toán</p>
-                            <img className="h-11" src="/momo.png" />
-                            <img className="h-11" src="/vnpay.png" />
-                            <img className="h-11" src="/alepay.png" />
-                            <img className="h-11" src="/visa.png" />
-                            <img className="h-11" src="/zalo.png" />
+                            <img loading="lazy" className="h-11" src="/momo.png" />
+                            <img loading="lazy" className="h-11" src="/vnpay.png" />
+                            <img loading="lazy" className="h-11" src="/alepay.png" />
+                            <img loading="lazy" className="h-11" src="/visa.png" />
+                            <img loading="lazy" className="h-11" src="/zalo.png" />
                         </div>
                     </div>
                 </div>

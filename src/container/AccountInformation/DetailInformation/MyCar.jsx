@@ -104,7 +104,7 @@ function MyCar() {
                                         </div>
                                     </div>
                                     <div className="sm:mt-5 sm:w-full md:w-1/3 lg:w-1/3 xl:w-1/3 sm:pl-0 md:pl-8 lg:pl-8 xl:pl-8 flex flex-col justify-center items-center gap-5">
-                                        <img className="rounded-lg cursor-pointer" src={item.images && item.images.length > 0 && item.images[0].imageLink} onClick={() => handleView(item.carId)} />
+                                        <img loading="lazy" className="rounded-lg cursor-pointer" src={item.images && item.images.length > 0 && item.images[0].imageLink} onClick={() => handleView(item.carId)} />
                                         <div className="flex justify-evenly w-full">
                                             <i className="cursor-pointer fa-regular fa-eye fa-xl" onClick={() => handleNavigateDetailCar(item.carId)}></i>
                                             <i className="cursor-pointer fa-regular fa-pen-to-square fa-xl" onClick={() => handlenNavigateEditCar(item.carId)}></i>
@@ -118,7 +118,7 @@ function MyCar() {
                         :
 
                         <>
-                            <img src="/carNotFound.svg" />
+                            <img loading="lazy" src="/carNotFound.svg" />
                             <h3 className="font-bold text-xl text-gray-500">Không tìm thấy xe nào</h3>
                             <button className="mt-5 px-4 py-3 rounded-xl font-semibold bg-main text-white" onClick={() => handleOpenModalAddCar()}>Đăng ký xe tự lái</button>
                         </>

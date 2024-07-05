@@ -384,7 +384,7 @@ function ModalAddCar() {
                                     {
                                         selectedImages.map((imageUrl, index) => {
                                             return (
-                                                <img
+                                                <img loading="lazy"
                                                     className="cursor-pointer rounded-md"
                                                     key={index}
                                                     src={imageUrl}

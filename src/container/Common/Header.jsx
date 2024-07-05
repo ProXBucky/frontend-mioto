@@ -75,13 +75,13 @@ function LoggedInNavbar() {
                 <Link to={`/account/myaccount`} className="nav-link">
                     <div className='flex flex-row gap-2 items-center cursor-pointer'>
                         {avatarImage && avatarImage != "null" ? (
-                            <img
+                            <img loading="lazy"
                                 src={avatarImage}
                                 className="h-10 rounded-full"
                                 alt="User avatar"
                             />
                         ) : (
-                            <img
+                            <img loading="lazy"
                                 src="/avaMale.png"
                                 className="h-10 rounded-full"
                                 alt="Default avatar for male users"
@@ -113,8 +113,8 @@ function Header({ handleOpenLoginModal, handleOpenRegisterModal }) {
                 <div className="flex flex-row" >
                     <div className='w-1/4 h-[88px] flex items-center'>
                         <Link to="/" className="">
-                            <img src='/logo-full.png' className='h-8 sm:hidden' />
-                            <img src='/logo-mini.png' className='h-8 md:hidden lg:hidden xl:hidden' />
+                            <img loading="lazy" src='/logo-full.png' className='h-8 sm:hidden' />
+                            <img loading="lazy" src='/logo-mini.png' className='h-8 md:hidden lg:hidden xl:hidden' />
                         </Link>
                     </div>
                     {token ? <LoggedInNavbar /> : <LoggedOutNavbar handleOpenLoginModal={handleOpenLoginModal} handleOpenRegisterModal={handleOpenRegisterModal} />}

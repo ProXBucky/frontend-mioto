@@ -139,7 +139,7 @@ function ManageUser() {
                                     <tr className="border-b border-gray-200 hover:bg-gray-100" key={index}>
                                         <td className="py-3 px-6 text-left whitespace-nowrap">
                                             <div className="flex items-center gap-2">
-                                                <img className="h-10 rounded-full border" src={user.avatarImage ? user.avatarImage : "/avaMale.png"} />
+                                                <img loading="lazy" className="h-10 rounded-full border" src={user.avatarImage ? user.avatarImage : "/avaMale.png"} />
                                                 <span className="font-medium">{user.fullname}</span>
                                             </div>
                                         </td>

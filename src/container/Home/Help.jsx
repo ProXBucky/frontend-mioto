@@ -7,28 +7,28 @@ function Help() {
             </div>
             <div className="flex flex-wrap">
                 <div className="flex flex-col items-center sm:w-1/2 md:w-1/2 lg:w-[25%] xl:w-[25%] sm:px-3 md:px-10 lg:px-10 xl:px-10">
-                    <img src="/help1.svg" className="sm:h-[200px] md:h-[200px] lg:h-[200px] xl:h-[200px]" />
+                    <img loading="lazy" src="/help1.svg" className="sm:h-[200px] md:h-[200px] lg:h-[200px] xl:h-[200px]" />
                     <div className="flex flex-row sm:gap-2 md:gap-5 lg:gap-5 xl:gap-5 sm:mt-2 md:mt-5 lg:mt-5 xl:mt-5">
                         <h5 className="text-main font-bold sm:text-lg md:text-2xl lg:text-2xl xl:text-2xl">01</h5>
                         <h2 className="sm:text-lg md:text-2xl lg:text-2xl xl:text-2xl font-semibold">Đặt xe trên app/web Mioto</h2>
                     </div>
                 </div>
                 <div className="flex flex-col items-center sm:w-1/2 md:w-1/2 lg:w-[25%] xl:w-[25%] sm:px-3 md:px-10 lg:px-10 xl:px-10">
-                    <img src="/help2.svg" className="sm:h-[200px] md:h-[200px] lg:h-[200px] xl:h-[200px]" />
+                    <img loading="lazy" src="/help2.svg" className="sm:h-[200px] md:h-[200px] lg:h-[200px] xl:h-[200px]" />
                     <div className="flex flex-row sm:gap-2 md:gap-5 lg:gap-5 xl:gap-5 sm:mt-2 md:mt-5 lg:mt-5 xl:mt-5">
                         <h5 className="text-main font-bold sm:text-lg md:text-2xl lg:text-2xl xl:text-2xl">02</h5>
                         <h2 className="sm:text-lg md:text-2xl lg:text-2xl xl:text-2xl font-semibold">Nhận xe</h2>
                     </div>
                 </div>
                 <div className="flex flex-col items-center sm:w-1/2 md:w-1/2 lg:w-[25%] xl:w-[25%] sm:px-3 md:px-10 lg:px-10 xl:px-10">
-                    <img src="/help3.svg" className="sm:h-[200px] md:h-[200px] lg:h-[200px] xl:h-[200px]" />
+                    <img loading="lazy" src="/help3.svg" className="sm:h-[200px] md:h-[200px] lg:h-[200px] xl:h-[200px]" />
                     <div className="flex flex-row sm:gap-2 md:gap-5 lg:gap-5 xl:gap-5 sm:mt-2 md:mt-5 lg:mt-5 xl:mt-5">
                         <h5 className="text-main font-bold sm:text-lg md:text-2xl lg:text-2xl xl:text-2xl">03</h5>
                         <h2 className="sm:text-lg md:text-2xl lg:text-2xl xl:text-2xl font-semibold">Bắt đầu hành trình</h2>
                     </div>
                 </div>
                 <div className="flex flex-col items-center sm:w-1/2 md:w-1/2 lg:w-[25%] xl:w-[25%] sm:px-3 md:px-10 lg:px-10 xl:px-10">
-                    <img src="/help4.svg" className="sm:h-[200px] md:h-[200px] lg:h-[200px] xl:h-[200px]" />
+                    <img loading="lazy" src="/help4.svg" className="sm:h-[200px] md:h-[200px] lg:h-[200px] xl:h-[200px]" />
                     <div className="flex flex-row sm:gap-2 md:gap-5 lg:gap-5 xl:gap-5 sm:mt-2 md:mt-5 lg:mt-5 xl:mt-5">
                         <h5 className="text-main font-bold sm:text-lg md:text-2xl lg:text-2xl xl:text-2xl">04</h5>
                         <h2 className="sm:text-lg md:text-2xl lg:text-2xl xl:text-2xl font-semibold">Trả xe và kết thúc chuyến đi</h2>

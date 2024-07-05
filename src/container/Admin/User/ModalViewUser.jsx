@@ -105,7 +105,7 @@ function ModalViewUser() {
                     <div className="flex sm:flex-col md:flex-col lg:flex-row xl:flex-row items-center">
                         <div className="sm:w-full md:w-full lg:w-1/3 xl:w-1/3 flex justify-center flex-col gap-2 items-center px-3">
                             <div className="rounded-full overflow-hidden border-2">
-                                <img className="h-48" src={userInfo && userInfo.avatarImage ? userInfo.avatarImage : '/avaMale.png'} />
+                                <img loading="lazy" className="h-48" src={userInfo && userInfo.avatarImage ? userInfo.avatarImage : '/avaMale.png'} />
                             </div>
                             <h2 className="sm:text-xl md:text-xl lg:text-lg xl:text-lg font-semibold">{userInfo && userInfo.fullname && userInfo.fullname}</h2>
                             {
@@ -188,14 +188,14 @@ function ModalViewUser() {
                                                 <div className="w-1/2">
                                                     <div className="border-2 border-dashed rounded-xl w-full relative p-2 mt-4">
                                                         <div className="flex flex-col items-center justify-center w-full h-full">
-                                                            <img src={imageLicense && imageLicense} />
+                                                            <img loading="lazy" src={imageLicense && imageLicense} />
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                             :
                                             <div className="text-center w-full flex flex-col justify-center items-center">
-                                                <img className="h-44" src="/noAddress.svg" />
+                                                <img loading="lazy" className="h-44" src="/noAddress.svg" />
                                                 <h3 className="font-bold text-xl text-gray-500">Bạn chưa đăng ký giấy phép lái xe</h3>
                                             </div>
 
@@ -213,7 +213,7 @@ function ModalViewUser() {
                                     {
                                         allAddress.length == 0 ?
                                             <div className="text-center">
-                                                <img className="h-44" src="/noAddress.svg" />
+                                                <img loading="lazy" className="h-44" src="/noAddress.svg" />
                                                 <h3 className="font-bold text-xl text-gray-500">Bạn chưa có địa chỉ</h3>
                                             </div>
                                             :
@@ -273,7 +273,7 @@ function ModalViewUser() {
                                             })
                                             :
                                             <div className="flex w-full flex-col justify-center items-center mt-10">
-                                                <img className="h-48" src="/noVoucher.svg" />
+                                                <img loading="lazy" className="h-48" src="/noVoucher.svg" />
                                                 <h3 className="font-bold text-xl text-gray-500">Không có quà nào dành cho bạn</h3>
                                             </div>
                                     }

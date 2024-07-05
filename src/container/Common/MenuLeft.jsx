@@ -33,13 +33,13 @@ function MenuLeft({ handleOpenLoginModal, handleOpenRegisterModal }) {
                                 <Link to={`/account/myaccount`} className="nav-link">
                                     <div className='flex flex-row gap-2 justify-center items-center cursor-pointer'>
                                         {avatarImage && avatarImage != "null" ? (
-                                            <img
+                                            <img loading="lazy"
                                                 src={avatarImage}
                                                 className="h-10 rounded-full border"
                                                 alt="User avatar"
                                             />
                                         ) : (
-                                            <img
+                                            <img loading="lazy"
                                                 src="/avaMale.png"
                                                 className="h-10 rounded-full border"
                                                 alt="Default avatar for male users"

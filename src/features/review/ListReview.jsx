@@ -11,7 +11,7 @@ function ListReview({ allReview, handleRatingChange, userId, handleDeleteReview 
                             <div className="rounded-lg border border-gray-500 p-4 flex justify-between" key={index}>
                                 <div className="sm:w-full md:w-5/6 lg:w-5/6 xl:w-5/6">
                                     <div className="flex flex-row gap-4">
-                                        <img src={item.user && item.user.avatarImage ? item.user.avatarImage : "/avaMale.png"} className="rounded-full h-20 border" />
+                                        <img loading="lazy" src={item.user && item.user.avatarImage ? item.user.avatarImage : "/avaMale.png"} className="rounded-full h-20 border" />
                                         <div className="flex flex-col justify-center gap-2">
                                             <h2 className="sm:text-lg md:text-xl lg:text-xl xl:text-xl font-semibold">{item.user && item.user.fullname}</h2>
                                             <div>

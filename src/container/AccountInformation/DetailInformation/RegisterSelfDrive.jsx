@@ -693,7 +693,7 @@ function RegisterSelfDrive({ type }) {
                                 type == "create" &&
                                 selectedImages.map((imageUrl, index) => {
                                     return (
-                                        <img
+                                        <img loading="lazy"
                                             className="cursor-pointer rounded-md"
                                             key={index}
                                             src={imageUrl}
@@ -707,7 +707,7 @@ function RegisterSelfDrive({ type }) {
                                 type == "edit" &&
                                 selectedImages.map((imageUrl, index) => {
                                     return (
-                                        <img
+                                        <img loading="lazy"
                                             className="cursor-pointer rounded-md"
                                             key={index}
                                             src={imageUrl}
@@ -721,7 +721,7 @@ function RegisterSelfDrive({ type }) {
                                 type == "view" &&
                                 selectedImages.map((imageUrl, index) => {
                                     return (
-                                        <img
+                                        <img loading="lazy"
                                             className="cursor-pointer rounded-md"
                                             key={index}
                                             src={imageUrl}

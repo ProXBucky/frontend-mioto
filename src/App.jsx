@@ -20,7 +20,11 @@ import { createNewUser } from './api/userAPI';
 import { loginUser } from './api/authAPI';
 import { setAvatarImage, setFullname, setToken, setUserId } from './redux/Slice/CookieSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import { adminIdSelector, appLoadSelector, loadingSelector, modalAddBlogSelector, modalAddCarSelector, modalAddUserSelector, modalAddVoucherSelector, modalChangePasswordUserSelector, modalEditCarSelector, modalEditUserSelector, modalFeedVoucherSelector, modalViewBlogSelector, modalViewCarSelector, modalViewRentSelector, modalViewUserSelector, tokenSelector } from './redux/selector';
+import {
+  adminIdSelector, appLoadSelector, loadingSelector, modalAddBlogSelector, modalAddCarSelector, modalAddUserSelector,
+  modalAddVoucherSelector, modalChangePasswordUserSelector, modalEditCarSelector, modalEditUserSelector, modalFeedVoucherSelector,
+  modalViewBlogSelector, modalViewCarSelector, modalViewRentSelector, modalViewUserSelector, tokenSelector
+} from './redux/selector';
 import { setAppLoad, setHideLoading, setShowLoading } from './redux/Slice/AppSlice';
 import ModalViewUser from './container/Admin/User/ModalViewUser';
 import ModalEditUser from './container/Admin/User/ModalEditUser';

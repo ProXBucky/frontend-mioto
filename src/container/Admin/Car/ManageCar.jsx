@@ -122,7 +122,7 @@ function ManageCar() {
                                 <div className="sm:w-full md:w-[48%] lg:w-full xl:w-full bg-white rounded-xl border-2 flex flex-col items-center">
                                     <div className="w-full p-3 flex sm:flex-col md:flex-col lg:flex-row xl:flex-row cursor-pointer" key={index}>
                                         <div className="sm:w-full md:w-full lg:w-3/12 xl:w-3/12 relative flex justify-center">
-                                            <img src={car.images && car.images[0] && car.images[0].imageLink} className="rounded-xl w-full" />
+                                            <img loading="lazy" loading="lazy" src={car.images && car.images[0] && car.images[0].imageLink} className="rounded-xl w-full" />
                                         </div>
                                         <div className="sm:w-full md:w-full lg:w-5/12 xl:w-5/12 sm:mt-2 md:mt-2 lg:px-10 xl:px-10">
                                             <div className="flex-col flex">
@@ -173,7 +173,7 @@ function ManageCar() {
                                         </div>
                                         <div className="sm:w-full md:w-full lg:w-1/6 xl:w-1/6 flex flex-col justify-center items-center gap-2 sm:mt-2 md:mt-2">
                                             <h2>Chủ xe</h2>
-                                            <img className="h-14 rounded-full" src={car && car.user && car.user.avatarImage ? car.user.avatarImage : "/avaMale.png"} />
+                                            <img loading="lazy" className="h-14 rounded-full" src={car && car.user && car.user.avatarImage ? car.user.avatarImage : "/avaMale.png"} />
                                             <p className="text-sm">{car.user.fullname}</p>
                                         </div>
                                         <div className="sm:w-full md:w-full lg:w-1/6 xl:w-1/6 sm:mt-2 md:mt-2 flex sm:flex-row md:flex-row lg:flex-col xl:flex-col items-center justify-center gap-2 ">
@@ -199,7 +199,7 @@ function ManageCar() {
                         })
                         :
                         <div className="w-full flex flex-col items-center">
-                            <img src="/carNotFound.svg" />
+                            <img loading="lazy" src="/carNotFound.svg" />
                             <p className="text-center font-semibold text-3xl">Xin lỗi quý khách, chúng tôi chưa có xe tại khu vực này</p>
                         </div>
                 }

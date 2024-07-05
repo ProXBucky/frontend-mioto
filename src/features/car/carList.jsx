@@ -49,10 +49,10 @@ function CarList({ ava, city, cityName, isHiddenTitle, carArray, menu }) {
                                         {
                                             ava &&
                                             <div className="h-10 rounded-full border w-10 absolute bottom-[-7%] left-[5%]">
-                                                <img src={car && car.user && car.user.avatarImage ? car.user.avatarImage : "/avaMale.png"} className="rounded-full" />
+                                                <img loading="lazy" src={car && car.user && car.user.avatarImage ? car.user.avatarImage : "/avaMale.png"} className="rounded-full" />
                                             </div>
                                         }
-                                        <img src={car.images && car.images[0].imageLink} className="rounded-xl" />
+                                        <img loading="lazy" src={car.images && car.images[0].imageLink} className="rounded-xl" />
                                     </div>
                                     <div className="tag mt-4 mb-2 flex flex-wrap gap-3">
                                         <p className="p-1 bg-[#eef7ff] text-sm rounded-xl">{car.transmission && car.transmission}</p>
@@ -90,7 +90,7 @@ function CarList({ ava, city, cityName, isHiddenTitle, carArray, menu }) {
                         })
                         :
                         <div className="w-full flex flex-col items-center">
-                            <img src="/carNotFound.svg" />
+                            <img loading="lazy" src="/carNotFound.svg" />
                             <p className="text-center font-semibold md:text-2xl lg:text-2xl xl:text-3xl">Xin lỗi quý khách, chúng tôi chưa có xe tại khu vực này</p>
                         </div>
                 }
@@ -100,7 +100,7 @@ function CarList({ ava, city, cityName, isHiddenTitle, carArray, menu }) {
                 {
                     !carArray || carArray.length === 0 &&
                     <div className="w-full flex flex-col items-center">
-                        <img src="/carNotFound.svg" />
+                        <img loading="lazy" src="/carNotFound.svg" />
                         <p className="text-center font-semibold text-xl">Xin lỗi quý khách, chúng tôi chưa có xe tại khu vực này</p>
                     </div>
                 }
@@ -118,10 +118,10 @@ function CarList({ ava, city, cityName, isHiddenTitle, carArray, menu }) {
                                         {
                                             ava &&
                                             <div className="h-10 rounded-full border w-10 absolute bottom-[-7%] left-[5%]">
-                                                <img src={car && car.user && car.user.avatarImage} className="rounded-full" />
+                                                <img loading="lazy" src={car && car.user && car.user.avatarImage} className="rounded-full" />
                                             </div>
                                         }
-                                        <img src={car.images && car.images[0].imageLink} className="rounded-xl" />
+                                        <img loading="lazy" src={car.images && car.images[0].imageLink} className="rounded-xl" />
                                     </div>
                                     <div className="tag mt-4 mb-2 flex flex-wrap gap-3">
                                         <p className="p-1 bg-[#eef7ff] text-sm rounded-xl">{car.transmission && car.transmission}</p>
@@ -164,7 +164,7 @@ function CarList({ ava, city, cityName, isHiddenTitle, carArray, menu }) {
                 {
                     !carArray || carArray.length === 0 &&
                     <div className="w-full flex flex-col items-center">
-                        <img src="/carNotFound.svg" />
+                        <img loading="lazy" src="/carNotFound.svg" />
                         <p className="text-center font-semibold text-xl">Xin lỗi quý khách, chúng tôi chưa có xe tại khu vực này</p>
                     </div>
                 }
@@ -181,10 +181,10 @@ function CarList({ ava, city, cityName, isHiddenTitle, carArray, menu }) {
                                     {
                                         ava &&
                                         <div className="h-10 rounded-full border w-10 absolute bottom-[-7%] left-[5%]">
-                                            <img src={car && car.user && car.user.avatarImage} className="rounded-full" />
+                                            <img loading="lazy" src={car && car.user && car.user.avatarImage} className="rounded-full" />
                                         </div>
                                     }
-                                    <img src={car.images && car.images[0].imageLink} className="rounded-xl" />
+                                    <img loading="lazy" src={car.images && car.images[0].imageLink} className="rounded-xl" />
                                 </div>
                                 <div className="tag mt-4 mb-2 flex flex-wrap gap-3">
                                     <p className="p-1 bg-[#eef7ff] text-sm rounded-xl">{car.transmission && car.transmission}</p>

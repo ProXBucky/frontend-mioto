@@ -97,7 +97,7 @@ function ModalAddBlog() {
                             <input type="file" id="avaInput" className='hidden' required onChange={handleFileChange} />
                             <div className="sm:h-44 xl:h-24 w-full border-2">
                                 {
-                                    filePath && <img className="" src={filePath} />
+                                    filePath && <img loading="lazy" className="" src={filePath} />
                                 }
                             </div>
                         </div>

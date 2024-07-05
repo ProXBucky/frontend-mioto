@@ -82,7 +82,7 @@ function MyOrder() {
                             <div className="w-full bg-white p-3 rounded-xl border-2 mb-4" key={index}>
                                 <div className="w-full flex sm:flex-col md:flex-row lg:flex-row xl:flex-row" >
                                     <div className="sm:w-full sm:flex sm:justify-center md:w-1/3 lg:w-1/3 xl:w-1/3">
-                                        <img src={order.car.images && order.car.images[0] && order.car.images[0].imageLink} className="rounded-xl sm:w-2/3" />
+                                        <img loading="lazy" src={order.car.images && order.car.images[0] && order.car.images[0].imageLink} className="rounded-xl sm:w-2/3" />
                                     </div>
                                     <div className="sm:w-full md:w-2/3 lg:w-2/3 xl:w-2/3 flex flex-col sm:mt-3 sm:px-1 md:px-6 lg:px-6 xl:px-6">
                                         <span className="font-semibold text-xl text-center">
@@ -109,7 +109,7 @@ function MyOrder() {
                                             <div className="w-1/2 flex flex-col justify-center items-center gap-3">
                                                 <div className="flex justify-center flex-col items-center gap-2">
                                                     <h3 className="text-md font-semibold">Người đặt</h3>
-                                                    <img className="h-10 w-10 rounded-full" src={order.user && order.user.avatarImage ? order.user.avatarImage : "/avaMale.png"} />
+                                                    <img loading="lazy" className="h-10 w-10 rounded-full" src={order.user && order.user.avatarImage ? order.user.avatarImage : "/avaMale.png"} />
                                                     <p className="text-xs">{order.user && order.user.fullname && order.user.fullname}</p>
                                                     <p className="text-xs">SĐT: {order.user && order.user.phone && order.user.phone}</p>
                                                 </div>
@@ -182,7 +182,7 @@ function MyOrder() {
                     })
                     :
                     <div className="flex w-full flex-col justify-center items-center mt-10">
-                        <img src="/noTrip.svg" />
+                        <img loading="lazy" src="/noTrip.svg" />
                         <h3 className="font-bold text-xl text-gray-500">Bạn chưa có chuyến xe nào</h3>
                     </div>
 

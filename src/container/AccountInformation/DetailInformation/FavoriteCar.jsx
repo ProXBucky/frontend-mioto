@@ -59,7 +59,7 @@ function FavoriteCar() {
                         return (
                             <div className="flex sm:flex-col md:flex-col lg:flex-row xl:flex-row border bg-white rounded-lg p-3 mt-3" key={index}>
                                 <div className="sm:flex sm:justify-center md:flex md:justify-center sm:w-full md:w-full lg:w-[calc(25%+40px)] xl:w-[calc(25%+40px)]">
-                                    <img className="sm:w-3/4 md:w-3/4 rounded-lg cursor-pointer" src={item.car && item.car.images && item.car.images[3].imageLink} onClick={() => navigateDetailCar(item.car.carId)} />
+                                    <img loading="lazy" className="sm:w-3/4 md:w-3/4 rounded-lg cursor-pointer" src={item.car && item.car.images && item.car.images[3].imageLink} onClick={() => navigateDetailCar(item.car.carId)} />
                                 </div>
                                 <div className="sm:mt-2 md:mt-2 sm:w-full md:w-full lg:w-1/2 xl:w-1/2 px-6 flex flex-col justify-center sm:items-center md:items-center">
                                     <h2 className="font-black md:text-2xl">{`${item.car && item.car.model && item.car.model} ${item.car && item.car.modelYear && item.car.modelYear}`}</h2>
@@ -74,7 +74,7 @@ function FavoriteCar() {
                                 </div>
                                 <div className="sm:w-full md:w-full lg:w-[calc(25%-40px)] xl:w-[calc(25%-40px)] lg:border-l-2 xl:border-l-2 flex flex-col justify-center items-center gap-3 pl-4">
                                     <div className="rounded-full border border-gray-600 ">
-                                        <img src={item.car && item.car && item.car.user && item.car.user.avatarImage} className="rounded-full h-10" />
+                                        <img loading="lazy" src={item.car && item.car && item.car.user && item.car.user.avatarImage} className="rounded-full h-10" />
                                     </div>
                                     <p><label className="font-bold text-xl">{item.car && item.car.pricePerDay && item.car.pricePerDay}K </label><label className="font-normal text-md">/Ngày</label></p>
                                     <button className="py-[10px] sm:px-[10px] md:px-[10px] lg:px-[20px] xl:px-[40px] rounded-md text-white font-bold bg-main hover:opacity-85" onClick={() => dislikeCarAction(item.car.carId)}>Bỏ thích</button>
@@ -86,7 +86,7 @@ function FavoriteCar() {
                     })
                     :
                     <div className="flex w-full flex-col justify-center items-center mt-10">
-                        <img src="/favoCar.svg" />
+                        <img loading="lazy" src="/favoCar.svg" />
                         <h3 className="font-bold text-xl text-gray-500">Không có xe yêu thích</h3>
                     </div>
             }

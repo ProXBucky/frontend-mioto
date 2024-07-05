@@ -50,7 +50,7 @@ function ModalViewBlog() {
             <Modal.Body className='p-4 px-5' >
                 <div className="flex w-full flex-col gap-5 justify-between items-center mb-5">
                     <h1 className="font-bold text-3xl">{blog.title}</h1>
-                    <img className="w-5/6 rounded-lg" src={blog.imageTitle} />
+                    <img loading="lazy" className="w-5/6 rounded-lg" src={blog.imageTitle} />
                 </div>
                 <ReactMarkdown className="text-lg">{blog.content}</ReactMarkdown>
             </Modal.Body>

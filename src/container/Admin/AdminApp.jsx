@@ -14,15 +14,15 @@ function AdminApp() {
     return (
         <div className="bg-gray-100 sm:min-h-dvh md:min-h-screen lg:h-dvh xl:h-dvh flex sm:flex-row md:flex-row lg:flex-row xl:flex-row sm:justify-center md:justify-center">
             <div className="sm:hidden md:hidden lg:w-1/6 xl:w-1/6 sm:border-none md:border-none lg:border-r-2 xl:border-r-2 px-3 sm:py-2 md:py-5 lg:py-8 xl:py-10 flex sm:flex-row md:flex-row lg:flex-col xl:flex-col sm:justify-center md:justify-center sm:gap-2 md:gap-2 items-center">
-                <img className="h-8 mb-4 sm:hidden md:hidden" src="/logo-mini.png" />
+                <img loading="lazy" className="h-8 mb-4 sm:hidden md:hidden" src="/logo-mini.png" />
                 {avatar && avatar != "null" ? (
-                    <img
+                    <img loading="lazy"
                         src={avatar}
                         className="h-16 rounded-full border-2"
                         alt="User avatar"
                     />
                 ) : (
-                    <img
+                    <img loading="lazy"
                         src="/avaMale.png"
                         className="h-16 rounded-full border-2"
                         alt="Default avatar for male users"

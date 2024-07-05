@@ -51,7 +51,7 @@ function ModalFilterBrand({ selectedBrand, handleRadioChange, handleApplyFilter 
                                 }
                                 {
                                     brand.logo &&
-                                    <img className='h-6' src={brand.logo} />
+                                    <img loading="lazy" className='h-6' src={brand.logo} />
                                 }
                                 <p className='text-lg'>
                                     {brand.name}
@@ -78,7 +78,7 @@ function ModalFilterBrand({ selectedBrand, handleRadioChange, handleApplyFilter 
                                         :
                                         <i className="fa-regular fa-circle text-gray-300"></i>
                                 }
-                                <img className='h-6' src={brand.logo} />
+                                <img loading="lazy" className='h-6' src={brand.logo} />
                                 <p className='text-lg'>
                                     {brand.name}
                                 </p>

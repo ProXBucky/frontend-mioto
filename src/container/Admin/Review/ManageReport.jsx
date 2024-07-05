@@ -64,12 +64,12 @@ function ManageReport() {
                                     <tr className="border-b border-gray-200 hover:bg-gray-100" key={index}>
                                         <td className="py-3 px-6 text-center whitespace-nowrap">
                                             <div className="flex flex-col items-center gap-2">
-                                                <img className="h-10 rounded-full border" src={report.user.avatarImage ? report.user.avatarImage : "/avaMale.png"} />
+                                                <img loading="lazy" className="h-10 rounded-full border" src={report.user.avatarImage ? report.user.avatarImage : "/avaMale.png"} />
                                                 <span className="font-medium">{report.user.fullname}</span>
                                             </div>
                                             <div className="flex flex-col gap-2 items-center mt-4">
                                                 <h2 className="font-semibold">Chủ xe</h2>
-                                                <img className="h-10 rounded-full border" src={report.car.user.avatarImage ? report.car.user.avatarImage : "/avaMale.png"} />
+                                                <img loading="lazy" className="h-10 rounded-full border" src={report.car.user.avatarImage ? report.car.user.avatarImage : "/avaMale.png"} />
                                                 <span>{report.car.user.fullname}</span>
                                                 <p className="font-semibold text-xs">{report.car.model}</p>
                                                 <p className="font-semibold text-xs">{report.car.plateNumber}</p>
@@ -100,12 +100,12 @@ function ManageReport() {
                                     <div className="text-center flex flex-row items-center justify-between">
                                         <div className="flex flex-col items-center gap-2">
                                             <h2 className="font-semibold">Người báo cáo</h2>
-                                            <img className="h-10 rounded-full border" src={report.user.avatarImage ? report.user.avatarImage : "/avaMale.png"} />
+                                            <img loading="lazy" className="h-10 rounded-full border" src={report.user.avatarImage ? report.user.avatarImage : "/avaMale.png"} />
                                             <span className="font-medium">{report.user.fullname}</span>
                                         </div>
                                         <div className="flex flex-col gap-2 items-center">
                                             <h2 className="font-semibold">Chủ xe</h2>
-                                            <img className="h-10 rounded-full border" src={report.car.user.avatarImage ? report.car.user.avatarImage : "/avaMale.png"} />
+                                            <img loading="lazy" className="h-10 rounded-full border" src={report.car.user.avatarImage ? report.car.user.avatarImage : "/avaMale.png"} />
                                             <span>{report.car.user.fullname}</span>
                                         </div>
                                     </div>

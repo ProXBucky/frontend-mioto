@@ -56,7 +56,7 @@ function MyTrip() {
                         return (
                             <div className="flex sm:flex-col md:flex-row lg:flex-row xl:flex-row border bg-white rounded-lg p-3 mt-3" key={index}>
                                 <div className="sm:w-full md:w-[calc(25%+40px)] lg:w-[calc(25%+40px)] xl:w-[calc(25%+40px)]">
-                                    <img className="rounded-lg cursor-pointer" src={item.car && item.car.images && item.car.images[0].imageLink} />
+                                    <img loading="lazy" className="rounded-lg cursor-pointer" src={item.car && item.car.images && item.car.images[0].imageLink} />
                                 </div>
                                 <div className="sm:w-full md:w-1/2 lg:w-1/2 xl:w-1/2 sm:px-2 md:px-6 lg:px-6 xl:px-6 flex flex-col justify-center">
                                     <h2 className="font-bold text-xl">{`${item.car && item.car.model && item.car.model} ${item.car && item.car.modelYear && item.car.modelYear}`}</h2>
@@ -90,7 +90,7 @@ function MyTrip() {
                     })
                     :
                     <div className="flex w-full flex-col justify-center items-center mt-10">
-                        <img src="/noTrip.svg" />
+                        <img loading="lazy" src="/noTrip.svg" />
                         <h3 className="font-bold text-xl text-gray-500">Bạn chưa có chuyến</h3>
                     </div>
             }

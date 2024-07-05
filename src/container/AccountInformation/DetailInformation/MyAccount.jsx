@@ -153,7 +153,7 @@ function MyAccount({ handleOpenEdit, showModalEdit }) {
                 <div className="flex sm:flex-col md:flex-row lg:flex-row xl:flex-row items-center">
                     <div className="sm:w-full md:w-1/3 lg:w-1/3 xl:w-1/3 flex justify-center flex-col gap-3 items-center px-3">
                         <div className="rounded-full overflow-hidden border-2">
-                            <img className="sm:h-32" src={userInfo && userInfo.avatarImage ? userInfo.avatarImage : '/avaMale.png'} />
+                            <img loading="lazy" className="sm:h-32" src={userInfo && userInfo.avatarImage ? userInfo.avatarImage : '/avaMale.png'} />
                         </div>
                         <h2 className="text-lg font-semibold">{userInfo && userInfo.fullname && userInfo.fullname}</h2>
                         <p className="text-sm">Tham gia: {userInfo && userInfo.joinDate && format(userInfo.joinDate, "dd/MM/yyyy")}</p>
@@ -280,7 +280,7 @@ function MyAccount({ handleOpenEdit, showModalEdit }) {
                                             )}
                                         </>
                                         :
-                                        <img src={imageLicense} />
+                                        <img loading="lazy" src={imageLicense} />
                                 }
                             </div>
 
@@ -349,7 +349,7 @@ function MyAccount({ handleOpenEdit, showModalEdit }) {
                                                 </div>
                                             </div>
                                             <div className="sm:mt-5 m:w-full md:w-1/3 lg:w-1/3 xl:w-1/3 sm:pl-0 md:pl-8 lg:pl-8  xl:pl-8 flex justify-center items-center">
-                                                <img className="rounded-lg" src={item.images && item.images.length > 0 && item.images[0].imageLink} />
+                                                <img loading="lazy" className="rounded-lg" src={item.images && item.images.length > 0 && item.images[0].imageLink} />
                                             </div>
                                         </div>
                                     )
@@ -358,7 +358,7 @@ function MyAccount({ handleOpenEdit, showModalEdit }) {
                                 :
 
                                 <div className="flex items-center flex-col">
-                                    <img src="/nocar.svg" />
+                                    <img loading="lazy" src="/nocar.svg" />
                                     <h3 className="font-bold text-xl text-gray-500">Không tìm thấy xe nào</h3>
                                 </div>
                         }

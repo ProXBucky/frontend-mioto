@@ -44,7 +44,7 @@ function ModalConfirmRent({ showModalConfirmRent, handleCloseModalConfirmRent, h
                 <h2 className='font-bold sm:text-lg md:text-xl lg:text-2xl xl:text-2xl mb-2'>{`${car && car.model && car.model} ${car && car.modelYear && car.modelYear}`}</h2>
                 <div className='flex sm:flex-col md:flex-row lg:flex-row xl:flex-row w-full pt-4'>
                     <div className='sm:w-full md:w-1/3 lg:w-1/3 xl:w-1/3'>
-                        <img src={carImg} className='rounded-xl' />
+                        <img loading="lazy" src={carImg} className='rounded-xl' />
                     </div>
                     <div className='sm:w-full md:w-2/3 lg:w-2/3 xl:w-2/3 sm:pl-0 md:pl-10 lg:pl-10 xl:pl-10 sm:mt-2'>
                         <h3 className='font-semibold text-lg'>Thời gian thuê xe</h3>
@@ -56,7 +56,7 @@ function ModalConfirmRent({ showModalConfirmRent, handleCloseModalConfirmRent, h
                         <h3 className='font-semibold text-lg mt-2'>Chủ xe</h3>
                         <div className="flex flex-col gap-3 mt-2">
                             <div className="flex flex-row gap-3 items-center">
-                                <img className="sm:h-10 md:h-14 lg:h-16 xl:h-20 rounded-full border" src={car && car.user && car.user.avatarImage ? car.user.avatarImage : "/avaMale.png"} />
+                                <img loading="lazy" className="sm:h-10 md:h-14 lg:h-16 xl:h-20 rounded-full border" src={car && car.user && car.user.avatarImage ? car.user.avatarImage : "/avaMale.png"} />
                                 <div>
                                     <p className="font-semibold text-lg">{car && car && car.user && car.user.fullname}</p>
                                     <div className='flex items-center'>
@@ -141,11 +141,11 @@ function ModalConfirmRent({ showModalConfirmRent, handleCloseModalConfirmRent, h
                     <div className="my-4 rounded-2xl bg-[#fef7f4] p-4 border-l-8 border-[#f26a2b]">
                         <p className="text-gray-500">Chọn 1 trong 2 hình thức:</p>
                         <div className="flex flex-row gap-4 items-center font-semibold mt-3">
-                            <img className="h-6" src="/gplx_cccd.png" />
+                            <img loading="lazy" className="h-6" src="/gplx_cccd.png" />
                             <p>GPLX & CCCD gắn chip (đối chiếu) </p>
                         </div>
                         <div className="flex flex-row gap-4 items-center font-semibold mt-2">
-                            <img className="h-6" src="/passport.png" />
+                            <img loading="lazy" className="h-6" src="/passport.png" />
                             <p>GPLX (đối chiếu) & Passport (giữ lại) </p>
                         </div>
                     </div>

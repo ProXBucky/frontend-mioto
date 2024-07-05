@@ -19,7 +19,7 @@ function ReviewByCity({ cityName, allReview }) {
                                 <div className="rounded-lg border border-gray-500 p-4 flex justify-between sm:w-full md:w-[48%] lg:w-[32.3%] xl:w-[32.3%] bg-white" key={index}>
                                     <div className="w-full">
                                         <div className="flex flex-row sm:gap-2 md:gap-3 lg:gap-3 xl:gap-4">
-                                            <img src={item.user && item.user.avatarImage ? item.user.avatarImage : "/avaMale.png"} className="rounded-full h-20 border" />
+                                            <img loading="lazy" src={item.user && item.user.avatarImage ? item.user.avatarImage : "/avaMale.png"} className="rounded-full h-20 border" />
                                             <div className="flex flex-col justify-center gap-2">
                                                 <h2 className="sm:text-base md:text-lg lg:text-xl xl:text-xl font-semibold">{item.user && item.user.fullname}</h2>
                                                 <div>

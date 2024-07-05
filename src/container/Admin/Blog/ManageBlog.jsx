@@ -105,7 +105,7 @@ function ManageBlog() {
                                     <tr className="border-b border-gray-200 hover:bg-gray-100" key={index}>
                                         <td className="py-3 px-6 text-left whitespace-nowrap sm:hidden">
                                             <div className="flex items-center gap-2">
-                                                <img className="h-10 rounded-full border" src={blog.admin && blog.admin.avatarImage ? blog.admin && blog.admin.avatarImage : "/avaMale.png"} />
+                                                <img loading="lazy" className="h-10 rounded-full border" src={blog.admin && blog.admin.avatarImage ? blog.admin && blog.admin.avatarImage : "/avaMale.png"} />
                                                 <span className="font-medium">{blog.admin && blog.admin.fullname}</span>
                                             </div>
                                         </td>

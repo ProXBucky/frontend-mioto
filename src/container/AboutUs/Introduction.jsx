@@ -13,7 +13,7 @@ function Introduction() {
                     </p>
                 </div>
             </div>
-            <img src="/intro1.png" />
+            <img loading="lazy" src="/intro1.png" />
             <div className="flex sm:flex-col md:flex-col lg:flex-row xl:flex-row">
                 <div className="sm:w-full md:w-full lg:w-3/5 xl:w-3/5 text-lg lg:mr-20 xl:mr-20">
                     <h1 className="sm:text-4xl md:text-4xl lg:text-5xl xl:text-5xl font-bold mb-10">Drive. Explore. Inspire</h1>
@@ -29,7 +29,7 @@ function Introduction() {
                         Chúng tôi tin rằng mỗi hành trình đều quan trọng, vì vậy đội ngũ và các đối tác của MIOTO với nhiều kinh nghiệm về lĩnh vực cho thuê xe, công nghệ, bảo hiểm & du lịch sẽ mang đến cho hành trình của bạn thêm nhiều trải nghiệm mới lạ, thú vị cùng sự an toàn ở mức cao nhất.
                     </p>
                 </div>
-                <img src="intro2.png" className="sm:w-full md:w-full lg:w-2/5 xl:w-2/5" />
+                <img loading="lazy" src="intro2.png" className="sm:w-full md:w-full lg:w-2/5 xl:w-2/5" />
             </div>
         </div>
     )

@@ -64,7 +64,7 @@ function MyAddress({ handleOpenModalAddress }) {
                     {
                         allAddress.length == 0 ?
                             <div className="text-center">
-                                <img src="/noAddress.svg" />
+                                <img loading="lazy" src="/noAddress.svg" />
                                 <h3 className="font-bold text-xl text-gray-500">Bạn chưa có địa chỉ</h3>
                             </div>
                             :
