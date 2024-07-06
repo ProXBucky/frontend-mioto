@@ -122,7 +122,7 @@ function ManageCar() {
                                 <div className="sm:w-full md:w-[48%] lg:w-full xl:w-full bg-white rounded-xl border-2 flex flex-col items-center">
                                     <div className="w-full p-3 flex sm:flex-col md:flex-col lg:flex-row xl:flex-row cursor-pointer" key={index}>
                                         <div className="sm:w-full md:w-full lg:w-3/12 xl:w-3/12 relative flex justify-center">
-                                            <img loading="lazy" loading="lazy" src={car.images && car.images[0] && car.images[0].imageLink} className="rounded-xl w-full" />
+                                            <img loading="lazy" src={car.images && car.images[0] && car.images[0].imageLink} className="rounded-xl w-full" />
                                         </div>
                                         <div className="sm:w-full md:w-full lg:w-5/12 xl:w-5/12 sm:mt-2 md:mt-2 lg:px-10 xl:px-10">
                                             <div className="flex-col flex">
