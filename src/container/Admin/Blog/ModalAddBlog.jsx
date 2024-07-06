@@ -7,10 +7,8 @@ import { toast } from "react-toastify";
 import { setConponentLoad, setHideLoading, setShowLoading } from "../../../redux/Slice/AppSlice";
 import { useState } from "react";
 import { createBlog } from "../../../api/adminAPI";
-import MarkdownIt from 'markdown-it';
 import SimpleMDE from 'react-simplemde-editor';
 import 'easymde/dist/easymde.min.css';
-const mdParser = new MarkdownIt
 
 function ModalAddBlog() {
     const modalAddBlog = useSelector(modalAddBlogSelector)
