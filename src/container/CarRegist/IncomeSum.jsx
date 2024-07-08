@@ -12,7 +12,7 @@ function IncomeSum() {
 
     return (
         <>
-            <div className="sm:px-3 md:px-5 lg:px-16 xl:px-32 py-10 bg-gray-100">
+            <div className="sm:px-5 md:px-5 lg:px-16 xl:px-32 py-10 bg-gray-100">
                 <h1 className='sm:text-2xl md:text-3xl lg:text-4xl xl:text-4xl font-bold text-center'>Thu nhập ước tính của chủ xe</h1>
                 <p className="text-md mt-5 text-center sm:px-5 md:px-10 lg:px-64 xl:px-64">Mioto dựa trên dữ liệu thu nhập bình quân 6 tháng gần nhất của các chủ xe đang kinh doanh hiệu quả trên hệ thống và thống kê theo từng khu vực.</p>
                 <table className="w-full border-collapse border border-gray-300 mt-10 rounded-xl text-center font-semibold">
@@ -82,7 +82,7 @@ function IncomeSum() {
                 </table>
                 <p className="text-center text-sm mt-5 text-gray-500 sm:px-5 md:px-10 lg:px-64 xl:px-64">* Lưu ý: Thu nhập của chủ xe khi cho thuê trên Mioto còn tùy thuộc vào nhiều yếu tố, bao gồm thời gian xe sẵn sàng cho thuê mỗi tháng, mức giá cho thuê và nhu cầu thuê xe ở khu vực của bạn.</p>
             </div>
-            <div className="sm:px-3 md:px-5 lg:px-16 xl:px-32 py-20 border-b border-gray-300">
+            <div className="sm:px-5 md:px-5 lg:px-16 xl:px-32 py-20 border-b border-gray-300">
                 <h1 className='sm:text-2xl md:text-3xl lg:text-4xl xl:text-4xl font-bold text-center'>Ba bước đăng ký xe trên MIOTO</h1>
 
                 <div className="flex flex-wrap gap-[20px] mt-4 sm:hidden md:hidden">

@@ -74,7 +74,7 @@ function MyOrder() {
 
     return (
         <>
-            <h1 className="sm:text-2xl md:text-3xl lg:text-4xl xl:text-4xl font-bold mb-4">Danh sách thuê xe</h1>
+            <h1 className="sm:text-xl md:text-3xl lg:text-4xl xl:text-4xl font-bold mb-4">Danh sách thuê xe</h1>
             {
                 listOrders && listOrders.length > 0 ?
                     listOrders.map((order, index) => {

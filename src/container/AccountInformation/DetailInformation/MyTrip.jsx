@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { getAllTripByUserId } from "../../../api/appAPI"
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { tokenSelector, userIdSelector } from "../../../redux/selector"
 import { formatMoney } from "../../../utils/formatMoney"
 import { format } from "date-fns"
@@ -8,6 +8,7 @@ import viLocale from 'date-fns/locale/vi';
 import { useNavigate } from "react-router-dom"
 
 function MyTrip() {
+    const dispatch = useDispatch()
     const [allTrip, setAllTrip] = useState([])
     const userId = useSelector(userIdSelector)
     const token = useSelector(tokenSelector)
@@ -49,7 +50,7 @@ function MyTrip() {
 
     return (
         <>
-            <h1 className="sm:text-2xl md:text-3xl lg:text-4xl xl:text-4xl font-bold">Chuyến của tôi</h1>
+            <h1 className="sm:text-xl md:text-3xl lg:text-4xl xl:text-4xl font-bold">Chuyến của tôi</h1>
             {
                 allTrip && allTrip.length > 0 ?
                     allTrip.map((item, index) => {

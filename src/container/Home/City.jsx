@@ -164,9 +164,9 @@ function City() {
     };
 
     return (
-        <div className="sm:px-3 md:px-5 lg:px-16 xl:px-32 sm:py-12 md:py-20 lg:py-20 xl:py-20">
+        <div className="sm:px-5 md:px-5 lg:px-16 xl:px-32 sm:py-12 md:py-20 lg:py-20 xl:py-20">
             <div className='text-center sm:mb-10 md:mb-20 lg:mb-20 xl:mb-20'>
-                <h1 className='h-12 sm:text-3xl md:text-4xl lg:text-5xl xl:text-5xl font-bold'>Địa Điểm Nổi Bật</h1>
+                <h1 className='h-12 sm:text-2xl md:text-4xl lg:text-5xl xl:text-5xl font-bold'>Địa Điểm Nổi Bật</h1>
             </div>
 
             <Slider {...settings}>

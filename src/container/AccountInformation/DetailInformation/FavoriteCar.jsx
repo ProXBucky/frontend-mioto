@@ -52,7 +52,7 @@ function FavoriteCar() {
 
     return (
         <>
-            <h1 className="sm:text-2xl md:text-3xl lg:text-3xl xl:text-4xl font-bold">Xe yêu thích của tôi</h1>
+            <h1 className="sm:text-xl md:text-3xl lg:text-3xl xl:text-4xl font-bold">Xe yêu thích của tôi</h1>
             {
                 listCarLiked && listCarLiked.length > 0 ?
                     listCarLiked.map((item, index) => {
@@ -73,8 +73,8 @@ function FavoriteCar() {
                                     </div>
                                 </div>
                                 <div className="sm:w-full md:w-full lg:w-[calc(25%-40px)] xl:w-[calc(25%-40px)] lg:border-l-2 xl:border-l-2 flex flex-col justify-center items-center gap-3 pl-4">
-                                    <div className="rounded-full border border-gray-600 ">
-                                        <img loading="lazy" src={item.car && item.car && item.car.user && item.car.user.avatarImage} className="rounded-full h-10" />
+                                    <div className="flex flex-col items-center gap-2">
+                                        <img loading="lazy" src={item.car && item.car && item.car.user && item.car.user.avatarImage ? item.car.user.avatarImage : "/avaMale.png"} className="rounded-full border border-gray-600 sm:h-14 md:h-10 lg:h-10 xl:h-10" />
                                     </div>
                                     <p><label className="font-bold text-xl">{item.car && item.car.pricePerDay && item.car.pricePerDay}K </label><label className="font-normal text-md">/Ngày</label></p>
                                     <button className="py-[10px] sm:px-[10px] md:px-[10px] lg:px-[20px] xl:px-[40px] rounded-md text-white font-bold bg-main hover:opacity-85" onClick={() => dislikeCarAction(item.car.carId)}>Bỏ thích</button>

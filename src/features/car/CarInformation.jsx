@@ -12,7 +12,7 @@ function CarInformation({ car, handleOpenModalMap }) {
                         </div>
                         <div className="">
                             <p className="text-gray-500">Số ghế</p>
-                            <span className="font-bold text-xl">{car && car.capacity && car.capacity} chỗ</span>
+                            <span className="font-bold sm:text-lg md:text-xl lg:text-xl xl:text-xl">{car && car.capacity && car.capacity} chỗ</span>
                         </div>
                     </div>
 
@@ -23,7 +23,7 @@ function CarInformation({ car, handleOpenModalMap }) {
                         </div>
                         <div className="">
                             <p className="text-gray-500">Truyền động</p>
-                            <span className="font-bold text-xl">{car && car.transmission && car.transmission}</span>
+                            <span className="font-bold sm:text-lg md:text-xl lg:text-xl xl:text-xl">{car && car.transmission && car.transmission}</span>
                         </div>
 
                     </div>
@@ -35,7 +35,7 @@ function CarInformation({ car, handleOpenModalMap }) {
                         </div>
                         <div className="">
                             <p className="text-gray-500">Nhiên liệu</p>
-                            <span className="font-bold text-xl">{car && car.fuelType && car.fuelType}</span>
+                            <span className="font-bold sm:text-lg md:text-xl lg:text-xl xl:text-xl">{car && car.fuelType && car.fuelType}</span>
                         </div>
 
                     </div>

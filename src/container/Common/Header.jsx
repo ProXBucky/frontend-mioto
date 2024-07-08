@@ -2,7 +2,6 @@ import React, { memo, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { avatarImageSelector, fullnameSelector, tokenSelector } from '../../redux/selector';
-import FacebookLoginComponent from '../../component/FacebookLoginComponent';
 import { setMenuLeft } from '../../redux/Slice/AppSlice';
 
 

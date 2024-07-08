@@ -291,7 +291,7 @@ function RegisterSelfDrive({ type }) {
     }, [])
 
     return (
-        <div className={`${type == "create" ? "sm:px-3 md:px-5 lg:px-10 xl:px-32" : ""} bg-gray-100 border-t-2`} >
+        <div className={`${type == "create" ? "sm:px-5 md:px-5 lg:px-10 xl:px-32" : ""} bg-gray-100 border-t-2`} >
             <div className='border-none justify-start mt-3 flex flex-row items-center gap-2 cursor-pointer font-bold' onClick={() => backto()}>
                 <i className="fa-solid fa-chevron-left fa-xl"></i>
                 <p>Quay lại</p>
@@ -309,7 +309,7 @@ function RegisterSelfDrive({ type }) {
                     }
 
                 </h1>
-                <div className={`${type == "create" ? "sm:w-full md:w-full lg:w-2/3 xl:w-2/3" : "w-full"} border-2 bg-white sm:p-3 md:p-5 lg:p-5 xl:p-5`} >
+                <div className={`${type == "create" ? "sm:w-full md:w-full lg:w-2/3 xl:w-2/3" : "w-full"} rounded-lg border-2 bg-white sm:p-5 md:p-5 lg:p-5 xl:p-5`} >
                     <div className=''>
                         <div className="flex flex-col gap-3 sm:w-full md:w-1/2 lg:w-1/2 xl:w-1/2">
                             <label className='font-bold text-xl'>Biển số xe</label>
@@ -631,7 +631,7 @@ function RegisterSelfDrive({ type }) {
                         type == "view" &&
                         <div className='mt-5'>
                             <label className='font-bold text-xl mb-2'>Địa chỉ giao xe</label>
-                            <span className="text-xl block font-semibold">{valueAddress.streetAddress} - {valueAddress.ward} - {valueAddress.district} - {valueAddress.city}</span>
+                            <span className="sm:text-lg md:text-xl lg:text-xl xl:text-xl block font-normal">{valueAddress.streetAddress} - {valueAddress.ward} - {valueAddress.district} - {valueAddress.city}</span>
                         </div>
 
                     }

@@ -89,7 +89,7 @@ function ModalAddBlog() {
                             <input className="mt-2 border-2 p-2 sm:w-full md:w-full lg:w-2/3 xl:w-2/3 rounded-md outline-none" type="text" value={title} onChange={(e) => setTitle(e.target.value)} required />
                         </div>
                         <div className='sm:w-full md:w-full lg:w-1/5 xl:w-1/5 flex flex-col gap-2 justify-center items-center'>
-                            <label htmlFor="avaInput" className="rounded-xl bg-main p-2 mb-2 text-white font-semibold cursor-pointer">
+                            <label htmlFor="avaInput" className="rounded-md bg-main p-2 mb-2 text-white font-semibold cursor-pointer">
                                 Chọn ảnh tiêu đề
                             </label>
                             <input type="file" id="avaInput" className='hidden' required onChange={handleFileChange} />
@@ -109,7 +109,7 @@ function ModalAddBlog() {
                         </div>
                     </div>
                     <div className="w-full flex justify-center">
-                        <button type="submit" className="w-1/3 hover:opacity-80 rounded-xl bg-main p-2 mb-2 text-white font-semibold">Tạo mới</button>
+                        <button type="submit" className="w-1/3 hover:opacity-80 rounded-md bg-main p-2 mb-2 text-white font-semibold">Tạo mới</button>
                     </div>
                 </Form>
             </Modal.Body>

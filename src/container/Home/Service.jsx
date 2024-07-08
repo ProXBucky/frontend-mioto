@@ -11,9 +11,9 @@ function Service() {
     }
 
     return (
-        <div className="sm:px-3 md:px-5 lg:px-16 xl:px-32 sm:py-16 md:py-24 md:pb-[600px] lg:py-20 xl:py-20">
+        <div className="sm:px-5 md:px-5 lg:px-16 xl:px-32 sm:py-16 md:py-24 md:pb-[600px] lg:py-20 xl:py-20">
             <div className='text-center mb-20'>
-                <h1 className='h-12 sm:text-3xl md:text-4xl lg:text-5xl xl:text-5xl font-bold'>Dịch Vụ Của Mioto</h1>
+                <h1 className='h-12 sm:text-2xl md:text-4xl lg:text-5xl xl:text-5xl font-bold'>Dịch Vụ Của Mioto</h1>
             </div>
             <div className="sm:hidden flex justify-between relative">
                 <div className="relative">

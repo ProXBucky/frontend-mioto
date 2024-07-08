@@ -116,7 +116,7 @@ function ModalViewTrip() {
                                         <h3 className='font-semibold text-lg mt-2'>Chủ xe</h3>
                                         <div className="flex flex-col gap-3 mt-2">
                                             <div className="flex flex-row gap-3 items-center">
-                                                <img loading="lazy" className="h-14 rounded-full border" src={rent && rent.car && rent.car && rent.car.user ? rent.car.user.avatarImage : "/avaMale.png"} />
+                                                <img loading="lazy" className="h-14 rounded-full border" src={rent && rent.car && rent.car && rent.car.user && rent.car.user.avatarImage ? rent.car.user.avatarImage : "/avaMale.png"} />
                                                 <div>
                                                     <p className="font-semibold text-lg">{rent && rent.car && rent.car && rent.car.user && rent.car.user.fullname}</p>
                                                     <p className='font-semibold'>Số điện thoại: {rent && rent.car && rent.car && rent.car.user && rent.car.user.phone}</p>
@@ -130,7 +130,7 @@ function ModalViewTrip() {
                                         <h3 className='font-semibold text-lg mt-2'>Người đặt</h3>
                                         <div className="flex flex-col gap-3 mt-2">
                                             <div className="flex flex-row gap-3 items-center">
-                                                <img loading="lazy" className="h-14 rounded-full border" src={rent && rent.user ? rent.user.avatarImage : "/avaMale.png"} />
+                                                <img loading="lazy" className="h-14 rounded-full border" src={rent && rent.user && rent.user.avatarImage ? rent.user.avatarImage : "/avaMale.png"} />
                                                 <div>
                                                     <p className="font-semibold text-lg">{rent && rent.user && rent.user.fullname}</p>
                                                     <p className='font-semibold'>Số điện thoại: {rent && rent.user && rent.user.phone}</p>
@@ -173,12 +173,12 @@ function ModalViewTrip() {
                                         <div className="my-1 border"></div>
 
                                         <div className="flex justify-between items-center">
-                                            <div className="flex flex-row items-center w-3/4 gap-3">
+                                            <div className="flex flex-row items-center w-3/4 sm:gap-1 md:gap-3 lg:gap-3 xl:gap-3">
                                                 <p>Mã giảm giá</p>
                                                 {
                                                     rent.voucherOwner && rent.voucherOwner.voucher && rent.voucherOwner.voucher.voucherCode &&
                                                     <>
-                                                        <p className="text-black font-bold text-lg">{rent.voucherOwner && rent.voucherOwner.voucher.voucherCode}</p>
+                                                        <p className="text-black font-bold sm:text-sm md:text-lg lg:text-lg xl:text-lg">{rent.voucherOwner && rent.voucherOwner.voucher.voucherCode}</p>
                                                     </>
                                                 }
                                             </div>

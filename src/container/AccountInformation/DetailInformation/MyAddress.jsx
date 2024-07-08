@@ -51,10 +51,9 @@ function MyAddress({ handleOpenModalAddress }) {
 
     return (
         <>
-            <h1 className="sm:text-2xl md:text-3xl lg:text-4xl xl:text-4xl font-bold">Địa chỉ của tôi</h1>
+            <h1 className="sm:text-xl md:text-3xl lg:text-4xl xl:text-4xl font-bold">Địa chỉ của tôi</h1>
             <div className="rounded-xl mt-4 bg-white p-4">
                 <div className="flex sm:flex-col md:flex-row lg:flex-row xl:flex-row sm:gap-2 justify-between">
-                    <h1 className="sm:text-xl md:text-2xl lg:text-3xl xl:text-3xl font-bold">Địa chỉ đã lưu</h1>
                     <div className="sm:text-center p-2 px-3 cursor-pointer rounded-lg font-bold text-md border border-black" onClick={() => handleOpenModalAddress()}>
                         Thêm địa chỉ mới
                     </div>

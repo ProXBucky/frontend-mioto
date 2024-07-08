@@ -16,8 +16,8 @@ function MenuLeftAdmin() {
 
     return (
         <div
-            className={`lg:hidden xl:hidden z-50 fixed top-0 left-0 h-full bg-gray-100 shadow-lg w-full sm:p-4 md:p-10 transform ${menuLeftAdmin ? 'translate-x-0' : '-translate-x-full'}
-             transition-transform duration-500 ease-in-out`}
+            className={`lg:hidden xl:hidden z-40 fixed top-0 left-0 right-0 bottom-0 h-full bg-gray-100 shadow-lg w-full sm:p-4 md:p-10 transform ${menuLeftAdmin ? 'translate-x-0' : '-translate-x-full'}
+             transition-transform duration-500 ease-in-out overflow-y-hidden`}
         >
             <i className="absolute top-10 right-10 fa-solid fa-xmark fa-2xl cursor-pointer" onClick={handleCloseMenu}></i>
             <div className="flex flex-col justify-center items-center w-full h-screen sm:gap-3 md:gap-3">

@@ -133,7 +133,7 @@ function MyAccount({ handleOpenEdit, showModalEdit }) {
 
     return (
         <div className="flex flex-col gap-4">
-            <div className="bg-white rounded-2xl sm:py-3 md:py-5 lg:py-5 xl:py-5 sm:px-3 md:px-4 lg:px-4 xl:px-4" >
+            <div className="bg-white rounded-2xl sm:py-3 md:py-5 lg:py-5 xl:py-5 sm:px-5 md:px-4 lg:px-4 xl:px-4" >
                 <div className="flex sm:flex-col md:flex-row lg:flex-row xl:flex-row justify-between pb-3">
                     <div className="flex flex-row gap-2 items-center">
                         <h2 className="sm:text-lg md:text-xl lg:text-2xl xl:text-2xl font-bold">
@@ -187,12 +187,10 @@ function MyAccount({ handleOpenEdit, showModalEdit }) {
             </div >
 
             <div className="bg-white rounded-2xl py-5 px-4" >
+                <h2 className="text-xl font-bold mb-3">
+                    Giấy phép lái xe
+                </h2>
                 <div className="flex sm:gap-2 sm:flex-col md:flex-row lg:flex-row xl:flex-row items-center justify-between pb-3">
-                    <div className="flex flex-col gap-2">
-                        <h2 className="text-xl font-bold">
-                            Giấy phép lái xe
-                        </h2>
-                    </div>
                     {
                         !editLicense ?
                             <div className="border border-black rounded-lg flex flex-row items-center gap-1 p-2 px-3 cursor-pointer" onClick={() => setEditLicense(true)}>
@@ -213,7 +211,7 @@ function MyAccount({ handleOpenEdit, showModalEdit }) {
                 </div>
                 <div className="flex sm:flex-col-reverse md:flex-row lg:flex-row xl:flex-row">
                     <div className="sm:w-full md:w-1/2 lg:w-1/2 xl:w-1/2 flex justify-center flex-col gap-3 pr-5">
-                        <h3 className="mb-1 font-semibold text-lg">Thông tin chung</h3>
+                        <h3 className="mb-1 sm:mt-4 font-semibold text-lg">Thông tin chung</h3>
                         <div>
                             <label className="font-semibold text-gray-500 text-md w-full">Số GPLX</label>
                             <input className="outline-none w-full p-2 mt-2 rounded-lg bg-white border disabled:opacity-50" disabled={!editLicense} placeholder="Nhập số GPLX đã cấp" name="licenseNumber" onChange={handleChange} value={formData.licenseNumber || ''} />
@@ -289,7 +287,7 @@ function MyAccount({ handleOpenEdit, showModalEdit }) {
                 </div>
             </div >
 
-            <div className="bg-white rounded-2xl py-5 sm:px-2 md:px-4 lg:px-4 xl:px-4" >
+            <div className="bg-white rounded-2xl py-5 sm:px-4 md:px-4 lg:px-4 xl:px-4" >
                 <div className="flex flex-col pb-3">
                     <h2 className="text-xl font-bold">
                         Danh sách xe

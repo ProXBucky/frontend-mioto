@@ -11,7 +11,7 @@ function WhyChoose() {
     }
 
     return (
-        <div className="sm:px-3 md:px-5 lg:px-16 xl:px-32 py-10">
+        <div className="sm:px-5 md:px-5 lg:px-16 xl:px-32 py-10">
             <h1 className='sm:text-3xl md:text-3xl lg:text-4xl xl:text-4xl font-bold text-center'>Tại sao bạn nên cho thuê xe trên MIOTO?</h1>
             <div className="flex flex-wrap gap-[20px] mt-16 sm:hidden md:hidden">
                 <div className="w-[calc(33.33%-14px)] rounded-2xl border-2 border-[#cff1db] bg-[#f7fdf9] p-6 mt-5">

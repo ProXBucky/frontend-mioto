@@ -1,6 +1,6 @@
 function Introduction() {
     return (
-        <div className="sm:px-3 md:px-5 lg:px-16 xl:px-32 sm:py-5 md:py-8 lg:py-20 xl:py-20 flex flex-col gap-20">
+        <div className="sm:px-5 md:px-5 lg:px-16 xl:px-32 sm:py-5 md:py-8 lg:py-20 xl:py-20 flex flex-col gap-20">
             <div className="flex sm:flex-col md:flex-col lg:flex-row xl:flex-row">
                 <h1 className="sm:w-full md:w-full lg:w-1/3 xl:w-1/3 sm:text-4xl md:text-5xl lg:text-6xl xl:text-6xl font-bold">Mioto - Cùng bạn đến mọi hành trình</h1>
                 <div className="sm:w-full md:w-full lg:w-2/3 xl:w-2/3 text-lg sm:mt-5 md:mt-8  lg:pl-20 xl:pl-20">

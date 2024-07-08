@@ -40,7 +40,7 @@ function Banner({ city, cityName, handleOpenDateModal, handleOpenLocationModal }
 
     return (
         <div>
-            <div className="sm:h-[450px] lg:h-[650px] xl:h-[650px] sm:px-4 md:px-5 lg:px-16 xl:px-32">
+            <div className="sm:h-[450px] lg:h-[650px] xl:h-[650px] sm:px-5 md:px-5 lg:px-16 xl:px-32">
                 <div className="relative w-full sm:h-[450px] lg:h-[600px] xl:h-[600px] rounded-2xl" style={{ backgroundImage: `url(${backgroundImage})`, backgroundSize: "cover" }}>
                     <div className="w-full h-[500px] flex flex-col sm:pt-4 md:pt-10 lg:pt-32 xl:pt-32">
                         <div className="w-full text-center sm:pt-10 md:pt-10 lg:py-5 xl:py-5 sm:pb-5 md:pb-5 lg:pb-5 xl:pb-5">
@@ -61,13 +61,14 @@ function Banner({ city, cityName, handleOpenDateModal, handleOpenLocationModal }
                             city === "common" &&
                             <>
                                 <div className="border-t-[.5px] border-white sm:w-1/3 md:w-1/4 lg:w-1/5 xl:w-1/5 mx-auto sm:py-1 md:py-2 lg:py-3 xl:py-3"></div>
-                                <div className="w-full text-center sm:px-4">
+                                <div className="w-full text-center sm:px-5">
                                     <p className="font-semibold text-white sm:text-base md:text-xl lg:text-xl xl:text-xl">Trải nghiệm sự khác biệt từ <label className="text-main">hơn 8000</label> xe gia đình đời mới khắp Việt Nam</p>
                                 </div>
                             </>
 
                         }
-                        <div className="absolute sm:bottom-[-130px] md:bottom-[-100px] lg:bottom-[-50px] xl:bottom-[-50px] sm:right-[5%] md:right-[5%] lg:right-[11%] xl:right-[17%] sm:w-[90%] md:w-[90%] lg:w-4/5 xl:w-2/3 ">
+                        <div className={`absolute md:bottom-[-100px] lg:bottom-[-50px] xl:bottom-[-50px] sm:right-[5%] md:right-[5%] lg:right-[11%] xl:right-[17%] 
+                            sm:w-[90%] md:w-[90%] lg:w-4/5 xl:w-2/3 ${city === "common" ? "sm:bottom-[-130px]" : "sm:bottom-[20px]"} `}>
                             {
                                 city === "common" &&
                                 <div className="h-14 sm:px-16 md:px-52 lg:px-72 xl:px-72">

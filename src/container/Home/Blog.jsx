@@ -46,9 +46,9 @@ function Blog() {
     }
 
     return (
-        <div className="sm:px-3 md:px-5 lg:px-16 xl:px-32 py-20">
-            <div className='text-center mb-20'>
-                <h1 className='h-12 sm:text-3xl md:text-4xl lg:text-5xl xl:text-5xl font-bold'>MIOTO Blog</h1>
+        <div className="sm:px-5 md:px-5 lg:px-16 xl:px-32 py-20">
+            <div className='text-center sm:mb-5 md:mb-20 lg:mb-20 xl:mb-20'>
+                <h1 className='h-12 sm:text-2xl md:text-4xl lg:text-5xl xl:text-5xl font-bold'>MIOTO Blog</h1>
             </div>
             <div className="flex flex-row gap-5 sm:hidden md:hidden">
                 <div className="flex flex-col w-1/3 gap-4">

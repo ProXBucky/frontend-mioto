@@ -1,6 +1,6 @@
 function Footer() {
     return (
-        <div className="h-auto pt-12 pb-6 sm:px-3 md:px-5 lg:px-16 xl:px-32 flex flex-col border-t-2 border-gray-200">
+        <div className="h-auto pt-12 pb-6 sm:px-5 md:px-5 lg:px-16 xl:px-32 flex flex-col border-t-2 border-gray-200">
             <div className="w-full h-auto flex sm:flex-col md:flex-col lg:flex-row xl:flex-row">
                 <div className="sm:w-full md:w-full lg:w-1/3 xl:w-1/3">
                     <div className="flex sm:flex-col md:flex-row lg:flex-col xl:flex-col sm:gap-4 md:gap-3 lg:gap-5 xl:gap-5">

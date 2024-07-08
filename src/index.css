@@ -6,6 +6,7 @@
 #root {
     font-family: "Manrope", "Encode Sans Expanded", "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
     scroll-behavior: smooth;
+    /* overflow-x: hidden; */
 }
 
 ::-webkit-scrollbar {

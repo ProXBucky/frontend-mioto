@@ -38,7 +38,7 @@ function DashboardAdmin() {
 
     return (
         <>
-            <div className="w-full pb-10">
+            <div className="w-full pb-10 overflow-y-hidden">
                 <h2 className="font-black text-xl">Chào mừng đã quay trở lại 👋</h2>
                 <div className="w-full flex flex-wrap gap-3 mt-5">
                     <div className="sm:w-[calc(50%-12px)] md:w-[calc(33%-12px)] lg:w-[calc(25%-12px)] xl:w-[calc(25%-12px)] flex sm:flex-col md:flex-row lg:flew-row xl:flex-row sm:gap-2 sm:justify-center bg-white rounded-xl px-3 py-[36px]">

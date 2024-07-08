@@ -48,8 +48,8 @@ function ChangePassword() {
     }
     return (
         <>
-            <h1 className="sm:text-2xl md:text-3xl lg:text-4xl xl:text-4xl font-bold">Đổi mật khẩu</h1>
-            <p className="text-md py-2">Vui lòng nhập mật khẩu hiện tại của bạn để thay đổi mật khẩu</p>
+            <h1 className="sm:text-xl md:text-3xl lg:text-4xl xl:text-4xl font-bold">Đổi mật khẩu</h1>
+            <p className="text-sm py-2">Vui lòng nhập mật khẩu hiện tại của bạn để thay đổi mật khẩu</p>
             <div className="flex w-full flex-col gap-2 mt-2 bg-white py-3 px-4 rounded-xl">
                 <h1 className="text-2xl font-bold mb-4">Nhập mật khẩu</h1>
                 <div>

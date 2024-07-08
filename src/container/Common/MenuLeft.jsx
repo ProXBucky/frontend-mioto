@@ -21,10 +21,11 @@ function MenuLeft({ handleOpenLoginModal, handleOpenRegisterModal }) {
 
     return (
         <div
-            className={`z-40 fixed top-0 left-0 h-full bg-gray-100 shadow-lg w-full sm:p-4 md:p-10 transform ${menuLeft ? 'translate-x-0' : '-translate-x-full'}
-                 transition-transform duration-500 ease-in-out`}
+            className={`lg:hidden xl:hidden z-40 fixed top-0 right-0 bottom-0 left-0 w-full bg-gray-100 shadow-lg sm:p-4 md:p-10 transform 
+                ${menuLeft ? 'translate-x-0' : '-translate-x-full'}
+                 transition-transform duration-500 ease-in-out overflow-y-hidden`}
         >
-            <i className="absolute top-10 right-10 fa-solid fa-xmark fa-2xl cursor-pointer" onClick={handleCloseMenu}></i>
+            <i className="absolute top-10 sm:right-5 md:right-10 lg:right-10 xl:right-10 fa-solid fa-xmark fa-2xl cursor-pointer" onClick={handleCloseMenu}></i>
             {
                 fullname ?
                     <div className="w-full h-screen flex justify-center items-center">
@@ -91,13 +92,13 @@ function MenuLeft({ handleOpenLoginModal, handleOpenRegisterModal }) {
                     :
                     <div className="w-full h-screen flex justify-center items-center">
                         <ul className="flex flex-col justify-end items-center w-full">
-                            <li className="py-4 hover:text-main text-center w-full px-4 rounded-lg bg-white " onClick={() => handleOpenLoginModal()} >
+                            <li className="py-4 hover:text-main text-center w-full px-4 rounded-lg bg-white " onClick={handleOpenLoginModal} >
                                 <a className="nav-link font-bold sm:text-base md:text-xl cursor-pointer">
                                     Đăng nhập
                                 </a>
                             </li>
                             <li className="py-4 hover:text-main text-center w-full rounded-lg bg-white ">
-                                <a className="nav-link font-bold sm:text-base md:text-xl cursor-pointer" onClick={() => handleOpenRegisterModal()}>
+                                <a className="nav-link font-bold sm:text-base md:text-xl cursor-pointer" onClick={handleOpenRegisterModal}>
                                     Đăng ký
                                 </a>
                             </li>

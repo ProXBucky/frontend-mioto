@@ -2,14 +2,26 @@ import { NavLink, Outlet } from "react-router-dom"
 import "./adminApp.css"
 import HeaderAdmin from "./HeaderAdmin";
 import { useSelector } from "react-redux";
-import { adminFullnameSelector, avatarImageAdminSelector } from "../../redux/selector";
-import { setAvatarImageAdmin } from "../../redux/Slice/CookieSlice";
+import { adminFullnameSelector, avatarImageAdminSelector, menuLeftAdminSelector } from "../../redux/selector";
+import { useEffect } from "react";
 
 function AdminApp() {
 
     const adminFullname = useSelector(adminFullnameSelector)
     const avatar = useSelector(avatarImageAdminSelector)
 
+    const isOpenAdmin = useSelector(menuLeftAdminSelector)
+
+    useEffect(() => {
+        if (isOpenAdmin) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'auto';
+        }
+        return () => {
+            document.body.style.overflow = 'auto';
+        };
+    }, [isOpenAdmin]);
 
     return (
         <div className="bg-gray-100 sm:min-h-dvh md:min-h-screen lg:h-dvh xl:h-dvh flex sm:flex-row md:flex-row lg:flex-row xl:flex-row sm:justify-center md:justify-center">
@@ -95,7 +107,7 @@ function AdminApp() {
             </div>
             <div className="sm:w-full md:w-full lg:w-5/6 xl:w-5/6 overflow-y-auto">
                 <HeaderAdmin />
-                <div className="sm:px-4 md:px-5 lg:px-12 xl:px-12 sm:mt-4 md:mt-5 lg:mt-5 xl:mt-5 h-full pb-12">
+                <div className="sm:px-5 md:px-5 lg:px-12 xl:px-12 sm:mt-4 md:mt-5 lg:mt-5 xl:mt-5 h-full pb-12">
                     <Outlet />
                 </div>
             </div>

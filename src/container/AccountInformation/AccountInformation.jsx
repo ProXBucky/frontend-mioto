@@ -18,7 +18,7 @@ function AccountInformation() {
     }
 
     return (
-        <div className="sm:px-3 md:px-5 lg:px-16 xl:px-32 sm:py-10 md:py-10 lg:py-20 xl:py-20 bg-gray-100 flex sm:flex-col md:flex-col lg:flex-row xl:flex-row">
+        <div className="sm:px-5 md:px-5 lg:px-16 xl:px-32 sm:py-10 md:py-10 lg:py-20 xl:py-20 bg-gray-100 flex sm:flex-col md:flex-col lg:flex-row xl:flex-row">
             <div className="w-1/3 sm:hidden md:hidden">
                 <h2 className="lg:text-3xl xl:text-4xl font-bold">Xin chào bạn!</h2>
                 <div className="py-5 pr-5">

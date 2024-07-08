@@ -18,7 +18,7 @@ function CarList({ ava, city, cityName, isHiddenTitle, carArray, menu }) {
     }
 
     return (
-        <div className={`sm:px-3 md:px-5 lg:px-16 xl:px-32 md:py-14 lg:py-14 xl:py-14 
+        <div className={`sm:px-5 md:px-5 lg:px-16 xl:px-32 md:py-14 lg:py-14 xl:py-14 
         ${menu === true ? "sm:py-5" : "sm:py-16"} 
         ${city === "city" ? "" : "bg-gray-100"}`}>
             {
@@ -26,9 +26,12 @@ function CarList({ ava, city, cityName, isHiddenTitle, carArray, menu }) {
                     <div className='text-center sm:mb-6 md:mb-8 lg:mb-20 xl:mb-20'>
                         {
                             city === "city" ?
-                                <h1 className='h-12 sm:text-3xl md:text-4xl lg:text-5xl xl:text-5xl font-bold'>Xe dành cho bạn tại {cityName}</h1>
+                                <>
+                                    <h1 className='h-12 sm:text-2xl md:text-4xl lg:text-5xl xl:text-5xl font-bold'>Xe Dành Cho Bạn tại</h1>
+                                    <h1 className='h-12 sm:text-3xl md:text-4xl lg:text-5xl xl:text-5xl font-bold'>{cityName}</h1>
+                                </>
                                 :
-                                <h1 className='h-12 sm:text-3xl md:text-4xl lg:text-5xl xl:text-5xl font-bold'>Xe Dành Cho Bạn</h1>
+                                <h1 className='h-12 sm:text-2xl md:text-4xl lg:text-5xl xl:text-5xl font-bold'>Xe Dành Cho Bạn</h1>
 
                         }
                     </div>
@@ -181,7 +184,7 @@ function CarList({ ava, city, cityName, isHiddenTitle, carArray, menu }) {
                                     {
                                         ava &&
                                         <div className="h-10 rounded-full border w-10 absolute bottom-[-7%] left-[5%]">
-                                            <img loading="lazy" src={car && car.user && car.user.avatarImage} className="rounded-full" />
+                                            <img loading="lazy" src={car && car.user && car.user.avatarImage ? car.user.avatarImage : "/avaMale.png"} className="rounded-full" />
                                         </div>
                                     }
                                     <img loading="lazy" src={car.images && car.images[0].imageLink} className="rounded-xl" />

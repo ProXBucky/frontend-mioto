@@ -34,7 +34,7 @@ function CarImage({ car, carImgs, handleOpenModalViewImg }) {
                     <img loading="lazy" src={car && car.images && car.images[3] && car.images[3].imageLink} className="h-[30.7%] object-cover rounded-2xl cursor-pointer" alt="Car 4" />
                 </Slider>
                 <div className="w-full mt-5">
-                    <div className="sm:w-1/2 md:w-1/3 rounded-lg border bg-gray-100 flex flex-row sm:py-2 md:py-3 sm:px-3 md:px-5 mx-auto items-center gap-2 cursor-pointer" onClick={() => handleOpenModalViewImg(carImgs)}>
+                    <div className="sm:w-2/3 md:w-1/3 rounded-lg border bg-gray-100 flex flex-row sm:py-2 md:py-3 sm:px-5 md:px-5 mx-auto items-center gap-2 cursor-pointer" onClick={() => handleOpenModalViewImg(carImgs)}>
                         <i className="fa-regular fa-images"></i>
                         <p className="text-center font-semibold">Xem tất cả ảnh</p>
                     </div>

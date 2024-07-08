@@ -13,8 +13,7 @@ import Blog from './Blog'
 import ModalPromotionComponent from '../Common/ModalPromotionComponent';
 import { getListCarByCity } from '../../api/carAPI';
 import { useSelector } from 'react-redux';
-import { locationCodeSelector, locationSelector, userIdSelector } from '../../redux/selector';
-import FacebookLoginComponent from '../../component/FacebookLoginComponent';
+import { locationCodeSelector, userIdSelector } from '../../redux/selector';
 
 
 function Home({ handleOpenDateModal, handleOpenLocationModal }) {

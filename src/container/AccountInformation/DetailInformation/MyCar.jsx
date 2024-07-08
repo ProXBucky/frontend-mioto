@@ -44,8 +44,8 @@ function MyCar() {
     }, [])
     return (
         <>
-            <h1 className="sm:text-2xl md:text-3xl lg:text-4xl xl:text-4xl font-bold">Danh sách xe của tôi</h1>
-            <div className="flex w-full flex-col justify-center items-center mt-10">
+            <h1 className="sm:text-xl md:text-3xl lg:text-4xl xl:text-4xl font-bold">Danh sách xe của tôi</h1>
+            <div className="flex w-full flex-col justify-center items-center sm:mt-5 md:mt-10 lg:mt-10 xl:mt-10">
                 {
                     listMyCar.length > 0 &&
                     <button className="mb-4 px-4 py-3 rounded-xl font-semibold bg-main text-white" onClick={() => handleOpenModalAddCar()}>Đăng ký xe tự lái</button>
@@ -54,10 +54,10 @@ function MyCar() {
                     listMyCar && listMyCar.length > 0 ?
                         listMyCar.map((item, index) => {
                             return (
-                                <div className="flex sm:flex-col md:flex-row lg:flex-row  xl:flex-row w-full bg-white p-4 rounded-xl mb-5" key={index}>
+                                <div className="flex sm:flex-col md:flex-row lg:flex-row  xl:flex-row w-full bg-white sm:p-3 md:p-4 lg:p-4 xl:p-4 rounded-xl mb-5" key={index}>
                                     <div className="sm:w-full md:w-2/3 lg:w-2/3 xl:w-2/3 flex flex-col justify-center items-center sm:border-none md:border-r-2 lg:border-r-2 xl:border-r-2 sm:pr-0 md:pr-8 lg:pr-8 xl:pr-8">
                                         <h3 className="text-xl font-semibold">{item.brand}</h3>
-                                        <h2 className="text-2xl font-bold">{item.model} {item.modelYear}</h2>
+                                        <h2 className="sm:text-lg md:text-2xl lg:text-2xl xl:text-2xl font-bold">{item.model} {item.modelYear}</h2>
                                         <h3 className="text-xl font-semibold">{item.plateNumber}</h3>
                                         <div className="w-full flex justify-evenly mt-4">
                                             <div className="flex sm:flex-col md:flex-row lg:flex-row xl:flex-row justify-center items-center gap-1">
@@ -103,7 +103,7 @@ function MyCar() {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="sm:mt-5 sm:w-full md:w-1/3 lg:w-1/3 xl:w-1/3 sm:pl-0 md:pl-8 lg:pl-8 xl:pl-8 flex flex-col justify-center items-center gap-5">
+                                    <div className="sm:mt-5 sm:w-full md:w-1/3 lg:w-1/3 xl:w-1/3 sm:pl-0 md:pl-8 lg:pl-8 xl:pl-8 flex flex-col justify-center items-center gap-4 py-2">
                                         <img loading="lazy" className="rounded-lg cursor-pointer" src={item.images && item.images.length > 0 && item.images[0].imageLink} onClick={() => handleView(item.carId)} />
                                         <div className="flex justify-evenly w-full">
                                             <i className="cursor-pointer fa-regular fa-eye fa-xl" onClick={() => handleNavigateDetailCar(item.carId)}></i>

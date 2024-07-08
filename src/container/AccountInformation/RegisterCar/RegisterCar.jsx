@@ -10,7 +10,7 @@ function RegisterCar() {
     return (
         <>
 
-            <div className="h-screen px-32 flex items-center justify-center bg-gray-100">
+            <div className="h-screen sm:px-5 md:px-5 lg:px-16 xl:px-32 flex items-center justify-center bg-gray-100">
                 <div className="flex flex-col justify-center items-center ">
                     <h2 className="font-bold text-4xl">Đăng ký xe</h2>
                     <img loading="lazy" src="/registerCar.svg" />

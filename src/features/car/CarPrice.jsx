@@ -7,8 +7,8 @@ function CarPrice({ car, voucher, beginDate, endDate, carStatus,
 }) {
     return (
         <>
-            <div className=" bg-[#f7fbff] rounded-lg flex flex-col sm:p-2 md:p-3 lg:p-4 xl:p-4 gap-3 mb-3">
-                <h1 className="font-black text-3xl">{formatMoney(car && car.pricePerDay && car.pricePerDay * 1000)} /ngày</h1>
+            <div className=" bg-[#f7fbff] rounded-lg flex flex-col sm:p-3 md:p-3 lg:p-4 xl:p-4 gap-3 mb-3">
+                <h1 className="font-black sm:text-2xl md:text-3xl lg:text-3xl xl:text-3xl">{formatMoney(car && car.pricePerDay && car.pricePerDay * 1000)} /ngày</h1>
                 <div className="flex flex-row w-full cursor-pointer" onClick={handleOpenDateModal}>
                     <div className={`rounded-tl-lg rounded-bl-lg bg-white p-3 w-1/2 ${carStatus ? "border border-gray-600" : "border-1 border-red-500"}`}>
                         <p className="font-normal text-gray-500 mb-1 text-sm">Nhận xe</p>

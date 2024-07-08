@@ -40,7 +40,7 @@ function ModalConfirmRent({ showModalConfirmRent, handleCloseModalConfirmRent, h
                 <h2 className='font-semibold text-2xl text-center'>Xác nhận thuê xe</h2>
                 <i className="fa-solid fa-xmark fa-2xl cursor-pointer mr-3" onClick={handleCloseModalConfirmRent}></i>
             </Modal.Header>
-            <Modal.Body className='sm:px-4 md:px-5 lg:px-5 xl:px-5 flex flex-col items-center' >
+            <Modal.Body className='sm:px-5 md:px-5 lg:px-5 xl:px-5 flex flex-col items-center' >
                 <h2 className='font-bold sm:text-lg md:text-xl lg:text-2xl xl:text-2xl mb-2'>{`${car && car.model && car.model} ${car && car.modelYear && car.modelYear}`}</h2>
                 <div className='flex sm:flex-col md:flex-row lg:flex-row xl:flex-row w-full pt-4'>
                     <div className='sm:w-full md:w-1/3 lg:w-1/3 xl:w-1/3'>

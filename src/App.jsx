@@ -21,11 +21,11 @@ import { loginUser } from './api/authAPI';
 import { setAvatarImage, setFullname, setToken, setUserId } from './redux/Slice/CookieSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  adminIdSelector, appLoadSelector, loadingSelector, modalAddBlogSelector, modalAddCarSelector, modalAddUserSelector,
+  adminIdSelector, appLoadSelector, loadingSelector, menuLeftAdminSelector, menuLeftSelector, modalAddBlogSelector, modalAddCarSelector, modalAddUserSelector,
   modalAddVoucherSelector, modalChangePasswordUserSelector, modalEditCarSelector, modalEditUserSelector, modalFeedVoucherSelector,
   modalViewBlogSelector, modalViewCarSelector, modalViewRentSelector, modalViewUserSelector, tokenSelector
 } from './redux/selector';
-import { setAppLoad, setHideLoading, setShowLoading } from './redux/Slice/AppSlice';
+import { setAppLoad, setHideLoading, setMenuLeft, setShowLoading } from './redux/Slice/AppSlice';
 import ModalViewUser from './container/Admin/User/ModalViewUser';
 import ModalEditUser from './container/Admin/User/ModalEditUser';
 import ModalChangePassword from './container/Admin/User/ModalChangePassword';
@@ -298,6 +298,20 @@ function App() {
       prevAppLoadRef.current = appLoad;
     }
   }, [appLoad]);
+
+  const isOpen = useSelector(menuLeftSelector)
+
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, [isOpen]);
+
 
   return (
     <>

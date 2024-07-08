@@ -41,9 +41,9 @@ function Partner() {
         ]
     };
     return (
-        <div className="sm:px-3 md:px-5 lg:px-16 xl:px-32 py-20 bg-gray-100">
+        <div className="sm:px-5 md:px-5 lg:px-16 xl:px-32 py-20 bg-gray-100">
             <div className='text-center mb-20'>
-                <h1 className='h-12 sm:text-3xl md:text-4xl lg:text-5xl xl:text-5xl font-bold'>Hành Trình Của Bạn Luôn Được Bảo Vệ</h1>
+                <h1 className='h-12 sm:text-2xl md:text-4xl lg:text-5xl xl:text-5xl font-bold'>Hành Trình Của Bạn Luôn Được Bảo Vệ</h1>
             </div>
             <Slider {...settings}>
                 {images &&

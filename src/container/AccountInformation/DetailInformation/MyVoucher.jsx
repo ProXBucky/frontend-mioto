@@ -30,7 +30,7 @@ function MyVoucher() {
 
     return (
         <>
-            <h1 className="sm:text-2xl md:text-3xl lg:text-4xl xl:text-4xl font-bold mb-4">Quà tặng của tôi</h1>
+            <h1 className="sm:text-xl md:text-3xl lg:text-4xl xl:text-4xl font-bold mb-4">Quà tặng của tôi</h1>
             <div className="bg-white p-3 rounded-lg">
                 {
                     allVoucher && allVoucher.length > 0 ?
@@ -55,9 +55,9 @@ function MyVoucher() {
                                         <div className="w-1/4">
                                             {
                                                 isExpired && item.status === "NotUsed" ?
-                                                    <p className={`rounded-md p-2 text-center font-bold text-white bg-main`}>Chưa sử dụng</p>
+                                                    <p className={`rounded-md p-2 text-center font-semibold text-white bg-main`}>Chưa sử dụng</p>
                                                     :
-                                                    <p className='rounded-md p-2 text-center font-bold text-gray-500 bg-gray-200'>Đã hết</p>
+                                                    <p className='rounded-md p-2 text-center font-semibold text-gray-500 bg-gray-200'>Đã hết</p>
                                             }
                                         </div>
                                     </div>

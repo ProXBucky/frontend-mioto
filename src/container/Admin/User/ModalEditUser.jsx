@@ -1,4 +1,3 @@
-import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { useEffect, useState } from 'react';
 import Form from 'react-bootstrap/Form';
@@ -225,9 +224,9 @@ function ModalEditUser() {
                         </div>
                     </div>
 
-                    <Button variant="primary" type="submit" className="mt-4 w-full py-3 text-lg font-semibold border-none text-white bg-main hover:opacity-80">
+                    <button variant="primary" type="submit" className="rounded-md mt-4 w-full py-3 text-lg font-semibold border-none text-white bg-main hover:opacity-80">
                         Cập nhật
-                    </Button>
+                    </button>
                 </Form>
             </Modal.Body>
 

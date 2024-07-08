@@ -47,10 +47,10 @@ function ModalViewBlog() {
                 <h1 className='text-center text-2xl font-bold'>Chi tiết blog</h1>
                 <i className="fa-solid fa-xmark fa-2xl cursor-pointer" onClick={handleCloseCreate}></i>
             </Modal.Header>
-            <Modal.Body className='p-4 px-5' >
+            <Modal.Body className='sm:px-4 md:px-5 lg:mx-5 xl:mx-5' >
                 <div className="flex w-full flex-col gap-5 justify-between items-center mb-5">
-                    <h1 className="font-bold text-3xl">{blog.title}</h1>
-                    <img loading="lazy" className="w-5/6 rounded-lg" src={blog.imageTitle} />
+                    <h1 className="font-bold sm:text-2xl text-3xl">{blog.title}</h1>
+                    <img loading="lazy" className="sm:w-full w-5/6 rounded-lg" src={blog.imageTitle} />
                 </div>
                 <ReactMarkdown className="text-lg">{blog.content}</ReactMarkdown>
             </Modal.Body>

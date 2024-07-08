@@ -5,7 +5,6 @@ import { ModalBody } from "react-bootstrap";
 import Modal from 'react-bootstrap/Modal';
 import { clearModalChangePasswordUser, clearModalUserId, setModalObject } from "../../../redux/Slice/ModalSlice";
 import { changePasswordAdmin, changePasswordUser } from "../../../api/adminAPI";
-import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { setConponentLoad, setHideLoading, setShowLoading } from "../../../redux/Slice/AppSlice";
 import { toast } from "react-toastify";
@@ -98,9 +97,9 @@ function ModalChangePassword() {
                             />
                         </Form.Group>
                     </div>
-                    <Button type="submit" className="mt-4 w-full py-3 text-lg font-semibold border-none text-white bg-main hover:opacity-80">
+                    <button type="submit" className="rounded-md mt-4 w-full py-3 text-lg font-semibold border-none text-white bg-main hover:opacity-80">
                         Cập nhật
-                    </Button>
+                    </button>
                 </Form>
             </ModalBody>
         </Modal>
